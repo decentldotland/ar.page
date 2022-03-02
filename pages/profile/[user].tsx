@@ -25,7 +25,8 @@ const User = ({ userInfo }: any) => {
     // const personalCss = React.useRef(`my-6 p-6 col-span-3 lg:${hasTwitter ? "col-span-2" : "col-span-3"} lg:row-span-1 lg:py-6 rounded-3xl shadow-md border-2 border-prim1 shadow-gray-700`).current;
     return ( !userInfo.error && Object.keys(userInfo).length > 0 ?
         <div className="lg:grid grid-cols-3 grid-rows-2 gap-x-6 lg:max-h-screen">
-            <Personal userInfo={userInfo} hasTwtr={hasTwtr} /> 
+             {hasTwtr === 2 ? <Personal userInfo={userInfo} className={(`my-6 p-6 mx-1 col-span-3 lg:col-span-2 lg:row-span-1 h-80 lg:py-6 rounded-3xl shadow-md border-2 border-prim1 shadow-gray-700 -m-6`)} />  :
+             <Personal userInfo={userInfo} className={(`my-6 p-6 mx-1 col-span-3 lg:col-span-3 lg:row-span-1 h-80 lg:py-6 rounded-3xl shadow-md border-2 border-prim1 shadow-gray-700 -m-6`)} />}
 
             {hasTwtr === 2 ? <Tweets user={userInfo.links.twitter} className="mt-6 mb-12 px-6 col-span-1 row-span-2 w-full overflow-y-hidden hidden lg:grid lg:max-h-screen" /> : <></>}
             {hasTwtr === 2 ?  <Nfts className={`min-w-full mb-12 col-span-3 lg:col-span-2 row-span-1 overflow-hidden border-2 border-prim1 rounded-3xl lg:px-0 px-6`} userInfo={userInfo} />:
