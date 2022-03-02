@@ -8,7 +8,7 @@ type Props = {
 };
 export const Personal = (props: Props) => {
     return (
-        <div className={(`my-6 p-6 mx-1 col-span-3 lg:col-span-2 lg:row-span-1 lg:py-6 rounded-3xl shadow-md border-2 border-prim1 shadow-gray-700 -m-6`)}>
+        <div className={(`my-6 p-6 mx-1 col-span-3 lg:col-span-3 lg:row-span-1 h-80 lg:py-6 rounded-3xl shadow-md border-2 border-prim1 shadow-gray-700 -m-6`)}>
             <div className="flex flex-wrap lg:grid lg:grid-cols-3 lg:grid-rows-3 w-full lg:-ml-10 text-sviolet">
 
                 <div className="w-full col-span-3 row-span-1 lg:col-span-1 lg:row-span-2 grid grid-cols-1 p-3 m-2 rounded-3xl lg:pb-0">
