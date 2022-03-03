@@ -4,12 +4,11 @@ type Props = {
     children?: any;
     className: string;
     userInfo: any;
-    // hasTwtr: number;
 };
 export const Personal = (props: Props) => {
     return (
         <div className={props.className}>
-            <div className="flex flex-wrap lg:grid lg:grid-cols-3 lg:grid-rows-3 w-full lg:-ml-10 text-sviolet">
+            <div className="flex flex-wrap lg:grid lg:grid-cols-3 h-full lg:grid-rows-3 w-full lg:-ml-10 text-sviolet">
 
                 <div className="w-full col-span-3 row-span-1 lg:col-span-1 lg:row-span-2 grid grid-cols-1 p-3 m-2 rounded-3xl lg:pb-0">
                     <img className="mx-auto bg-black rounded-full" src={`https://arweave.net/${props.userInfo.avatar}`} />
