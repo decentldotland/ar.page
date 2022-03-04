@@ -34,7 +34,7 @@ export const Personal = (props: Props) => {
 
                 <div className="w-full col-span-2 row-span-1">
                     <h1 className="text-xl mx-auto font-extrabold text-sviolet underline">User:</h1>
-                    <a href={`https://viewblock.io/arweave/address/${props.userInfo.user}`} className="text-lg text-white mx-auto underline">{props.userInfo.user}</a>
+                    <a href={`https://viewblock.io/arweave/address/${props.userInfo.user}`} className="text-lg text-white mx-auto break-words text-center underline">{props.userInfo.user}</a>
                 </div>
 
                 {/* <div className="hidden xl:grid w-full h-16 lg:w-auto col-span-3 row-span-1 lg:ml-24 text-center mt-5 lg:mt-0 rounded-xl border-2 bg-back overflow-hidden">
