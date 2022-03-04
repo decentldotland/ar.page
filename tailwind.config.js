@@ -1,3 +1,5 @@
+const plugin = require('tailwindcss/plugin')
+
 module.exports = {
   mode: 'jit',
   content: [
@@ -14,5 +16,26 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function({ addComponents }) {
+      const components = {
+        // ...
+        '.hideScroll::-webkit-scrollbar': {
+            width: '12px',
+        },
+        '.hideScroll::-webkit-scrollbar-track': {
+          background: 'rgb(33, 37, 41)',
+          border: '2px solid theme(\'colors.prim2\')',
+          "border-radius": '20px',
+        },
+        '.hideScroll::-webkit-scrollbar-thumb': {
+            "background-color": 'theme(\'colors.prim2\')',
+            "border-radius": '50% / 10%',
+            border: '4px solid theme(\'colors.back\')'
+        },
+      }
+
+      addComponents(components)
+    })
+  ]
 }

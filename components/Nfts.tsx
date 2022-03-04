@@ -34,7 +34,7 @@ export const Nfts = (props: Props) => {
             <div className="max-h-fit w-full text-2xl mx-auto text-sviolet font-extrabold underline pt-1 pb-4 ">
                 <h1 className="text-sviolet font-extrabold underline text-center">NFTS: </h1>
             </div>
-            <div className="h-5/6 max-w-full flex flex-wrap flex-column overflow-y-scroll overflow-x-auto lg:px-6 hideScroll mr-2">
+            <div className="h-5/6 max-w-full flex flex-wrap flex-column overflow-y-scroll overflow-x-auto lg:px-6 lg:hideScroll">
             {(NFTS && NFTS.length <= 0) ? <h1 className="lg:text-xl text-2xl text-center font-extrabold text-prim2 underline"></h1> :
                 NFTS.map((owned: { title: string; poster: string; description: string; timestamp: number; id: string; }) =>
                 <div key={owned.id} className="lg:basis-1/2 lg:px-6 basis-full my-auto" >
