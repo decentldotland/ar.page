@@ -1490,6 +1490,11 @@ minimist@^1.1.1, minimist@^1.2.0:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
 
+moment@^2.29.1:
+  version "2.29.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
+  integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -2134,9 +2139,10 @@ v8-compile-cache@^2.0.3:
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz#2de19618c66dc247dcfb6f99338035d8245a2cee"
   integrity sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==
 
-weave-aggregator@nanofuxion/weave-aggregator:
-  version "0.1.7"
-  resolved "https://codeload.github.com/nanofuxion/weave-aggregator/tar.gz/3cdad12e558f3848942c68e5401af202eaffb750"
+weave-aggregator@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/weave-aggregator/-/weave-aggregator-0.1.8.tgz#88929e0329716dfef9000d72888be4fcd1d871ee"
+  integrity sha512-66s/kfnFdWWUedTfwml5aAU8KapFbaAmSYMfck9qejttIbhwQ2Mwm81WENg6UZgAbB239ZiGX6pz4g6K5hN0GA==
   dependencies:
     arweave "^1.10.18"
     axios "^0.24.0"
