@@ -8,10 +8,12 @@ type Props = {
 export const Personal = (props: Props) => {
     return (
         <div className={props.className}>
-            <div className="flex flex-wrap lg:grid lg:grid-cols-3 lg:grid-rows-3 w-full lg:-ml-10 text-sviolet">
+            <div className="flex flex-wrap lg:grid lg:grid-cols-3 lg:grid-rows-2 w-full lg:-ml-10 my-2  pt-2 text-sviolet shrink-0">
 
-                <div className="w-full col-span-3 row-span-1 lg:col-span-1 lg:row-span-2 grid grid-cols-1 mx-5 mb-8 lg:mb-4 rounded-3xl lg:pb-0">
-                    <img className="mx-auto bg-black rounded-full" src={`https://arweave.net/${props.userInfo.avatar}`} />
+                <div className="w-full col-span-3 row-span-1 lg:col-span-1 lg:row-span-2 grid grid-cols-1 mx-5 my-4 lg:my-0 lg:mb-4 rounded-xl lg:pb-0">
+                    {(props.userInfo.avatar.length <= 0) ?
+                        <div className="mx-auto rounded-full h-32 w-32" style={{backgroundColor: props.userInfo.address_color}}></div> : 
+                    <img className="mx-auto bg-black rounded-full" src={`https://arweave.net/${props.userInfo.avatar}`} />}
                     <h1 className="text-3xl text-white mx-auto font-extrabold">{props.userInfo.currentLabel}</h1>
                     {/* <!-- Column Content --> */}
                 </div>
@@ -26,7 +28,7 @@ export const Personal = (props: Props) => {
                     {
                         props.userInfo.ownedLabels.map((owned: {label: string; scarcity: string; acquisationBlock: number; mintedFor: number;} ) =>
                             <h1 key={owned.acquisationBlock} className="text-lg mx-auto  text-white">
-                                {`${owned.label} - Scarcity: ${owned.scarcity} `}
+                                {`${owned.label}`}
                             </h1>
                         )
                     }

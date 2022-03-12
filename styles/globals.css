@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    font-family: ui-monospace;
+  }
+}
+
 html,
 body {
   background-color: rgb(33, 37, 41);
@@ -17,11 +23,16 @@ body {
   scrollbar-width: none; 
 }
 
+.hideScroll0::-webkit-scrollbar {
+  display: none;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none; 
+}
 
 .oldhideScroll::-webkit-scrollbar {
   /* display: none; */
   /* -ms-overflow-style: none;  IE and Edge */
-  /* width: 20px;  */
+  width: 0px; 
   scrollbar-color: rgb(33, 37, 41);     
   /* scrollbar-face-color: rgb(33, 37, 41); */
   scrollbar-shadow-color: rgb(33, 37, 41);
@@ -32,29 +43,3 @@ body {
   scrollbar-arrow-color: rgb(33, 37, 41);
 
 }
-
-.hideScroll0::-webkit-scrollbar {
-  width: 12px;               /* width of the entire scrollbar */
-}
-.hideScroll0::-webkit-scrollbar-track {
-  background: rgb(33, 37, 41);        /* color of the tracking area */
-  border: 2px solid theme('colors.prim2');
-  border-radius: 20px;
-}
-.hideScroll0::-webkit-scrollbar-thumb {
-  background-color: theme('colors.prim2');    /* color of the scroll thumb */
-  border-radius: 50% / 10%;       /* roundness of the scroll thumb */
-  border: 4px solid theme('colors.back');
-  /* border-bottom: 3px solid theme('colors.back'); */
-  /* border: 3px solid orange;   */
-  /* creates padding around scroll thumb */
-}
-/* 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-} */

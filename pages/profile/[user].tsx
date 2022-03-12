@@ -6,7 +6,9 @@ import Image from 'next/image'
 import { Personal } from '../../components/personal';
 import { Tweets } from '../../components/Tweets';
 import { Nfts } from '../../components/Nfts';
-import { UserNotFound } from '../../components/UserNotFound';
+import { Bio } from '../../components/Bio';
+import { FAQ } from '../../components/FAQ';
+import _404 from '../404';
 // import { useRouter } from 'next/router'
 
 
@@ -22,23 +24,29 @@ const User = ({ userInfo }: any) => {
             return currentState;
         })
     }, [userInfo])
-    // const personalCss = React.useRef(`my-6 p-6 col-span-3 lg:${hasTwitter ? "col-span-2" : "col-span-3"} lg:row-span-1 lg:py-6 rounded-3xl shadow-md border-2 border-prim1 shadow-gray-700`).current;
-    return ( !userInfo.error && Object.keys(userInfo).length > 0 ?
-        <div className="lg:grid grid-cols-3 grid-rows-6 gap-x-6 lg:max-h-screen">
-            {hasTwtr === 2 ? <Personal userInfo={userInfo} className={(`my-6 lg:px-3 px-6 py-6 mx-1 col-span-3 lg:col-span-2 lg:row-span-2 rounded-3xl shadow-md border-2 border-prim1 shadow-gray-700 -m-6`)} />  :
-            <Personal userInfo={userInfo} className={(`my-6 p-6 mx-1 col-span-3 lg:col-span-3 lg:row-span-2 lg:py-6 rounded-3xl shadow-md border-2 border-prim1 shadow-gray-700 -m-6`)} />}
+    // const personalCss = React.useRef(`my-6 p-6 col-span-3 lg:${hasTwitter ? "col-span-2" : "col-span-3"} lg:row-span-1 lg:py-6 rounded-xl shadow-md border-2 border-prim1 shadow-gray-700`).current;
+    return ( <>{!userInfo.error && Object.keys(userInfo).length > 0 ?
+        <div className="flex flex-wrap h-[48.75rem]">
+            <div className={(hasTwtr === 2) ? 
+            "flex flex-col lg:w-2/3 lg:h-fit max-h-screen w-full": 
+            "flex flex-col lg:h-fit max-h-screen w-full"}>
+            <Personal userInfo={userInfo} className={(`mt-3 mb-6 lg:px-3 px-6 mx-1 rounded-xl shadow-md border-2 border-prim1 shadow-gray-700 -m-6 shrink-0 lg:h-52`)} />
 
-            {hasTwtr === 2 ? <Tweets user={userInfo.links.twitter} className="mt-6 mb-12 px-6 col-span-1 row-span-6 w-full overflow-y-hidden hidden lg:grid lg:max-h-screen" /> : <></>}
+            <Bio userInfo={userInfo} className={(`my-3 -mt-3 lg:px-3 px-6 mx-1 col-span-3 lg:col-span-2 lg:row-span-2 rounded-xl shadow-md border-2 border-prim1 shadow-gray-700 -m-6 shrink-0 lg:h- min-h-36`)} />
+            {/* {hasTwtr === 2 ? <Tweets user={userInfo.links.twitter} className="mt-6 mb-12 px-6 col-span-1 row-span-6 w-full overflow-y-hidden hidden lg:grid" /> : <></>} */}
 
-            {hasTwtr === 2 ?  <Nfts className={`min-w-full mb-12 col-span-1 lg:col-span-2 row-span-4 overflow-hidden border-2 border-prim1 rounded-3xl lg:px-0 px-6`} userInfo={userInfo} />:
-            <Nfts className={`min-w-full mb-12 col-span-3 row-span-1 lg:row-span-4 overflow-hidden lg:overflow-visible border-2 border-prim1 rounded-3xl lg:px-0 px-6`} userInfo={userInfo} />}
-
-            {hasTwtr === 2 ? <Tweets user={userInfo.links.twitter} className="my-6 px-6 col-span-3 row-span-5 w-full overflow-y-hidden lg:hidden grid 0" /> : <></>}
-        </div> : <UserNotFound className="" />
+            <Nfts className={`min-w-full lg:overflow-hidden overflow-visible border-2 lg:border-prim1 border-back rounded-xl lg:px-0 px-6 lg:shrink-0 lg:h-84 h-full`} userInfo={userInfo} />
+            </div>
+            {hasTwtr === 2 ? 
+            <div className="flex flex-col h-[46rem] w-1/3">
+                <Tweets user={userInfo.links.twitter} className="pt-3 pb-3 px-6 overflow-y-hidden hidden lg:grid lg:shrink-0 h-[46rem]"/>
+            </div> 
+            : <></>}
+        </div> : <FAQ />}
+        </>
 
     )
 }
-// bg-gradient-to-b from-prim2 via-prim2 to-gray-500
 
 User.getInitialProps = async ({ query }: { query: { user: string; } }) => {
     try {

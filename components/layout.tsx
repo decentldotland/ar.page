@@ -1,7 +1,7 @@
 // @flow 
 import * as React from 'react';
 import { Nav } from './nav';
-import styles from '../styles/Layout.module.css'
+// import styles from '../styles/Layout.module.css'
 import { Personal } from './personal';
 import Head from 'next/head';
 
@@ -10,8 +10,8 @@ type Props = {
 };
 export const Layout = (props: Props) => {
     return (
-        <div className="container mx-auto max-w-screen-lg flex">
-            <div className="w-full mx-auto">
+        <div className="container mx-auto max-w-screen-lg flex w-full">
+            <div className="w-full mx-auto my-auto font-mono h-screen lg:overflow-hidden">
                 {props.children}
             </div>
         </div>
