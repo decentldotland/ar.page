@@ -23,6 +23,7 @@
     "react-markdown": "^8.0.0",
     "recoil": "^0.6.1",
     "remark-gfm": "^3.0.1",
+    "sharp": "^0.30.2",
     "tippy.js": "^6.3.7",
     "weave-aggregator": "^0.1.8"
   },

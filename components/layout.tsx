@@ -11,7 +11,7 @@ type Props = {
 export const Layout = (props: Props) => {
     return (
         <div className="container mx-auto max-w-screen-lg flex w-full">
-            <div className="w-full mx-auto my-auto font-mono h-screen lg:overflow-hidden">
+            <div className="w-full mx-auto my-auto font-mono h-screen lg:overflow-y-auto hideScroll0">
                 {props.children}
             </div>
         </div>

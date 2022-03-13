@@ -35,7 +35,7 @@ const User = ({ userInfo }: any) => {
             <Bio userInfo={userInfo} className={(`my-3 -mt-3 lg:px-3 px-6 mx-1 rounded-xl shadow-md border-2 border-prim1 shadow-gray-700 -m-6 shrink-0 lg:h- h-36 flex justify-center align-middle`)} />
             {/* {hasTwtr === 2 ? <Tweets user={userInfo.links.twitter} className="mt-6 mb-12 px-6 col-span-1 row-span-6 w-full overflow-y-hidden hidden lg:grid" /> : <></>} */}
 
-            <Nfts className={`min-w-full lg:overflow-hidden overflow-visible border-2 lg:border-prim1 border-back rounded-xl lg:px-0 px-6 lg:shrink-0 lg:h-84 h-full`} userInfo={userInfo} />
+            <Nfts className={`min-w-full lg:overflow-hidden overflow-visible border-2 border-prim1 rounded-xl lg:px-0 px-6 pb-14 lg:pb-0 lg:shrink-0 lg:h-84 h-full`} userInfo={userInfo} />
             </div>
             {hasTwtr === 2 ? 
             <div className="flex flex-col h-[45.5rem] w-1/3">

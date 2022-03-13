@@ -30,7 +30,7 @@ module.exports = {
         },
         '.hideScroll::-webkit-scrollbar-thumb': {
             "background-color": 'theme(\'colors.prim2\')',
-            "border-radius": '50% / 10%',
+            // "border-radius": '50% / 10%',
             border: '4px solid theme(\'colors.back\')'
         },
       }
