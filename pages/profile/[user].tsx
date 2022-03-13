@@ -30,16 +30,16 @@ const User = ({ userInfo }: any) => {
             <div className={(hasTwtr === 2) ? 
             "flex flex-col lg:w-2/3 lg:h-fit max-h-screen w-full": 
             "flex flex-col lg:h-fit max-h-screen w-full"}>
-            <Personal userInfo={userInfo} className={(`mt-3 mb-6 lg:px-3 px-6 mx-1 rounded-xl shadow-md border-2 border-prim1 shadow-gray-700 -m-6 shrink-0 lg:h-52`)} />
+            <Personal userInfo={userInfo} className={(`mt-6 mb-6 lg:px-3 px-6 mx-1 rounded-xl shadow-md border-2 border-prim1 shadow-gray-700 -m-6 shrink-0 lg:h-52`)} />
 
-            <Bio userInfo={userInfo} className={(`my-3 -mt-3 lg:px-3 px-6 mx-1 col-span-3 lg:col-span-2 lg:row-span-2 rounded-xl shadow-md border-2 border-prim1 shadow-gray-700 -m-6 shrink-0 lg:h- min-h-36`)} />
+            <Bio userInfo={userInfo} className={(`my-3 -mt-3 lg:px-3 px-6 mx-1 rounded-xl shadow-md border-2 border-prim1 shadow-gray-700 -m-6 shrink-0 lg:h- h-36 flex justify-center align-middle`)} />
             {/* {hasTwtr === 2 ? <Tweets user={userInfo.links.twitter} className="mt-6 mb-12 px-6 col-span-1 row-span-6 w-full overflow-y-hidden hidden lg:grid" /> : <></>} */}
 
             <Nfts className={`min-w-full lg:overflow-hidden overflow-visible border-2 lg:border-prim1 border-back rounded-xl lg:px-0 px-6 lg:shrink-0 lg:h-84 h-full`} userInfo={userInfo} />
             </div>
             {hasTwtr === 2 ? 
-            <div className="flex flex-col h-[46rem] w-1/3">
-                <Tweets user={userInfo.links.twitter} className="pt-3 pb-3 px-6 overflow-y-hidden hidden lg:grid lg:shrink-0 h-[46rem]"/>
+            <div className="flex flex-col h-[45.5rem] w-1/3">
+                <Tweets user={userInfo.links.twitter} className="mt-6 pb-5 px-6 overflow-y-hidden hidden lg:grid lg:shrink-0 h-[45.5rem]"/>
             </div> 
             : <></>}
         </div> : <FAQ />}
