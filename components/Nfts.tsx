@@ -21,8 +21,6 @@ export const Nfts = (props: Props) => {
             const collectibles = await getWeaveAggregator("koii", "70sTVhTA5UJD36xqRdNxwyAVwlEV2nFbb0ao-yHjPb8");
             setNFTS(collectibles);
         })();
-
-        console.log(NFTS);
     }, [props.userInfo])
 
     React.useEffect(() => {
