@@ -19,17 +19,11 @@ export const Nfts = (props: Props) => {
     const [NFTS, setNFTS] = React.useState<any[]>([])
 
     React.useEffect(() => {
-
         (async function nftsOf() {
             const collectibles = await getWeaveAggregator("koii", "70sTVhTA5UJD36xqRdNxwyAVwlEV2nFbb0ao-yHjPb8");
             setNFTS(collectibles);
         })();
-    }, [props.userInfo])
-
-    React.useEffect(() => {
-        console.log(NFTS);
-    }, [NFTS])
-
+    })
 
     const [hasTwtr, setHasTwtr] = React.useState<boolean>(true);
     const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -68,15 +62,15 @@ export const Nfts = (props: Props) => {
                     )}
 
                 <Modal handleClose={handleClose} isOpen={isOpen}>
-                    <div className="p-8 mx-auto w-full max-w-screen-md h-min my-8 bg-back rounded-lg shadow-md border-2 border-prim1 shadow-gray-700 relative">
+                    <div className="p-6 pb-12 mx-auto w-full max-w-screen-md h-min  bg-back rounded-lg shadow-md border-2 border-prim1 shadow-gray-700 relative">
                         {/* <div className="flex flex-col shrink content-center my-4 py-4 px-3 text-center rounded-xl shadow-md border-2 border-prim1 shadow-gray-700"> */}
                         
 
-                        <FontAwesomeIcon icon={faCircleXmark} onClick={() => handleClose()} className="absolute lg:top-2 right-2 top-8 text-prim1 rounded-full h-8" />
+                        <FontAwesomeIcon icon={faCircleXmark} onClick={() => handleClose()} className="absolute top-2 right-2 text-prim1 rounded-full h-6" />
 
-                        <h1 className="text-2xl text-center font-extrabold text-prim2 underline my-8">{current.title}</h1>
+                        <h1 className="text-2xl text-center font-extrabold text-prim2 underline my-4">{current.title}</h1>
 
-                        <div className="grid grid-cols-2 gap-8 text-left pb-8">
+                        <div className="grid grid-cols-2 gap-8 text-left">
                             <iframe title="Koii  NFT image" frameBorder="0" allowFullScreen allowTransparency={true}
                                 style={{backgroundColor: ''}}
                                 className="mx-auto w-full h-64 lg:h-[110%] m-1  col-span-2 lg:col-span-1 bg-back"
