@@ -1,6 +1,8 @@
 // @flow 
+
 import * as React from 'react';
 import Image from 'next/image';
+import Tippy from '@tippyjs/react';
 
 type Props = {
     children?: any;
@@ -32,9 +34,15 @@ export const Personal = (props: Props) => {
                     <h1 className="text-xl mx-auto font-extrabold text-sviolet">Labels:</h1>
                     {
                         props.userInfo.ownedLabels.map((owned: {label: string; scarcity: string; acquisationBlock: number; mintedFor: number;} ) =>
-                            <h1 key={owned.acquisationBlock} className="text-lg mx-auto  text-white">
-                                {`${owned.label}`}
-                            </h1>
+                            <div  key={owned.acquisationBlock} className="mx-auto w-full bg-green-400">
+                            <Tippy arrow={true} 
+                                content={`Scarcity: ${owned.scarcity} `}
+                                className="font-mono font-extrabold text-lg py-0.5 px-1 top-2">
+                                    <h1  className="text-lg text-white float-left">
+                                        {`${owned.label}`}
+                                    </h1>
+                            </Tippy>
+                            </div>
                         )
                     }
                 </div> : <></>}

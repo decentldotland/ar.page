@@ -29,17 +29,3 @@ body {
   scrollbar-width: none; 
 }
 
-.oldhideScroll::-webkit-scrollbar {
-  /* display: none; */
-  /* -ms-overflow-style: none;  IE and Edge */
-  width: 0px; 
-  scrollbar-color: rgb(33, 37, 41);     
-  /* scrollbar-face-color: rgb(33, 37, 41); */
-  scrollbar-shadow-color: rgb(33, 37, 41);
-  scrollbar-highlight-color: rgb(33, 37, 41);
-  scrollbar-3dlight-color: rgb(33, 37, 41);
-  scrollbar-darkshadow-color: rgb(33, 37, 41);
-  /* scrollbar-track-color: rgb(33, 37, 41); */
-  scrollbar-arrow-color: rgb(33, 37, 41);
-
-}

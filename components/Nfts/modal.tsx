@@ -1,14 +1,23 @@
 // @flow 
 import * as React from 'react';
-// import { createPortal } from 'react-dom';
+import { createPortal } from 'react-dom';
+import ReactPortal from './reactPortal';
 
 type Props = {
     isOpen: boolean;
 };
-export const Modal = (props: Props) => {
+const Modal =
+    ({ children, isOpen, handleClose }:
+        { children: any, isOpen: boolean, handleClose: any }) => {
+        if (!isOpen) return null;
 
-    return (
-        <div>
-        </div>
-    );
-};
+        return (
+            <ReactPortal wrapperId="portal">
+                <div className="fixed inset-0 bg-[#00000099] flex flex-col items-center justify-center overflow-hidden z-50" onClick={handleClose}>
+                <div className="absolute container text-white" onClick={e => e.stopPropagation()}>{children}</div>
+                </div>
+            </ReactPortal>
+        )
+    };
+
+export default Modal;

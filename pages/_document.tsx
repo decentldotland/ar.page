@@ -14,7 +14,7 @@ export default class _document extends Document {
             <Head />
             <body>
                 <Main />
-                <div id="portal" />
+                <div id="portal" className="absolute top-0 left-0 font-mono" />
                 <NextScript />
             </body>
             </Html>

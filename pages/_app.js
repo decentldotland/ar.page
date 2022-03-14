@@ -1,5 +1,6 @@
 import { Layout } from '../components/layout'
 import '../styles/globals.css'
+import '../styles/tippy.css'
 import Head from 'next/head';
 
 function MyApp({ Component, pageProps }) {
