@@ -30,11 +30,11 @@ export const FAQ = () => {
                     {<ReactMarkdown
                         components={{
                             // Map `h1` (`# heading`) to use `h2`s.
-                            h1: ({ node, ...props }) => <h2 className="text-sviolet capitalize font-extrabold text-4xl w-full pb-4 border-b-2 border-sviolet" {...props} />,
-                            h2: ({ node, ...props }) => <h2 className="text-prim2 capitalize font-extrabold text-xl my-4" {...props} />,
-                            p: ({ node, ...props }) => <p className="capitalize indent-8 my-2 mb-10 last:flex-wrap last:indent-0" {...props} />,
+                            h1: ({ node, ...props }) => <h2 className="text-sviolet font-extrabold text-4xl w-full pb-4 border-b-2 border-sviolet" {...props} />,
+                            h2: ({ node, ...props }) => <h2 className="text-prim2 font-extrabold text-xl my-4" {...props} />,
+                            p: ({ node, ...props }) => <p className="indent-8 my-2 mb-10 last:flex-wrap last:indent-0" {...props} />,
                             a: ({ node, ...props }) => <a className="underline text-prim1" {...props} />,
-                            code: ({node, inline, className, children, ...props}) => <code className={"normal-case py-0.5 px-1.5 bg-prim1 rounded-md text-back font-extrabold"} {...props}>
+                            code: ({node, inline, className, children, ...props}) => <code className={"py-0.5 px-1.5 bg-prim1 rounded-md text-back font-extrabold"} {...props}>
                             {children}
                           </code>,
                         }} remarkPlugins={[remarkGfm]}>
