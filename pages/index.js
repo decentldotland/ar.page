@@ -1,12 +1,35 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import { LandingPage } from "../components/LandingPage"
+import axios from 'axios';
 import { FAQ } from '../components/FAQ'
+import User from './profile/[user]'
 
-export default function Home() {
-  return (
-    <FAQ className="" />
-  )
+export default function Home({wildcard, userInfo}) {
+
+  return ((wildcard === "404") ? 
+    <FAQ className="" /> : 
+    <User userInfo={userInfo} />
+    )
+
 }
 
+export async function getServerSideProps(context) {
+
+  let wildcard = context.req.headers.host.split(".")[0];
+  wildcard =
+    (wildcard != "ans-ui")
+        // ? (wildcard != "localhost:3000")
+        ? (wildcard)
+        // : process.env.TEST_WILDCARD
+      : "404";
+
+      if(wildcard !== "404")
+      try {
+          const res = await axios.get(`https://ans-testnet.herokuapp.com/profile/${wildcard}`);
+          const userInfo = res.data;  // <-- Access one more data object here
+          // return { userInfo };
+          return { props: {wildcard, userInfo} };
+      } catch (error) {
+          console.log("Failed to use domain routing...")
+      };
+      return { props: {wildcard} };
+
+}
