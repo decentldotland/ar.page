@@ -49,7 +49,7 @@ export const Nfts = (props: Props) => {
                 <h1 className="text-sviolet text-lg font-extrabold text-center lg:px-12 lg:text-left">NFTs: </h1>
             </div>
             <div className="max-w-full flex flex-wrap flex-column lg:overflow-y-scroll overflow-visible overflow-x-auto px-6 hideScroll lg:h-[17.75rem] h-full mb-3">
-                {(NFTS && NFTS.length <= 0) ? <h1 className="lg:text-xl text-2xl text-center mx-auto my-auto font-extrabold text-prim2 overflow-visible"> No NFTs... <br /><br /> None at All.</h1> :
+                {(NFTS && NFTS.length <= 0) ? <h1 className="lg:text-xl text-2xl text-center mx-auto my-auto font-extrabold text-prim2 overflow-visible">This user does not own any Koii NFTs</h1> :
                     NFTS.map((owned: { title: string; poster: string; description: string; timestamp: number; id: string; }) =>
                         <div onClick={() => handleClose(owned)} key={owned.id} className={hasTwtr ? "lg:basis-1/2 lg:px-6 basis-full" : "lg:basis-1/3 lg:px-6 basis-full"}>
                             <div className="flex flex-col shrink content-center my-4 py-4 px-3 text-center rounded-xl shadow-md border-2 border-prim1 shadow-gray-700">
