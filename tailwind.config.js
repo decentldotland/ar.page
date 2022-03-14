@@ -12,7 +12,7 @@ module.exports = {
         sviolet : 'rgb(156, 82, 139)',
         prim1: 'rgb(227, 181, 164)',
         prim2: 'rgb(149, 239, 174)',
-        back: 'rgb(33, 37, 41)'
+        back: 'rgb(29, 30, 44)'
       }
     },
   },

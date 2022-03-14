@@ -10,12 +10,12 @@ type Props = {
 };
 export const Layout = (props: Props) => {
     return (
-        <div className="container mx-auto max-w-screen-lg flex w-full">
-            <div className="w-full mx-auto my-auto font-mono h-screen lg:overflow-y-auto hideScroll0">
+        <div className="mx-auto  flex w-full bg-contain bg-no-repeat bg-right"
+                style={{ backgroundImage: "url(./right-bg-decor.png)" }}>
+            <div className="w-full mx-auto max-w-screen-lg my-auto font-mono h-screen lg:overflow-y-auto hideScroll0">
                 {props.children}
             </div>
         </div>
-        // </>
     );
 };
 
