@@ -63,7 +63,7 @@ export const Nfts = (props: Props) => {
                     )}
 
                 <Modal handleClose={handleClose} isOpen={isOpen}>
-                    <div className="p-6 pb-12 mx-auto w-full max-w-screen-md h-min  bg-back rounded-lg shadow-md border-2 border-prim1 shadow-gray-700 relative">
+                    <div className="rounded-xl mx-1  p-6 pb-12 max-w-full lg:max-w-screen-md lg:mx-auto h-min  bg-back shadow-md border-2 border-prim1 shadow-gray-700 relative">
                         {/* <div className="flex flex-col shrink content-center my-4 py-4 px-3 text-center rounded-xl shadow-md border-2 border-prim1 shadow-gray-700"> */}
 
 

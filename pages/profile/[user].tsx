@@ -43,13 +43,13 @@ const User = ({ userInfo, pathFullInfo }: any) => {
                 {/* {hasTwtr === 2 ? <Tweets user={userInfo.links.twitter} className="mt-6 mb-12 px-6 col-span-1 row-span-6 w-full overflow-y-hidden hidden lg:grid" /> : <></>} */}
 
                 <Nfts userInfo={userInfo}
-                    className={`min-w-full lg:overflow-hidden overflow-visible border-2 border-prim1 rounded-xl lg:px-0 px-6 pb-14 lg:pb-0 lg:shrink-0 lg:h-84 h-full`}
+                    className={`mx-1 -left-1 max-w-full lg:overflow-hidden overflow-visible border-2 border-prim1 rounded-xl lg:px-0 px-3 pb-14 lg:pb-0 lg:shrink-0 lg:h-84 h-full`}
                 />
 
             </div>
             {hasTwtr === 2 ?
-                <div className="flex flex-col h-[45.5rem] w-1/3">
-                    <Tweets user={userInfo.links.twitter} className="mt-6 pb-5 px-6 overflow-y-hidden hidden lg:grid lg:shrink-0 h-[45.5rem]" />
+                <div className="flex flex-col lg:h-[45.5rem] w-1/3">
+                    <Tweets user={userInfo.links.twitter} className="mt-6 pb-5 px-6 overflow-y-hidden hidden lg:grid lg:shrink-0 lg:h-[45.5rem]" />
                 </div>
                 : <></>}
         </div> : <FAQ />}

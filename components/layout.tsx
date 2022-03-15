@@ -10,8 +10,7 @@ type Props = {
 };
 export const Layout = (props: Props) => {
     return (
-        <div className="mx-auto  flex w-full bg-contain bg-no-repeat bg-right"
-                style={{ backgroundImage: "url(/right-bg-decor.png)" }}>
+        <div className="mx-auto  flex w-full bg-contain bg-no-repeat bg-right lg:splotch splotch-mobile">
             <div className="w-full mx-auto max-w-screen-lg my-auto font-mono h-screen lg:overflow-y-auto hideScroll0">
                 {props.children}
             </div>

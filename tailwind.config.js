@@ -13,10 +13,12 @@ module.exports = {
         prim1: 'rgb(227, 181, 164)',
         prim2: 'rgb(149, 239, 174)',
         back: 'rgb(29, 30, 44)'
-      }
+      },
     },
   },
   plugins: [
+
+    //hide scrollbar
     plugin(function({ addComponents }) {
       const components = {
         // ...
@@ -33,6 +35,20 @@ module.exports = {
             // "border-radius": '50% / 10%',
             border: '4px solid theme(\'colors.back\')'
         },
+      }
+
+      addComponents(components)
+    }),
+
+    //splotch
+    plugin(function({ addComponents }) {
+      const components = {
+        '.splotch': {
+          backgroundImage: "url(/right-bg-decor.png)"
+        },
+        '.splotch-mobile': {
+          backgroundImage: "url(/right-bg-decor-mob.png)"
+        }
       }
 
       addComponents(components)
