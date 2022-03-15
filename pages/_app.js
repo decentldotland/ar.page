@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }) {
   return <> <Head>
       <title>ANS UI</title>
       <meta name="description" content="ANS User Interface" />
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="/favicon.png" />
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes" />
       {/* <meta name="viewport" content="viewport-fit=cover" /> */}
   </Head>

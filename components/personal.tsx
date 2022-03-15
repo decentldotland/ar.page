@@ -39,7 +39,7 @@ export const Personal = (props: Props) => {
                                 content={`Scarcity: ${owned.scarcity} `}
                                 className="font-mono font-extrabold text-lg py-0.5 px-1 top-2">
                                     <h1  className="text-lg text-white float-left">
-                                        {`${owned.label}`}
+                                        {`${owned.label}.ar`}
                                     </h1>
                             </Tippy>
                             </div>
