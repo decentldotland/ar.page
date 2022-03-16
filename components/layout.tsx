@@ -10,10 +10,11 @@ type Props = {
 };
 export const Layout = (props: Props) => {
     return (
-        <div className="mx-auto  flex w-full bg-contain bg-no-repeat bg-right lg:splotch splotch-mobile">
-            <div className="w-full mx-auto max-w-screen-lg my-auto font-mono h-screen lg:overflow-y-auto hideScroll0">
+        <div className="mx-auto  flex w-full bg-contain bg-no-repeat bg-right relative">
+            <div className="w-full xl:mx-auto lg:mx-14 mx-0 max-w-screen-xl my-auto font-mono h-screen lg:overflow-hidden hideScroll0">
                 {props.children}
             </div>
+            <div className="fixed h-full w-full bg-contain bg-no-repeat bg-right lg:splotch splotch-mobile -z-50 bg-back"></div>
         </div>
     );
 };

@@ -26,7 +26,7 @@ const User = ({ userInfo, pathFullInfo }: any) => {
             return currentState;
         })
     }, [userInfo])
-    // const personalCss = React.useRef(`my-6 p-6 col-span-3 lg:${hasTwitter ? "col-span-2" : "col-span-3"} lg:row-span-1 lg:py-6 rounded-xl shadow-md border-2 border-prim1 shadow-gray-700`).current;
+    // const personalCss = React.useRef(`my-6 p-6 col-span-3 lg:${hasTwitter ? "col-span-2" : "col-span-3"} lg:row-span-1 lg:py-6 rounded-md shadow-md border-2 border-prim1 shadow-black`).current;
     return (<>
         {Object.keys(userInfo).length > 0 ?
             <>
@@ -40,22 +40,22 @@ const User = ({ userInfo, pathFullInfo }: any) => {
                         "flex flex-col lg:h-fit max-h-screen w-full"}>
 
                         <Personal userInfo={userInfo}
-                            className={(`mt-6 mb-6 lg:px-3 px-6 mx-1 rounded-xl shadow-md border-2 border-prim1 shadow-gray-700 -m-6 shrink-0 lg:h-52`)}
+                            className={(`mt-6 mb-6 lg:px-3 px-6 mx-1 rounded-md shadow-md border-2 border-prim1 shadow-black -m-6 shrink-0 lg:h-52`)}
                         />
 
                         <Bio userInfo={userInfo}
-                            className={(`my-3 -mt-3 lg:px-3 px-6 mx-1 rounded-xl shadow-md border-2 border-prim1 shadow-gray-700 -m-6 shrink-0 lg:h- h-36 flex justify-center align-middle`)}
+                            className={(`my-3 -mt-3 lg:px-3 px-6 mx-1 rounded-md shadow-md border-2 border-prim1 shadow-black -m-6 shrink-0 lg:h- h-36 flex justify-center align-middle`)}
                         />
                         {/* {hasTwtr === 2 ? <Tweets user={userInfo.links.twitter} className="mt-6 mb-12 px-6 col-span-1 row-span-6 w-full overflow-y-hidden hidden lg:grid" /> : <></>} */}
 
                         <Nfts userInfo={userInfo}
-                            className={`mx-1 -left-1 max-w-full lg:overflow-hidden overflow-visible border-2 border-prim1 rounded-xl lg:px-0 px-3 pb-14 lg:pb-0 lg:shrink-0 lg:h-84 h-full`}
+                            className={`mx-1 -left-1 max-w-full lg:overflow-hidden overflow-visible border-2 border-prim1 rounded-md lg:px-0 px-3 pb-14 lg:pb-0 lg:shrink-0 lg:h-84 h-full shadow-md shadow-black`}
                         />
 
                     </div>
                     {hasTwtr === 2 ?
                         <div className="flex flex-col lg:h-[45.5rem] w-1/3">
-                            <Tweets user={userInfo.links.twitter} className="mt-6 pb-5 px-6 overflow-y-hidden hidden lg:grid lg:shrink-0 lg:h-[45.5rem]" />
+                            <Tweets user={userInfo.links.twitter} className="mt-6 pb-5 px-6 overflow-y-hidden hidden lg:grid shrink-0 h-[46.25rem]" />
                         </div>
                         : <></>}
                 </div></> : <FAQ />}

@@ -12,6 +12,7 @@ module.exports = {
         sviolet : 'rgb(156, 82, 139)',
         prim1: 'rgb(227, 181, 164)',
         prim2: 'rgb(149, 239, 174)',
+        nftbg: 'rgba(255, 255, 255, 0.10)',
         back: 'rgb(29, 30, 44)'
       },
     },
@@ -48,6 +49,24 @@ module.exports = {
         },
         '.splotch-mobile': {
           backgroundImage: "url(/right-bg-decor-mob.png)"
+        }
+      }
+
+      addComponents(components)
+    }),
+
+    //no
+    plugin(function({ addComponents }) {
+      const components = {
+        '.text-overflow-none': {
+          'text-overflow': "initial",
+          'white-space': 'normal',
+          overflow: 'visible'
+        },
+        '.text-overflow-trunc': {
+          'text-overflow': 'ellipsis',
+          'white-space': 'nowrap',
+          overflow: 'hidden'
         }
       }
 

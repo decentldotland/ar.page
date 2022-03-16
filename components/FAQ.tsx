@@ -19,7 +19,7 @@ export const FAQ = () => {
         <div className="w-full h-srceen lg:-py-24 lg:my-10 max-w-3xl mx-auto my-5 -py-10 text-white">
             {/* old user not found divs
             
-                <div className="w-full lg:min-h-fit grid lg:p-24 content-center lg:relative absolute bottom-4 top-4 text-center rounded-xl shadow-md border-2 border-prim1 shadow-gray-700">
+                <div className="w-full lg:min-h-fit grid lg:p-24 content-center lg:relative absolute bottom-4 top-4 text-center rounded-xl shadow-md border-2 border-prim1 shadow-black">
                 <h1 className="text-3xl mx-auto font-extrabold text-prim2 underline">Uh-oh 404</h1>
                 <h1 className="text-xl mx-auto text-white">User</h1>
                 <h1 className="text-xl mx-auto text-white">Not Found</h1>
