@@ -26,9 +26,9 @@ const ModelContent = (props: Props) => {
         <div className="rounded-md mx-1  p-6 lg:pb-16 pb-10 max-w-full lg:max-w-screen-md lg:mx-auto h-min  bg-back shadow-md border-2 border-prim1 shadow-black relative">
         <FontAwesomeIcon icon={faCircleXmark} onClick={() => handleClose()} className="absolute top-3 right-3 text-prim1 rounded-full h-6" />
 
-        <h1 className="text-2xl text-center font-extrabold text-prim2 underline my-4">{current.title}</h1>
+        <h1 className="text-2xl text-center font-extrabold text-prim2 underline my-4 lg:mt-4 lg:mb-8">{current.title}</h1>
 
-        <div className="flex lg:flex-row flex-col lg:gap-x-8 gap-y-4 text-left">
+        <div className="flex lg:flex-row flex-col lg:gap-x-8 gap-y-4 text-left lg:items-center">
         <div className={`flex mx-auto my-auto h-full w-fit relative`}>
             {(loading) ? <div className="absolute rounded-md bg-back shadow-md border-2 border-prim1 shadow-black">
                 <Rings color={'#e3b5a4'}
@@ -42,7 +42,7 @@ const ModelContent = (props: Props) => {
                 height={naturalRes[current.id]?.height}
                 width={naturalRes[current.id]?.width}
                 onLoad={() => setLoading(false)}
-                className="mx-auto my-auto shadow-md border-2 border-prim1 shadow-black"
+                className="shadow-md border-2 border-prim1 shadow-black"
                 src={`https://koi.rocks/embed/${current.id}`} >
             </iframe>
         </div>
