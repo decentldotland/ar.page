@@ -20,7 +20,6 @@ export const Nfts = (props: Props) => {
     React.useEffect(() => {
         (async function nftsOf() {
             const collectibles = await getWeaveAggregator("koii", props.userInfo.user);
-            // "70sTVhTA5UJD36xqRdNxwyAVwlEV2nFbb0ao-yHjPb8")
             setNFTS(collectibles);
         })();
     }, [props.userInfo.user]);
@@ -55,13 +54,11 @@ export const Nfts = (props: Props) => {
             <div className="max-h-fit w-full mx-auto text-sviolet font-extrabold">
                 <h1 className="text-sviolet text-lg font-extrabold px-9 lg:px-12 text-left mt-4">NFTs </h1>
             </div>
-            {/* flex flex-wrap flex-column */}
             <div className="max-w-full grid grid-cols-6 grid-flow-row auto-rows-max lg:overflow-y-scroll overflow-visible overflow-x-auto px-6 hideScroll lg:h-[17.75rem] h-full mb-3">
                 {(NFTS && NFTS.length <= 0) ? <div className="col-span-6 flex lg:mt-32 mt-12 mx-auto my-auto" >
                     <h1 className="lg:text-xl text-2xl text-center font-extrabold text-prim2 overflow-visible">This user does not own any Koii NFTs</h1>
                 </div> :
                     NFTS.map((owned: { title: string; poster: string; description: string; timestamp: number; id: string; }) =>
-                        // "lg:w-1/2 lg:px-6 h-full basis-full" : "lg:w-1/3 h-full lg:px-6 basis-full"
                         <div onClick={() => handleClose(owned)} key={owned.id} className={hasTwtr ? "lg:col-span-3 col-span-6 lg:px-6 h-full min-h-full" : "lg:col-span-2 col-span-6 h-full min-h-full lg:px-6"}>
                             <div className="flex flex-col shrink content-center my-2 py-2 px-3 text-center rounded-md shadow-md border-2 bg-nftbg border-prim1 shadow-black h-64">
                                 <h1 className="lg:text-sm text-lg text-center font-extrabold text-prim2 underline text-overflow-trunc lg:text-overflow-none mt-1 mb-2">{owned.title}</h1>
