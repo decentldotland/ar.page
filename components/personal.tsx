@@ -14,7 +14,7 @@ export const Personal = (props: Props) => {
         <div className={props.className}>
             <div className="flex flex-wrap lg:grid lg:grid-cols-3 lg:grid-rows-2 w-full lg:-ml-10 my-2 py-4 text-sviolet shrink-0 gap-y-4">
 
-                <div className="w-full col-span-3 row-span-1 lg:col-span-1 lg:row-span-2 grid grid-cols-1 mx-5 my-0 lg:mb-10 rounded-xl">
+                <div className="w-full col-span-3 row-span-1 lg:col-span-1 lg:row-span-2 grid grid-cols-1 mx-5 my-0 lg:mb-10">
                     {(props.userInfo.avatar.length <= 0) ?
                         <div className="mx-auto rounded-full h-32 w-32" style={{backgroundColor: props.userInfo.address_color}}></div> : 
                     // <img className="mx-auto bg-black rounded-full" src={`https://arweave.net/${props.userInfo.avatar}`} />}
@@ -50,7 +50,7 @@ export const Personal = (props: Props) => {
                 </div> : <h1 className="text-lg text-white float-left mx-2">-</h1>}
 
                 <div className="lg:truncate w-full col-span-2 row-span-1">
-                    <h1 className="text-xl mx-auto font-extrabold text-sviolet">Address:</h1>
+                    <h1 className="text-xl mx-auto font-extrabold text-sviolet">Address</h1>
                     <a href={`https://viewblock.io/arweave/address/${props.userInfo.user}`} className="text-lg text-white mx-auto break-words text-center underline">{props.userInfo.user}</a>
                 </div>
 

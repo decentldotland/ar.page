@@ -15,7 +15,7 @@ export const Bio = (props: Props) => {
         <div className={props.className}>
             <div className="max-h-fit w-full mx-auto text-sviolet font-extrabold pt-1 px-6 my-auto">
                 <div className="my-auto">
-                    <h1 className="text-sviolet text-left font-extrabold text-lg">Bio: </h1>
+                    <h1 className="text-sviolet text-left font-extrabold text-lg">Bio </h1>
                     <h1 className="lg:text-sm text-lg mx-auto text-left text-white font-normal lg:overflow-y-auto lg:hideScroll lg:h-10">{props.userInfo.bio}</h1>
                 </div>
                 {(Object.keys(props.userInfo.links).length > 0) ? <>

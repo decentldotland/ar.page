@@ -14,7 +14,6 @@ export const Layout = (props: Props) => {
             <div className="w-full xl:mx-auto lg:mx-14 mx-0 max-w-screen-xl my-auto font-mono h-screen lg:overflow-hidden hideScroll0">
                 {props.children}
             </div>
-            <div className="fixed h-full w-full bg-contain bg-no-repeat bg-right lg:splotch splotch-mobile -z-50 bg-back"></div>
         </div>
     );
 };

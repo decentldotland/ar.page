@@ -45,10 +45,12 @@ module.exports = {
     plugin(function({ addComponents }) {
       const components = {
         '.splotch': {
-          backgroundImage: "url(/right-bg-decor.png)"
+          backgroundImage: "url(/right-bg-decor.png)",
+          backgroundPosition: 'bottom right'
         },
         '.splotch-mobile': {
-          backgroundImage: "url(/right-bg-decor-mob.png)"
+          backgroundImage: "url(/right-bg-decor-mob.png)",
+          backgroundPosition: 'bottom right'
         }
       }
 

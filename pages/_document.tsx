@@ -13,6 +13,7 @@ export default class _document extends Document {
             <Html>
             <Head />
             <body>
+                <div className="fixed h-full w-full bg-contain justify-self-end bg-no-repeat lg:splotch splotch-mobile -z-50 bg-back right-1 float-right"></div>
                 <Main />
                 <div id="portal" className="absolute top-0 left-0 font-mono" />
                 <NextScript />

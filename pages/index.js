@@ -16,9 +16,9 @@ export async function getServerSideProps(context) {
   let wildcard = context.req.headers.host.split(".")[0];
   wildcard =
     (wildcard != "ans-ui")
-        // ? (wildcard != "localhost:3000")
+        ? (wildcard != "localhost:3000")
         ? (wildcard)
-        // : process.env.TEST_WILDCARD
+        : process.env.TEST_WILDCARD
       : "404";
 
       if(wildcard !== "404")
