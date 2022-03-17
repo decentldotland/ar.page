@@ -28,9 +28,9 @@ const ModelContent = (props: Props) => {
 
         <h1 className="text-2xl text-center font-extrabold text-prim2 underline my-4">{current.title}</h1>
 
-        <div className="flex lg:flex-row flex-col lg:gap-x-8 gap-y-4 text-left ">
-        <div className={`flex mx-auto my-auto h-full w-[${naturalRes[current.id]?.width}px] relative`}>
-            {(loading) ? <div className={`absolute h-[${naturalRes[current.id]?.height}px] w-[${naturalRes[current.id]?.width}px] rounded-md bg-back shadow-md border-2 border-prim1 shadow-black`}>
+        <div className="flex lg:flex-row flex-col lg:gap-x-8 gap-y-4 text-left">
+        <div className={`flex mx-auto my-auto h-full w-fit relative`}>
+            {(loading) ? <div className="absolute rounded-md bg-back shadow-md border-2 border-prim1 shadow-black">
                 <Rings color={'#e3b5a4'}
                     ariaLabel='loading'
                     height={naturalRes[current.id]?.height}
@@ -42,11 +42,11 @@ const ModelContent = (props: Props) => {
                 height={naturalRes[current.id]?.height}
                 width={naturalRes[current.id]?.width}
                 onLoad={() => setLoading(false)}
-                className={`mx-auto my-auto h-[${naturalRes[current.id]?.height}px] w-[${naturalRes[current.id]?.width}px] shadow-md border-2 border-prim1 shadow-black`}
+                className="mx-auto my-auto shadow-md border-2 border-prim1 shadow-black"
                 src={`https://koi.rocks/embed/${current.id}`} >
             </iframe>
         </div>
-            <div className={`flex flex-col col-span-2 lg:w-full pt-4 bg-nftbg p-2 pl-8 lg:h-[${naturalRes[current.id]?.height}px] gap-x-2 place-content-evenly mt-1 rounded-md shadow-md border-2 border-prim1 shadow-black`}>
+            <div className="flex flex-col col-span-2 lg:w-full pt-4 bg-nftbg p-2 pl-8 lg:h-[110%] gap-x-2 place-content-evenly mt-1 rounded-md shadow-md border-2 border-prim1 shadow-black">
                 <h1 className="text-xl text-prim1 col-span-2 ">{`Description`}<br />
                     <h1 className="font-normal text-white">{current.description}</h1>
                 </h1>
