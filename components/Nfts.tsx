@@ -68,12 +68,13 @@ export const Nfts = (props: Props) => {
                                         width="100%" height="100%"
                                         layout="responsive" objectFit="contain"
                                         onLoadingComplete={(e) => {
-                                            const percent = 288 / e.naturalWidth;
+                                            const percent = (e.naturalHeight * (288 / e.naturalWidth) > 288) ?  288 / e.naturalHeight : 288 / e.naturalWidth;
                                             setNaturalRes((list: any) => {
                                                 return {
                                                     ...list, [owned.id]: {
-                                                        width: Math.floor((e.naturalHeight * percent < 288) ? e.naturalWidth * percent : (e.naturalWidth * percent) / 2),
-                                                        height: Math.floor((e.naturalHeight * percent < 288) ? e.naturalHeight * percent : (e.naturalHeight * percent) / 2),
+                                                        scale: (e.naturalWidth > 288 || e.naturalHeight > 288 ) ? "Scaled to fit." : "Original Image resolution.",
+                                                        width: Math.floor((e.naturalWidth > 288 || e.naturalHeight > 288 ) ? e.naturalWidth * percent : e.naturalWidth),
+                                                        height: Math.floor((e.naturalWidth > 288 || e.naturalHeight > 288 ) ? e.naturalHeight * percent : e.naturalHeight),
                                                     }
                                                 }
                                             });
