@@ -72,7 +72,7 @@ export const Nfts = (props: Props) => {
                                             setNaturalRes((list: any) => {
                                                 return {
                                                     ...list, [owned.id]: {
-                                                        scale: (e.naturalWidth > 288 || e.naturalHeight > 288 ) ? "Scaled to fit." : "Original Image resolution.",
+                                                        scale: (e.naturalWidth > 288 || e.naturalHeight > 288 ) ? "Scaled to fit." : "Original resolution.",
                                                         width: Math.floor((e.naturalWidth > 288 || e.naturalHeight > 288 ) ? e.naturalWidth * percent : e.naturalWidth),
                                                         height: Math.floor((e.naturalWidth > 288 || e.naturalHeight > 288 ) ? e.naturalHeight * percent : e.naturalHeight),
                                                     }
