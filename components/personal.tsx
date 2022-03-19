@@ -16,11 +16,11 @@ export const Personal = (props: Props) => {
 
                 <div className="w-full col-span-3 row-span-1 lg:col-span-1 lg:row-span-2 grid grid-cols-1 mx-5 my-0 lg:mb-10">
                     {(props.userInfo.avatar.length <= 0) ?
-                        <div className="mx-auto rounded-full h-32 w-32" style={{backgroundColor: props.userInfo.address_color}}></div> : 
-                    // <img className="mx-auto bg-black rounded-full" src={`https://arweave.net/${props.userInfo.avatar}`} />}
-                    <div className="mx-auto rounded-full h-32 w-32">
-                        <Image src={`https://arweave.net/${props.userInfo.avatar}`} alt="Profile Image" width="100%" height="100%" layout="responsive" objectFit="contain"  />
-                    </div>}
+                        <div className="mx-auto rounded-full h-32 w-32" style={{ backgroundColor: props.userInfo.address_color }}></div> :
+                        // <img className="mx-auto bg-black rounded-full" src={`https://arweave.net/${props.userInfo.avatar}`} />}
+                        <div className="mx-auto rounded-full h-32 w-32">
+                            <Image src={`https://arweave.net/${props.userInfo.avatar}`} alt="Profile Image" width="100%" height="100%" layout="responsive" objectFit="contain" />
+                        </div>}
                     <h1 className="text-3xl text-white mx-auto font-extrabold">{props.userInfo.currentLabel}</h1>
                     {/* <!-- Column Content --> */}
                 </div>
@@ -32,21 +32,24 @@ export const Personal = (props: Props) => {
 
                 {props.userInfo.ownedLabels && props.userInfo.ownedLabels.length > 0 ? <div className="w-full lg:col-span-1 lg:row-span-1">
                     <h1 className="text-xl mx-auto font-extrabold text-sviolet">Labels</h1>
-                    <div className="flex-wrap lg:h-16 hideScroll overflow-auto">
-                    {
-                        props.userInfo.ownedLabels.map((owned: {label: string; scarcity: string; acquisationBlock: number; mintedFor: number;} ) =>
-                            <div  key={owned.acquisationBlock} className="mx-auto w-full bg-green-400">
-                            <Tippy arrow={true} 
-                                content={`Scarcity: ${owned.scarcity} `}
-                                className="font-mono font-extrabold text-lg py-0.5 px-1 top-2">
-                                    <h1 className="text-lg text-white float-left">
-                                        {`${owned.label}.ar`}
-                                    </h1>
-                            </Tippy>
-                            </div>
-                        )
-                    }
-                </div>
+                    {/* <div className=" hideScroll "> */}
+                        <div className="grid grid-cols-2 gap-x-4 gap-y-0 h-[4em] hideScroll overflow-y-auto lg:w-60 w-full lg:pr-0 pr-16">
+                            {
+                                props.userInfo.ownedLabels.map((owned: { label: string; scarcity: string; acquisationBlock: number; mintedFor: number; }) =>
+                                    <div key={owned.acquisationBlock} className="col-span-1 py-1 w-min  float-left">
+                                    <Tippy arrow={true}
+                                        key={owned.acquisationBlock}
+                                        content={`Scarcity: ${owned.scarcity} `}
+                                        className="font-mono font-extrabold text-lg py-0.5">
+                                        <h1 className="text-lg text-white w-min float-left">
+                                            {`${owned.label}.ar`}
+                                        </h1>
+                                    </Tippy>
+                                    </div>
+                                )
+                            }
+                        </div>
+                    {/* </div> */}
                 </div> : <h1 className="text-lg text-white float-left mx-2">-</h1>}
 
                 <div className="lg:truncate w-full col-span-2 row-span-1">

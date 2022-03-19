@@ -36,10 +36,9 @@ const ModelContent = (props: Props) => {
 
     return (
 
-        <div className="rounded-md mx-1 top-0 p-6 lg:pb-16 pb-10 max-w-full lg:max-w-screen-md lg:mx-auto h-min  bg-back shadow-md border-2 border-prim1 shadow-black  max-h-[100vh]">
+        <div className="relative w-full h-full  max-h-[100vh] overflow-y-auto hideScroll0">
+        <div className="rounded-md mx-1 top-0 p-6 lg:pb-16 pb-10 max-w-full lg:max-w-screen-md lg:mx-auto h-min  bg-back shadow-md border-2 border-prim1 shadow-black">
         <FontAwesomeIcon icon={faCircleXmark} onClick={() => handleClose()} className="absolute top-3 right-3 text-prim1 rounded-full h-6" />
-        <div className="relative w-full h-full  max-h-[90vh] overflow-y-auto hideScroll0">
-           
 
             <h1 className="text-2xl text-center font-extrabold text-prim2 underline my-4 lg:mt-4 lg:mb-8">{current.title}</h1>
 
