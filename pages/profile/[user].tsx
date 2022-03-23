@@ -11,10 +11,10 @@ import { FAQ } from '../../components/FAQ';
 import _404 from '../404';
 
 
-const User = ({ userInfo, pathFullInfo }: any) => {
+const User = ({ uInfo, pathFullInfo }: any) => {
     const [hasTwtr, setHasTwtr] = React.useState<number>(2);
 
-    userInfo = (userInfo) ? userInfo : pathFullInfo;
+    const userInfo = React.useRef((uInfo) ? uInfo : pathFullInfo).current;
 
     React.useEffect(() => {
         setHasTwtr((prevState) => {
@@ -27,7 +27,7 @@ const User = ({ userInfo, pathFullInfo }: any) => {
     }, [userInfo])
     
     return (<>
-        {Object.keys(userInfo).length > 0 ?
+        {userInfo !== {} && Object.keys(userInfo).length > 0 ?
             <>
                 <Head>
                     <title>{`${userInfo.currentLabel} | ar.page`}</title>
@@ -55,7 +55,7 @@ const User = ({ userInfo, pathFullInfo }: any) => {
                             <Tweets user={userInfo.links.twitter} className="mt-6 pb-5 px-6 overflow-y-hidden hidden lg:grid shrink-0 h-[46.25rem]" />
                         </div>
                         : <></>}
-                </div></> : <FAQ />}
+                </div></> : <FAQ />} 
     </>
 
     )
@@ -68,6 +68,7 @@ User.getInitialProps = async ({ query }: { query: { user: string; } }) => {
         return { pathFullInfo: userInfo };
     } catch (error) {
         console.log("attempting to use domain routing...")
+        return {};
     };
 };
 

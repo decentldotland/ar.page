@@ -3,12 +3,10 @@ import { FAQ } from '../components/FAQ'
 import User from './profile/[user]'
 
 export default function Home({wildcard, userInfo}) {
-
   return ((wildcard === "404") ? 
     <FAQ className="" /> : 
-    <User userInfo={userInfo} />
+    <User uInfo={userInfo} />
     )
-
 }
 
 export async function getServerSideProps(context) {

@@ -38,7 +38,7 @@ const ModelContent = (props: Props) => {
 
         <div className="relative w-full h-full  max-h-[100vh] overflow-y-auto hideScroll0">
         <div className="rounded-md mx-1 top-0 p-6 lg:pb-16 pb-10 max-w-full lg:max-w-screen-md lg:mx-auto h-min  bg-back shadow-md border-2 border-prim1 shadow-black">
-        <FontAwesomeIcon icon={faCircleXmark} onClick={() => handleClose()} className="absolute top-3 right-3 text-prim1 rounded-full h-6" />
+        <FontAwesomeIcon icon={faCircleXmark} onClick={() => handleClose()} className="absolute lg:relative top-3 lg:-top-3 right-3 lg:-right-3 float-right  text-prim1 rounded-full h-6" />
 
             <h1 className="text-2xl text-center font-extrabold text-prim2 underline my-4 lg:mt-4 lg:mb-8">{current.title}</h1>
 
@@ -47,7 +47,7 @@ const ModelContent = (props: Props) => {
                     {(loading) ?
 
                         <div className="absolute grid mx-auto my-auto place-content-center lg:h-[288px] lg:w-[288px]">
-                            <div className="rounded-md bg-back shadow-md border-2 border-prim1 shadow-black">
+                            <div className="rounded-md bg-back shadow-md border-2 border-prim1 shadow-black"> 
                                 <Rings color={'#e3b5a4'}
                                     ariaLabel='loading'
                                     height={height}
@@ -66,7 +66,7 @@ const ModelContent = (props: Props) => {
                             // height={(_width !== undefined && _width >= 1024) ? height : heightM}
                             
                             onLoad={() => setLoading(false)}
-                            className="shadow-md border-2 border-prim1 shadow-black"
+                            className="shadow-md border-2 border-prim1 shadow-black" 
                             src={`https://koi.rocks/embed/${current.id}`} >
                         </iframe>
                     </div>
