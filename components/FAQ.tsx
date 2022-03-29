@@ -16,7 +16,7 @@ export const FAQ = () => {
     } = useFetchData("https://raw.githubusercontent.com/charmful0x/ar.page.faq/main/README.md")
 
     return (
-        <div className="w-full h-srceen lg:-py-24 lg:my-10 max-w-3xl mx-auto my-5 -py-10 text-white">
+        <div className="w-full h-srceen lg:-py-24 lg:mt-10 max-w-screen-xl mx-auto -py-10 text-white">
             {/* old user not found divs
             
                 <div className="w-full lg:min-h-fit grid lg:p-24 content-center lg:relative absolute bottom-4 top-4 text-center rounded-xl shadow-md border-2 border-prim1 shadow-black">

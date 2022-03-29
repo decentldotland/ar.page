@@ -33,10 +33,10 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                     <title>{`${userInfo.currentLabel} | ar.page`}</title>
                     <meta name="description" content={`${userInfo.currentLabel} | ar.page`} />
                 </Head>
-                <div className="flex flex-wrap h-[48.75rem]">
+                <div className="flex flex-wrap mb-10">
                     <div className={(hasTwtr === 2) ?
-                        "flex flex-col lg:w-2/3 lg:h-fit max-h-screen w-full" :
-                        "flex flex-col lg:h-fit max-h-screen w-full"}>
+                        "flex flex-col lg:w-2/3 lg:h-fit lg:max-h-screen w-full" :
+                        "flex flex-col lg:h-fit lg:max-h-screen w-full"}>
 
                         <Personal userInfo={userInfo}
                             className={(`mt-6 mb-6 lg:px-3 px-6 mx-1 rounded-md shadow-md border-2 border-prim1 shadow-black -m-6 shrink-0 lg:h-52`)}
@@ -46,7 +46,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                             className={(`my-3 -mt-3 lg:px-3 px-6 mx-1 rounded-md shadow-md border-2 border-prim1 shadow-black -m-6 shrink-0 lg:h- h-36 flex justify-center align-middle`)}
                         />
                         <Nfts userInfo={userInfo}
-                            className={`mx-1 -left-1 max-w-full lg:overflow-hidden overflow-visible border-2 border-prim1 rounded-md lg:px-0 px-3 pb-14 lg:pb-0 lg:shrink-0 lg:h-84 h-full shadow-md shadow-black`}
+                            className={`mx-1 -left-1 max-w-full overflow-hidden border-2 border-prim1 rounded-md lg:px-0 px-3 pb-14 lg:pb-0 lg:shrink-0 lg:h-auto h-[72rem]  shadow-md shadow-black`}
                         />
 
                     </div>

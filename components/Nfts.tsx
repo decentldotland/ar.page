@@ -54,7 +54,7 @@ export const Nfts = (props: Props) => {
             <div className="max-h-fit w-full mx-auto text-sviolet font-extrabold">
                 <h1 className="text-sviolet text-lg font-extrabold px-9 lg:px-12 text-left mt-4">NFTs </h1>
             </div>
-            <div className="max-w-full grid grid-cols-6 grid-flow-row auto-rows-max lg:overflow-y-scroll overflow-visible overflow-x-auto px-6 hideScroll lg:h-[17.75rem] h-full mb-3">
+            <div className="max-w-full grid grid-cols-6 grid-flow-row auto-rows-max overflow-y-scroll overflow-x-auto px-6 hideScroll lg:h-[17.75rem] h-[67rem] mb-3">
                 {(NFTS && NFTS.length <= 0) ? <div className="col-span-6 flex lg:mt-32 mt-12 mx-auto my-auto" >
                     <h1 className="lg:text-xl text-2xl text-center font-extrabold text-prim2 overflow-visible">This user does not own any Koii NFTs</h1>
                 </div> :

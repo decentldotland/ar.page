@@ -4,6 +4,7 @@ import { Nav } from './nav';
 // import styles from '../styles/Layout.module.css'
 import { Personal } from './personal';
 import Head from 'next/head';
+import Footer from './footer';
 
 type Props = {
     children: any;
@@ -11,8 +12,9 @@ type Props = {
 export const Layout = (props: Props) => {
     return (
         <div className="mx-auto  flex w-full bg-contain bg-no-repeat bg-right relative">
-            <div className="w-full xl:mx-auto lg:mx-14 mx-0 max-w-screen-xl my-auto font-mono h-screen lg:overflow-hidden hideScroll0">
+            <div className="container w-full xl:mx-auto lg:mx-14 mx-0 max-w-screen-xl my-auto font-mono h-screen lg:overflow- hideScroll0">
                 {props.children}
+                <Footer />
             </div>
         </div>
     );
