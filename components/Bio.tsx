@@ -23,30 +23,30 @@ export const Bio = (props: Props) => {
                     <div className="lg:text-sm text-lg mx-auto lg:text-left text-center lg:justify-start justify-center align-center text-white flex gap-4 underline">
 
                         {(props.userInfo.links && props.userInfo.links.instagram) ?
-                            <div className="flex lg:gap-1  lg:w-fit w-1/3 justify-center">
-                                <a className="flex lg:gap-1" href={`https://www.instagram.com/${props.userInfo.links.instagram}`}>
-                                    <FontAwesomeIcon icon={faInstagram} className="pb-2" width="20" height="30" />
+                            <div className="flex lg:gap-1 lg:mr-4 mt-0 lg:w-fit w-1/3 justify-center">
+                                <a className="flex lg:gap-1 lg:mr-2 mr-0" href={`https://www.instagram.com/${props.userInfo.links.instagram}`}>
+                                    <FontAwesomeIcon icon={faInstagram} className="pb-2 lg:mr-1 mr-0" width="20" height="30" />
                                     <h1 className="hidden lg:flex">Instagram</h1>
                                 </a>
                             </div> : <></>}
                         {(props.userInfo.links && props.userInfo.links.twitter) ?
-                            <div className="flex lg:gap-1  lg:w-fit w-1/3 justify-center">
-                                <a className="flex lg:gap-1" href={`https://www.twitter.com/${props.userInfo.links.twitter}`}>
-                                    <FontAwesomeIcon icon={faTwitter} className="pb-2" width="20" height="30" />
+                            <div className="flex lg:gap-1 lg:mr-4 mt-0 lg:w-fit w-1/3 justify-center">
+                                <a className="flex lg:gap-1 lg:mr-2 mr-0" href={`https://www.twitter.com/${props.userInfo.links.twitter}`}>
+                                    <FontAwesomeIcon icon={faTwitter} className="pb-2 lg:mr-1 mr-0" width="20" height="30" />
                                     <h1 className="hidden lg:flex">Twitter</h1>
                                 </a>
                             </div> : <></>}
                         {(props.userInfo.links && props.userInfo.links.github) ?
-                            <div className="flex lg:gap-1  lg:w-fit w-1/3 justify-center">
-                                <a className="flex lg:gap-1" href={`https://github.com/${props.userInfo.links.github}`}>
-                                    <FontAwesomeIcon icon={faGithub} className="pb-2" width="20" height="30" />
+                            <div className="flex lg:gap-1 lg:mr-4 mt-0 lg:w-fit w-1/3 justify-center">
+                                <a className="flex lg:gap-1 " href={`https://github.com/${props.userInfo.links.github}`}>
+                                    <FontAwesomeIcon icon={faGithub} className="pb-2 lg:mr-1 mr-0" width="20" height="30" />
                                     <h1 className="hidden lg:flex">Github</h1>
                                 </a>
                             </div> : <></>}
                         {(props.userInfo.links && props.userInfo.links.customUrl) ?
-                            <div className="flex lg:gap-1  lg:w-fit w-1/3 justify-center">
-                                <a className="flex lg:gap-1" href={props.userInfo.links.customUrl}>
-                                    <FontAwesomeIcon icon={faGlobe} className="pb-2" width="20" height="30" />
+                            <div className="flex lg:gap-1 lg:mr-4 mt-0 lg:w-fit w-1/3 justify-center">
+                                <a className="flex lg:gap-1 lg:mr-2 mr-0" href={props.userInfo.links.customUrl}>
+                                    <FontAwesomeIcon icon={faGlobe} className="pb-2 lg:mr-1 mr-0" width="20" height="30" />
                                     <h1 className="hidden lg:flex">Website</h1>
                                 </a>
                             </div> : <></>}
