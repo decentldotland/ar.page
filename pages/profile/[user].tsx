@@ -9,6 +9,7 @@ import { Nfts } from '../../components/Nfts';
 import { Bio } from '../../components/Bio';
 import { FAQ } from '../../components/FAQ';
 import _404 from '../404';
+// import { Fab } from '../../components/editor/fab';
 
 
 const User = ({ uInfo, pathFullInfo }: any) => {
@@ -35,9 +36,10 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                     <meta name="description" content={`${userInfo.currentLabel} | ar.page`} />
                 </Head>
                 <div className="flex flex-wrap mb-10">
+                
                     <div className={(hasTwtr === 2) ?
                         "flex flex-col lg:w-2/3 gap-y-0 lg:h-fit lg:max-h-screen w-full" :
-                        "flex flex-col lg:h-fit   gap-y-0 lg:max-h-screen w-full"}>
+                        "flex flex-col lg:h-fit gap-y-0 lg:max-h-screen w-full"}>
 
                         <Personal userInfo={userInfo}
                             className={(`mt-6 mb-6 lg:px-3 px-6 mx-1 rounded-md shadow-md border-2 border-prim1 shadow-black -m-6 shrink-0 lg:h-52`)}

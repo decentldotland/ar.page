@@ -3,6 +3,9 @@
 import * as React from 'react';
 import Image from 'next/image';
 import Tippy from '@tippyjs/react';
+import { Fab } from './editor/fab';
+import { EditModal } from './editor/editmodal';
+import Header from './arconnect/arconnect_loader';
 
 type Props = {
     children?: any;
@@ -10,10 +13,10 @@ type Props = {
     userInfo: any;
 };
 export const Personal = (props: Props) => {
+
     return (
         <div className={props.className}>
-            <div className="flex flex-wrap lg:grid lg:grid-cols-3 lg:grid-rows-2 w-full lg:-ml-10 my-2 py-4 text-sviolet shrink-0 gap-y-4">
-
+            <div className="flex flex-wrap lg:grid lg:grid-cols-3 lg:grid-rows-2 w-full lg:-ml-10 my-2 py-4 text-sviolet shrink-0 gap-y-4 relative">
                 <div className="w-full col-span-3 row-span-1 lg:col-span-1 lg:row-span-2 grid grid-cols-1 mx-5 my-0 lg:mb-10">
                     {(props.userInfo.avatar.length <= 0) ?
                         <div className="mx-auto rounded-full h-32 w-32" style={{ backgroundColor: props.userInfo.address_color }}></div> :
@@ -33,10 +36,10 @@ export const Personal = (props: Props) => {
                 {props.userInfo.ownedLabels && props.userInfo.ownedLabels.length > 0 ? <div className="w-full lg:col-span-1 lg:row-span-1">
                     <h1 className="text-xl mx-auto font-extrabold text-sviolet">Labels</h1>
                     {/* <div className=" hideScroll "> */}
-                        <div className="grid grid-cols-2 gap-x-4 gap-y-0 h-[4em] hideScroll overflow-y-auto lg:w-60 w-full lg:pr-0 pr-16">
-                            {
-                                props.userInfo.ownedLabels.map((owned: { label: string; scarcity: string; acquisationBlock: number; mintedFor: number; }) =>
-                                    <div key={owned.acquisationBlock} className="col-span-1 py-1 w-min  float-left">
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-0 h-[4em] hideScroll overflow-y-auto lg:w-60 w-full lg:pr-0 pr-16">
+                        {
+                            props.userInfo.ownedLabels.map((owned: { label: string; scarcity: string; acquisationBlock: number; mintedFor: number; }) =>
+                                <div key={owned.acquisationBlock} className="col-span-1 py-1 w-min  float-left">
                                     <Tippy arrow={true}
                                         key={owned.acquisationBlock}
                                         content={`Scarcity: ${owned.scarcity} `}
@@ -45,10 +48,10 @@ export const Personal = (props: Props) => {
                                             {`${owned.label}.ar`}
                                         </h1>
                                     </Tippy>
-                                    </div>
-                                )
-                            }
-                        </div>
+                                </div>
+                            )
+                        }
+                    </div>
                     {/* </div> */}
                 </div> : <h1 className="text-lg text-white float-left mx-2">-</h1>}
 
@@ -73,6 +76,15 @@ export const Personal = (props: Props) => {
                 <div className="w-full overflow-hidden lg:w-1/4">
                 </div> */}
 
+                <EditModal userColor={props.userInfo.address_color}  wallet={props.userInfo.user} />
+
+                <Tippy arrow={true}
+                    content="connect ArConnect to verify and edit profile."
+                    className="font-mono font-extrabold text-lg py-0.5">
+                    <a className="absolute bottom-[unset] lg:-right-8 right-0 lg:top-3">
+                        <Header />
+                    </a>
+                </Tippy>
             </div>
         </div>
     );

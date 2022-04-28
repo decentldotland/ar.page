@@ -12,7 +12,7 @@ type Props = {
 export const Layout = (props: Props) => {
     return (
         <div className="mx-auto  flex w-full bg-contain bg-no-repeat bg-right relative">
-            <div className="container w-full xl:mx-auto lg:mx-14 mx-0 max-w-screen-xl my-auto font-mono h-screen lg:overflow- hideScroll0">
+            <div className="container w-full xl:mx-auto lg:mx-14 mx-0 max-w-screen-lg my-auto font-mono h-screen lg:overflow- hideScroll0">
                 {props.children}
                 <Footer />
             </div>
