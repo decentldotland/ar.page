@@ -55,7 +55,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                     </div>
                     {hasTwtr === 2 ?
                         <div className="flex flex-col lg:h-[45.5rem] w-1/3">
-                            <Tweets user={userInfo.links.twitter} className="mt-6 pb-5 px-6 overflow-y-hidden hidden lg:grid shrink-0 h-[46.25rem]" />
+                            <Tweets user={userInfo.links.twitter} className="mt-6 pb-5 px-6 overflow-y-hidden hidden lg:grid shrink-0 h-[48.5rem]" />
                         </div>
                         : <></>}
                 </div></> : <FAQ />} 
