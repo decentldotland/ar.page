@@ -2,6 +2,8 @@
 import * as React from 'react';
 type Props = {
     title: string;
+    setValidityCheck: Function;
+    regex: string;
     setText: (value: string) => void
 };
 export const TextI = (props: Props) => {
@@ -12,36 +14,36 @@ export const TextI = (props: Props) => {
     const setValue = React.useCallback(async e => {
 
         setTextState(e.target.value)
-        if (e.target.value.length <= 38) {
-            props.setText(e.target.value)
-        } else {
-            props.setText("");
-        }
+        props.setText(e.target.value)
+        props.setValidityCheck({input: props.title, error: e.target.value === "" || new RegExp(props.regex, "i").test(e.target.value)})
 
         setEdited(true)
 
     }, [props])
 
     const borderColor = React.useCallback(() => {
-        if (edited)
-            switch (true) {
-                case textState == "":
-                    return " border-prim1 ";
-                case textState.length < 38 && /[\S]+/.test(textState):
+
+        const test = new RegExp(props.regex, "i").test(textState);
+        if (textState !== "" && edited)
+            switch (test) {
+                case true:
                     return " border-prim2 ";
-                case /[\s]+/.test(textState) && !/[\S]+/.test(textState):
+                case false:
                     return " border-red-500 ";
                 default:
                     return " border-red-500 ";
             }
         else return " border-prim1 "
-    }, [edited, textState])
+    }, [edited, props.regex, textState])
 
     return (
         <div className="justify-start my-3 px-3 w-full lg:w-1/3">
             <h1 className="text-xl mx-auto text-sviolet font-extrabold text-left w-full">{props.title}</h1>
             <input className={borderColor() + "text-lg mx-auto rounded-md shadow-md border-2 text-white bg-nftbg px-2 w-full"}
-                onChange={setValue} />
+                onInput={setValue}
+                onPaste={setValue}
+                onChange={setValue}
+                 />
         </div>
     );
 };

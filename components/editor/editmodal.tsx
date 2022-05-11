@@ -16,7 +16,7 @@ export const EditModal = (props: Props) => {
 
     return (
         <Modal handleClose={handleClose} isOpen={editEnabled}>
-            <Content userColor={props.userColor} wallet={props.wallet} />
+            <Content userColor={props.userColor} wallet={props.wallet} handleClose={handleClose} />
         </Modal>
     );
 };

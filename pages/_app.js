@@ -3,8 +3,10 @@ import '../styles/globals.css'
 import '../styles/tippy.css'
 import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
+import { useUpdateChecker } from '../src/useUpdateChecker'
 
 function MyApp({ Component, pageProps }) {
+  useUpdateChecker();
   return <RecoilRoot> <Head>
       <title>ar.page</title>
       <meta name="description" content="ar.page | faq" />

@@ -42,11 +42,11 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                         "flex flex-col lg:h-fit gap-y-0 lg:max-h-screen w-full"}>
 
                         <Personal userInfo={userInfo}
-                            className={(`mt-6 mb-6 lg:px-3 px-6 mx-1 rounded-md shadow-md border-2 border-prim1 shadow-black -m-6 shrink-0 lg:h-52`)}
+                            className={(`mt-6 mb-6 lg:px-3 px-2 mx-1 rounded-md shadow-md border-2 border-prim1 shadow-black -m-6 shrink-0 lg:h-52 h-fit`)}
                         />
 
                         <Bio userInfo={userInfo}
-                            className={(`my-3 -mt-3 lg:px-3 px-6 mx-1 rounded-md shadow-md border-2 border-prim1 shadow-black -m-6 shrink-0 lg:h- h-36 flex justify-center align-middle`)}
+                            className={(`my-3 -mt-3 lg:px-3 px-6 mx-1 rounded-md shadow-md border-2 border-prim1 shadow-black -m-6 shrink-0 lg:h- h-fit flex justify-center align-middle`)}
                         />
                         <Nfts userInfo={userInfo}
                             className={`mx-1 -left-1 max-w-full overflow-hidden border-2 border-prim1 rounded-md lg:px-0 px-3 pb-14 lg:pb-0 lg:shrink-0 lg:h-auto shadow-md shadow-black`}
