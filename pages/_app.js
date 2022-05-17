@@ -3,7 +3,7 @@ import '../styles/globals.css'
 import '../styles/tippy.css'
 import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
-import { useUpdateChecker } from '../src/useUpdateChecker'
+import { useUpdateChecker } from '../src/useUpdateChecker';
 
 function MyApp({ Component, pageProps }) {
   useUpdateChecker();

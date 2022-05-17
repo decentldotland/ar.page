@@ -36,9 +36,9 @@ export const Bio = (props: Props) => {
     }, [edited, props.regex, textState])
 
     return (
-        <div className="justify-start my-3 px-3 w-full lg:w-full mb-2">
+        <div className="justify-start my-3 px-3 w-full lg:w-3/5 lg:h-72">
             <h1 className="text-xl mx-auto text-sviolet font-extrabold text-left w-full">Bio</h1>
-            <textarea className={borderColor() + "text-lg mx-auto mb-4 rounded-md shadow-md border-2 text-white w-full h-4/5 bg-nftbg px-2"}
+            <textarea className={borderColor() + "text-lg mx-auto rounded-md shadow-md border-2 text-white w-full h-64 bg-nftbg px-2"}
                 placeholder='About me...'
                 onChange={setValue}
             />

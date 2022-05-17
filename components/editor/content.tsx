@@ -1,9 +1,15 @@
 // @flow 
 import * as React from 'react';
 import Header from '../arconnect/arconnect_loader'
+import { faGlobe, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Avatar } from './inputs/avatar';
 import { Bio } from './inputs/bio';
 import { TextI } from './inputs/textI';
+
+
+import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
+import { uploadImage, uploadTXID } from '../../atoms'
 
 import Swal from 'sweetalert2'
 
@@ -26,6 +32,8 @@ export const Content = (props: Props) => {
     const [isOwner, setIsOwner] = React.useState<boolean>(false);
     const [confirmOwner, setConfirmOwner] = React.useState<boolean>(false);
     const [validityCheck, setValidityCheckState] = React.useState<any>({});
+    const [imgWithProfile, setImgWithProfile] = React.useState<any>(false);
+    const [idState, setIdState] = useRecoilState(uploadTXID);
 
     const setValidityCheck = React.useCallback(error => {
         setValidityCheckState((state: any) => {
@@ -58,7 +66,11 @@ export const Content = (props: Props) => {
         localStorage.setItem("pending", JSON.stringify([...list, tx.id]));
     }, [])
 
-    const submitTX = React.useCallback(async () => {
+
+    const setUpload = useSetRecoilState(uploadImage);
+
+    const submitTX: Function = React.useCallback(async () => {
+        console.log("hi")
         if (Object.values(validityCheck).indexOf(false) > -1) {
             // if(Object.values(validityCheck).reduce((partialSum: any, a: any) => partialSum + a, 0) <= 0){
             Swal.fire({
@@ -86,7 +98,6 @@ export const Content = (props: Props) => {
             && instagramState == ""
             && customUrlState == "") {
             Swal.fire({
-                toast: true,
                 backdrop: true,
                 title: "Form is empty:",
                 text: "No changes were submitted.",
@@ -120,7 +131,10 @@ export const Content = (props: Props) => {
             customUrl?: string;
         } = { "function": "updateProfileMetadata" };
 
-        if (avatarState != "") interaction.avatar = avatarState
+        if (avatarState != "") {
+            interaction.avatar = avatarState;
+            if (imgWithProfile !== false) { setUpload(imgWithProfile) }
+        }
         if (bioState != "") interaction.bio = bioState
         if (nicknameState != "") interaction.nickname = nicknameState
         if (githubState != "") interaction.github = githubState
@@ -158,13 +172,25 @@ export const Content = (props: Props) => {
             if (result.isConfirmed) {
                 props.handleClose();
             }
-          })
+        })
 
-    }, [validityCheck, avatarState, bioState, nicknameState, githubState, twitterState, instagramState, customUrlState, arweave, pendList, props])
+    }, [avatarState, validityCheck, bioState, nicknameState, githubState, twitterState, instagramState, customUrlState, arweave, pendList, imgWithProfile, setUpload, props])
+
+    React.useEffect(() => {
+        if(idState !== "" && imgWithProfile !== false) submitTX()
+    }, [idState, submitTX, imgWithProfile])
+
+
+    const submitUpload = React.useCallback(async () => {
+        if(imgWithProfile === false){
+            submitTX()
+        }
+        await setUpload(imgWithProfile);
+    }, [imgWithProfile, setUpload, submitTX])
 
     return (
         <div className="rounded-md mx-1 top-0 p-6 lg:pt-6 lg:pb-16 pb-10 max-w-full lg:max-w-screen-lg lg:mx-auto lg:h-fit h-[75vh] lg:overflow-hidden overflow-y-scroll hideScroll0 bg-back shadow-md border-2 border-prim1 shadow-black">
-
+            <FontAwesomeIcon icon={faCircleXmark} onClick={() => props.handleClose()} className="absolute lg:relative top-3 lg:-top-3 right-3 lg:-right-3 float-right  text-prim1 rounded-full h-6" />
             {/* <div className="w-[91vw] max-w-screen-md h-15 absolute top-0.5 left-4 lg:bg-transparent bg-back z-50">
             <h1 className="text-xl mx-auto text-sviolet font-extrabold py-5 bottom-0 text-center ">Edit Profile</h1>
             <div className="float-right"> <Header /></div>
@@ -173,6 +199,8 @@ export const Content = (props: Props) => {
 
             {(isOwner) ?
                 <div className="mx-auto max-w-screen-md bg-teal-5010 lg:top-8">
+
+
 
                     <div className="w-[91vw] max-w-screen-md h-15 top-0.5 left-4 lg:bg-transparent bg-back">
                         <h1 className="text-xl w-full mx-auto text-sviolet font-extrabold py-5 bottom-0 text-center ">Edit Profile</h1>
@@ -183,7 +211,7 @@ export const Content = (props: Props) => {
                         <h1 className=" w-full mx-auto py-5 bottom-0 text-center ">Sections that are left blank will not be updated/added to the profile.<br />
                             The Sections will become green after they have been edited and red if the value is invalid. NFT profile picture upload coming soon.</h1>
 
-                        <Avatar userColor={props.userColor} setText={setAvatarState} regex="^@?([a-zA-Z0-9_]{1,43})$" setValidityCheck={setValidityCheck} />
+                        <Avatar userColor={props.userColor} setText={setAvatarState} regex="^@?([a-zA-Z0-9_]{1,43})$" setValidityCheck={setValidityCheck} setImgWithProfile={setImgWithProfile} />
                         <Bio setText={setBioState} regex="^@?([a-zA-Z0-9_]{1,150})$" setValidityCheck={setValidityCheck} />
 
                         <TextI title="Nickname" setText={setNicknameState} regex="^@?(\S{1,30})$" setValidityCheck={setValidityCheck} />
@@ -196,7 +224,8 @@ export const Content = (props: Props) => {
 
                     <div className="lg:w-1/3 w-full mt-8">
                         <button className="text-lg mx-auto rounded-md shadow-md border-2 border-prim1 text-prim2 bg-nftbg px-2"
-                            onClick={() => submitTX()}>
+                            onClick={() => submitUpload()}>
+                            {/* onClick={() => submitTX()}> */}
                             submit
                         </button>
                     </div>
