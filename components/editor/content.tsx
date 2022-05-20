@@ -53,24 +53,25 @@ export const Content = (props: Props) => {
         });
     })
 
-    const [avatarState, setAvatarState] = React.useState(""), //💨🍃
+    const [avatarState, setAvatarState] = React.useState<any>(""), //💨🍃
         [bioState, setBioState] = React.useState(""),
         [nicknameState, setNicknameState] = React.useState(""),
         [githubState, setGithubState] = React.useState(""),
         [twitterState, setTwitterState] = React.useState(""),
         [instagramState, setInstagramState] = React.useState(""),
-        [customUrlState, setCustomUrlState] = React.useState("");
+        [customUrlState, setCustomUrlState] = React.useState(""),
+        [percent, setPercent] = React.useState(0);
 
     const pendList = React.useCallback(async (tx) => {
-        const list = JSON.parse((localStorage as any).getItem("list"));
-        localStorage.setItem("pending", JSON.stringify([...list, tx.id]));
+        const list: number[] = JSON.parse((localStorage as any).getItem("pending"));
+        localStorage.setItem("pending", list !== null ? JSON.stringify([...list, tx.id]) : "[]");
     }, [])
 
 
-    const setUpload = useSetRecoilState(uploadImage);
+    // const setUpload = useSetRecoilState(uploadImage);
 
-    const submitTX: Function = React.useCallback(async () => {
-        console.log("hi")
+    const submitTX: Function = React.useCallback(async (avatartTxId = "") => {
+        // console.log("hi")
         if (Object.values(validityCheck).indexOf(false) > -1) {
             // if(Object.values(validityCheck).reduce((partialSum: any, a: any) => partialSum + a, 0) <= 0){
             Swal.fire({
@@ -90,7 +91,7 @@ export const Content = (props: Props) => {
             })
             return;
         }
-        if (avatarState == "" &&
+        if (avatartTxId == "" &&
             bioState == "" &&
             nicknameState == "" &&
             githubState == ""
@@ -131,10 +132,7 @@ export const Content = (props: Props) => {
             customUrl?: string;
         } = { "function": "updateProfileMetadata" };
 
-        if (avatarState != "") {
-            interaction.avatar = avatarState;
-            if (imgWithProfile !== false) { setUpload(imgWithProfile) }
-        }
+        if (avatartTxId != "") interaction.avatar = avatartTxId;
         if (bioState != "") interaction.bio = bioState
         if (nicknameState != "") interaction.nickname = nicknameState
         if (githubState != "") interaction.github = githubState
@@ -152,9 +150,10 @@ export const Content = (props: Props) => {
         tx.reward = (+tx.reward * 5).toString();
 
         await arweave.transactions.sign(tx);
-        await arweave.transactions.post(tx);
 
         pendList(tx.id)
+
+        await arweave.transactions.post(tx);
         Swal.fire({
             title: "Transaction Submitted:",
             text: "Another popup will appear notify you once the transaction has completed.",
@@ -174,19 +173,60 @@ export const Content = (props: Props) => {
             }
         })
 
-    }, [avatarState, validityCheck, bioState, nicknameState, githubState, twitterState, instagramState, customUrlState, arweave, pendList, imgWithProfile, setUpload, props])
+    }, [validityCheck, bioState, nicknameState, githubState, twitterState, instagramState, customUrlState, arweave, pendList, props])
 
-    React.useEffect(() => {
-        if(idState !== "" && imgWithProfile !== false) submitTX()
-    }, [idState, submitTX, imgWithProfile])
+    // React.useEffect(() => {
+    //     if (idState !== "" && imgWithProfile !== false) submitTX()
+    // }, [idState, submitTX, imgWithProfile])
+
+    const submitPfp = React.useCallback(async () => {
+        if (imgWithProfile === false) {
+            submitTX()
+        } else {
+            const tx = await arweave.createTransaction({ data: new Uint8Array(avatarState.data) });
+            tx.addTag("Content-Type", avatarState.ContentType);
+
+            await arweave.transactions.sign(tx);
+            console.log("signed tx", tx);
+            setIdState(tx.id);
+            const uploader = await arweave.transactions.getUploader(tx);
+
+            while (!uploader.isComplete) {
+                await uploader.uploadChunk();
+
+                //   setUploadProgress(true)
+                setPercent(uploader.pctComplete)
+            }
+            if ((uploader as any).txPosted) {
+                console.log(tx.id)
+                setIdState(tx.id);
+                submitTX(tx.id)
+                //   Swal.fire({
+                //     title: t("uploadepisode.swal.uploadcomplete.title"),
+                //     text: t("uploadepisode.swal.uploadcomplete.text"),
+                //     icon: "success",
+                //     customClass: "font-mono",
+                //   });
+            } else {
+                Swal.fire(
+                    {
+                        title: "Error",
+                        html: `transaction: ${tx.id} please report the issue to a decant.land team member.`,
+                        icon: "error",
+                        customClass: "font-mono",
+                    }
+                );
+            }
+        }
+
+    }, [arweave, avatarState.ContentType, avatarState.data, imgWithProfile, setIdState, submitTX])
 
 
     const submitUpload = React.useCallback(async () => {
-        if(imgWithProfile === false){
+        if (imgWithProfile === false) {
             submitTX()
-        }
-        await setUpload(imgWithProfile);
-    }, [imgWithProfile, setUpload, submitTX])
+        } else submitPfp();
+    }, [imgWithProfile, submitPfp, submitTX])
 
     return (
         <div className="rounded-md mx-1 top-0 p-6 lg:pt-6 lg:pb-16 pb-10 max-w-full lg:max-w-screen-lg lg:mx-auto lg:h-fit h-[75vh] lg:overflow-hidden overflow-y-scroll hideScroll0 bg-back shadow-md border-2 border-prim1 shadow-black">
@@ -211,8 +251,8 @@ export const Content = (props: Props) => {
                         <h1 className=" w-full mx-auto py-5 bottom-0 text-center ">Sections that are left blank will not be updated/added to the profile.<br />
                             The Sections will become green after they have been edited and red if the value is invalid. NFT profile picture upload coming soon.</h1>
 
-                        <Avatar userColor={props.userColor} setText={setAvatarState} regex="^@?([a-zA-Z0-9_]{1,43})$" setValidityCheck={setValidityCheck} setImgWithProfile={setImgWithProfile} />
-                        <Bio setText={setBioState} regex="^@?([a-zA-Z0-9_]{1,150})$" setValidityCheck={setValidityCheck} />
+                        <Avatar userColor={props.userColor} setText={setAvatarState} regex="^@?([a-zA-Z0-9_]{1,43})$" setValidityCheck={setValidityCheck} setImgWithProfile={setImgWithProfile} percent={percent} />
+                        <Bio setText={setBioState} regex="^@?([\s\S]{1,150})$" setValidityCheck={setValidityCheck} />
 
                         <TextI title="Nickname" setText={setNicknameState} regex="^@?(\S{1,30})$" setValidityCheck={setValidityCheck} />
                         <TextI title="Github" setText={setGithubState} regex="^([a-zA-Z0-9_]{1,38})$" setValidityCheck={setValidityCheck} />

@@ -12,13 +12,15 @@ type Props = {
     userColor: string;
     setValidityCheck: Function;
     setImgWithProfile: Function;
-    setText: (value: string) => void
+    percent: number;
+    setText: (value: any) => void
 };
 
 export const Avatar = (props: Props) => {
 
-    const [edited, setEdited] = React.useState<boolean>(false);
-    const [textState, setTextState] = React.useState("");
+    // const [edited, setEdited] = React.useState<boolean>(false);
+    // const [textState, setTextState] = React.useState("");
+    const inputRef = React.useRef<any>();
 
     const [thePreview, setThePreview] = React.useState("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==")
 
@@ -53,8 +55,8 @@ export const Avatar = (props: Props) => {
 
     // }, [props, validateImage])
 
-    const percent = useRecoilValue(uploadPercent);
-    const setUpload = useSetRecoilState(uploadImage);
+    // const percent = useRecoilValue(uploadPercent);
+    // const setUpload = useSetRecoilState(uploadImage);
 
     const readFileState = React.useCallback((event) => {
         var reader = new FileReader();
@@ -71,9 +73,7 @@ export const Avatar = (props: Props) => {
                 // toast: true,
                 title: "Notice:",
                 html: `<p class="font-mono">
-                            Image upload may take longer than profile edit transaction, 
-                        <br> 
-                            would you like to start the image upload transaction now?.
+                            Uploading a profile image will require an initial transaction to upload the image which is then followed by the profile update transaction. 
                         </p>`,
                 icon: 'success',
                 cancelButtonColor: 'theme(colors.red.300)',
@@ -85,21 +85,24 @@ export const Avatar = (props: Props) => {
                     validationMessage: 'font-mono',
                     confirmButton: 'border-prim2',
                 },
+                allowOutsideClick: false,
                 background: "rgba(56, 57, 84, 0.9)",
                 color: "rgb(149, 239, 174)",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    setUpload({
-                        data: Array.from(Buffer.from(e.target?.result as ArrayBuffer)),
-                        ContentType: event.target.files[0].type
-                    });
-                } else {
                     props.setImgWithProfile({
                         data: Array.from(Buffer.from(e.target?.result as ArrayBuffer)),
                         ContentType: event.target.files[0].type
                     })
+                    props.setText({
+                        data: Array.from(Buffer.from(e.target?.result as ArrayBuffer)),
+                        ContentType: event.target.files[0].type
+                    });
+                    (localStorage as any).setItem('upload', JSON.stringify(Array.from(Buffer.from(e.target?.result as ArrayBuffer))))
+                } else {
+                    inputRef.current.value = "";
+                    setThePreview("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
                 }
-                (localStorage as any).setItem('upload', JSON.stringify(Array.from(Buffer.from(e.target?.result as ArrayBuffer))))
             })
 
         }
@@ -109,21 +112,21 @@ export const Avatar = (props: Props) => {
             reader.readAsArrayBuffer(event.target.files[0]);
         }
 
-    }, [props, setUpload])
+    }, [props])
 
-    const borderColor = React.useCallback(() => {
-        const test = new RegExp(props.regex, "i").test(textState);
-        if (textState !== "" && edited)
-            switch (test) {
-                case true:
-                    return " border-prim2 ";
-                case false:
-                    return " border-red-500 ";
-                default:
-                    return " border-red-500 ";
-            }
-        else return " border-prim1 "
-    }, [edited, props.regex, textState])
+    // const borderColor = React.useCallback(() => {
+    //     const test = new RegExp(props.regex, "i").test(textState);
+    //     if (textState !== "" && edited)
+    //         switch (test) {
+    //             case true:
+    //                 return " border-prim2 ";
+    //             case false:
+    //                 return " border-red-500 ";
+    //             default:
+    //                 return " border-red-500 ";
+    //         }
+    //     else return " border-prim1 "
+    // }, [edited, props.regex, textState])
 
 
     return (
@@ -168,14 +171,15 @@ export const Avatar = (props: Props) => {
                     <input className="hidden"
                         id="profileUpload"
                         type="file"
+                        ref={inputRef}
                         // pattern="[A-Za-z0-9-_]{43}"
                         onChange={readFileState}
-                    />{percent > 0 &&
+                    />{props.percent > 0 &&
                         <div className="flex absolute h-full w-full top-0 justify-start">
-                            <div className="absolute h-full bg-nftbg" style={{ width: `${percent}%` }}>
+                            <div className="absolute h-full bg-nftbg" style={{ width: `${props.percent}%` }}>
                             </div>
                             <div className="absolute w-full self-center text-center pt-2 h-28" >
-                                <p className="bg-back w-fit mx-auto rounded-lg px-2">{percent}% uploaded</p>
+                                <p className="bg-back w-fit mx-auto rounded-lg px-2">{props.percent}% uploaded</p>
                             </div>
                         </div>}
                 </label>

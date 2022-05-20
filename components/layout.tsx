@@ -11,7 +11,7 @@ type Props = {
     children: any;
 };
 export const Layout = (props: Props) => {
-    useUploadHandler();
+    // useUploadHandler();
     return (
         <div className="mx-auto  flex w-full bg-contain bg-no-repeat bg-right relative">
             <div className="container w-full xl:mx-auto lg:mx-14 mx-0 max-w-screen-lg my-auto font-mono h-screen lg:overflow- hideScroll0">
