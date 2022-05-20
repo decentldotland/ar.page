@@ -49,7 +49,8 @@ export const Nfts = (props: Props) => {
     }, [NFTS, naturalRes])
 
 
-    return (
+    return (<>
+    {(NFTS && NFTS.length !== 0) ?
         <div className={(props.className + ((NFTS && NFTS.length <= 0) ? " h-[28rem]" : "h-auto"))}>
             <div className="max-h-fit w-full mx-auto text-sviolet font-extrabold">
                 <h1 className="text-sviolet text-lg font-extrabold px-9 lg:px-12 text-left mt-4">NFTs </h1>
@@ -95,6 +96,7 @@ export const Nfts = (props: Props) => {
                     <ModelContent handleClose={handleClose} naturalRes={naturalRes} current={current} />
                 </Modal>
             </div>
-        </div>
+        </div> : <></>}
+        </>
     );
 };
