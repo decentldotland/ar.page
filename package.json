@@ -26,6 +26,7 @@
     "react-i18next": "^11.16.7",
     "react-loader-spinner": "^6.0.0-0",
     "react-markdown": "^8.0.0",
+    "react-rounded-image": "^2.0.14",
     "recoil": "^0.6.1",
     "remark-gfm": "^3.0.1",
     "sharp": "^0.30.2",

@@ -1,11 +1,12 @@
 // @flow 
 
 import * as React from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import Tippy from '@tippyjs/react';
-import { Fab } from './editor/fab';
+// import { Fab } from './editor/fab';
 import { EditModal } from './editor/editmodal';
-import Header from './arconnect/arconnect_loader';
+import Header from './arconnect/arconnect_loader'; //@ts-ignore
+import ReactRoundedImage from "react-rounded-image";
 
 type Props = {
     children?: any;
@@ -22,8 +23,20 @@ export const Personal = (props: Props) => {
                         <div className="mx-auto rounded-full h-32 w-32 mb-2" style={{ backgroundColor: props.userInfo.address_color }}></div> :
                         // <img className="mx-auto bg-black rounded-full" src={`https://arweave.net/${props.userInfo.avatar}`} />}
                         <div className="mx-auto rounded-full h-32 w-32 overflow-hidden mb-2">
-                            <Image src={`https://arweave.net/${props.userInfo.avatar}`} alt="Profile Image" width="100%" height="100%" layout="responsive" objectFit="contain" />
-                        </div>}
+                            {/* <Image src={`https://arweave.net/${props.userInfo.avatar}`} alt="Profile Image" width="100%" height="100%" layout="responsive" objectFit="contain" /> */}
+                        
+                            <ReactRoundedImage
+                        image={`https://arweave.net/${props.userInfo.avatar}`}
+                        hoverColor={props.userInfo.address_color}
+                        roundedColor={"rgb(29, 30, 44)"}
+                        imageWidth="128"
+                        imageHeight="128"
+                        roundedSize="10"
+                        borderRadius="70"
+                      />
+                        
+                        </div>
+                        }
                     <h1 className="lg:text-xl text-3xl text-white mx-auto font-extrabold">{props.userInfo.currentLabel}</h1>
                     {/* <!-- Column Content --> */}
                 </div>
