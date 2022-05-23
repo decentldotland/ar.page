@@ -41,7 +41,7 @@ export function useUpdateChecker(callback: any, delay: number) {
         (window as any).Swal = Swal;
         if((localStorage as any).hasOwnProperty("pending") === false || open) return;
         const list: string[] = JSON.parse((localStorage as any).getItem("pending"));
-        if(list.length == 0) return;
+        if(list.length == 0 || list == []) return;
         list.map(async (id: any, i: number) => {
             const state = await arweave.transactions.getStatus(id);
             if(state.status !== 200){
