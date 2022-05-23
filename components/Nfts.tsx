@@ -11,6 +11,7 @@ type Props = {
     children?: any;
     className: string;
     userInfo: any;
+    setLength: Function;
 };
 export const Nfts = (props: Props) => {
     const { width, height } = useWindowDimensions();
@@ -46,13 +47,16 @@ export const Nfts = (props: Props) => {
     React.useEffect(() => {
         if (NFTS.length === naturalRes.length)
             console.log(naturalRes)
-    }, [NFTS, naturalRes])
+
+
+            props.setLength(NFTS.length)
+    }, [NFTS, naturalRes, props])
 
 
     return (<>
     {(NFTS && NFTS.length !== 0) ?
         <div className={(props.className + ((NFTS && NFTS.length <= 0) ? " h-[28rem]" : "h-auto"))}>
-            <div className="max-h-fit w-full mx-auto text-sviolet font-extrabold">
+            <div className="max-h-fit w-full mx-auto text-sviolet font-extrabold ">
                 <h1 className="text-sviolet text-lg font-extrabold px-9 lg:px-12 text-left mt-4">NFTs </h1>
             </div>
             <div className={("max-w-full grid grid-cols-6 grid-flow-row auto-rows-max overflow-y-scroll overflow-x-auto px-6 hideScroll lg:h-[17.75rem] h-[67rem] mb-3"+ ((NFTS && NFTS.length <= 0) ? " h-[20rem]" : "h-auto"))}>
