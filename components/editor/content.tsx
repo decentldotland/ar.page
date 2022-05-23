@@ -62,9 +62,9 @@ export const Content = (props: Props) => {
         [customUrlState, setCustomUrlState] = React.useState(""),
         [percent, setPercent] = React.useState(0);
 
-    const pendList = React.useCallback(async (tx) => {
-        const list: number[] = JSON.parse((localStorage as any).getItem("pending"));
-        localStorage.setItem("pending", list !== null ? JSON.stringify([...list, tx.id]) : "[]");
+    const pendList = React.useCallback(async (id) => {
+        const list: number[] = JSON.parse((localStorage as any).getItem("pending")); //@ts-ignore
+        localStorage.setItem("pending", list !== null && list !== [null] ? JSON.stringify([...list, id]) : [id]);
     }, [])
 
 
@@ -150,28 +150,78 @@ export const Content = (props: Props) => {
         tx.reward = (+tx.reward * 5).toString();
 
         await arweave.transactions.sign(tx);
-
         pendList(tx.id)
 
-        await arweave.transactions.post(tx);
-        Swal.fire({
-            title: "Transaction Submitted:",
-            text: "Another popup will appear notify you once the transaction has completed.",
-            icon: 'success',
+        await Swal.fire({
+            toast: true,
+            title: "Notice:",
+            html: `<p class="font-mono">
+                        The Profile update transaction has been Signed and with Transaction ID: <br> ${tx.id} <br><br>
+                        Please click "Confirm" to submit Profile update transaction.
+                    </p>`,
+            icon: 'info',
+            cancelButtonColor: 'theme(colors.red.300)',
+            confirmButtonText:
+                'Confirm',
+            showCancelButton: true,
             customClass: {
                 container: 'border-prim1',
                 popup: 'border-prim1',
                 title: 'font-mono',
                 validationMessage: 'font-mono',
-                confirmButton: 'border-prim2',
+                cancelButton: 'font-mono',
+                confirmButton: 'border-prim2 font-mono',
             },
+            allowOutsideClick: false,
             background: "rgba(56, 57, 84, 0.9)",
             color: "rgb(149, 239, 174)",
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                props.handleClose();
+
+                await arweave.transactions.post(tx);
+                Swal.fire({
+                    title: "Transaction Submitted:",
+                    text: "Another popup will appear notify you once the transaction has completed.",
+                    icon: 'success',
+                    customClass: {
+                        container: 'border-prim1',
+                        popup: 'border-prim1',
+                        title: 'font-mono',
+                        validationMessage: 'font-mono',
+                        cancelButton: 'font-mono',
+                        confirmButton: 'border-prim2',
+                    },
+                    background: "rgba(56, 57, 84, 0.9)",
+                    color: "rgb(149, 239, 174)",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        props.handleClose();
+                        Swal.fire({
+                            toast: true,
+                            title: "Notice:",
+                            html: `<p class="font-mono">
+                                        Please be patient, once the transaction has miner confirmations it can be viewed here.
+                                        <br><br>
+                                        <a  class="text-blue-300" target="_blank" href="https://viewblock.io/arweave/tx/${tx.id}">https://viewblock.io/arweave/tx/${tx.id}<a/>
+                                    </p>`,
+                            icon: 'info',
+                            customClass: {
+                                container: 'border-prim1',
+                                popup: 'border-prim1',
+                                title: 'font-mono',
+                                validationMessage: 'font-mono',
+                                confirmButton: 'border-prim2 font-mono',
+                            },
+                            allowOutsideClick: false,
+                            background: "rgba(56, 57, 84, 0.9)",
+                            color: "rgb(149, 239, 174)",
+                        })
+                    }
+                })
+
             }
         })
+
 
     }, [validityCheck, bioState, nicknameState, githubState, twitterState, instagramState, customUrlState, arweave, pendList, props])
 
@@ -180,6 +230,7 @@ export const Content = (props: Props) => {
     // }, [idState, submitTX, imgWithProfile])
 
     const submitPfp = React.useCallback(async () => {
+
         if (imgWithProfile === false) {
             submitTX()
         } else {
@@ -189,34 +240,95 @@ export const Content = (props: Props) => {
             await arweave.transactions.sign(tx);
             console.log("signed tx", tx);
             setIdState(tx.id);
-            const uploader = await arweave.transactions.getUploader(tx);
 
-            while (!uploader.isComplete) {
-                await uploader.uploadChunk();
+            await Swal.fire({
+                toast: true,
+                title: "Notice:",
+                html: `<p class="font-mono">
+                            The Avatar transaction has been Signed and the avatar image will be uploaded to Transaction ID: <br> ${tx.id} <br><br>
+                            Please click "Confirm" to submit Avatar transaction and begin upload.
+                        </p>`,
+                icon: 'info',
+                cancelButtonColor: 'theme(colors.red.300)',
+                confirmButtonText:
+                    'Confirm',
+                showCancelButton: true,
+                customClass: {
+                    container: 'border-prim1',
+                    popup: 'border-prim1',
+                    title: 'font-mono',
+                    validationMessage: 'font-mono',
+                    cancelButton: 'font-mono',
+                    confirmButton: 'border-prim2 font-mono',
+                },
+                allowOutsideClick: false,
+                background: "rgba(56, 57, 84, 0.9)",
+                color: "rgb(149, 239, 174)",
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const uploader = await arweave.transactions.getUploader(tx);
 
-                //   setUploadProgress(true)
-                setPercent(uploader.pctComplete)
-            }
-            if ((uploader as any).txPosted) {
-                console.log(tx.id)
-                setIdState(tx.id);
-                submitTX(tx.id)
-                //   Swal.fire({
-                //     title: t("uploadepisode.swal.uploadcomplete.title"),
-                //     text: t("uploadepisode.swal.uploadcomplete.text"),
-                //     icon: "success",
-                //     customClass: "font-mono",
-                //   });
-            } else {
-                Swal.fire(
-                    {
-                        title: "Error",
-                        html: `transaction: ${tx.id} please report the issue to a decant.land team member.`,
-                        icon: "error",
-                        customClass: "font-mono",
+                    await Swal.fire({
+                        toast: true,
+                        title: "Notice:",
+                        html: `<p class="font-mono">
+                                    Please be patient, once the transaction has miner confirmations it can be viewed here.
+                                    <br><br>
+                                    <a  class="text-blue-300" target="_blank" href="https://viewblock.io/arweave/tx/${tx.id}">https://viewblock.io/arweave/tx/${tx.id}<a/>
+                                </p>`,
+                        icon: 'info',
+                        customClass: {
+                            container: 'border-prim1',
+                            popup: 'border-prim1',
+                            title: 'font-mono',
+                            validationMessage: 'font-mono',
+                            confirmButton: 'border-prim2 font-mono',
+                        },
+                        allowOutsideClick: false,
+                        background: "rgba(56, 57, 84, 0.9)",
+                        color: "rgb(149, 239, 174)",
+                    })
+
+                    while (!uploader.isComplete) {
+                        await uploader.uploadChunk();
+                        setPercent(uploader.pctComplete)
                     }
-                );
-            }
+                    if ((uploader as any).txPosted) {
+                        console.log(tx.id)
+                        setIdState(tx.id);
+                        submitTX(tx.id)
+
+                        await Swal.fire({
+                            toast: true,
+                            title: "Notice:",
+                            html:   `<p class="font-mono">
+                                        Avatar upload complete 🎉.
+                                    </p>`,
+                            icon: 'success',
+                            customClass: {
+                                container: 'border-prim1',
+                                popup: 'border-prim1',
+                                title: 'font-mono',
+                                validationMessage: 'font-mono',
+                                confirmButton: 'border-prim2 font-mono',
+                            },
+                            allowOutsideClick: false,
+                            background: "rgba(56, 57, 84, 0.9)",
+                            color: "rgb(149, 239, 174)",
+                        })
+                    } else {
+                        Swal.fire(
+                            {
+                                title: "Error",
+                                html: `transaction: ${tx.id} please report the issue to a decant.land team member.`,
+                                icon: "error",
+                                customClass: "font-mono",
+                            }
+                        );
+                    }
+                }
+
+            })
         }
 
     }, [arweave, avatarState.ContentType, avatarState.data, imgWithProfile, setIdState, submitTX])
@@ -231,14 +343,8 @@ export const Content = (props: Props) => {
     return (
         <div className="rounded-md mx-1 top-0 p-6 lg:pt-6 lg:pb-16 pb-10 max-w-full lg:max-w-screen-lg lg:mx-auto lg:h-fit h-[75vh] lg:overflow-hidden overflow-y-scroll hideScroll0 bg-back shadow-md border-2 border-prim1 shadow-black">
             <FontAwesomeIcon icon={faCircleXmark} onClick={() => props.handleClose()} className="absolute lg:relative top-3 lg:-top-3 right-3 lg:-right-3 float-right  text-prim1 rounded-full h-6" />
-            {/* <div className="w-[91vw] max-w-screen-md h-15 absolute top-0.5 left-4 lg:bg-transparent bg-back z-50">
-            <h1 className="text-xl mx-auto text-sviolet font-extrabold py-5 bottom-0 text-center ">Edit Profile</h1>
-            <div className="float-right"> <Header /></div>
-            </div> */}
-
-
             {(isOwner) ?
-                <div className="mx-auto max-w-screen-md bg-teal-5010 lg:top-8">
+                <div className="mx-auto max-w-screen-md bg-teal-5010 lg:top-8 lg:-mb-10">
 
 
 
@@ -246,7 +352,7 @@ export const Content = (props: Props) => {
                         <h1 className="text-xl w-full mx-auto text-sviolet font-extrabold py-5 bottom-0 text-center ">Edit Profile</h1>
                     </div>
 
-                    <div className="flex flex-wrap w-full h-[50vh] -mx-3  gap-y-8 overflow-y-scroll lg:hideScroll0 hideScroll">
+                    <div className="flex flex-wrap w-full h-[55vh] -mx-3  gap-y-8 overflow-y-scroll lg:hideScroll0 hideScroll">
 
                         <h1 className=" w-full mx-auto py-5 bottom-0 text-center ">Sections that are left blank will not be updated/added to the profile.<br />
                             The Sections will become green after they have been edited and red if the value is invalid. NFT profile picture upload coming soon.</h1>

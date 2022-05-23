@@ -75,7 +75,7 @@ export const Avatar = (props: Props) => {
                 html: `<p class="font-mono">
                             Uploading a profile image will require an initial transaction to upload the image which is then followed by the profile update transaction. 
                         </p>`,
-                icon: 'success',
+                icon: 'info',
                 cancelButtonColor: 'theme(colors.red.300)',
                 showCancelButton: true,
                 customClass: {
@@ -83,8 +83,11 @@ export const Avatar = (props: Props) => {
                     popup: 'border-prim1',
                     title: 'font-mono',
                     validationMessage: 'font-mono',
-                    confirmButton: 'border-prim2',
-                },
+                    cancelButton: 'font-mono',
+                    confirmButton: 'border-prim2 font-mono',
+                }, 
+                confirmButtonText:
+                'Confirm',
                 allowOutsideClick: false,
                 background: "rgba(56, 57, 84, 0.9)",
                 color: "rgb(149, 239, 174)",
@@ -98,7 +101,7 @@ export const Avatar = (props: Props) => {
                         data: Array.from(Buffer.from(e.target?.result as ArrayBuffer)),
                         ContentType: event.target.files[0].type
                     });
-                    (localStorage as any).setItem('upload', JSON.stringify(Array.from(Buffer.from(e.target?.result as ArrayBuffer))))
+                    // (localStorage as any).setItem('upload', JSON.stringify(Array.from(Buffer.from(e.target?.result as ArrayBuffer))))
                 } else {
                     inputRef.current.value = "";
                     setThePreview("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
