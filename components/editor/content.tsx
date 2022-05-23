@@ -239,6 +239,7 @@ export const Content = (props: Props) => {
         } else {
             const tx = await arweave.createTransaction({ data: new Uint8Array(avatarState.data) });
             tx.addTag("Content-Type", avatarState.ContentType);
+            tx.reward = (+tx.reward * 10).toString();
 
             await arweave.transactions.sign(tx);
             console.log("signed tx", tx);
