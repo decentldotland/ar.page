@@ -89,7 +89,7 @@ export const Avatar = (props: Props) => {
                 confirmButtonText:
                 'Confirm',
                 allowOutsideClick: false,
-                background: "rgba(56, 57, 84, 0.9)",
+                background: "rgba(56, 57, 84, 0.95)",
                 color: "rgb(149, 239, 174)",
             }).then((result) => {
                 if (result.isConfirmed) {

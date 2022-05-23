@@ -87,7 +87,7 @@ export const Content = (props: Props) => {
                     confirmButton: 'border-prim2',
                 },
                 iconColor: "rgb(239 68 68)",
-                background: "rgba(56, 57, 84, 0.9)",
+                background: "rgba(56, 57, 84, 0.95)",
             })
             return;
         }
@@ -112,7 +112,7 @@ export const Content = (props: Props) => {
                     confirmButton: 'bg-prim font-mono border-green-500 border-2',
                 },
                 iconColor: "rgb(239 68 68)",
-                background: "rgba(56, 57, 84, 0.9)",
+                background: "rgba(56, 57, 84, 0.95)",
             })
             return;
         }
@@ -153,10 +153,12 @@ export const Content = (props: Props) => {
         pendList(tx.id)
 
         await Swal.fire({
-            toast: true,
+            //toast: true,
             title: "Notice:",
             html: `<p class="font-mono">
-                        The Profile update transaction has been Signed and with Transaction ID: <br> ${tx.id} <br><br>
+                        The Profile update transaction has been Signed and with Transaction ID: <br> 
+                        <p class="select-all">${tx.id}</p>
+                        <br><br>
                         Please click "Confirm" to submit Profile update transaction.
                     </p>`,
             icon: 'info',
@@ -173,7 +175,7 @@ export const Content = (props: Props) => {
                 confirmButton: 'border-prim2 font-mono',
             },
             allowOutsideClick: false,
-            background: "rgba(56, 57, 84, 0.9)",
+            background: "rgba(56, 57, 84, 0.95)",
             color: "rgb(149, 239, 174)",
         }).then(async (result) => {
             if (result.isConfirmed) {
@@ -191,7 +193,7 @@ export const Content = (props: Props) => {
                         cancelButton: 'font-mono',
                         confirmButton: 'border-prim2',
                     },
-                    background: "rgba(56, 57, 84, 0.9)",
+                    background: "rgba(56, 57, 84, 0.95)",
                     color: "rgb(149, 239, 174)",
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -202,7 +204,9 @@ export const Content = (props: Props) => {
                             html: `<p class="font-mono">
                                         Please be patient, once the transaction has miner confirmations it can be viewed here.
                                         <br><br>
-                                        <a  class="text-blue-300" target="_blank" href="https://viewblock.io/arweave/tx/${tx.id}">https://viewblock.io/arweave/tx/${tx.id}<a/>
+                                        <a  class="text-blue-300" target="_blank" href="https://viewblock.io/arweave/tx/${tx.id}">
+                                            <button type="button" class="swal2-cancel border-prim2 font-mono swal2-styled" aria-label="" style="display: inline-block; width: 75%; margin-left: 0px">Open TX</button>
+                                        <a/>
                                     </p>`,
                             icon: 'info',
                             customClass: {
@@ -212,8 +216,7 @@ export const Content = (props: Props) => {
                                 validationMessage: 'font-mono',
                                 confirmButton: 'border-prim2 font-mono',
                             },
-                            allowOutsideClick: false,
-                            background: "rgba(56, 57, 84, 0.9)",
+                            background: "rgba(56, 57, 84, 0.95)",
                             color: "rgb(149, 239, 174)",
                         })
                     }
@@ -242,10 +245,12 @@ export const Content = (props: Props) => {
             setIdState(tx.id);
 
             await Swal.fire({
-                toast: true,
+                //toast: true,
                 title: "Notice:",
                 html: `<p class="font-mono">
-                            The Avatar transaction has been Signed and the avatar image will be uploaded to Transaction ID: <br> ${tx.id} <br><br>
+                            The Avatar transaction has been Signed and the avatar image will be uploaded to Transaction ID: <br> 
+                                <p class="select-all">${tx.id}</p>
+                            <br><br>
                             Please click "Confirm" to submit Avatar transaction and begin upload.
                         </p>`,
                 icon: 'info',
@@ -262,7 +267,7 @@ export const Content = (props: Props) => {
                     confirmButton: 'border-prim2 font-mono',
                 },
                 allowOutsideClick: false,
-                background: "rgba(56, 57, 84, 0.9)",
+                background: "rgba(56, 57, 84, 0.95)",
                 color: "rgb(149, 239, 174)",
             }).then(async (result) => {
                 if (result.isConfirmed) {
@@ -274,7 +279,9 @@ export const Content = (props: Props) => {
                         html: `<p class="font-mono">
                                     Please be patient, once the transaction has miner confirmations it can be viewed here.
                                     <br><br>
-                                    <a  class="text-blue-300" target="_blank" href="https://viewblock.io/arweave/tx/${tx.id}">https://viewblock.io/arweave/tx/${tx.id}<a/>
+                                    <a  class="text-blue-300" target="_blank" href="https://viewblock.io/arweave/tx/${tx.id}">
+                                        <button type="button" class="swal2-cancel border-prim2 font-mono swal2-styled" aria-label="" style="display: inline-block; width: 75%; margin-left: 0px">Open TX</button>
+                                    <a/>
                                 </p>`,
                         icon: 'info',
                         customClass: {
@@ -284,8 +291,7 @@ export const Content = (props: Props) => {
                             validationMessage: 'font-mono',
                             confirmButton: 'border-prim2 font-mono',
                         },
-                        allowOutsideClick: false,
-                        background: "rgba(56, 57, 84, 0.9)",
+                        background: "rgba(56, 57, 84, 0.95)",
                         color: "rgb(149, 239, 174)",
                     })
 
@@ -299,7 +305,7 @@ export const Content = (props: Props) => {
                         submitTX(tx.id)
 
                         await Swal.fire({
-                            toast: true,
+                            //toast: true,
                             title: "Notice:",
                             html:   `<p class="font-mono">
                                         Avatar upload complete 🎉.
@@ -313,7 +319,7 @@ export const Content = (props: Props) => {
                                 confirmButton: 'border-prim2 font-mono',
                             },
                             allowOutsideClick: false,
-                            background: "rgba(56, 57, 84, 0.9)",
+                            background: "rgba(56, 57, 84, 0.95)",
                             color: "rgb(149, 239, 174)",
                         })
                     } else {
