@@ -15,6 +15,8 @@ export function useUpdateChecker(callback: any, delay: number) {
         host: "arweave.net",
         port: 443,
         protocol: "https",
+        timeout: 45000,
+        logging: false,
     })).current;
 
     // const upadte = useCallback((id) => {
