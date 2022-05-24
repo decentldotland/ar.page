@@ -13,7 +13,7 @@ export const FAQ = () => {
     const {
         data,
         loading,
-    } = useFetchData("https://raw.githubusercontent.com/charmful0x/ar.page.faq/main/README.md")
+    } = useFetchData("https://raw.githubusercontent.com/decentldotland/ANS/main/utils/FAQS.md")
 
     return (
         <div className="w-full h-srceen lg:-py-24 lg:mt-10 max-w-screen-xl mx-auto -py-10 text-white">

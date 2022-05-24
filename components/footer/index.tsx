@@ -30,7 +30,7 @@ const Footer = (props: Props) => {
                         </div>
 
                         <div className="flex lg:mr-4 lg:w-fit w-1/4 justify-center ">
-                            <a className="flex lg:gap-1" href="https://t.me/decentdotland">
+                            <a className="flex lg:gap-1" href="https://t.me/decentland">
                                 <FontAwesomeIcon icon={faTelegram} className="pb-2 lg:mr-1 mr-0" width="20" height="30" />
                                 <h1 className="hidden lg:flex">Telegram</h1>
                             </a>
