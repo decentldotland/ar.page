@@ -48,7 +48,7 @@ const Footer = (props: Props) => {
                                 <h1 className="hidden lg:flex">DecentLand</h1>
                             </a>
                         </div>
-                        <div className="flex lg:mr-4 lg:w-fit w-1/4 justify-center ">
+                        <div className="flex lg:mr-4 lg:w-fit w-1/4 justify-center z-50">
                             <Link href="/">
                                 <a className="flex lg:gap-1">
                                     <FontAwesomeIcon icon={faQuestionCircle} className="pb-2 lg:mr-1 mr-0" width="20" height="30" />
@@ -59,7 +59,7 @@ const Footer = (props: Props) => {
 
                     </div>
                 </div>
-                <div className="mt-auto md:w-1/2 w-full mb-2">
+                <div className="mt-auto md:w-1/2 w-full mb-2 z-10">
                     <h1 className="text-sm mx-auto lg:text-right text-center text-white font-normal">Copyright © 2021-2022 DecentLand</h1>
                 </div>
             </div>

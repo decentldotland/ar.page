@@ -25,3 +25,8 @@ html {
   scrollbar-width: none; 
 }
 
+.swal2-icon.swal2-info {
+  border-color: theme('colors.prim2') !important;
+  color: theme('colors.prim2') !important;
+}
+

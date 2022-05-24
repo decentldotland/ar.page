@@ -5,14 +5,16 @@ import { Nav } from './nav';
 import { Personal } from './personal';
 import Head from 'next/head';
 import Footer from './footer';
+import { useUploadHandler } from '../src/useUploadHandler';
 
 type Props = {
     children: any;
 };
 export const Layout = (props: Props) => {
+    // useUploadHandler();
     return (
         <div className="mx-auto  flex w-full bg-contain bg-no-repeat bg-right relative">
-            <div className="container w-full xl:mx-auto lg:mx-14 mx-0 max-w-screen-xl my-auto font-mono h-screen lg:overflow- hideScroll0">
+            <div className="container w-full xl:mx-auto lg:mx-14 mx-0 max-w-screen-lg my-auto font-mono h-screen lg:overflow- hideScroll0">
                 {props.children}
                 <Footer />
             </div>
