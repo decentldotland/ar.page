@@ -1,6 +1,6 @@
 // @flow 
 import { faGithub, faTelegram, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faGlobe, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { faGlobe, faQuestionCircle, faBook } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link'
 import * as React from 'react';
@@ -13,7 +13,7 @@ const Footer = (props: Props) => {
             <div className="border-t-2 border-sviolet flex flex-wrap lg:flex-nowrap gap-2">
                 <div className="max-w-3xl mt-5  md:w-1/2 w-full">
                     <h1 className="text-sviolet text-left font-extrabold text-lg mb-2">Links: </h1>
-                    <div className="lg:text-sm text-lg mx-auto  text-white flex gap-4 underline">
+                    <div className="lg:text-sm text-lg mx-auto  text-white flex gap-1 underline">
 
                         {/* {(props.userInfo.links && props.userInfo.links.instagram) ?
                     <div className="flex lg:mr-4 lg:w-fit w-1/3 justify-center">
@@ -48,8 +48,14 @@ const Footer = (props: Props) => {
                                 <h1 className="hidden lg:flex">DecentLand</h1>
                             </a>
                         </div>
+                        <div className="flex lg:mr-4 lg:w-fit w-1/4 justify-center ">
+                            <a className="flex lg:gap-1" href="http://docs.decent.land/">
+                                <FontAwesomeIcon icon={faBook} className="pb-2 lg:mr-1 mr-0" width="20" height="30" />
+                                <h1 className="hidden lg:flex">docs</h1>
+                            </a>
+                        </div>
                         <div className="flex lg:mr-4 lg:w-fit w-1/4 justify-center z-50">
-                            <Link href="/">
+                            <Link href="/faq">
                                 <a className="flex lg:gap-1">
                                     <FontAwesomeIcon icon={faQuestionCircle} className="pb-2 lg:mr-1 mr-0" width="20" height="30" />
                                     <h1 className="hidden lg:flex">FAQ</h1>

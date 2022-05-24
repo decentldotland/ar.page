@@ -12,6 +12,11 @@ function MyApp({ Component, pageProps }) {
       <meta name="description" content="ar.page | faq" />
       <link rel="icon" href="/favicon.png" />
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes" />
+
+      <meta name="twitter:card" content="summary"></meta>
+      <meta name="twitter:site" content="@decentdotland" />
+      <meta name="twitter:title" content="ar.page" />
+      <meta name="twitter:description" content="ar.page | faq" />
   </Head>
   <Layout>
     <Component {...pageProps} />
@@ -20,3 +25,4 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp
+
