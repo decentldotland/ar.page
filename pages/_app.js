@@ -13,10 +13,12 @@ function MyApp({ Component, pageProps }) {
       <link rel="icon" href="/favicon.png" />
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes" />
 
-      <meta name="twitter:card" content="summary"></meta>
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:image" content="https://ar.page/favicon.png" />
       <meta name="twitter:site" content="@decentdotland" />
-      <meta name="twitter:title" content="ar.page" />
-      <meta name="twitter:description" content="ar.page | faq" />
+      <meta name="twitter:title" content="ar.page | faq" />
+      <meta name="twitter:description" content="The web3 social layer" />
+      <meta name="twitter:url" content="https://ar.page"></meta>
   </Head>
   <Layout>
     <Component {...pageProps} />

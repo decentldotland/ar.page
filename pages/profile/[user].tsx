@@ -37,8 +37,9 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                     <meta name="description" content={`${userInfo.currentLabel} | ar.page`} />
 
                     <meta name="twitter:image" content={(userInfo.avatar !== "") ? `https://arweave.net/${userInfo.avatar}` : "https://ar.page/favicon.png"} />
-                    <meta name="twitter:title" content="ar.page" />
-                    <meta name="twitter:description" content={`${userInfo.currentLabel} | ar.page`} />
+                    <meta name="twitter:title" content={`${userInfo.currentLabel} | ar.page`} />
+                    <meta name="twitter:url" content={`https://${userInfo.currentLabel}.ar.page`}></meta>
+                    <meta name="twitter:description" content={userInfo.bio} />
                 </Head>
                 <div className="flex flex-wrap mb-10">
 
