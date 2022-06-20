@@ -1,6 +1,15 @@
 import { atom } from "recoil";
 type uploadType = {ContentType: string; data: number[]} | null
 
+
+
+
+
+export const isPendingTX = atom<boolean>({
+    key: 'isPendingTX',
+    default: false,
+});
+
 export const isEditorOpen = atom<boolean>({
     key: 'isEditorOpen',
     default: false,

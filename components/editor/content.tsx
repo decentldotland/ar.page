@@ -14,6 +14,9 @@ import { uploadImage, uploadTXID } from '../../atoms'
 import Swal from 'sweetalert2'
 
 import Arweave from "arweave";
+import ReactDOM from 'react-dom';
+import { ThreeDots } from 'react-loader-spinner';
+import { faTelegram } from '@fortawesome/free-brands-svg-icons';
 
 type Props = {
     wallet: string;
@@ -22,6 +25,12 @@ type Props = {
 };
 
 export const Content = (props: Props) => {
+
+
+
+    if (window)
+        (window as any).Swal = Swal;
+
 
     const arweave = React.useRef<Arweave>(Arweave.init({
         host: "arweave.net",
@@ -34,6 +43,7 @@ export const Content = (props: Props) => {
     const [validityCheck, setValidityCheckState] = React.useState<any>({});
     const [imgWithProfile, setImgWithProfile] = React.useState<any>(false);
     const [idState, setIdState] = useRecoilState(uploadTXID);
+    const [inputEnabled, setInputEnabledsetIdState] = React.useState<boolean>(true);
 
     const setValidityCheck = React.useCallback(error => {
         setValidityCheckState((state: any) => {
@@ -66,7 +76,6 @@ export const Content = (props: Props) => {
         const list: number[] = JSON.parse((localStorage as any).getItem("pending")); //@ts-ignore
         localStorage.setItem("pending", list !== null && list !== [null] ? JSON.stringify([...list, id]) : [id]);
     }, [])
-
 
     // const setUpload = useSetRecoilState(uploadImage);
 
@@ -117,6 +126,39 @@ export const Content = (props: Props) => {
             return;
         }
 
+
+
+        Swal.fire({
+            html: `
+            <p id="txLoader"></p>
+            <p class="font-mono">Submitting transaction please wait</p>
+            `,
+            customClass: {
+                container: 'border-prim1',
+                popup: 'border-prim1',
+                title: 'font-mono',
+                validationMessage: 'font-mono',
+                cancelButton: 'font-mono',
+                confirmButton: 'border-prim2',
+            },
+            allowOutsideClick: false,
+            background: "rgba(56, 57, 84, 0.95)",
+            color: "rgb(149, 239, 174)",
+            showConfirmButton: false
+        })
+        ReactDOM.render(
+            <div className="flex mx-auto my-auto w-full h-96 justify-center items-center">
+                <ThreeDots color={'#e3b5a4'}
+                    ariaLabel='loading'
+                    height={128}
+                    width={128}
+                // height={(_width !== undefined && _width >= 1024) ? height : heightM}
+                // width={(_width !== undefined && _width >= 1024) ? width : widthM}
+                />
+            </div>,
+            document.getElementById('txLoader')
+        );
+
         const ANS_CONTRACT = "HrPi8hFc7M5dbrtlELfTKwPr53RRrDBgXGdDkp0h-j4";
 
         const interaction: {
@@ -149,8 +191,33 @@ export const Content = (props: Props) => {
         // to 'ensure' that the  TX will not drop when the network is congested
         tx.reward = (+tx.reward * 5).toString();
 
-        await arweave.transactions.sign(tx);
-        pendList(tx.id)
+
+        try {
+            await arweave.transactions.sign(tx);
+            await Swal.close()
+        } catch (error) {
+            Swal.fire({
+                html: `
+                <p id="txLoader"></p>
+                <p class="font-mono">Transaction could not be completed at this time, please try again later.</p>
+                `,
+                customClass: {
+                    container: 'border-prim1',
+                    popup: 'border-prim1',
+                    title: 'font-mono',
+                    validationMessage: 'font-mono',
+                    cancelButton: 'font-mono',
+                    confirmButton: 'border-prim2',
+                },
+                allowOutsideClick: false,
+                background: "rgba(56, 57, 84, 0.95)",
+                color: "rgb(149, 239, 174)",
+                showConfirmButton: false
+            })
+            return;
+        }
+
+
 
         await Swal.fire({
             //toast: true,
@@ -179,8 +246,55 @@ export const Content = (props: Props) => {
             color: "rgb(149, 239, 174)",
         }).then(async (result) => {
             if (result.isConfirmed) {
+                try {
+                    await arweave.transactions.post(tx);
+                } catch (error) {
+                    Swal.fire({
+                        html: `
+                        <div>
+                        <div id="teleLogo"></div>
+                        </div>
+                        `,
+                        customClass: {
+                            container: 'border-prim1',
+                            popup: 'border-prim1',
+                            title: 'font-mono',
+                            validationMessage: 'font-mono',
+                            cancelButton: 'font-mono',
+                            confirmButton: 'border-prim2',
+                        },
+                        allowOutsideClick: false,
+                        background: "rgba(56, 57, 84, 0.95)",
+                        color: "rgb(149, 239, 174)",
+                        showConfirmButton: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.close();
+                        }
+                    })
+                
+                    ReactDOM.render(
+                        <div className="font-mono">
+                            {
+                                (tx.id) ? 
+                                "Transaction could not be completed at this time, for further assistance please contact us on" : 
+                                <>{`Transaction could not be completed at this time, Please provided your transaction ID:`} 
+                                <br/>{tx.id}<br/> 
+                                {`So a DecentLand team member can assist you in resolving the issue.`}<br/> </>
+                            }
+                        <a className="inline-flex" href="https://t.me/decentland">
+                        <div className="ml-2 font-mono mt-2"><FontAwesomeIcon icon={faTelegram} className="inline-flex font-mono mx-2" width="20" height="30" />
+                            Telegram</div>
+                        </a>
+                        </div>
+                        ,
+                        document.getElementById('teleLogo')
+                    );
+                
+                    return;
+                }
+                pendList(tx.id)
 
-                await arweave.transactions.post(tx);
                 Swal.fire({
                     title: "Transaction Submitted:",
                     text: "Another popup will appear notify you once the transaction has completed.",
@@ -310,7 +424,7 @@ export const Content = (props: Props) => {
                         await Swal.fire({
                             //toast: true,
                             title: "Notice:",
-                            html:   `<p class="font-mono">
+                            html: `<p class="font-mono">
                                         Avatar upload complete 🎉.
                                     </p>`,
                             icon: 'success',

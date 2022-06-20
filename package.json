@@ -33,7 +33,7 @@
     "styled-components": "^5.3.5",
     "sweetalert2": "^11.4.9",
     "tippy.js": "^6.3.7",
-    "weave-aggregator": "^0.2.8"
+    "weave-aggregator": "^0.3.4"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.182",

@@ -18,7 +18,7 @@ export function useUpdateChecker(callback: any, delay: number) {
         timeout: 45000,
         logging: false,
     })).current;
-
+    
     // const upadte = useCallback((id) => {
     //     const fetchData = async () => {
     //         // try {

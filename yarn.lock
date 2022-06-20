@@ -3721,10 +3721,10 @@ void-elements@3.1.0:
   resolved "https://registry.npmjs.org/void-elements/-/void-elements-3.1.0.tgz"
   integrity sha1-YU9/v42AHwu18GYfWy9XhXUOTwk=
 
-weave-aggregator@^0.2.8:
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/weave-aggregator/-/weave-aggregator-0.2.8.tgz#250672d3d8c19e8a23bfb6de57cb57ff5761f802"
-  integrity sha512-hjsnxwhyYG3WCCRACAU9YxJn/6zUKozlYRXWlqDPKGktYygpUPfwkwoCd17waYkoKWC2q7msAGbXc8bMQkZQDQ==
+weave-aggregator@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/weave-aggregator/-/weave-aggregator-0.3.4.tgz#a6ea88eb0520e9ceaae2bc05e70c2a6a97eec347"
+  integrity sha512-ot2JScDUCQPqSbr7Lp1V7IFmwYpoaHOucSkXjBfZJrMDtAs1FWclBcDhcKTbK30jxnzBeMw4eAlT6j0KXeGwoA==
   dependencies:
     arweave "^1.10.18"
     axios "^0.24.0"
