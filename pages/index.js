@@ -1,10 +1,12 @@
 import axios from 'axios';
-import { FAQ } from '../components/FAQ'
+// import { FAQ } from '../components/FAQ'
+import Index from '../components_new/home' 
+
 import User from './profile/[user]'
 
 export default function Home({wildcard, userInfo}) {
   return ((wildcard === "404") ? 
-    <FAQ className="" /> : 
+    <Index /> : 
     <User uInfo={userInfo} />
     )
 }

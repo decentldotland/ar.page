@@ -8,7 +8,9 @@ import { Tweets } from '../../components/Tweets';
 import { Nfts } from '../../components/Nfts';
 import { Bio } from '../../components/Bio';
 import { FAQ } from '../../components/FAQ';
+
 import _404 from '../404';
+import Index from '../../components_new/home';
 // import { Fab } from '../../components/editor/fab';
 
 
@@ -70,7 +72,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                                 </div>}
                         </>
                         : <></>}
-                </div></> : <FAQ />}
+                </div></> : <Index />}
     </>
 
     )

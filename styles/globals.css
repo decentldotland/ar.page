@@ -2,14 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
+/* @layer base {
   html {
     font-family: ui-monospace;
   }
+} */
+
+body {
+  @apply h-full;
 }
 
 html {
-  background-color: theme('colors.back');
+  @apply h-full;
+  @apply font-mono;
+  background-color: rgba(223, 228, 235, 0.5)/*"#FAFAFA"*/;
   padding: 0;
 }
 

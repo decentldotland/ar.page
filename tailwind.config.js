@@ -2,9 +2,12 @@ const plugin = require('tailwindcss/plugin')
 
 module.exports = {
   mode: 'jit',
+  darkMode: 'class',
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
+    "./components_new/**/*.{js,ts,jsx,tsx}",
+    "./styles/templates/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -13,7 +16,11 @@ module.exports = {
         prim1: 'rgb(227, 181, 164)',
         prim2: 'rgb(149, 239, 174)',
         nftbg: 'rgba(255, 255, 255, 0.10)',
+        buttonSelected: 'rgba(18, 115, 234, 0.2)',
         back: 'rgb(29, 30, 44)'
+      },
+      height: {
+        'body': 'calc(100vh - 56px)',
       },
     },
   },
