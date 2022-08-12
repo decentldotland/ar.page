@@ -1,7 +1,8 @@
 module.exports = {
   reactStrictMode: true,
+  swcMinify: true,
   images: {
-    domains: ['arweave.net']
+    domains: ['pz-prepnb.meson.network']
   },
   webpack: (config) => {
     config.module.rules.push({

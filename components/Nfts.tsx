@@ -68,7 +68,7 @@ export const Nfts = (props: Props) => {
                             <div className="flex flex-col shrink content-center my-2 py-2 px-3 text-center rounded-md shadow-md border-2 bg-nftbg border-prim1 shadow-black h-64">
                                 <h1 className="lg:text-sm text-lg text-center font-extrabold text-prim2 underline text-overflow-trunc lg:text-overflow-none mt-1 mb-2">{owned.title}</h1>
                                 <div className="container w-40 lg:w-40 h-40 max-h-fit mx-auto my-auto">
-                                    <Image src={`https://arweave.net/${owned.id}`}
+                                    <Image src={`https://pz-prepnb.meson.network/${owned.id}`}
                                         alt={owned.title}
                                         width="100%" height="100%"
                                         layout="responsive" objectFit="contain"

@@ -12,7 +12,7 @@ import { AnsProvider } from 'ans-for-all';
 function MyApp({ Component, pageProps }) {
   // useUpdateChecker();
   return <RecoilRoot> 
-    <AnimatePresence initial={false} exitBeforeEnter>
+    <AnimatePresence exitBeforeEnter>
   <AnsProvider>
     <Head>
       <title>ar.page</title>

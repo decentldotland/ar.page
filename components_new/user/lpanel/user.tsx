@@ -13,6 +13,10 @@ export const User = (props: Props) => {
         arconnectConnect,
     } = useAns();
 
+    React.useEffect(() => {
+        console.log("walletConnected", walletConnected)
+    }, [walletConnected]);
+
     return (
         <div className="h-[36px]">
             <>
@@ -21,7 +25,7 @@ export const User = (props: Props) => {
                         {(ansData?.avatar === "") ?
                             <div className="flex rounded-full h-[26px] w-[26px] overflow-hidden ml-2 btn-secondary border-[2px] mt-[4px]" style={{ backgroundColor: ansData?.address_color, border: `2px solid ${ansData?.address_color}` }}></div> :
                             <div className="flex rounded-full h-[26px] w-[26px] overflow-hidden ml-2 btn-secondary border-[2px] mt-[4px]" style={{ backgroundColor: ansData?.address_color, border: `2px solid ${ansData?.address_color}` }}>
-                                <img src={`https://arweave.net/${ansData?.avatar}`} alt="Profile" width="100%" height="100%" />
+                                <img src={`https://pz-prepnb.meson.network/${ansData?.avatar}`} alt="Profile" width="100%" height="100%" />
                             </div>}
 
                         {/* nickname and label */}

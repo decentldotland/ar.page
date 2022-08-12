@@ -52,33 +52,45 @@ export const Nfts = (props: Props) => {
     React.useEffect(() => {
         (async function nftsOf() {
             const collectibles = await getWeaveAggregator("koii", props.userInfo.user);
+            if(Array.isArray(collectibles))
             setNFTS(collectibles);
         })();
     }, [props.userInfo.user]);
 
     return <div className="grid md:grid-cols-4 gap-4 h-32 mt-2 mx-2">
-        {NFTS.slice(0, props.open ? NFTS.length + 1 : 4).map((
+        {NFTS.length > 0 && NFTS.slice(0, props.open ? NFTS.length + 1 : 4).map((
             owned: { title: string; poster: string; description: string; timestamp: number; id: string; },
             index: number
         ) =>
             <motion.div
-                {...index > 3 ?
-                    {
-                        animate: animate,
-                        transition: {
+                // {...index > 3 ?
+                //     {
+                    initial={true}
+                    layout
+                        animate= {{
+                            y: 0,
+                            opacity: 1
+                        }}
+                        style={{
+                            y: -100,
+                            opacity: 0
+                        }}
+                        transition={{
                             duration: 0.5,
-                        }
-                    } : {}}
+                        }}
+                    // } : {}}
                 key={owned.id}
                 className={"h-full w-full"}>
 
                 <img
                     className='h-32 mx-auto my-auto border-2 border-[#1273EA] bg-[#1273EA] rounded-md'
-                    src={`https://arweave.net/${owned.id}`}>
+                    src={`https://pz-prepnb.meson.network/${owned.id}`}>
                 </img>
 
 
+                <div className="mb-8"></div>
             </motion.div>)}
+            
     </div>
 };
 

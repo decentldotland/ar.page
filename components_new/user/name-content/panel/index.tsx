@@ -32,7 +32,7 @@ export const Panel = (props: Props) => {
     props.userInfo.bio : "";
 
     return (
-        <div className="grow flex flex-row flex-wrap rounded-md w-full bg-white shadow-lg overflow-x-hidden px-8 py-8 mb-10"
+        <div className="grow flex flex-row flex-wrap rounded-md w-full h-full max-h-[62.5vh] bg-white shadow-lg overflow-x-hidden px-8 py-8 mb-10"
         >
             <Bio text={bio} />
             {/* <div className="h-0 w-full -mx-10"></div> */}

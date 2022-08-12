@@ -31,9 +31,9 @@ export const Personal = (props: Props) => {
                 <div className="w-full col-span-3 row-span-1 lg:col-span-2 lg:row-span-3 grid grid-cols-1 my-0 lg:mb-10">
                     {(props.userInfo.avatar.length <= 0) ?
                         <div className="mx-auto rounded-full h-32 w-32 mb-2" style={{ backgroundColor: props.userInfo.address_color }}></div> :
-                        // <img className="mx-auto bg-black rounded-full" src={`https://arweave.net/${props.userInfo.avatar}`} />}
+                        // <img className="mx-auto bg-black rounded-full" src={`https://pz-prepnb.meson.network/${props.userInfo.avatar}`} />}
                         <div className="mx-auto rounded-full h-32 w-32 overflow-hidden mb-2 relative border-4 border-back avatarRing">
-                            <Image src={`https://arweave.net/${props.userInfo.avatar}`} alt="Profile Image" layout="fill" objectFit="cover" />
+                            <Image src={`https://pz-prepnb.meson.network/${props.userInfo.avatar}`} alt="Profile Image" layout="fill" objectFit="cover" />
 
                         </div>
                     }
@@ -48,7 +48,7 @@ export const Personal = (props: Props) => {
 
                 <div className="lg:truncate w-full lg:col-span-2 lg:row-span-1">
                     <h1 className="text-xl mx-auto font-extrabold text-sviolet">Address</h1>
-                    <a href={`https://viewblock.io/arweave/address/${props.userInfo.user}`} className="text-lg text-white mx-auto text-center flex w-min float-left">
+                    <a href={`https://v2.viewblock.io/arweave/address/${props.userInfo.user}`} className="text-lg text-white mx-auto text-center flex w-min float-left">
 
                         {/* {props.userInfo.user} */}
                         <svg id="Layer_1" className="h-[1.125rem] mt-1 mr-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 133.06 133.06"><defs>

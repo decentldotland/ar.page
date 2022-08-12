@@ -27,7 +27,6 @@ type Props = {
     }
 };
 export const Labels = (props: Props) => {
-
     return (
         <div className="w-full mt-6 -px-10">
             {props.userInfo.ownedLabels && props.userInfo.ownedLabels.length > 0 ? <div className="w-full lg:col-span-4 lg:row-span-1 h-[3.5em]">
@@ -40,10 +39,9 @@ export const Labels = (props: Props) => {
                                     key={owned.acquisationBlock}
                                     content={`Scarcity: ${owned.scarcity} `}
                                     className="font-mono font-extrabold text-lg">
+                                    <>
                                     <Button text={`${owned.label}.ar`} selected={true} />
-                                    {/* <h1 className="text-lg w-min float-left">
-                                        {`${owned.label}.ar`}
-                                    </h1> */}
+                                    </>
                                 </Tippy>
                             </div>
                         )

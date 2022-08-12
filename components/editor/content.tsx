@@ -33,7 +33,7 @@ export const Content = (props: Props) => {
 
 
     const arweave = React.useRef<Arweave>(Arweave.init({
-        host: "arweave.net",
+        host: "pz-prepnb.meson.network",
         port: 443,
         protocol: "https",
     })).current;
@@ -318,7 +318,7 @@ export const Content = (props: Props) => {
                             html: `<p class="font-mono">
                                         Please be patient, once the transaction has miner confirmations it can be viewed here.
                                         <br><br>
-                                        <a  class="text-blue-300" target="_blank" href="https://viewblock.io/arweave/tx/${tx.id}">
+                                        <a  class="text-blue-300" target="_blank" href="https://v2.viewblock.io/arweave/tx/${tx.id}">
                                             <button type="button" class="swal2-cancel border-prim2 font-mono swal2-styled" aria-label="" style="display: inline-block; width: 75%; margin-left: 0px">Open TX</button>
                                         <a/>
                                     </p>`,
@@ -396,7 +396,7 @@ export const Content = (props: Props) => {
                         html: `<p class="font-mono">
                                     Please be patient, once the transaction has miner confirmations it can be viewed here.
                                     <br><br>
-                                    <a  class="text-blue-300" target="_blank" href="https://viewblock.io/arweave/tx/${tx.id}">
+                                    <a  class="text-blue-300" target="_blank" href="https://v2.viewblock.io/arweave/tx/${tx.id}">
                                         <button type="button" class="swal2-cancel border-prim2 font-mono swal2-styled" aria-label="" style="display: inline-block; width: 75%; margin-left: 0px">Open TX</button>
                                     <a/>
                                 </p>`,

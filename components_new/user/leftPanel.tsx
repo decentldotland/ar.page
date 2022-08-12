@@ -9,7 +9,7 @@ type Props = {
 };
 export const LeftPanel = (props: Props) => {
     return (
-        <div className="flex flex-col justify-between h-body">
+        <div className="flex flex-col justify-between h-body px-auto">
             <Items />
             <User />
         </div>

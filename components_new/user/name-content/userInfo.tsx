@@ -70,7 +70,7 @@ export const UserInfo = (props: Props) => {
                     }}>
                     {
                         props.userInfo?.avatar &&
-                        <img src={`https://arweave.net/${props.userInfo?.avatar}`}
+                        <img src={`https://pz-prepnb.meson.network/${props.userInfo?.avatar}`}
                             alt="Profile" width="100%" height="100%" />
                     }
                 </div>

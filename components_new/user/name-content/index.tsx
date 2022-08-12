@@ -32,7 +32,7 @@ export const NameContent = (props: Props) => {
 
 
     return (
-        <div className="h-[36px] w-full my-8 container">
+        <div className="h-[36px] w-full my-4 container">
         <div className="flex flex-row flex-wrap lg:mx-auto mx-5 max-w-3xl">
             <UserInfo userInfo={props.userInfo} />
             <Labels userInfo={props.userInfo} />

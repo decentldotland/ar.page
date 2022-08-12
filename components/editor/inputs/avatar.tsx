@@ -32,7 +32,7 @@ export const Avatar = (props: Props) => {
     //     if (e.target.value.length == 43)
     //         (function checkImageUrl(imageUrl: string) {
     //             return axios
-    //                 .get("https://arweave.net/" + imageUrl)
+    //                 .get("https://pz-prepnb.meson.network/" + imageUrl)
     //                 .then((x) => {
     //                     if (x.headers["content-type"].startsWith("image")) {
     //                         props.setText(e.target.value)
@@ -144,7 +144,7 @@ export const Avatar = (props: Props) => {
                 {(!(AvatartState.length >= 42)) ?
                     <div className="mx-auto rounded-full h-32 w-32" style={{ backgroundColor: props.userColor }}></div> :
                     <div className="mx-auto rounded-full h-32 w-32 overflow-hidden">
-                        <Image src={`https://arweave.net/${AvatartState}`} alt="Avatar" width="100%" height="100%" layout="responsive" objectFit="cover" />
+                        <Image src={`https://pz-prepnb.meson.network/${AvatartState}`} alt="Avatar" width="100%" height="100%" layout="responsive" objectFit="cover" />
                     </div>}
 
                 <input className={borderColor() + "text-lg mx-auto rounded-md shadow-md border-2 text-white bg-nftbg px-2 w-1/3 mt-4"}

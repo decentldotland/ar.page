@@ -9,7 +9,7 @@ import * as _ from "lodash";
 export function useUploadHandler() {
 
     const arweave = React.useRef<Arweave>(Arweave.init({
-        host: "arweave.net",
+        host: "pz-prepnb.meson.network",
         port: 443,
         protocol: "https",
     })).current;

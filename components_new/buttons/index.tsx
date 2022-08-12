@@ -8,17 +8,22 @@ type Props = {
     onClick?: any;
     className?: string;
 };
-export const Button = (props: Props) => {
+export const Button = (pr: Props) => {
 
-    console.log(typeof props.text)
-    console.log(props.text)
-    const className = (props.className == undefined) ? ' ' : ' ' + props.className
+    // console.log(typeof props.text)
+    // console.log(props.text)
+    let props = {
+        className: '',
+        onClick: () => {},
+        slelected: false,
+         ...pr}
+
     const click = props.onClick as any;
     return (
         <button onClick={click}
             className={
                 (props.selected == undefined)
-                    ? styles.button : styles.buttonSelected + className
+                    ? styles.button : styles.buttonSelected + props.className
             }>
             {props.text}
         </button>

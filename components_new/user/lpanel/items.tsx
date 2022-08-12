@@ -10,7 +10,7 @@ type Props = {
 };
 export const Items = (props: Props) => {
     return (
-        <div className="grid gap-y-2.5 h-[110px] mt-[35px]">
+        <div className="grid h-[65px] mt-4 mx-5">
         <Button selected className={styles.lpanel.items.buttons.button} text={
                 <div className={styles.lpanel.items.buttons.div}>
                 <div className={styles.lpanel.items.buttons.divDiv}>
@@ -19,14 +19,14 @@ export const Items = (props: Props) => {
                     <div className="-mr-2.5">Profile</div>
                 </div>
             } />
-            <Button selected className={styles.lpanel.items.buttons.button} text={
+            {/* <Button selected className={styles.lpanel.items.buttons.button} text={
                 <div className={styles.lpanel.items.buttons.div}>
                 <div className={styles.lpanel.items.buttons.divDiv}>
                     <FontAwesomeIcon icon={faDollarSign} className="w-3 mb-1"/>
                     </div>
                     <div className="-mr-2.5">Tokens</div>
                 </div>
-            } />
+            } /> */}
             <Button selected className={styles.lpanel.items.buttons.button} text={
                 <div className={styles.lpanel.items.buttons.div}>
                 <div className={styles.lpanel.items.buttons.divDiv}>

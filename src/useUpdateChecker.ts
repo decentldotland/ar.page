@@ -12,7 +12,7 @@ export function useUpdateChecker(callback: any, delay: number) {
     // const [loading, setLoading] = useState(false);
 
     const arweave = React.useRef<Arweave>(Arweave.init({
-        host: "arweave.net",
+        host: "pz-prepnb.meson.network",
         port: 443,
         protocol: "https",
         timeout: 45000,
