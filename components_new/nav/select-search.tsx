@@ -7,7 +7,17 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../styles/templates';
 import { random } from 'lodash';
 
-const CustomSelect = ({ options, multiple, disabled, placeholder }: { options: { value: string, name: string }[], value: string, multiple: boolean, disabled: boolean, placeholder: string }) => {
+const CustomSelect = ({ options, multiple, disabled, placeholder }: 
+    { options: 
+        { 
+            value: string; 
+            name: string 
+        }[]; 
+        value: string; 
+        multiple: boolean; 
+        disabled: boolean; 
+        placeholder: string 
+    }) => {
 
 
     const [val, setVal] = React.useState<string>('')
