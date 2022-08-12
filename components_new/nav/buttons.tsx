@@ -25,9 +25,9 @@ export const NavButtons = (props: Props) => {
             {/* <Button onClick={() => {}}  text="Names" /> */}
 
             {(walletConnected && 
-            <Button text="Disconnect" onClick={() => (arconnectDisconnect as Function)()} />
+            <Button text="Disconnect" className="hover:hidden" onClick={() => (arconnectDisconnect as Function)()} />
             ) || (
-            <Button text="Connect" onClick={() => (arconnectConnect as Function)()} />)}
+            <Button text="Connect" className="hover:hidden" onClick={() => (arconnectConnect as Function)()} />)}
 
             {/* <Button text={<Sun />} onClick={() => {}}  /> */}
         </div>

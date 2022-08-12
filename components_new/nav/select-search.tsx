@@ -40,8 +40,8 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
     }, [show]);
 
     const router = useRouter()
-    // console.log(items);
-    const handleEnter = React.useCallback((event: any) => {
+    // @ts-ignore
+    const handleEnter = React.useCallback((event) => {
         if (event.key === 'Enter') {
             if (options.map((item: any) => item.name).includes(val))
                 window.location.href = `/p/${val}/#top`
@@ -79,8 +79,10 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
         <div className="rounded-full h-7 border-blue-200 border-2" ref={container}>
             {/* <button className="w-24 h-4 bg-red-300" {...valueProps}>{snapshot.displayValue}</button> */}
             <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute mt-1 left-[4px] lg:mr-1 mr-0" width="15" height="15" />
+            {/* @ts-ignore */}
             <input {...valueProps} 
-            onKeyDown={handleEnter} style={{ paddingLeft: "22px", width: "316px" }} 
+            onKeyDown={handleEnter} 
+            style={{ paddingLeft: "22px", width: "316px" }} 
             value={val} onChange={handleChange} onFocus={() => setShow(true)} 
             placeholder={placeholder}
             className="rounded-full border-white pr-4 h-6" />
@@ -96,6 +98,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                                         window.location.href = `/p/${option.name}/#top`
                                     }
                                 }>
+                                    {/* @ts-ignore */}
                                     <button {...optionProps} className="w-full text-[#1273EA]" value={option.value} >{option.name}</button>
                                 </li>
                             ))}
