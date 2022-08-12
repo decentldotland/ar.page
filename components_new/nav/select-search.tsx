@@ -11,9 +11,8 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
     { options: 
         { 
             value: string; 
-            name: string 
+            name: string;
         }[]; 
-        value: string; 
         multiple: boolean; 
         disabled: boolean; 
         placeholder: string 
