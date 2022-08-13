@@ -24,11 +24,12 @@ export const NavButtons = (props: Props) => {
             </Link>
             {/* <Button onClick={() => {}}  text="Names" /> */}
 
-            {(walletConnected && 
-            <Button text="Disconnect" className="hover:hidden" onClick={() => (arconnectDisconnect as Function)()} />
-            ) || (
-            <Button text="Connect" className="hover:hidden" onClick={() => (arconnectConnect as Function)()} />)}
-
+            <div className="md:flex hidden">
+                {(walletConnected && 
+                <Button text="Disconnect" className="hover:hidden" onClick={() => (arconnectDisconnect as Function)()} />
+                ) || (
+                <Button text="Connect" className="hover:hidden" onClick={() => (arconnectConnect as Function)()} />)}
+            </div>
             {/* <Button text={<Sun />} onClick={() => {}}  /> */}
         </div>
     );
