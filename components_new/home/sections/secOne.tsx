@@ -10,11 +10,11 @@ export const SectionOne = (props: Props) => {
 
     return (
         <div className="flex flex-row md:flex-nowrap flex-wrap mx-auto mt-8 max-w-4xl gap-x-8">
-            <div className="flex flex-col w-full md:w-2/3">
+            <div className="flex flex-col w-full md:w-2/3 mb-16">
                 <h3 className={[styles.Header, styles.Section.h3, "w-full"].join(' ')}>
                     What is ANS?
                 </h3>
-                <h6 className={[styles.Section.h6, "w-full"].join(' ')}>
+                <h6 className={[styles.Section.h6, "w-full mb-12"].join(' ')}>
                     Arweave Names Service combines a decentralized domains naming service and a decentralized Gravatar-like protocol into a new protocol called ANS. Learn more about ANS.
                 </h6>
                 <h3 className={[styles.Header, styles.Section.h3, "w-full"].join(' ')}>
@@ -24,7 +24,7 @@ export const SectionOne = (props: Props) => {
                     ar.page is a web app that renders your ANS metadata in a page displaying your profile&apos;s data, and aggregates a feed of your activities over the Arweave network (Ardrive, Koii, Permacast, etc).
                 </h6>
             </div>
-            <div className="flex flex-row flex-wrap w-full md:w-1/3 justify-center h-48">
+            <div className="flex flex-row flex-wrap w-full md:w-1/3 justify-center h-48 mt-4">
                 <div className="relative w-full">
                     {
                         [["xy", 32, 28], ["letey", 150, 168],
