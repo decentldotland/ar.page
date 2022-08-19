@@ -19,6 +19,13 @@ html {
   padding: 0;
 }
 
+@layer components {
+  .transition-smooth {
+    @apply transition duration-300 ease-in-out;
+  }
+
+}
+
 #Tweets::-webkit-scrollbar {
   display: none;
   -ms-overflow-style: none;  /* IE and Edge */

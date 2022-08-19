@@ -71,7 +71,7 @@ export const UserInfo = (props: Props) => {
         return (
             <div className="flex lg:gap-1 lg:mr-4 mt-0 w-[32px] justify-center">
                 {url &&
-                    <a className="flex lg:gap-1 lg:mr-2 mr-0 text-primary" href={socialMedias?.[type].url + url}>
+                    <a className="flex lg:gap-1 lg:mr-2 mr-0 text-base-content" href={socialMedias?.[type].url + url}>
                         <FontAwesomeIcon icon={socialMedias?.[type].icon} className="pb-2 lg:mr-1 mr-0" width="20" height="30" />
                     </a>
                 }
@@ -90,7 +90,7 @@ export const UserInfo = (props: Props) => {
                         border: `2px solid ${props.userInfo?.address_color}`
                     }}>
                     {
-                        !props.userInfo?.avatar ?
+                        props.userInfo?.avatar ?
                             <img src={`https://pz-prepnb.meson.network/${props.userInfo?.avatar}`} alt="Profile" width="100%" height="100%" />
                             : 
                             <div className="relative bg-gradient-to-l from-[#9E00FF] to-[#1273EA] w-full h-full text-center rotate-45">
@@ -137,7 +137,7 @@ export const UserInfo = (props: Props) => {
 
 
             {(Object.keys(links).length > 0) && 
-                <div className="my-auto mt-2 text-black text-end justify-end align-end flex gap-0 underline">
+                <div className="my-auto mt-2 text-end justify-end align-end flex gap-0">
                     {/* <h1 className="text-sviolet text-left font-extrabold text-lg">Social Links: </h1> */}
                     <Icon url={instagram} type={'instagram'} />
                     <Icon url={twitter} type={'twitter'} />

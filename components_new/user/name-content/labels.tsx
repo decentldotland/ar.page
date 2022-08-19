@@ -39,9 +39,9 @@ export const Labels = (props: Props) => {
                                     key={owned.acquisationBlock}
                                     content={`Scarcity: ${owned.scarcity} `}
                                     className="font-mono font-extrabold text-lg">
-                                    <>
-                                    <Button text={`${owned.label}.ar`} selected={true} />
-                                    </>
+                                    <button className="btn btn-sm btn-primary">
+                                        {owned.label}.ar
+                                    </button>
                                 </Tippy>
                             </div>
                         )

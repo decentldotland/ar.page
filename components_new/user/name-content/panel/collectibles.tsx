@@ -27,22 +27,9 @@ type Props = {
 };
 export const Collectibles = (props: Props) => {
 
-    const [openList, setOpenList] = React.useState<boolean>(false);
-
     return (
-        <div className="flex flex-wrap mt-8 w-full h-[34.5vh] pb-8">
-            <div className="flex flex-row justify-between w-full text-[#656] font-medium text-xs">
-                <div className="text-start">
-                    Collectibles
-                </div>
-                <div className="text-end" onClick={() => setOpenList(isOpen => !isOpen)}>
-                    {openList ? "Collapse View" : "View all"}
-                </div>
-            </div>
-
-            <div className="text-black w-full font-normal text-sm h-fit max-h-[62.5vh]">
-                <Nfts userInfo={props.userInfo} open={openList} />
-            </div>
+        <div className="flex flex-wrap mt-8 w-full h-[53vh] ">
+            <Nfts userInfo={props.userInfo} />
         </div>
     );
 };

@@ -85,21 +85,21 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
             // style={{ paddingLeft: "22px" }} 
             value={val} onChange={handleChange} onFocus={() => setShow(true)} 
             placeholder={placeholder}
-            className="inputs bg-base-100 input-bordered pr-4 ml-5 pl-6 w-10/12 h-2 font-sans leading-3 font-light py-4 rounded-none focus:outline-none border-0 mb-0.5 focus:mb-0 focus:border-b-2 focus:border-primary" />
+            className="input-bordered pr-4 ml-5 pl-6 w-10/12 h-2 font-sans leading-3 font-light py-4 rounded-none focus:outline-none border-0 mb-0.5 focus:mb-0 focus:border-b-2 focus:border-primary" />
             {show && (
-                <div className="h-fit mt-1 bg-primary/90 shadow-lg px-2 w-[200px]">
+                <div className="h-fit mt-1 p-2 bg-base-100 rounded-md w-[200px]">
                     <ul className="h-full my-2">
                         {snapshot.options
                             .filter((i: any) => i.name.toLowerCase().includes(val.toLowerCase()))
                             .slice(0, 3)
                             .map((option) => (
-                                <li key={option.name} className="w-full mt-1 rounded-md bg-blue-200 active:bg-blue-100" onClick={
+                                <li key={option.name} className="w-full mt-1 rounded-md" onClick={
                                     (event) => {
                                         window.location.href = `/p/${option.name}/#top`
                                     }
                                 }>
                                     {/* @ts-ignore */}
-                                    <button {...optionProps} className="w-full text-[#1273EA]" value={option.value} >{option.name}</button>
+                                    <button {...optionProps} className="w-full btn btn-primary btn-sm" value={option.value} >{option.name}</button>
                                 </li>
                             ))}
                     </ul>
