@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply text-sm !justify-start rounded-[6px] !py-1.5 !px-2.5 !font-light;
+  }
+  .btn-primary {
+    @apply !text-primary !bg-primary/20 hover:!bg-primary/30 !border-transparent;
+  }
+  .btn-sm {
+    @apply text-xs;
+  }
+  .btn-sm-primary {
+    @apply btn btn-sm btn-primary;
+  }
+}

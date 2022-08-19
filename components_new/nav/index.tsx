@@ -6,7 +6,7 @@ import SearchBox from './select-search';
 // type Props = {
 //     userInfo?: any;
 // };
-export const Nav = () => {
+export const Nav = (props:any) => {
 
 
     const [userInfo, setUserInfo] = React.useState<any>({});
@@ -22,20 +22,20 @@ export const Nav = () => {
         };
         fetchData();
     }, []);
-
+    const toggleDark = props.toggleDark
     return (
-        <div className="bg-white flex flex-row justify-end h-[56px] w-full drop-shadow-xl relative overflow-visible z-10">
-            <div className="absolute left-0 mt-[15px] ml-4  overflow-visible h-full">
+        <div className="bg-base-100 flex h-[56px] w-full overflow-visible z-10">
+            <div className="mt-[15px] ml-4 overflow-visible h-full w-full">
                 <SearchBox
                     multiple={false}
                     disabled={false}
-                    placeholder="Search for a labels..."
+                    placeholder="Search for a name or address..."
                     // className="w-96"
                     // items={["test", "test0", "test1", "test2", "test3", "test4"]} />
                     // items={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} />
                     options={userInfo.res && userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} />
             </div>
-            <NavButtons />
+            <NavButtons toggleDark={toggleDark} />
         </div>
     );
 };

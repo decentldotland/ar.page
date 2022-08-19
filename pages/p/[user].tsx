@@ -39,12 +39,11 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                     <meta name="twitter:url" content={`https://${userInfo.currentLabel}.ar.page`}></meta>
                     <meta name="twitter:description" content={userInfo.bio} />
                 </Head>
-                <div className="flex flex-row flex-wrap h-full w-[100%] relative">
-                    <div className="w-[191px] bg-white lg:flex hidden">
+                <div className="md:flex h-full w-full relative">
+                    <div className="w-[250px] md:block hidden bg-base-100">
                         <LeftPanel />
                     </div>
-                    <div className="w-[191px] lg:flex hidden relative" />
-                    <div className="lg:w-[80.5%] mx-auto h-body overflow-y-scroll absolute right-0">
+                    <div className="w-full h-body overflow-y-scroll bg-base-200/40">
                         <NameContent userInfo={userInfo} />
                     </div>
                 </div>

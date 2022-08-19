@@ -29,16 +29,14 @@ type Props = {
 };
 export const NameContent = (props: Props) => {
 
-
-
     return (
-        <div className="h-[36px] w-full my-4 container">
-        <div className="flex flex-row flex-wrap lg:mx-auto mx-5 max-w-3xl">
-            <UserInfo userInfo={props.userInfo} />
-            <Labels userInfo={props.userInfo} />
-            <Panel userInfo={props.userInfo} />
-            {/* <div className="h-0 w-full -mx-10"></div> */}
-        </div>
+        <div className="h-[36px] w-full my-4 ">
+            <div className="flex flex-wrap mx-10 max-w-full rounded-lg">
+                <UserInfo userInfo={props.userInfo} />
+                <Labels userInfo={props.userInfo} />
+                <Panel userInfo={props.userInfo} />
+                {/* <div className="h-0 w-full -mx-10"></div> */}
+            </div>
         </div>
     );
 };

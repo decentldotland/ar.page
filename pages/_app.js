@@ -3,6 +3,7 @@ import { Layout } from '../components_new/layout'
 
 import '../styles/globals.css'
 import '../styles/tippy.css'
+import '../styles/daisyUI.css'
 import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
 import { AnimatePresence } from "framer-motion";

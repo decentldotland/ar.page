@@ -76,24 +76,24 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
     });
 
     return (
-        <div className="rounded-full h-7 border-blue-200 border-2" ref={container}>
+        <div className="relative h-7 outline-none w-full" ref={container}>
             {/* <button className="w-24 h-4 bg-red-300" {...valueProps}>{snapshot.displayValue}</button> */}
-            <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute mt-1 left-[4px] lg:mr-1 mr-0 ml-1" width="15" height="15" />
+            <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute mt-2.5 left-4 ml-1" width="15" height="15" />
             {/* @ts-ignore */}
             <input {...valueProps} 
             onKeyDown={handleEnter} 
             // style={{ paddingLeft: "22px" }} 
             value={val} onChange={handleChange} onFocus={() => setShow(true)} 
             placeholder={placeholder}
-            className="rounded-full border-white pr-4 pl-6 h-6" />
+            className="inputs bg-base-100 input-bordered pr-4 ml-5 pl-6 w-10/12 h-2 font-sans leading-3 font-light py-4 rounded-none focus:outline-none border-0 mb-0.5 focus:mb-0 focus:border-b-2 focus:border-primary" />
             {show && (
-                <div className="h-fit mt-1 bg-white rounded-lg shadow-lg border-blue-200 border-2 px-2">
+                <div className="h-fit mt-1 bg-primary/90 shadow-lg px-2 w-[200px]">
                     <ul className="h-full my-2">
                         {snapshot.options
                             .filter((i: any) => i.name.toLowerCase().includes(val.toLowerCase()))
                             .slice(0, 3)
                             .map((option) => (
-                                <li key={option.name} className="w-full mt-1 rounded-md  bg-blue-200 active:bg-blue-100" onClick={
+                                <li key={option.name} className="w-full mt-1 rounded-md bg-blue-200 active:bg-blue-100" onClick={
                                     (event) => {
                                         window.location.href = `/p/${option.name}/#top`
                                     }
