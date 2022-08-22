@@ -1,12 +1,10 @@
-// @flow 
+import Image from 'next/image';
 import * as React from 'react';
 import { useAns } from 'ans-for-all';
+import Avatar from '../../avatar';
+import Favicon from '../../../public/favicon.ico';
 
-type Props = {
-
-};
-export const User = (props: Props) => {
-
+export const User = (props: any) => {
     const {
         walletConnected,
         ansData,
@@ -18,42 +16,42 @@ export const User = (props: Props) => {
     }, [walletConnected]);
 
     return (
-        <div className="h-[36px]">
+        <div className="h-[36px] mx-4 mb-4">
             <>
                 {(walletConnected && (
                     <div className="flex flex-row gap-x-2.5">
-                        {(ansData?.avatar === "") ?
-                            <div className="flex rounded-full h-[26px] w-[26px] overflow-hidden ml-2 btn-secondary border-[2px] mt-[4px]" style={{ backgroundColor: ansData?.address_color, border: `2px solid ${ansData?.address_color}` }}></div> :
-                            <div className="flex rounded-full h-[26px] w-[26px] overflow-hidden ml-2 btn-secondary border-[2px] mt-[4px]" style={{ backgroundColor: ansData?.address_color, border: `2px solid ${ansData?.address_color}` }}>
-                                <img src={`https://pz-prepnb.meson.network/${ansData?.avatar}`} alt="Profile" width="100%" height="100%" />
-                            </div>}
-
-                        {/* nickname and label */}
-                        <div className="flex flex-col mt-1">
-                            <div className="text-xs font-medium">
-                                {ansData?.currentLabel}
+                        <Avatar ansData={ansData} />
+                        {ansData && (ansData.avatar || ansData.currentLabel || ansData.address_color ) ? (
+                            <>
+                                {/* nickname and label */}
+                                <div className="flex flex-col mt-0.5">
+                                    <div className="text-sm font-medium">
+                                        {ansData?.currentLabel}
+                                    </div>
+                                    <div className="text-[#656] text-xs font-normal">
+                                        {ansData?.currentLabel}.ar
+                                    </div>
+                                </div>
+                            </>
+                        ): (
+                            <div className="bg-gray-400/40 px-4 h-full rounded-md animate-pulse">
+                                Loading...
                             </div>
-                            <div className=" text-[#656] text-[10px] font-normal">
-                                {ansData?.currentLabel}.ar
-                            </div>
-                        </div>
+                        )}
                     </div>
                 )) || (
-                        <div className="flex flex-row gap-x-2.5">
+                        <div className="flex flex-row gap-x-2.5 items-center">
                             <div
-                                className='flex rounded-full h-[26px] w-[26px] overflow-hidden ml-2 btn-secondary border-[2px] mt-[4px]'
+                                className='flex rounded-full h-9 w-9 overflow-hidden bg-primary border-[2px] mt-[4px]'
                                 onClick={arconnectConnect}
                             >
-                                <img className='h-[24px] w-[24px] mx-auto my-auto' src="https://nanofuxion.ar.page/favicon.png"></img>
+                                <Image src={Favicon} width={36} height={36} className='mx-auto my-auto' alt="" />
                             </div>
 
                             {/* nickname and label */}
-                            <div className="flex flex-col mt-1">
+                            <div className="flex flex-col mt-1 max-w-[80px]">
                                 <div className="text-xs font-medium">
-                                    Connected wallet.
-                                </div>
-                                <div className=" text-[#656] text-[10px] font-normal">
-                                    Connected wallet.
+                                    No wallet detected...
                                 </div>
                             </div>
                         </div>

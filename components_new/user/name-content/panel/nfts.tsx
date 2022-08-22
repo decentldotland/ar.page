@@ -72,10 +72,11 @@ export const Nfts = (props: Props) => {
     return (
         <>
             <div className="flex flex-row justify-between w-full font-medium text-xs">
+                {NFTS.length > 0 &&
                 <div className="text-start">
                     Collectibles
-                </div>
-                {NFTS.length > 0 && 
+                </div>}
+                {NFTS.length > 3 && 
                     <button className="btn btn-sm btn-secondary btn-outline text-end" onClick={() => setOpenList(isOpen => !isOpen)}>
                         {openList ? "Collapse View" : "View all"}
                     </button>

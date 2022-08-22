@@ -40,7 +40,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                     <meta name="twitter:description" content={userInfo.bio} />
                 </Head>
                 <div className="md:flex h-full w-full relative">
-                    <div className="w-[250px] md:block hidden bg-base-100">
+                    <div className="h-full max-h-full overflow-clip w-[250px] md:block hidden bg-base-100">
                         <LeftPanel />
                     </div>
                     <div className="w-full h-body overflow-y-scroll bg-base-200/40">
@@ -56,6 +56,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
 
 User.getInitialProps = async ({ query }: { query: { user: string; } }) => {
     try {
+        if (!query.user) return
         const res = await axios.get(`https://ans-testnet.herokuapp.com/profile/${query.user}`);
         const userInfo = res.data;  // <-- Access one more data object here
         return { pathFullInfo: userInfo };

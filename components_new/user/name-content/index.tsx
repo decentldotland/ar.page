@@ -27,6 +27,7 @@ type Props = {
         freeSubdomains: number;
     };
 };
+
 export const NameContent = (props: Props) => {
 
     return (

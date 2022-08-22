@@ -6,31 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
 import { useAns } from 'ans-for-all';
 import * as React from 'react';
-type Props = {
-    userInfo: {
-        user: string;
-        currentLabel: string;
-        ownedLabels?: {
-            label: string;
-            scarcity: string;
-            acquisationBlock: number;
-            mintedFor: number;
-        }[],
-        nickname?: string;
-        address_color: string;
-        bio?: string;
-        avatar?: string;
-        links?: {
-            github?: string;
-            twitter?: string;
-            customUrl?: string;
-            instagram?: string;
-        },
-        subdomains?: any;
-        freeSubdomains: number;
-    };
-};
-export const UserInfo = (props: Props) => {
+import { ANSData, userInfo } from '../../../src/types';
+import Avatar from '../../avatar';
+
+export const UserInfo = (props: userInfo) => {
 
     const links = props.userInfo.links !== undefined ? props.userInfo.links : {};
 
@@ -81,24 +60,20 @@ export const UserInfo = (props: Props) => {
 
     // @ts-ignore
     const { instagram, twitter, github, customUrl } = props?.userInfo?.links;
+    const { currentLabel, address_color, avatar } = props?.userInfo;
+
+    const ansData:ANSData = {
+        currentLabel: currentLabel,
+        address_color: address_color,
+        avatar: avatar,
+    };
+
     return (
         <div className="flex w-full gap-x-2.5 justify-between">
             <div className="flex w-full gap-x-2.5 items-center">
-                <div className="flex rounded-full h-[36px] w-[36px] overflow-hidden btn-secondary border-[2px] mt-1"
-                    style={{
-                        backgroundColor: props.userInfo?.address_color,
-                        border: `2px solid ${props.userInfo?.address_color}`
-                    }}>
-                    {
-                        props.userInfo?.avatar ?
-                            <img src={`https://pz-prepnb.meson.network/${props.userInfo?.avatar}`} alt="Profile" width="100%" height="100%" />
-                            : 
-                            <div className="relative bg-gradient-to-l from-[#9E00FF] to-[#1273EA] w-full h-full text-center rotate-45">
-                                <span className="-rotate-45 absolute top-1 left-[11.5px] uppercase">{props?.userInfo?.currentLabel?.[0]}</span>
-                            </div>
-                    }
-                </div>
-
+                {props?.userInfo && (
+                    <Avatar ansData={ansData} />
+                )}
                 {/* nickname and label */}
                 <div className="flex flex-col">
                     <div className="text-lg font-medium">
@@ -128,8 +103,6 @@ export const UserInfo = (props: Props) => {
                                     {/* <FontAwesomeIcon icon="fa-regular fa-globe" /> */}
                                 {/* </div> */}
                             </div>
-
-
                         </Tippy>
                     </div>
                 </div>

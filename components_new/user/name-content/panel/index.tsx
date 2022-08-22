@@ -1,7 +1,9 @@
 // @flow 
 import * as React from 'react';
 import { Bio } from './bio';
+import { Tweets } from '../../../../components/Tweets';
 import { Collectibles } from './collectibles';
+
 type Props = {
     userInfo: {
         user: string;
@@ -36,6 +38,11 @@ export const Panel = (props: Props) => {
             <Bio text={bio} />
             {/* <div className="h-0 w-full -mx-10"></div> */}
             <Collectibles userInfo={props.userInfo} />
+            {/* {props.userInfo?.links?.twitter && (
+                <div className="flex flex-col w-1/3" >
+                    <Tweets user={props.userInfo.links.twitter} className="mt-6 pb-5 px-6 overflow-y-hidden hidden lg:grid shrink-0" style={{height:"26.5rem"}} />
+                </div> 
+            )} */}
         </div>
     );
 };
