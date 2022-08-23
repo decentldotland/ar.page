@@ -16,13 +16,13 @@ export const User = (props: any) => {
     }, [walletConnected]);
 
     return (
-        <div className="h-[36px] mx-4 mb-4">
+        <div className="h-9 mx-4 mb-4">
             <>
                 {(walletConnected && (
                     <div className="flex flex-row gap-x-2.5">
-                        <Avatar ansData={ansData} />
                         {ansData && (ansData.avatar || ansData.currentLabel || ansData.address_color ) ? (
                             <>
+                                <Avatar ansData={ansData} />
                                 {/* nickname and label */}
                                 <div className="flex flex-col mt-0.5">
                                     <div className="text-sm font-medium">

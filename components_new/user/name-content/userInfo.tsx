@@ -48,10 +48,10 @@ export const UserInfo = (props: userInfo) => {
 
     const Icon = ({type, url}:any) => {
         return (
-            <div className="flex lg:gap-1 lg:mr-4 mt-0 w-[32px] justify-center">
+            <div className="flex ml-4 mt-0 w-[32px] justify-center">
                 {url &&
-                    <a className="flex lg:gap-1 lg:mr-2 mr-0 text-base-content" href={socialMedias?.[type].url + url}>
-                        <FontAwesomeIcon icon={socialMedias?.[type].icon} className="pb-2 lg:mr-1 mr-0" width="20" height="30" />
+                    <a className="flex text-base-content" href={socialMedias?.[type].url + url}>
+                        <FontAwesomeIcon icon={socialMedias?.[type].icon} className="w-5 h-[32px]" />
                     </a>
                 }
             </div>
@@ -76,7 +76,7 @@ export const UserInfo = (props: userInfo) => {
                 )}
                 {/* nickname and label */}
                 <div className="flex flex-col">
-                    <div className="text-lg font-medium">
+                    <div className="text-lg font-medium leading-6">
                         {props.userInfo.currentLabel}
                     </div>
                     <div onClick={copy}
@@ -110,7 +110,7 @@ export const UserInfo = (props: userInfo) => {
 
 
             {(Object.keys(links).length > 0) && 
-                <div className="my-auto mt-2 text-end justify-end align-end flex gap-0">
+                <div className="mt-2 flex flex-end gap-0 ">
                     {/* <h1 className="text-sviolet text-left font-extrabold text-lg">Social Links: </h1> */}
                     <Icon url={instagram} type={'instagram'} />
                     <Icon url={twitter} type={'twitter'} />

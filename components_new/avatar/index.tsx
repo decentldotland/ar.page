@@ -15,7 +15,6 @@ function Avatar ({ansData, options} :{ansData: ANSData, options?: AvatarOptions}
   else {
     if (ansData.avatar) url = `${MESON_URL + ansData.avatar}`;
   }
-  // debugger;
 
   return (
     <div className="flex rounded-full overflow-hidden border-[2px] mt-1"
@@ -30,7 +29,7 @@ function Avatar ({ansData, options} :{ansData: ANSData, options?: AvatarOptions}
         <img src={url} className="w-full h-full" alt="Profile" />
         : 
         <div className="relative flex items-center justify-center w-full h-full">
-          <div className="absolute z-10 uppercase select-none bg-inherit">{ansData.currentLabel?.[0] || "?"}</div>
+          <div className="absolute z-10 uppercase select-none bg-inherit text-white font-medium text-xl">{ansData.currentLabel?.[0] || "?"}</div>
           <div className="absolute bg-gradient-to-l from-[#9E00FF] to-[#1273EA] rotate-45 origin-center w-full h-full"></div>
         </div>
       }

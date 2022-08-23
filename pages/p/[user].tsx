@@ -7,8 +7,6 @@ import Index from '../../components_new/home'
 import { LeftPanel } from '../../components_new/user/leftPanel';
 import { NameContent } from '../../components_new/user/name-content';
 
-// import { Fab } from '../../components/editor/fab';
-
 
 const User = ({ uInfo, pathFullInfo }: any) => {
     const [hasTwtr, setHasTwtr] = React.useState<number>(2);
@@ -43,7 +41,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                     <div className="h-full max-h-full overflow-clip w-[250px] md:block hidden bg-base-100">
                         <LeftPanel />
                     </div>
-                    <div className="w-full h-body overflow-y-scroll bg-base-200/40">
+                    <div className="w-full h-body overflow-y-scroll bg-base-200/25">
                         <NameContent userInfo={userInfo} />
                     </div>
                 </div>
