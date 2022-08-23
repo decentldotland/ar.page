@@ -112,18 +112,20 @@ export const Nfts = (props: Props) => {
                         className='rounded-md relative'
                         // className={"h-full w-full"}
                         >
-
+{/* 
                         <img
                             className='h-32 mx-auto my-auto border-2 border-[#1273EA] bg-[#1273EA] rounded-md'
                             src={`https://pz-prepnb.meson.network/${owned.id}`}>
-                        </img>
-                        
-                        {/* <Image src={`https://pz-prepnb.meson.network/${owned.id}`}
+                        </img> */}
+                        <div  className="rounded-lg overflow-hidden">
+                        <Image src={`https://pz-prepnb.meson.network/${owned.id}`}
                             alt={owned.title}
-                            width="100%" height="100%"
+                            // width={naturalRes[owned.id]?.width * naturalRes[owned.id]?.scale || "100%"} 
+                            // height={naturalRes[owned.id]?.height * naturalRes[owned.id]?.scale || "100%"}
                             layout="fill" // required
-                            objectFit="cover" // change to suit your needs
-                            className="rounded-md border-2 border-[#1273EA] bg-[#1273EA]" // just an example
+                            objectFit="cover" //crops to fit the square
+                            // objectFit="scale-down" // has big blue rectangles in the background
+                            className="rounded-lg border-2 border-[#1273EA] bg-[#1273EA]" // just an example
                             onLoadingComplete={(e) => {
                                 const percent = (e.naturalHeight * (288 / e.naturalWidth) > 288) ? 288 / e.naturalHeight : 288 / e.naturalWidth;
                                 setNaturalRes((list: any) => {
@@ -135,13 +137,8 @@ export const Nfts = (props: Props) => {
                                         }
                                     }
                                 });
-                                console.log({
-                                    [owned.id]: {
-                                        width: Math.floor(e.naturalWidth * percent),
-                                        height: Math.floor(e.naturalHeight * percent),
-                                    }
-                                })
-                            }} /> */}
+                            }} />
+                            </div>
 
 
                         <div className="mb-8"></div>
