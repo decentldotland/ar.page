@@ -6,6 +6,7 @@ import { motion, useCycle } from "framer-motion";
 import { getWeaveAggregator } from "weave-aggregator";
 import Modal from '../../../../components/portal/modal';
 import ModelContent from './modelContent';
+import { MESON_URL } from '../../../../src/constants';
 type Props = {
     userInfo: {
         user: string;
@@ -118,7 +119,7 @@ export const Nfts = (props: Props) => {
                             src={`https://pz-prepnb.meson.network/${owned.id}`}>
                         </img> */}
                         <div  className="rounded-lg overflow-hidden">
-                        <Image src={`https://pz-prepnb.meson.network/${owned.id}`}
+                        <Image src={`${MESON_URL}/${owned.id}`}
                             alt={owned.title}
                             // width={naturalRes[owned.id]?.width * naturalRes[owned.id]?.scale || "100%"} 
                             // height={naturalRes[owned.id]?.height * naturalRes[owned.id]?.scale || "100%"}
