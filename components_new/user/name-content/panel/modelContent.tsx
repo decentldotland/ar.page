@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 import moment from 'moment';
 import { Rings } from 'react-loader-spinner';
+import { useRecoilState } from 'recoil';
+import { isDarkMode } from '../../../../atoms';
 
 import useWindowDimensions from '../../../../src/useWindowDimension';
 
@@ -17,6 +19,7 @@ const ModelContent = (props: Props) => {
     const { width: _width, height: _height } = useWindowDimensions();
 
     // const getScreenWidth
+    const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
 
     const {
@@ -37,7 +40,7 @@ const ModelContent = (props: Props) => {
     return (
 
         <div className="relative w-full h-full  max-h-[100vh] overflow-y-auto hideScroll0">
-        <div className="rounded-md mx-1 top-0 p-2 max-w-full lg:max-w-screen-md lg:mx-auto h-min  bg-[#FAFAFA] shadow-md border-2 border-blue-200 shadow-black">
+        <div data-theme={isDark ? "ardark": "arlight"}  className="rounded-md mx-1 top-0 p-2 max-w-full lg:max-w-screen-md lg:mx-auto h-min  bg-[#FAFAFA] shadow-md border-2 border-blue-200 shadow-black">
         <FontAwesomeIcon icon={faCircleXmark} onClick={() => handleClose()} className="absolute lg:relative top-3 lg:top-1 right-4 lg:right-1 float-right  text-[#1273EA] rounded-full h-6" />
 
             <h1 className="text-2xl text-center font-extrabold text-[#1273EA] underline my-4 lg:mt-4 lg:mb-8">{current.title}</h1>
@@ -47,7 +50,7 @@ const ModelContent = (props: Props) => {
                     {(loading) ?
 
                         <div className="absolute grid mx-auto my-auto place-content-center lg:h-[288px] lg:w-[288px] h-1/2 w-full">
-                            <div className="rounded-md bg-[#FAFAFA] shadow-md border-2 border-blue-200 shadow-black"> 
+                            <div className="rounded-md bg-base-100 shadow-md border-2 border-blue-200 shadow-black"> 
                                 <Rings color={'#1273EA'}
                                     ariaLabel='loading'
                                     height={height}
@@ -71,13 +74,13 @@ const ModelContent = (props: Props) => {
                         </iframe>
                     </div>
                 </div>
-                <div className="flex flex-col lg:w-full lg:pt-4 bg-nftbg p-2 lg:h-[110%] lg:place-content-evenly mt-1 rounded-md shadow-lg border-2 border-blue-200">
-                    <h1 className="w-full text-[#656] font-medium text-xs top-0">{`Description`}<br />
-                        <h1 className="text-black font-normal text-sm">{current.description}</h1>
+                <div className="flex flex-col lg:w-full lg:pt-4 bg-base-200/40 p-2 lg:h-[110%] lg:place-content-evenly mt-1 rounded-md shadow-lg border-2 border-blue-200">
+                    <h1 className="w-full text-accent font-medium text-xs top-0">{`Description`}<br />
+                        <h1 className="text-base-content font-normal text-sm">{current.description}</h1>
                     </h1>
 
-                    <h1 className="w-full text-[#656] font-medium text-xs mt-2">{`Acquired`}<br />
-                        <h1 className="text-black font-normal text-sm">{` ${moment.unix(current.timestamp).format('llll')}`}</h1>
+                    <h1 className="w-full text-accent font-medium text-xs mt-2">{`Acquired`}<br />
+                        <h1 className="text-base-content font-normal text-sm">{` ${moment.unix(current.timestamp).format('llll')}`}</h1>
                     </h1>
 
                     {/* <h1 className="w-full text-[#656] font-medium text-xs mt-4">Displayed Scale<br />
@@ -85,7 +88,7 @@ const ModelContent = (props: Props) => {
                     </h1> */}
 
                     <div className="mt-2 justify-end">
-                        <a className="flex gap-x-2 underline w-full text-[#656] font-medium text-xs" href={`https://koi.rocks/content-detail/${current.id}`}>
+                        <a className="flex gap-x-2 underline w-full text-accent font-medium text-xs" href={`https://koi.rocks/content-detail/${current.id}`}>
                             <FontAwesomeIcon icon={faGlobe} className="pb-1" width="20" height="20" />
                             <h1 className="lg:flex">Koii Link</h1>
                         </a>
