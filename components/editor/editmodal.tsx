@@ -4,9 +4,11 @@ import { useRecoilState } from 'recoil';
 import { isEditorOpen } from '../../atoms';
 import Modal from '../portal/modal';
 import { Content } from './content';
+import { userInfo } from '../../src/types';
 type Props = {
     userColor: string;
     wallet: string;
+    userInfo: userInfo;
 };
 
 export const EditModal = (props: Props) => {
@@ -16,7 +18,7 @@ export const EditModal = (props: Props) => {
 
     return (
         <Modal handleClose={handleClose} isOpen={editEnabled}>
-            <Content userColor={props.userColor} wallet={props.wallet} handleClose={handleClose} />
+            <Content userColor={props.userColor} wallet={props.wallet} handleClose={handleClose} userInfo={props.userInfo} />
         </Modal>
     );
 };

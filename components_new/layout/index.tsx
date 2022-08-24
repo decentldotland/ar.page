@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { Nav } from '../../components_new/nav';
 import Script from 'next/script';
+import { useRecoilState } from 'recoil';
+import { isDarkMode } from '../../atoms';
 
 type Props = {
     children: JSX.Element;
@@ -9,8 +11,9 @@ type Props = {
 };
 export const Layout = (props: Props) => {
 
-    const [isDark, setIsDark] = useState(false);
-    const [loaded, setLoaded] = useState(false);
+    const [isDark, setIsDark] = useRecoilState(isDarkMode);
+    const [loaded, setLoaded] = useState(false); // necessary to remove FOUC
+
     const toggleDark = () => {
         if (isDark) {
             localStorage.theme = 'arlight';
@@ -35,6 +38,7 @@ export const Layout = (props: Props) => {
             {loaded && 
                 <div className="flex flex-col flex-wrap font-mono w-full h-screen" data-theme={isDark ? "ardark" : "arlight"}>
                     <Nav toggleDark={toggleDark} />
+                    {/* for detecting OS theme on browser load */}
                     <Script strategy="beforeInteractive">
                         {`
                             if (localStorage.theme === 'ardark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {

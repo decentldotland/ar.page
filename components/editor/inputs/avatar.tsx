@@ -4,10 +4,11 @@ import Image from 'next/image';
 // import axios from 'axios';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { uploadImage, uploadPercent } from '../../../atoms'
-
+import { MESON_URL } from '../../../src/constants';
 import Swal from 'sweetalert2'
 
 type Props = {
+    avatar: string | undefined;
     regex: string;
     userColor: string;
     setValidityCheck: Function;
@@ -23,6 +24,11 @@ export const Avatar = (props: Props) => {
     const inputRef = React.useRef<any>();
 
     const [thePreview, setThePreview] = React.useState("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==")
+    React.useEffect(() => {
+        if (props.avatar) {
+            setThePreview(MESON_URL + props.avatar)
+        }
+    }, [props.avatar])
 
     // new RegExp(`^@?([a-zA-Z0-9_]{1,${props.characterLimit}})$`, "i")).current;
 
@@ -61,7 +67,7 @@ export const Avatar = (props: Props) => {
     const readFileState = React.useCallback((event) => {
         var reader = new FileReader();
         reader.onload = function (e) {
-
+            
             setThePreview(URL.createObjectURL(event.target.files[0]));
 
             // console.log(Buffer.from(e.target?.result as ArrayBuffer));
@@ -136,7 +142,7 @@ export const Avatar = (props: Props) => {
         <div className="justify-start h-fit lg:h-72 my-3 px-3 w-full lg:w-2/5 flex flex-row flex-wrap">
 
             {/* <h1 className="text-xl mx-auto text-sviolet font-extrabold w-full">Avatar</h1> */}
-            <h1 className="text-xl mx-auto text-sviolet font-extrabold text-left w-full">Avatar</h1>
+            <h1 className="text-xl mx-auto text-primary font-extrabold text-left w-full">Avatar</h1>
             {/* <div className="lg:w-2/5 w-full flex flex-col"
             // lg:w-2/5 w-full
             >
@@ -164,7 +170,7 @@ export const Avatar = (props: Props) => {
             >
 
 
-                <label className="flex-wrap justify-center text-lg rounded-md shadow-md border-2 border-prim1 text-white bg-nftbg px-2 w-full lg:h-64 h-fit py-4 flex relative" htmlFor="profileUpload">
+                <label className="flex-wrap justify-center text-lg rounded-md shadow-md border-2 border-prim1 text-base-content bg-nftbg px-2 w-full lg:h-64 h-fit py-4 flex relative" htmlFor="profileUpload">
 
 
                     <div className="mx-auto rounded-full h-32 w-32 my-8 lg:my-0 overflow-hidden" style={{ backgroundColor: thePreview == "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" ? props.userColor : "transparent" }}>

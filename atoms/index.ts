@@ -31,3 +31,7 @@ export const uploadTXID = atom<string>({
     default: "",
 });
 
+export const isDarkMode = atom<boolean>({
+    key: 'isDarkMode',
+    default: false,
+})

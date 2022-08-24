@@ -30,7 +30,7 @@ export const NameContent = (props: userInfo) => {
               <FontAwesomeIcon icon={faPencilAlt} className="w-4 mb-0.5 mr-2 cursor-pointer" onClick={(e) => setEditEnabled(!editEnabled)} />
             )}
         </div>
-        <EditModal userColor={props.userInfo.address_color} wallet={props.userInfo.user} />      
+        <EditModal userColor={props.userInfo.address_color} wallet={props.userInfo.user} userInfo={props} />      
         <Panel userInfo={props.userInfo} />
         {/* <div className="h-0 w-full -mx-10"></div> */}
       </div>

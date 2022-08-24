@@ -97,7 +97,7 @@ export const Personal = (props: Props) => {
                 <div className="w-full overflow-hidden lg:w-1/4">
                 </div> */}
 
-                <EditModal userColor={props.userInfo.address_color} wallet={props.userInfo.user} />
+                <EditModal userColor={props.userInfo.address_color} wallet={props.userInfo.user} userInfo={props.userInfo} />
 
                 <Tippy arrow={true}
                     content="connect ArConnect to verify and edit profile."

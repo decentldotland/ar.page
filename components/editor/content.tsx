@@ -1,32 +1,30 @@
 // @flow 
 import * as React from 'react';
-import Header from '../arconnect/arconnect_loader'
-import { faGlobe, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import Arweave from "arweave";
+import ReactDOM from 'react-dom';
+import Swal from 'sweetalert2'
+import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
+import { uploadImage, uploadTXID, isDarkMode } from '../../atoms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGlobe, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { faTelegram } from '@fortawesome/free-brands-svg-icons';
+import { ThreeDots } from 'react-loader-spinner';
+import { userInfo } from '../../src/types';
+
 import { Avatar } from './inputs/avatar';
 import { Bio } from './inputs/bio';
 import { TextI } from './inputs/textI';
-
-
-import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
-import { uploadImage, uploadTXID } from '../../atoms'
-
-import Swal from 'sweetalert2'
-
-import Arweave from "arweave";
-import ReactDOM from 'react-dom';
-import { ThreeDots } from 'react-loader-spinner';
-import { faTelegram } from '@fortawesome/free-brands-svg-icons';
 
 type Props = {
     wallet: string;
     userColor: string;
     handleClose: Function;
+    userInfo: userInfo;
 };
 
 export const Content = (props: Props) => {
 
-
+    const [isDark, setIsDarkMode] = useRecoilState(isDarkMode);
 
     if (window)
         (window as any).Swal = Swal;
@@ -62,15 +60,31 @@ export const Content = (props: Props) => {
             setConfirmOwner(true);
         });
     })
+    // @ts-ignore
+    const {customUrl, github, instagram, twitter} = props.userInfo.userInfo.links;
+    const {avatar, bio, nickname} = props.userInfo.userInfo;
 
     const [avatarState, setAvatarState] = React.useState<any>(""), //💨🍃
-        [bioState, setBioState] = React.useState(""),
+        [bioState, setBioState] = React.useState(bio||""),
         [nicknameState, setNicknameState] = React.useState(""),
         [githubState, setGithubState] = React.useState(""),
         [twitterState, setTwitterState] = React.useState(""),
         [instagramState, setInstagramState] = React.useState(""),
         [customUrlState, setCustomUrlState] = React.useState(""),
         [percent, setPercent] = React.useState(0);
+
+    React.useEffect(() => {
+        // @ts-ignore
+        const {customUrl, github, instagram, twitter} = props.userInfo.userInfo.links;
+        const {avatar, bio, nickname} = props.userInfo.userInfo;
+        if (customUrl) setCustomUrlState(customUrl);
+        if (github) setGithubState(github);
+        if (instagram) setInstagramState(instagram);
+        if (twitter) setTwitterState(twitter);
+        if (avatar) setAvatarState(avatar);
+        if (bio) setBioState(bio);
+        if (nickname) setNicknameState(nickname);
+    }, [props])
 
     const pendList = React.useCallback(async (id) => {
         const list: number[] = JSON.parse((localStorage as any).getItem("pending")); //@ts-ignore
@@ -464,31 +478,22 @@ export const Content = (props: Props) => {
     }, [imgWithProfile, submitPfp, submitTX])
 
     return (
-        <div className="rounded-md mx-1 top-0 p-6 lg:pt-6 lg:pb-16 pb-10 max-w-full lg:max-w-screen-lg lg:mx-auto lg:h-fit h-[75vh] lg:overflow-hidden overflow-y-scroll hideScroll0 bg-back shadow-md border-2 border-prim1 shadow-black">
-            <FontAwesomeIcon icon={faCircleXmark} onClick={() => props.handleClose()} className="absolute lg:relative top-3 lg:-top-3 right-3 lg:-right-3 float-right  text-prim1 rounded-full h-6" />
+        <div data-theme={isDark ? "ardark": "arlight"} className="rounded-md mx-1 top-0 p-6 lg:pt-6 lg:pb-16 pb-10 max-w-full lg:max-w-screen-lg lg:mx-auto lg:h-fit h-[75vh] lg:overflow-hidden overflow-y-scroll hideScroll0 bg-base-100 border-2 border-prim1">
+            <FontAwesomeIcon icon={faCircleXmark} onClick={() => props.handleClose()} className="absolute lg:relative top-3 lg:-top-3 right-3 lg:-right-3 float-right text-content rounded-full h-6" />
             {(isOwner) ?
-                <div className="mx-auto max-w-screen-md bg-teal-5010 lg:top-8 lg:-mb-10">
-
-
-
-                    <div className="w-[91vw] max-w-screen-md h-15 top-0.5 left-4 lg:bg-transparent bg-back">
-                        <h1 className="text-xl w-full mx-auto text-sviolet font-extrabold py-5 bottom-0 text-center ">Edit Profile</h1>
+                <div className="mx-auto max-w-screen-md lg:top-8 lg:-mb-10">
+                    <div className="w-[91vw] max-w-screen-md h-15 top-0.5 left-4">
+                        <h1 className="text-xl w-full mx-auto text-primary font-extrabold py-5 bottom-0 text-center ">Edit Profile</h1>
                     </div>
-
                     <div className="flex flex-wrap w-full h-[55vh] -mx-3  gap-y-8 overflow-y-scroll lg:hideScroll0 hideScroll">
+                        <Avatar avatar={avatar} userColor={props.userColor} setText={setAvatarState} regex="^@?([a-zA-Z0-9_]{1,43})$" setValidityCheck={setValidityCheck} setImgWithProfile={setImgWithProfile} percent={percent} />
+                        <Bio text={bioState} setText={setBioState} regex="^@?([\s\S]{1,150})$" setValidityCheck={setValidityCheck} />
 
-                        <h1 className=" w-full mx-auto py-5 bottom-0 text-center ">Sections that are left blank will not be updated/added to the profile.<br />
-                            The Sections will become green after they have been edited and red if the value is invalid. NFT profile picture upload coming soon.</h1>
-
-                        <Avatar userColor={props.userColor} setText={setAvatarState} regex="^@?([a-zA-Z0-9_]{1,43})$" setValidityCheck={setValidityCheck} setImgWithProfile={setImgWithProfile} percent={percent} />
-                        <Bio setText={setBioState} regex="^@?([\s\S]{1,150})$" setValidityCheck={setValidityCheck} />
-
-                        <TextI title="Nickname" setText={setNicknameState} regex="^@?(\S{1,30})$" setValidityCheck={setValidityCheck} />
-                        <TextI title="Github" setText={setGithubState} regex="^([a-zA-Z0-9_]{1,38})$" setValidityCheck={setValidityCheck} />
-                        <TextI title="twitter" setText={setTwitterState} regex="^@?([a-zA-Z0-9_]{1,15})$" setValidityCheck={setValidityCheck} />
-                        <TextI title="instagram" setText={setInstagramState} regex="^([a-zA-Z0-9_]{1,30})$" setValidityCheck={setValidityCheck} />
-                        <TextI title="Custom Url" setText={setCustomUrlState} regex="^@?(\S{1,43})$" setValidityCheck={setValidityCheck} />
-
+                        <TextI title="Nickname" text={nicknameState} setText={setNicknameState} regex="^@?(\S{1,30})$" setValidityCheck={setValidityCheck} />
+                        <TextI title="Github" text={githubState} setText={setGithubState} regex="^([a-zA-Z0-9_]{1,38})$" setValidityCheck={setValidityCheck} />
+                        <TextI title="twitter" text={twitterState} setText={setTwitterState} regex="^@?([a-zA-Z0-9_]{1,15})$" setValidityCheck={setValidityCheck} />
+                        <TextI title="instagram" text={instagramState} setText={setInstagramState} regex="^([a-zA-Z0-9_]{1,30})$" setValidityCheck={setValidityCheck} />
+                        <TextI title="Custom Url" text={customUrlState} setText={setCustomUrlState} regex="^@?(\S{1,43})$" setValidityCheck={setValidityCheck} />
                     </div>
 
                     <div className="lg:w-1/3 w-full mt-8">
@@ -499,7 +504,7 @@ export const Content = (props: Props) => {
                         </button>
                     </div>
                 </div> : (confirmOwner) ? <>
-                    <div className="w-[91vw] max-w-screen-md h-15 top-0.5 left-4 lg:bg-transparent bg-back">
+                    <div className="w-[91vw] max-w-screen-md h-15 top-0.5 left-4 ">
                         <h1 className="text-xl w-full mx-auto text-red-400 font-extrabold py-5 bottom-0 text-center ">Error:</h1>
                     </div>
                     {/* <div className="col-span-3 bg-prim1 h-0.5">
@@ -507,7 +512,7 @@ export const Content = (props: Props) => {
                     <h1 className=" w-full mx-auto py-5 bottom-0 text-center ">Selected ArConnect address does not match this ANS Profile.
                     </h1>
                 </> : <>
-                    <div className="w-[91vw] max-w-screen-md h-15 top-0.5 left-4 lg:bg-transparent bg-back">
+                    <div className="w-[91vw] max-w-screen-md h-15 top-0.5 left-4">
                         <h1 className="text-xl w-full mx-auto text-sviolet font-extrabold py-5 bottom-0 text-center ">loading:</h1>
                     </div>
                     {/* <div className="col-span-3 bg-prim1 h-0.5">

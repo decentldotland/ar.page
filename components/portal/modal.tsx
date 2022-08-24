@@ -13,8 +13,8 @@ const Modal =
 
         return (
             <ReactPortal wrapperId="portal">
-                <div className="fixed inset-0 bg-[#00000099] flex flex-col items-center justify-center overflow-hidden z-50" onClick={handleClose}>
-                <div className="absolute container text-white" onClick={e => e.stopPropagation()}>{children}</div>
+                <div className="fixed inset-0 bg-black/60 flex flex-col items-center justify-center overflow-hidden z-50" onClick={handleClose}>
+                <div className="absolute container" onClick={e => e.stopPropagation()}>{children}</div>
                 </div>
             </ReactPortal>
         )
