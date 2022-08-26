@@ -76,7 +76,7 @@ export const UserInfo = (props: userInfo) => {
                 )}
                 {/* nickname and label */}
                 <div className="flex flex-col">
-                    <div className="text-lg font-medium leading-6">
+                    <div className="text-xl font-medium leading-6">
                         {props.userInfo.currentLabel}
                     </div>
                     <div onClick={copy}

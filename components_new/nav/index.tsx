@@ -24,13 +24,12 @@ export const Nav = (props:any) => {
     const toggleDark = props.toggleDark;
 
     return (
-        <div className="bg-base-100 flex h-[56px] w-full overflow-visible z-10">
+        <div className="bg-base-100 flex h-[56px] w-full overflow-visible z-10 font-mono">
             <div className="mt-[15px] ml-4 overflow-visible h-full w-full">
                 <SearchBox
                     multiple={false}
                     disabled={false}
-                    placeholder="Search for a name or address..."
-                    // className="w-96"
+                    placeholder="Search a name or address..."
                     // items={["test", "test0", "test1", "test2", "test3", "test4"]} />
                     // items={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} />
                     options={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} />

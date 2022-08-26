@@ -85,7 +85,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
             // style={{ paddingLeft: "22px" }} 
             value={val} onChange={handleChange} onFocus={() => setShow(true)} 
             placeholder={placeholder}
-            className="bg-base-100 input-bordered pr-4 ml-5 pl-6 w-10/12 h-2 font-sans leading-3 font-light py-4 rounded-none focus:outline-none border-0 mb-0.5 focus:mb-0 focus:border-b-2 focus:border-primary" />
+            className="bg-base-100 input-bordered pr-4 ml-5 pl-6 w-10/12 h-2 font-mono text-sm leading-3 font-light py-4 rounded-none focus:outline-none border-0 mb-0.5 focus:mb-0 focus:border-b-2 focus:border-primary" />
             {show && (
                 <div className="h-fit mt-1 p-2 bg-base-100 rounded-md w-[200px]">
                     <ul className="h-full my-2">
