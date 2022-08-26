@@ -87,7 +87,7 @@ export const UserInfo = (props: userInfo) => {
                             content={<div>{tippyState}</div>}
                             visible={visible}
                             // {...(tippyState !== 'Copied') ? {visible: true} : {} }
-                            className="font-mono font-extrabold text-lg visible">
+                            className="font-mono text-sm visible">
 
                             <div className="flex flex-row">
                                 <div className="text-[10px] font-normal">

@@ -69,7 +69,7 @@ export const Personal = (props: Props) => {
                                     <Tippy arrow={true}
                                         key={owned.acquisationBlock}
                                         content={`Scarcity: ${owned.scarcity} `}
-                                        className="font-mono font-extrabold text-lg py-0.5">
+                                        className="font-mono text-sm py-0.5">
                                         <h1 className="text-lg text-white w-min float-left">
                                             {`${owned.label}.ar`}
                                         </h1>
@@ -101,7 +101,7 @@ export const Personal = (props: Props) => {
 
                 <Tippy arrow={true}
                     content="connect ArConnect to verify and edit profile."
-                    className="font-mono font-extrabold text-lg py-0.5">
+                    className="font-mono text-sm py-0.5">
                     <a className="absolute bottom-[unset] right-3 top-3">
                         <Header />
                     </a>
