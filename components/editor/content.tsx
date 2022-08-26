@@ -31,7 +31,7 @@ export const Content = (props: Props) => {
 
 
     const arweave = React.useRef<Arweave>(Arweave.init({
-        host: "pz-prepnb.meson.network",
+        host: "arweave.net",
         port: 443,
         protocol: "https",
     })).current;
