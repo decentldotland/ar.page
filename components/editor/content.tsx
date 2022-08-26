@@ -6,8 +6,8 @@ import Swal from 'sweetalert2'
 import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
 import { uploadImage, uploadTXID, isDarkMode } from '../../atoms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGlobe, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { faTelegram } from '@fortawesome/free-brands-svg-icons';
+import { faGlobe, faUser, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faGithub, faTelegram, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { ThreeDots } from 'react-loader-spinner';
 import { userInfo } from '../../src/types';
 
@@ -42,6 +42,7 @@ export const Content = (props: Props) => {
     const [imgWithProfile, setImgWithProfile] = React.useState<any>(false);
     const [idState, setIdState] = useRecoilState(uploadTXID);
     const [inputEnabled, setInputEnabledsetIdState] = React.useState<boolean>(true);
+    const [confirm, setConfirm] = React.useState<boolean>(false);
 
     const setValidityCheck = React.useCallback(error => {
         setValidityCheckState((state: any) => {
@@ -478,29 +479,44 @@ export const Content = (props: Props) => {
     }, [imgWithProfile, submitPfp, submitTX])
 
     return (
-        <div data-theme={isDark ? "ardark": "arlight"} className="rounded-md mx-1 top-0 p-6 lg:pt-6 lg:pb-16 pb-10 max-w-full lg:max-w-screen-lg lg:mx-auto lg:h-fit h-[75vh] lg:overflow-hidden overflow-y-scroll hideScroll0 bg-base-100 border-2 border-prim1">
-            <FontAwesomeIcon icon={faCircleXmark} onClick={() => props.handleClose()} className="absolute lg:relative top-3 lg:-top-3 right-3 lg:-right-3 float-right text-content rounded-full h-6" />
+        <div data-theme={isDark ? "ardark": "arlight"} className="rounded-md mx-1 top-0 p-6 px-4 pt-6 pb-18 max-w-full lg:max-w-screen-lg lg:mx-auto h-fit bg-base-100">
+            <FontAwesomeIcon icon={faXmark} onClick={() => props.handleClose()} className="lg:relative top-3 lg:-top-4 right-3 lg:-right-3 float-right rounded-full absolute btn btn-primary btn-circle btn-sm" />
             {(isOwner) ?
-                <div className="mx-auto max-w-screen-md lg:top-8 lg:-mb-10">
-                    <div className="w-[91vw] max-w-screen-md h-15 top-0.5 left-4">
-                        <h1 className="text-xl w-full mx-auto text-primary font-extrabold py-5 bottom-0 text-center ">Edit Profile</h1>
+                <div className="mx-auto max-w-screen-md -mb-10">
+                    <div className=" max-w-screen-md h-15 top-0.5 left-4">
+                        <h1 className="text-xl w-full mx-auto text-primary font-extrabold py-5 bottom-0 text-center select-none">Edit Profile</h1>
                     </div>
-                    <div className="flex flex-wrap w-full h-[55vh] -mx-3  gap-y-8 overflow-y-scroll lg:hideScroll0 hideScroll">
-                        <Avatar avatar={avatar} userColor={props.userColor} setText={setAvatarState} regex="^@?([a-zA-Z0-9_]{1,43})$" setValidityCheck={setValidityCheck} setImgWithProfile={setImgWithProfile} percent={percent} />
+                    <div className={`flex flex-col w-full md:h-3/5 h-[65vh] px-8 overflow-scroll scrollbar scrollbar-thumb-blue-500 ${isDark ? "scrollbar-track-gray-700" : "scrollbar-track-gray-300"}`}>
+                        <div className="flex flex-col md:flex-none md:grid md:grid-cols-3">
+                            <div className="col-span-1">
+                                <Avatar avatar={avatar} userColor={props.userColor} setText={setAvatarState} regex="^@?([a-zA-Z0-9_]{1,43})$" setValidityCheck={setValidityCheck} setImgWithProfile={setImgWithProfile} percent={percent} />
+                            </div>
+                            <div className="md:col-span-2 mt-40 md:mt-0">
+                                {/* <div className="text-center text-base-content font-semibold text-2xl">Socials</div> */}
+                                <div className="grid grid-cols-2 md:grid-rows-2 md:col-span-2 gap-x-6">
+                                        <TextI title="Nickname" placeholder="Nickname" svgIcon={<FontAwesomeIcon icon={faUser} className="!w-4 !h-4" />} text={nicknameState} setText={setNicknameState} regex="^@?(\S{1,30})$" setValidityCheck={setValidityCheck} />
+                                        <TextI title="Github" placeholder='Github handle' svgIcon={<FontAwesomeIcon icon={faGithub} />} text={githubState} setText={setGithubState} regex="^([a-zA-Z0-9_]{1,38})$" setValidityCheck={setValidityCheck} />
+                                        <TextI title="Twitter" placeholder='Twitter handle' svgIcon={<FontAwesomeIcon icon={faTwitter} />} text={twitterState} setText={setTwitterState} regex="^@?([a-zA-Z0-9_]{1,15})$" setValidityCheck={setValidityCheck} />
+                                        <TextI title="Instagram" placeholder='Instagram handle' svgIcon={<FontAwesomeIcon icon={faInstagram} />} text={instagramState} setText={setInstagramState} regex="^([a-zA-Z0-9_]{1,30})$" setValidityCheck={setValidityCheck} />
+                                    <div className="col-span-2">
+                                        <TextI title={'Custom Url'} placeholder={'Website URL'} svgIcon={<FontAwesomeIcon icon={faGlobe} />} text={customUrlState} setText={setCustomUrlState} regex="^@?(\S{1,43})$" setValidityCheck={setValidityCheck} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <Bio text={bioState} setText={setBioState} regex="^@?([\s\S]{1,150})$" setValidityCheck={setValidityCheck} />
-
-                        <TextI title="Nickname" text={nicknameState} setText={setNicknameState} regex="^@?(\S{1,30})$" setValidityCheck={setValidityCheck} />
-                        <TextI title="Github" text={githubState} setText={setGithubState} regex="^([a-zA-Z0-9_]{1,38})$" setValidityCheck={setValidityCheck} />
-                        <TextI title="twitter" text={twitterState} setText={setTwitterState} regex="^@?([a-zA-Z0-9_]{1,15})$" setValidityCheck={setValidityCheck} />
-                        <TextI title="instagram" text={instagramState} setText={setInstagramState} regex="^([a-zA-Z0-9_]{1,30})$" setValidityCheck={setValidityCheck} />
-                        <TextI title="Custom Url" text={customUrlState} setText={setCustomUrlState} regex="^@?(\S{1,43})$" setValidityCheck={setValidityCheck} />
                     </div>
 
-                    <div className="lg:w-1/3 w-full mt-8">
-                        <button className="text-lg mx-auto rounded-md shadow-md border-2 border-prim1 text-prim2 bg-nftbg px-2"
-                            onClick={() => submitUpload()}>
+                    <div className="flex mx-auto w-full md:mt-8">
+                        <button className="btn btn-primary text-lg mx-auto my-8"
+                            onClick={() => {
+                                setConfirm(true)
+                                if (confirm) {
+                                    submitUpload()
+                                }
+                            }}>
                             {/* onClick={() => submitTX()}> */}
-                            submit
+                            {confirm ? "Confirm?" : "Submit"}
                         </button>
                     </div>
                 </div> : (confirmOwner) ? <>

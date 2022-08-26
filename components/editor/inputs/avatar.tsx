@@ -2,6 +2,8 @@
 import * as React from 'react';
 import Image from 'next/image';
 // import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { uploadImage, uploadPercent } from '../../../atoms'
 import { MESON_URL } from '../../../src/constants';
@@ -139,10 +141,8 @@ export const Avatar = (props: Props) => {
 
 
     return (
-        <div className="justify-start h-fit lg:h-72 my-3 px-3 w-full lg:w-2/5 flex flex-row flex-wrap">
-
+        <>
             {/* <h1 className="text-xl mx-auto text-sviolet font-extrabold w-full">Avatar</h1> */}
-            <h1 className="text-xl mx-auto text-primary font-extrabold text-left w-full">Avatar</h1>
             {/* <div className="lg:w-2/5 w-full flex flex-col"
             // lg:w-2/5 w-full
             >
@@ -165,36 +165,37 @@ export const Avatar = (props: Props) => {
 
             {/* <h1 className="text-xl my-auto lg:h-fit text-sviolet font-extrabold lg:w-1/5 w-full text-center">or</h1> */}
 
-            <div className="flex flex-wrap flex-row lg:w-64 w-full h-fit lg:h-full"
+            <div className="z-0 py-3 h-28 flex text-lg rounded-md text-base-content relative"
             // col-span-3 lg:col-span-2 row-span-2
             >
-
-
-                <label className="flex-wrap justify-center text-lg rounded-md shadow-md border-2 border-prim1 text-base-content bg-nftbg px-2 w-full lg:h-64 h-fit py-4 flex relative" htmlFor="profileUpload">
-
-
-                    <div className="mx-auto rounded-full h-32 w-32 my-8 lg:my-0 overflow-hidden" style={{ backgroundColor: thePreview == "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" ? props.userColor : "transparent" }}>
-                        <Image src={thePreview} alt="Avatar" width="100%" height="100%" layout="responsive" objectFit="cover" />
+                <label htmlFor='profileUpload' className="h-48 w-48 mx-auto rounded-full p-0.5 overflow-hidden transition-opacity duration-300 ease-in-out hover:opacity-40 z-20 hover:z-0 " style={{ backgroundColor: props.userColor || "transparent", cursor: !thePreview ? "pointer": "" }}>
+                    {thePreview ? (
+                        <Image src={thePreview} alt="Avatar" width="100%" height="100%" layout="responsive" objectFit="cover" style={{borderRadius: "999px", cursor: 'pointer'}} />
+                    ):(
+                        <div className={`rounded-full bg-primary/100 text-white text-center mt-20 w-40 mx-auto`}>Choose Avatar</div>
+                    )}
+                </label>            
+                {props.percent > 1 &&
+                    <div className="z-40 flex absolute h-48 w-full top-0 justify-start mt-20">
+                        <div className="btn btn-secondary btn-circle loading no-animation w-fit mx-auto rounded-lg px-2 gap-2">
+                            <p className="">{props.percent}% uploaded</p>
+                        </div>
                     </div>
-                    <p className="w-full my-auto align-center text-center relative" >Select an avatar image to be minted here</p>
-                    <input className="hidden"
-                        id="profileUpload"
-                        type="file"
-                        ref={inputRef}
-                        // pattern="[A-Za-z0-9-_]{43}"
-                        onChange={readFileState}
-                    />{props.percent > 0 &&
-                        <div className="flex absolute h-full w-full top-0 justify-start">
-                            <div className="absolute h-full bg-nftbg" style={{ width: `${props.percent}%` }}>
-                            </div>
-                            <div className="absolute w-full self-center text-center pt-2 h-28" >
-                                <p className="bg-back w-fit mx-auto rounded-lg px-2">{props.percent}% uploaded</p>
-                            </div>
-                        </div>}
-                </label>
+                }
+                <input className="hidden"
+                    id="profileUpload"
+                    type="file"
+                    ref={inputRef}
+                    // pattern="[A-Za-z0-9-_]{43}"
+                    onChange={readFileState}
+                />
+                {thePreview && props.percent < 1 &&
+                    <div className="absolute right-12 top-4 z-30">
+                        <FontAwesomeIcon icon={faXmark} onClick={() => setThePreview('')} className="btn btn-secondary btn-circle btn-sm" />
+                    </div>
+                }
             </div>
-
             {/* <h1 className="text-3xl text-white mx-auto font-extrabold"></h1> */}
-        </div>
+        </>
     );
 };

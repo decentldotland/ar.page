@@ -18,24 +18,24 @@ export const Bio = (props: Props) => {
     }, [props])
 
     const borderColor = React.useCallback(() => {
-        
+        console.log(text)
         const test = new RegExp(regex, "i").test(text);
         if (text !== "" && edited)
             switch (test) {
                 case true:
-                    return " border-prim2 ";
+                    return " focus:border-prim2 ";
                 case false:
                     return " border-red-500 ";
                 default:
                     return " border-red-500 ";
             }
-        else return " border-prim1 "
+        else return " focus:border-prim2 "
     }, [edited, regex, text])
 
     return (
-        <div className="justify-start my-3 px-3 w-full lg:w-3/5 lg:h-72">
-            <h1 className="text-xl mx-auto text-primary font-extrabold text-left w-full">Bio</h1>
-            <textarea className={borderColor() + "text-lg mx-auto rounded-md shadow-md border-2 text-base-content w-full h-64 bg-nftbg px-2"}
+        <div className="w-full">
+            <div className="my-3 text-primary text-xl font-semibold select-none">About me</div>
+            <textarea className={borderColor() + "text-lg textarea textarea-primary mx-auto rounded-md shadow-md w-full resize-none h-48 px-2 bg-base-100 border-2"}
                 placeholder='About me...'
                 onInput={setValue}
                 onPaste={setValue}

@@ -82,9 +82,10 @@ module.exports = {
       addComponents(components)
     }),
     require("daisyui"),
+    require('tailwind-scrollbar'),
   ],
   daisyui: {
-    styled: false,
+    styled: true,
     // themes: true,
     // base: true,
     // utils: true,
