@@ -16,7 +16,7 @@ export const User = (props: any) => {
     }, [walletConnected]);
 
     return (
-        <div className="h-9 mx-4 mb-4">
+        <div className="h-9 mx-4 mb-8">
             <>
                 {(walletConnected && (
                     <div className="flex flex-row gap-x-2.5">
