@@ -2,6 +2,10 @@
 import Tippy from '@tippyjs/react';
 import * as React from 'react';
 import { Button } from '../../buttons';
+
+import {transferModal, labelState} from '../../../atoms'
+import { useRecoilState } from 'recoil';
+
 type Props = {
     userInfo: {
         user: string;
@@ -27,6 +31,14 @@ type Props = {
     }
 };
 export const Labels = (props: Props) => {
+
+    // On Click - Open up a popup board
+    const [showTransferModal, setShowTransferModal] = useRecoilState(transferModal);
+    const [currentLabelSelected, showSelectedLabel] = useRecoilState(labelState);
+
+    console.log(showTransferModal)
+    console.log(currentLabelSelected)
+
     return (
         <div className="w-full mt-6 -px-10">
             {props.userInfo.ownedLabels && props.userInfo.ownedLabels.length > 0 ? <div className="w-full lg:col-span-4 lg:row-span-1 h-[3.5em]">
@@ -34,12 +46,20 @@ export const Labels = (props: Props) => {
                 <div className="flex gap-x-4 gap-y-0 h-[3.5em]">
                     {
                         props.userInfo.ownedLabels.map((owned: { label: string; scarcity: string; acquisationBlock: number; mintedFor: number; }) =>
-                            <div key={owned.acquisationBlock} className="col-span-2 pt-1 float-left select-none">
-                                <Tippy arrow={true}
+                        <div
+                        key={owned.acquisationBlock} 
+                        className="col-span-2 pt-1 float-left select-none">
+                                <Tippy 
+                                    arrow={true}
                                     key={owned.acquisationBlock}
                                     content={`scarcity: ${owned.scarcity} `}
                                     className="font-mono text-sm">
-                                    <button className="btn btn-sm btn-primary">
+                                    <button 
+                                        onClick={() => { 
+                                            showSelectedLabel(owned);
+                                            setShowTransferModal(true);
+                                        }} 
+                                        className="btn btn-sm btn-primary">
                                         {owned.label}.ar
                                     </button>
                                 </Tippy>

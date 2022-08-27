@@ -11,6 +11,9 @@ import { FAQ } from '../../components/FAQ';
 
 import _404 from '../404';
 import Index from '../../components_new/home';
+import LabelModal from '../../components_new/user/name-content/panel/LabelModal';
+import { useRecoilValue } from 'recoil';
+import { labelState, transferModal } from '../../atoms';
 // import { Fab } from '../../components/editor/fab';
 
 
@@ -19,6 +22,12 @@ const User = ({ uInfo, pathFullInfo }: any) => {
     const [nftCount, setNftCount] = React.useState<number>(0);
 
     const userInfo = React.useRef((uInfo) ? uInfo : pathFullInfo).current;
+
+    // TransferModal Popup 
+    const showTransferModel = useRecoilValue(transferModal);
+    const label = useRecoilValue(labelState);
+    console.log(`${label} selected label`)
+
 
     React.useEffect(() => {
         if (userInfo !== false)
@@ -32,6 +41,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
     }, [userInfo])
 
     return (<>
+        {/* Transfer Modal Popup */}
         {userInfo !== false && Object.keys(userInfo).length > 0 ?
             <>
                 <Head>
@@ -73,6 +83,8 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                         </>
                         : <></>}
                 </div></> : <Index />}
+
+        
     </>
 
     )

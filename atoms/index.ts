@@ -35,3 +35,15 @@ export const isDarkMode = atom<boolean>({
     key: 'isDarkMode',
     default: false,
 })
+
+
+// Transfer Modal for labels 
+export const transferModal = atom({
+    key: 'transferModal',
+    default: false
+})
+// Label entity
+export const labelState = atom<any  | null>({
+    key: 'labelState',
+    default: null
+})
