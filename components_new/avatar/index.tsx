@@ -1,5 +1,5 @@
 import { ANSData, DUMMY_ANS_DATA } from '../../src/types';
-import { MESON_URL } from '../../src/constants';
+import { ARWEAVE_URL } from '../../src/constants';
 
 export type AvatarOptions = {
   customUrl?: string;
@@ -13,7 +13,7 @@ function Avatar ({ansData, options} :{ansData: ANSData, options?: AvatarOptions}
   const { customUrl, height, width } = options || {};
   if (customUrl) url = customUrl;
   else {
-    if (ansData.avatar) url = `${MESON_URL + ansData.avatar}`;
+    if (ansData.avatar) url = `${ARWEAVE_URL + ansData.avatar}`;
   }
 
   return (

@@ -1,1 +1,1 @@
-export const MESON_URL = 'https://pz-prepnb.meson.network/';
+export const ARWEAVE_URL = 'https://pz-prepnb.meson.network/';
