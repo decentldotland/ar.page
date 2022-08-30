@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
 import { useAns } from 'ans-for-all';
 import * as React from 'react';
-import { ANSData, userInfo } from '../../../src/types';
-import Avatar from '../../avatar';
+import { ANSData, userInfo } from '../../../../src/types';
+import Avatar from '../../../avatar';
 
 export const UserInfo = (props: userInfo) => {
 

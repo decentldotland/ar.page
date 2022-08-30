@@ -2,9 +2,9 @@
 import * as React from 'react';
 import { useRecoilState } from 'recoil';
 import { useAns } from 'ans-for-all';
-import { Labels } from './labels';
+import { Labels } from './components/labels';
 import { Panel } from './components';
-import { UserInfo } from './userInfo';
+import { UserInfo } from './components/userInfo';
 import { userInfo } from '../../../src/types';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

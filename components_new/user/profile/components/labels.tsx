@@ -1,7 +1,7 @@
 // @flow 
 import Tippy from '@tippyjs/react';
 import * as React from 'react';
-import { Button } from '../../buttons';
+import { Button } from '../../../buttons';
 type Props = {
     userInfo: {
         user: string;

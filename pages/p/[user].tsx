@@ -4,9 +4,7 @@ import React from 'react';
 import Head from 'next/head'
 import Image from 'next/image'
 import Index from '../../components_new/home'
-import { LeftPanel } from '../../components_new/user/leftPanel';
-import { NameContent } from '../../components_new/user/profile';
-
+import UserPage from '../../components_new/user';
 
 const User = ({ uInfo, pathFullInfo }: any) => {
     const [hasTwtr, setHasTwtr] = React.useState<number>(2);
@@ -37,15 +35,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                     <meta name="twitter:url" content={`https://${userInfo.currentLabel}.ar.page`}></meta>
                     <meta name="twitter:description" content={userInfo.bio} />
                 </Head>
-                <div className="md:flex h-full w-full relative">
-                    <div className="h-full max-h-full overflow-clip w-[250px] md:block hidden bg-base-100">
-                        <LeftPanel />
-                    </div>
-                    <div className="w-full h-body overflow-y-scroll bg-base-200/25">
-                        <NameContent userInfo={userInfo} />
-                    </div>
-                </div>
-
+                <UserPage userInfo={userInfo} />
             </> : <Index />}
     </>
 
