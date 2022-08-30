@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { uploadImage, uploadPercent } from '../../../atoms'
-import { MESON_URL } from '../../../src/constants';
+import { ARWEAVE_URL } from '../../../src/constants';
 import Swal from 'sweetalert2'
 
 type Props = {
@@ -29,7 +29,7 @@ export const Avatar = (props: Props) => {
     React.useEffect(() => {
         console.log(inputRef?.current?.value)
         if (props.avatar) {
-            setThePreview(MESON_URL + props.avatar)
+            setThePreview(ARWEAVE_URL + props.avatar)
         }
     }, [props.avatar])
 

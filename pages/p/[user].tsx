@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Index from '../../components_new/home'
 import { LeftPanel } from '../../components_new/user/leftPanel';
-import { NameContent } from '../../components_new/user/name-content';
+import { NameContent } from '../../components_new/user/profile';
 
 
 const User = ({ uInfo, pathFullInfo }: any) => {
