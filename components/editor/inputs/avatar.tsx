@@ -27,6 +27,7 @@ export const Avatar = (props: Props) => {
 
     const [thePreview, setThePreview] = React.useState("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==")
     React.useEffect(() => {
+        console.log(inputRef?.current?.value)
         if (props.avatar) {
             setThePreview(MESON_URL + props.avatar)
         }
@@ -112,7 +113,7 @@ export const Avatar = (props: Props) => {
                     // (localStorage as any).setItem('upload', JSON.stringify(Array.from(Buffer.from(e.target?.result as ArrayBuffer))))
                 } else {
                     inputRef.current.value = "";
-                    setThePreview("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
+                    setThePreview("");
                 }
             })
 
@@ -168,11 +169,11 @@ export const Avatar = (props: Props) => {
             <div className="z-0 py-3 h-28 flex text-lg rounded-md text-base-content relative"
             // col-span-3 lg:col-span-2 row-span-2
             >
-                <label htmlFor='profileUpload' className="h-48 w-48 mx-auto rounded-full p-0.5 overflow-hidden transition-opacity duration-300 ease-in-out hover:opacity-40 z-20 hover:z-0 " style={{ backgroundColor: props.userColor || "transparent", cursor: !thePreview ? "pointer": "" }}>
+                <label htmlFor='profileUpload' className="h-48 w-48 mx-auto rounded-full p-0.5 overflow-hidden transition-opacity duration-300 ease-in-out hover:opacity-40  " style={{ backgroundColor: props.userColor || "transparent", cursor: !thePreview ? "pointer": "" }}>
                     {thePreview ? (
                         <Image src={thePreview} alt="Avatar" width="100%" height="100%" layout="responsive" objectFit="cover" style={{borderRadius: "999px", cursor: 'pointer'}} />
                     ):(
-                        <div className={`rounded-full bg-primary/100 text-white text-center mt-20 w-40 mx-auto`}>Choose Avatar</div>
+                        <div className={`rounded-full bg-primary text-white text-center mt-20 w-40 mx-auto`}>Choose Avatar</div>
                     )}
                 </label>            
                 {props.percent > 1 &&

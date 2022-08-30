@@ -34,7 +34,7 @@ export const Panel = (props: Props) => {
     props.userInfo.bio : "";
 
     return (
-        <div className="grow flex flex-row flex-wrap rounded-md w-full h-full bg-base-100 overflow-x-hidden px-8 py-8 mb-10">
+        <div className="flex flex-col rounded-md w-full h-full bg-base-100 overflow-x-hidden px-8 py-8 mb-10">
             <Bio text={bio} />
             {/* <div className="h-0 w-full -mx-10"></div> */}
             <Collectibles userInfo={props.userInfo} />

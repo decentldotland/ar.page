@@ -40,12 +40,12 @@ const ModelContent = (props: Props) => {
     return (
 
         <div className="relative w-full h-full  max-h-[100vh] overflow-y-auto hideScroll0">
-        <div data-theme={isDark ? "ardark": "arlight"}  className="rounded-md mx-1 top-0 p-2 max-w-full lg:max-w-screen-md lg:mx-auto h-min  bg-[#FAFAFA] shadow-md border-2 border-blue-200 shadow-black">
+        <div data-theme={isDark ? "ardark": "arlight"}  className="rounded-md mx-auto top-0 p-2 w-full max-w-lg lg:max-w-screen-md lg:mx-auto h-min  bg-[#FAFAFA] shadow-md border-2 border-blue-200 shadow-black ">
         <FontAwesomeIcon icon={faCircleXmark} onClick={() => handleClose()} className="absolute lg:relative top-3 lg:top-1 right-4 lg:right-1 float-right  text-[#1273EA] rounded-full h-6" />
 
             <h1 className="text-2xl text-center font-extrabold text-[#1273EA] underline my-4 lg:mt-4 lg:mb-8">{current.title}</h1>
 
-            <div className="flex lg:flex-row flex-col lg:gap-x-8 gap-y-0.5 text-left lg:items-center">
+            <div className="flex flex-col gap-y-0.5 mt-7 text-left lg:items-center">
                 <div className={`flex mx-auto h-full w-fit relative`}>
                     {(loading) ?
 
@@ -61,7 +61,7 @@ const ModelContent = (props: Props) => {
                             </div>
                         </div> : <></>}
 
-                    <div className="grid mx-auto my-auto place-content-center lg:h-[288px] lg:w-[288px] lg:mb-0 mb-4 lg:pl-4">
+                    <div className="grid mx-auto my-auto place-content-center md:h-[288px] md:w-[288px] md:mb-0 mb-4 md:pl-4">
                         <iframe title="Koii NFT image" frameBorder="0" allowFullScreen allowTransparency={true}
                             style={{ backgroundColor: '' }}
                             height={height}
@@ -74,7 +74,7 @@ const ModelContent = (props: Props) => {
                         </iframe>
                     </div>
                 </div>
-                <div className="flex flex-col lg:w-full lg:pt-4 bg-base-200/40 p-2 lg:h-[110%] lg:place-content-evenly mt-1 rounded-md shadow-lg border-2 border-blue-200">
+                <div className="flex flex-col md:w-[600px] pt-4 bg-base-200/40 p-2 h-[110%] lg:place-content-evenly mt-1 rounded-md shadow-lg border-2 border-blue-200">
                     <h1 className="w-full text-accent font-medium text-xs top-0">{`Description`}<br />
                         <h1 className="text-base-content font-normal text-sm">{current.description}</h1>
                     </h1>

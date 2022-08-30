@@ -5,8 +5,8 @@ type Props = {
 };
 export const Bio = (props: Props) => {
     return (
-        <div className="flex flex-wrap shrink w-full">
-            <div className="w-full font-medium text-xs text-[#888888] tracking-wide">
+        <div className="flex flex-wrap shrink w-full mb-8">
+            <div className="w-full font-medium text-xs text-gray-450 tracking-wide">
                 BIO
             </div>
 

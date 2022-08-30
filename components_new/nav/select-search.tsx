@@ -78,7 +78,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
     return (
         <div className="relative h-7 outline-none w-full" ref={container}>
             {/* <button className="w-24 h-4 bg-red-300" {...valueProps}>{snapshot.displayValue}</button> */}
-            <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute mt-2.5 left-4 ml-1" width="15" height="15" />
+            <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute mt-2 left-4 ml-1" width="15" height="15" />
             {/* @ts-ignore */}
             <input {...valueProps} 
             onKeyDown={handleEnter} 

@@ -480,7 +480,7 @@ export const Content = (props: Props) => {
 
     return (
         <div data-theme={isDark ? "ardark": "arlight"} className="rounded-md mx-1 top-0 p-6 px-4 pt-6 pb-18 max-w-full lg:max-w-screen-lg lg:mx-auto h-fit bg-base-100">
-            <FontAwesomeIcon icon={faXmark} onClick={() => props.handleClose()} className="lg:relative top-3 lg:-top-4 right-3 lg:-right-3 float-right rounded-full absolute btn btn-primary btn-circle btn-sm" />
+            <FontAwesomeIcon icon={faXmark} onClick={() => props.handleClose()} className="lg:relative top-3 lg:-top-3 right-3 lg:-right-3 float-right rounded-full absolute btn btn-primary btn-circle btn-sm" />
             {(isOwner) ?
                 <div className="mx-auto max-w-screen-md -mb-10">
                     <div className=" max-w-screen-md h-15 top-0.5 left-4">
@@ -507,7 +507,7 @@ export const Content = (props: Props) => {
                         <Bio text={bioState} setText={setBioState} regex="^@?([\s\S]{1,150})$" setValidityCheck={setValidityCheck} />
                     </div>
 
-                    <div className="flex mx-auto w-full md:mt-8">
+                    <div className="flex mx-auto w-full">
                         <button className="btn btn-primary text-lg mx-auto my-8"
                             onClick={() => {
                                 setConfirm(true)

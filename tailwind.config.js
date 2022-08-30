@@ -12,6 +12,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'gray-450': 'rgb(136, 136, 136)',
         sviolet : 'rgb(156, 82, 139)',
         prim1: 'rgb(227, 181, 164)',
         prim2: 'rgb(149, 239, 174)',

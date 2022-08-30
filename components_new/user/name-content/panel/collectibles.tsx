@@ -28,7 +28,7 @@ type Props = {
 export const Collectibles = (props: Props) => {
 
     return (
-        <div className="flex flex-wrap mt-8 w-full h-[53vh] ">
+        <div className="flex flex-wrap mb-8 w-full ">
             <Nfts userInfo={props.userInfo} />
         </div>
     );

@@ -72,9 +72,9 @@ export const Nfts = (props: Props) => {
 
     return (
         <>
-            <div className="flex flex-row justify-between w-full font-medium text-xs">
+            <div className="flex flex-row justify-between w-full font-medium text-xs items-center mb-4">
                 {NFTS.length > 0 &&
-                <div className="text-start">
+                <div className="text-start font-medium text-xs text-gray-450 tracking-wide uppercase">
                     Collectibles
                 </div>}
                 {NFTS.length > 3 && 
@@ -84,7 +84,7 @@ export const Nfts = (props: Props) => {
                 }
             </div>
             <div className="w-full font-normal text-sm h-full">
-            <div className="grid md:grid-cols-4 gap-4 h-32 mt-2 mx-2">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2" style={{height: (openList ? NFTS.length + 1 : 4) * 32 + "px"}}>
                 {NFTS.length > 0 && NFTS.slice(0, openList ? NFTS.length + 1 : 4).map((
                     owned: { title: string; poster: string; description: string; timestamp: number; id: string; },
                     index: number
@@ -127,6 +127,7 @@ export const Nfts = (props: Props) => {
                             objectFit="cover" //crops to fit the square
                             // objectFit="scale-down" // has big blue rectangles in the background
                             className="rounded-lg border-2 border-[#1273EA] bg-[#1273EA]" // just an example
+                            style={{backgroundColor: 'transparent'}}
                             onLoadingComplete={(e) => {
                                 const percent = (e.naturalHeight * (288 / e.naturalWidth) > 288) ? 288 / e.naturalHeight : 288 / e.naturalWidth;
                                 setNaturalRes((list: any) => {
