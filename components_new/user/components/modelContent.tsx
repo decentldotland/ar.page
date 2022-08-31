@@ -5,9 +5,9 @@ import * as React from 'react';
 import moment from 'moment';
 import { Rings } from 'react-loader-spinner';
 import { useRecoilState } from 'recoil';
-import { isDarkMode } from '../../../../atoms';
+import { isDarkMode } from '../../../atoms';
 
-import useWindowDimensions from '../../../../src/useWindowDimension';
+import useWindowDimensions from '../../../src/useWindowDimension';
 
 type Props = {
     handleClose: Function;

@@ -4,34 +4,12 @@ import Image from 'next/image';
 import { motion, useCycle } from "framer-motion";
 //@ts-ignore
 import { getWeaveAggregator } from "weave-aggregator";
-import Modal from '../../../../components/portal/modal';
+import Modal from '../../../components/portal/modal';
 import ModelContent from './modelContent';
-import { ARWEAVE_URL } from '../../../../src/constants';
-type Props = {
-    userInfo: {
-        user: string;
-        currentLabel: string;
-        ownedLabels?: {
-            label: string;
-            scarcity: string;
-            acquisationBlock: number;
-            mintedFor: number;
-        }[],
-        nickname?: string;
-        address_color: string;
-        bio?: string;
-        avatar?: string;
-        links?: {
-            github?: string;
-            twitter?: string;
-            customUrl?: string;
-            instagram?: string;
-        },
-        subdomains?: any;
-        freeSubdomains: number;
-    },
-};
-export const Nfts = (props: Props) => {
+import { ARWEAVE_URL } from '../../../src/constants';
+import { userInfo } from '../../../src/types';
+
+export const Nfts = (props: userInfo) => {
 
     const [animate, cycle] = useCycle(
         {
