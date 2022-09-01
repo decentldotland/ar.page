@@ -21,9 +21,9 @@ export function ANSIdentitiesManager({ props }: { props: Res }) {
         <span className="text-pink-600">ANS</span>
         <span className="text-primary">{ANS.currentLabel || NotSet("impossible...")}</span>
         <span className="text-purple-600">ENS</span>
-        <span className="text-primary">{ENS || NotSet("The user has not connected their Ethereum address")}</span>
+        <span className="text-primary">{ENS || NotSet("The user has not connected their Ethereum domain")}</span>
         <span className="text-red-700">AVVY</span>
-        <span className="text-primary">{AVVY || NotSet("The user has not connected their Avax address")}</span>
+        <span className="text-primary">{AVVY || NotSet("The user has not connected their Avax domain")}</span>
       </div>
     </div>
   )
@@ -42,7 +42,6 @@ export function Poaps({ props }: { props: Res }) {
               <img src={p.event.image_url} className="w-24 h-24" />
               <div className="ml-2 flex flex-col">
                 <div className="lg:text-sm font-semibold">{p.event.name}</div>
-                <div>owned by {(shortenAddress as Function)(p.owner)}</div>
               </div>
             </label>
 
@@ -53,7 +52,6 @@ export function Poaps({ props }: { props: Res }) {
                   <img src={p.event.image_url} className="w-24 h-24" />
                   <div className="ml-2 flex flex-col">
                     <div className="lg:text-sm font-semibold">{p.event.name}</div>
-                    <div>owned by {(shortenAddress as Function)(p.owner)}</div>
                   </div>
                 </div>
                 <div className="mt-2 grid grid-cols-1 gap-y-2">
