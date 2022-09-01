@@ -8,6 +8,7 @@ import Modal from '../../../components/portal/modal';
 import ModelContent from './modelContent';
 import { ARWEAVE_URL } from '../../../src/constants';
 import { userInfo } from '../../../src/types';
+import { Title } from './reusables';
 
 export const Nfts = (props: userInfo) => {
 
@@ -50,85 +51,86 @@ export const Nfts = (props: userInfo) => {
 
     return (
         <>
-            <div className="flex flex-row justify-between w-full font-medium text-xs items-center mb-4">
-                {NFTS.length > 0 &&
-                <div className="text-start font-medium text-xs text-gray-450 tracking-wide uppercase">
-                    Collectibles
-                </div>}
-                {NFTS.length > 3 && 
-                    <button className="btn btn-sm btn-secondary btn-outline text-end" onClick={() => setOpenList(isOpen => !isOpen)}>
-                        {openList ? "Collapse View" : "View all"}
-                    </button>
-                }
-            </div>
-            <div className="w-full font-normal text-sm h-full">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2" style={{height: (openList ? NFTS.length + 1 : 4) * 32 + "px"}}>
-                {NFTS.length > 0 && NFTS.slice(0, openList ? NFTS.length + 1 : 4).map((
-                    owned: { title: string; poster: string; description: string; timestamp: number; id: string; },
-                    index: number
-                ) =>
-                    <motion.div
-                        // {...index > 3 ?
-                        //     {
-                        initial={true}
-                        layout
-                        animate={{
-                            y: 0,
-                            opacity: 1
-                        }}
-                        style={{
-                            y: -100,
-                            opacity: 0,
-                            height: naturalRes[index]?.height,
-                            width: naturalRes[index]?.width
-                        }}
-                        transition={{
-                            duration: 0.5,
-                        }}
-                        // } : {}}
-                        key={owned.id}
-                        onClick={() => handleClose(owned)}
-                        className='rounded-md relative'
-                        // className={"h-full w-full"}
-                        >
-{/* 
-                        <img
-                            className='h-32 mx-auto my-auto border-2 border-[#1273EA] bg-[#1273EA] rounded-md'
-                            src={`https://pz-prepnb.meson.network/${owned.id}`}>
-                        </img> */}
-                        <div  className="rounded-lg overflow-hidden">
-                        <Image src={`${ARWEAVE_URL}${owned.id}`}
-                            alt={owned.title}
-                            // width={naturalRes[owned.id]?.width * naturalRes[owned.id]?.scale || "100%"} 
-                            // height={naturalRes[owned.id]?.height * naturalRes[owned.id]?.scale || "100%"}
-                            layout="fill" // required
-                            objectFit="cover" //crops to fit the square
-                            // objectFit="scale-down" // has big blue rectangles in the background
-                            className="rounded-lg border-2 border-[#1273EA] bg-[#1273EA]" // just an example
-                            style={{backgroundColor: 'transparent'}}
-                            onLoadingComplete={(e) => {
-                                const percent = (e.naturalHeight * (288 / e.naturalWidth) > 288) ? 288 / e.naturalHeight : 288 / e.naturalWidth;
-                                setNaturalRes((list: any) => {
-                                    return {
-                                        ...list, [owned.id]: {
-                                            scale: (e.naturalWidth > 288 || e.naturalHeight > 288) ? "Scaled to fit." : "Original resolution.",
-                                            width: Math.floor((e.naturalWidth > 288 || e.naturalHeight > 288) ? e.naturalWidth * percent : e.naturalWidth),
-                                            height: Math.floor((e.naturalWidth > 288 || e.naturalHeight > 288) ? e.naturalHeight * percent : e.naturalHeight),
-                                        }
-                                    }
-                                });
-                            }} />
-                            </div>
-
-
-                        <div className="mb-8"></div>
-                    </motion.div>)}
-
-                    <Modal handleClose={handleClose} isOpen={isOpen}>
-                        <ModelContent handleClose={handleClose} naturalRes={naturalRes} current={current} />
-                    </Modal>
+            {NFTS.length > 0 && (<>
+                <div className="flex flex-row justify-between w-full font-medium text-xs items-center mb-4">
+                    {NFTS.length > 0 && <Title>Collectibles</Title>}
+                    {NFTS.length > 3 && 
+                        <button className="btn btn-sm btn-secondary btn-outline text-end" onClick={() => setOpenList(isOpen => !isOpen)}>
+                            {openList ? "Collapse View" : "View all"}
+                        </button>
+                    }
                 </div>
-            </div>
+                <div className="w-full font-normal text-sm h-full">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2" style={{height: (openList ? NFTS.length + 1 : 4) * 32 + "px"}}>
+                    {NFTS.length > 0 && NFTS.slice(0, openList ? NFTS.length + 1 : 4).map((
+                        owned: { title: string; poster: string; description: string; timestamp: number; id: string; },
+                        index: number
+                    ) =>
+                        <motion.div
+                            // {...index > 3 ?
+                            //     {
+                            initial={true}
+                            layout
+                            animate={{
+                                y: 0,
+                                opacity: 1
+                            }}
+                            style={{
+                                y: -100,
+                                opacity: 0,
+                                height: naturalRes[index]?.height,
+                                width: naturalRes[index]?.width
+                            }}
+                            transition={{
+                                duration: 0.5,
+                            }}
+                            // } : {}}
+                            key={owned.id}
+                            onClick={() => handleClose(owned)}
+                            className='rounded-md relative'
+                            // className={"h-full w-full"}
+                            >
+    {/* 
+                            <img
+                                className='h-32 mx-auto my-auto border-2 border-[#1273EA] bg-[#1273EA] rounded-md'
+                                src={`https://pz-prepnb.meson.network/${owned.id}`}>
+                            </img> */}
+                            <div  className="rounded-lg overflow-hidden">
+                            <Image src={`${ARWEAVE_URL}${owned.id}`}
+                                alt={owned.title}
+                                // width={naturalRes[owned.id]?.width * naturalRes[owned.id]?.scale || "100%"} 
+                                // height={naturalRes[owned.id]?.height * naturalRes[owned.id]?.scale || "100%"}
+                                layout="fill" // required
+                                objectFit="cover" //crops to fit the square
+                                // objectFit="scale-down" // has big blue rectangles in the background
+                                className="rounded-lg border-2 border-[#1273EA] bg-[#1273EA]" // just an example
+                                style={{backgroundColor: 'transparent'}}
+                                onLoadingComplete={(e) => {
+                                    const percent = (e.naturalHeight * (288 / e.naturalWidth) > 288) ? 288 / e.naturalHeight : 288 / e.naturalWidth;
+                                    setNaturalRes((list: any) => {
+                                        return {
+                                            ...list, [owned.id]: {
+                                                scale: (e.naturalWidth > 288 || e.naturalHeight > 288) ? "Scaled to fit." : "Original resolution.",
+                                                width: Math.floor((e.naturalWidth > 288 || e.naturalHeight > 288) ? e.naturalWidth * percent : e.naturalWidth),
+                                                height: Math.floor((e.naturalWidth > 288 || e.naturalHeight > 288) ? e.naturalHeight * percent : e.naturalHeight),
+                                            }
+                                        }
+                                    });
+                                }} />
+                                </div>
+
+
+                            <div className="mb-8"></div>
+                        </motion.div>)}
+
+                        <Modal handleClose={handleClose} isOpen={isOpen}>
+                            <ModelContent handleClose={handleClose} naturalRes={naturalRes} current={current} />
+                        </Modal>
+                    </div>
+                </div>
+
+
+            </>)}
         </>
     )
 };

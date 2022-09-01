@@ -1,5 +1,4 @@
 // @flow 
-import Tippy from '@tippyjs/react';
 import { useAns } from 'ans-for-all';
 import * as React from 'react';
 import { Button } from '../../buttons';
@@ -25,14 +24,15 @@ export const Labels = (props: userInfo) => {
             {
               info.ownedLabels.map((owned: { label: string; scarcity: string; acquisationBlock: number; mintedFor: number; }) =>
                 <div key={owned.acquisationBlock} className="col-span-2 pt-1 float-left select-none">
-                  <Tippy arrow={true}
+                  <div
                     key={owned.acquisationBlock}
-                    content={`scarcity: ${owned.scarcity} `}
-                    className="font-mono text-sm">
+                    className="font-mono text-sm tooltip tooltip-info"
+                    data-tip={`scarcity: ${owned.scarcity} `}
+                    >
                     <button className="btn btn-sm btn-primary">
-                        {owned.label}.ar
+                      {owned.label}.ar
                     </button>
-                  </Tippy>
+                  </div>
                 </div>
               )
             }
