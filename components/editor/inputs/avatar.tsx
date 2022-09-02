@@ -3,7 +3,7 @@ import * as React from 'react';
 import Image from 'next/image';
 // import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faXmark, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { uploadImage, uploadPercent } from '../../../atoms'
 import { ARWEAVE_URL } from '../../../src/constants';
@@ -169,13 +169,13 @@ export const Avatar = (props: Props) => {
             <div className="z-0 py-3 h-28 flex text-lg rounded-md text-base-content relative"
             // col-span-3 lg:col-span-2 row-span-2
             >
-                <label htmlFor='profileUpload' className="h-48 w-48 mx-auto rounded-full p-0.5 overflow-hidden transition-opacity duration-300 ease-in-out hover:opacity-40  " style={{ backgroundColor: props.userColor || "transparent", cursor: !thePreview ? "pointer": "" }}>
+                <label htmlFor='profileUpload' className="h-48 w-48 rounded-full p-0.5 overflow-hidden " style={{ backgroundColor: props.userColor || "transparent", cursor: !thePreview ? "pointer": "" }}>
                     {thePreview ? (
-                        <Image src={thePreview} alt="Avatar" width="100%" height="100%" layout="responsive" objectFit="cover" style={{borderRadius: "999px", cursor: 'pointer'}} />
+                        <Image src={thePreview} alt="Avatar" width="100%" height="100%" layout="responsive" objectFit="cover" style={{borderRadius: "999px", cursor: ''}} />
                     ):(
-                        <div className={`rounded-full bg-primary text-white text-center mt-20 w-40 mx-auto`}>Choose Avatar</div>
+                        <FontAwesomeIcon icon={faUpload} className="rounded-full p-4 flex mt-[62px] mx-auto bg-primary w-16 h-16 text-white transition-opacity duration-300 ease-in-out hover:opacity-40" />
                     )}
-                </label>            
+                </label>
                 {props.percent > 1 &&
                     <div className="z-40 flex absolute h-48 w-full top-0 justify-start mt-20">
                         <div className="btn btn-secondary btn-circle loading no-animation w-fit mx-auto rounded-lg px-2 gap-2">
@@ -191,7 +191,7 @@ export const Avatar = (props: Props) => {
                     onChange={readFileState}
                 />
                 {thePreview && props.percent < 1 &&
-                    <div className="absolute right-12 top-4 z-30">
+                    <div className="absolute right-8 top-3 z-30">
                         <FontAwesomeIcon icon={faXmark} onClick={() => setThePreview('')} className="btn btn-secondary btn-circle btn-sm" />
                     </div>
                 }

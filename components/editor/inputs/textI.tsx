@@ -30,19 +30,19 @@ export const TextI = (props: Props) => {
                 case true:
                     return " focus:border-prim2 ";
                 case false:
-                    return " border-red-500 ";
+                    return " !border-red-500 ";
                 default:
-                    return " border-red-500 ";
+                    return " !border-red-500 ";
             }
         else return " focus:border-prim2 "
     }, [edited, regex, text])
 
     return (
         <div className="relative flex justify-start my-3 w-full">
-            <div data-tip={title} className="absolute w-4 h-4 mt-4 ml-2.5 tooltip ">
+            <div data-tip={title} className="absolute w-4 h-4 mt-2.5 ml-2.5 tooltip ">
                 {svgIcon}
             </div>
-            <input className={borderColor() + "input input-primary ring-0 outline-none text-lg mx-auto rounded-md text-base-content bg-base-100 pl-8 pr-2 py-1 w-full border-2"}
+            <input className={"border-primary "+ borderColor() + " transition-all duration-300 ease-in-out ring-0 outline-none text-lg mx-auto text-base-content bg-base-100 pl-8 pr-2 py-1 w-full border-b-2"}
                 onInput={setValue}
                 onPaste={setValue}
                 onChange={setValue}
