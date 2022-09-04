@@ -25,19 +25,19 @@ export const NameContent = (props: userInfo) => {
     <div className="h-[36px] w-full">
       {/* Cover Page */}
       <CoverPage userInfo={props.userInfo} />
-      
-      <div className="flex flex-wrap mx-10 max-w-full rounded-lg px-16">
+
+      <div className="flex flex-wrap max-w-full rounded-lg px-16">
 
         <UserInfo userInfo={props.userInfo} />
 
-        <div className="w-full flex justify-between items-center">
+        {/* <div className="w-full flex justify-between items-center">
             <Labels userInfo={props.userInfo} />
             {props.userInfo.user === address && (
               <FontAwesomeIcon icon={faPencilAlt} className="w-4 mb-0.5 mr-2 cursor-pointer" onClick={(e) => setEditEnabled(!editEnabled)} />
             )}
-        </div>
+        </div> */}
 
-        <EditModal userColor={props.userInfo.address_color} wallet={props.userInfo.user} userInfo={props} />      
+        {/* <EditModal userColor={props.userInfo.address_color} wallet={props.userInfo.user} userInfo={props} />       */}
         <Panel userInfo={props.userInfo} />
         {/* <div className="h-0 w-full -mx-10"></div> */}
       </div>

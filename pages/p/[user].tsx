@@ -37,7 +37,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                     <meta name="twitter:description" content={userInfo.bio} />
                 </Head>
                 <div className="md:flex h-full w-full relative">
-                    <div className="w-full h-body overflow-y-scroll bg-base-200/25">
+                    <div className="w-full h-body overflow-y-scroll bg-[#fafafa] ">
                         <NameContent userInfo={userInfo} />
                     </div>
                 </div>

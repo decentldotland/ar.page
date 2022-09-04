@@ -8,6 +8,7 @@ import { useAns } from 'ans-for-all';
 import * as React from 'react';
 import { ANSData, userInfo } from '../../../src/types';
 import Avatar from '../../avatar';
+import ProfileAvatar from '../../avatar/ProfileAvatar';
 
 export const UserInfo = (props: userInfo) => {
 
@@ -69,14 +70,13 @@ export const UserInfo = (props: userInfo) => {
     };
 
     return (
-        <div className="flex w-full gap-x-2.5 justify-between">
-            <div className="flex w-full gap-x-2.5 items-center">
-                {props?.userInfo && (
-                    <Avatar ansData={ansData} />
-                )}
+        <div className="flex flex-row items-start space-x-5">
+            <div className="flex flex-row w-full relative bottom-20 items-end   ">
+                {props?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
                 {/* nickname and label */}
-                <div className="flex flex-col">
-                    <div className="text-xl font-medium leading-6">
+            </div>
+                <div className="flex flex-col mt-3">
+                    <div className="text-2xl font-bold leading-6 font-inter ">
                         {props.userInfo.currentLabel}
                     </div>
                     <div onClick={copy}
@@ -105,19 +105,7 @@ export const UserInfo = (props: userInfo) => {
                             </div>
                         </Tippy>
                     </div>
-                </div>
             </div>
-
-
-            {(Object.keys(links).length > 0) && 
-                <div className="mt-2 flex flex-end gap-0 ">
-                    {/* <h1 className="text-sviolet text-left font-extrabold text-lg">Social Links: </h1> */}
-                    <Icon url={instagram} type={'instagram'} />
-                    <Icon url={twitter} type={'twitter'} />
-                    <Icon url={github} type={'github'} />
-                    <Icon url={customUrl} type={'customUrl'} />
-                </div>
-            }
         </div>
     );
 
