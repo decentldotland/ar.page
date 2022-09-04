@@ -17,12 +17,12 @@ function Avatar ({ansData, options} :{ansData: ANSData, options?: AvatarOptions}
   }
 
   return (
-    <div className="flex rounded-full overflow-hidden border-[2px] mt-1"
+    <div className="flex rounded-full overflow-hidden"
       style={{
         backgroundColor: ansData.address_color || "#000",
-        border: '2px solid '+ (ansData.address_color),
-        height: height || '36px',
-        width: width || '36px',
+        // border: '2px solid '+ (ansData.address_color),
+        height: height || '32px',
+        width: width || '32px',
       }}
     >
       {ansData.avatar ?
