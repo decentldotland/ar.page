@@ -10,7 +10,7 @@ import { faGlobe, faUser, faXmark, faCheck } from '@fortawesome/free-solid-svg-i
 import { faGithub, faTelegram, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { ThreeDots } from 'react-loader-spinner';
 import { userInfo } from '../../src/types';
-import { ANS_CONTRACT, ARWEAVE_OBJECT } from '../../src/constants';
+import { ANS_CONTRACT, ARWEAVE_EXPLORER_TX, ARWEAVE_OBJECT } from '../../src/constants';
 import { Avatar } from './inputs/avatar';
 import { Bio } from './inputs/bio';
 import { TextI } from './inputs/textI';
@@ -730,12 +730,19 @@ export const Content = (props: Props) => {
                             <div className={`w-full overflow-x-hidden bg-gray-200 rounded-full h-2.5`}>
                                 <div className={`bg-success transition-width duration-500 ease-in-out h-2.5 rounded-full ${progress > 0 && progress < 3 && "animate-pulse"}`} style={{width: (progress * 33.34) + '%'}}></div>
                             </div>
-                            <div className={`btn btn-sm my-2 btn-outline ${progress < 3 ? `loading btn-secondary`: `btn-success`}`}>{(progress < 3) ? `Uploading... Step ${Math.round(progress)}/3` : 
-                                <a className="flex" target="_blank" href={`https://v2.viewblock.io/arweave/tx/${txId}`}>
-                                    <FontAwesomeIcon icon={faCheck} className="w-4 h-4 mr-2" /> Uploaded || {" "} Open TX
-                                </a>}
+                            <div className={`btn btn-sm my-2 btn-outline ${progress < 3 ? `loading btn-secondary`: `btn-success`}`}>
+                                {(progress < 3) ? `Uploading... Step ${Math.round(progress)}/3` : 
+                                    <>
+                                        <a className="flex" target="_blank" rel="noreferrer" href={ARWEAVE_EXPLORER_TX + txId}>
+                                            <FontAwesomeIcon icon={faCheck} className="w-4 h-4 mr-2" /> Uploaded || {" "} Open TX
+                                        </a>
+                                    </>
+                                }
                             </div>
                         </div>
+                        {progress > 0 && (
+                            <div className="mb-2">The transaction takes around 5 minutes to mine on Arweave</div>
+                        )}
                         <button className="btn btn-primary text-lg mx-auto mb-8" onClick={() => submitUpload()}>
                             {"Submit"}
                         </button>

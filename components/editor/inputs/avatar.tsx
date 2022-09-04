@@ -210,18 +210,6 @@ export const Avatar = (props: Props) => {
         // console.log(inputRef?.current?.value)
         if (props.avatar) {
             setThePreview(ARWEAVE_URL + props.avatar)
-            const createFile = async (url: string) => {
-                let response = await fetch(url);
-                let data = await response.blob();
-                let metadata = {
-                    type: 'image/jpeg'
-                };
-                let file = new File([data], "avatar.jpg", metadata);
-                if (inputRef.current?.target?.files) {
-                    inputRef.current.target.files[0] = file;
-                }
-            }
-            createFile(ARWEAVE_URL + props.avatar);
         }
     }, [props.avatar])
 
