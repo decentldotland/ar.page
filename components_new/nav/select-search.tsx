@@ -7,6 +7,8 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../styles/templates';
 import { random } from 'lodash';
 
+import {MagnifyingGlassIcon} from '@heroicons/react/24/outline'
+
 const CustomSelect = ({ options, multiple, disabled, placeholder }: 
     { options: 
         { 
@@ -76,16 +78,22 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
     });
 
     return (
-        <div className="relative h-7 outline-none w-full" ref={container}>
+        <div className="flex-row flex items-center flex-1 space-x-3 w-[336%]" ref={container}>
             {/* <button className="w-24 h-4 bg-red-300" {...valueProps}>{snapshot.displayValue}</button> */}
-            <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute mt-2.5 left-4 ml-1" width="15" height="15" />
+
+            <MagnifyingGlassIcon 
+                height={20} width={20} strokeWidth={3} color="#666" 
+                className='absolute ml-6'/>
+            {/* <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute mt-2.5 left-4 ml-1" width="15" height="15" /> */}
             {/* @ts-ignore */}
             <input {...valueProps} 
             onKeyDown={handleEnter} 
             // style={{ paddingLeft: "22px" }} 
             value={val} onChange={handleChange} onFocus={() => setShow(true)} 
             placeholder={placeholder}
-            className="bg-base-100 input-bordered pr-4 ml-5 pl-6 w-10/12 h-2 font-mono text-sm leading-3 font-light py-4 rounded-none focus:outline-none border-0 mb-0.5 focus:mb-0 focus:border-b-2 focus:border-primary" />
+            className="bg-base-200 input-bordered flex text-sm 
+                text-black font-bold pl-10 w-full leading-3  py-2 rounded-xl 
+                focus:outline-none border-0 mb-0.5  focus:border-b-2 focus:border-primary" />
             {show && (
                 <div className="h-fit mt-1 p-2 bg-base-100 rounded-md w-[200px]">
                     <ul className="h-full my-2">

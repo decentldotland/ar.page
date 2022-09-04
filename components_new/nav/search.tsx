@@ -5,6 +5,8 @@ import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
+import {MagnifyingGlassIcon} from '@heroicons/react/24/outline'
+
 type Props = {
     items: any;
     placeholder: string;
@@ -37,7 +39,7 @@ const SearchBox = (props: Props) => {
                 selectedItem,  // Item that is currently selected in the list (when hovering)
                 highlightedIndex,
             }) => (
-                <div className="z-50 rounded-xl h-full">
+                <div className="z-50 rounded-xl h-full  ">
                     <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute mt-1 left-[4px] lg:mr-1 mr-0" width="15" height="15" />
                     <input {...getInputProps({ placeholder: props.placeholder })} onKeyDown={handleEnter} style={{ paddingLeft: "22px", width: "316px" }} className="rounded-xl pr-4" />
                     {isOpen ? (

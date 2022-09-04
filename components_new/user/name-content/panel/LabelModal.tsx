@@ -23,11 +23,14 @@ function LabelModal() {
 
   return (
     <Modal
-      open={showTransferModal}
+      open={true}
       onClose={handleCloseModal}
     >
       <>
+      <div className="bg-black p-3">
         Hello
+    
+      </div>
       </>
     </Modal>
   )
