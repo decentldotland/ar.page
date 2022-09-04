@@ -22,55 +22,20 @@ export const User = (props: any) => {
     }, [walletConnected]);
 
     return (
-        <div className="h-9 mx-4 mb-8">
+        <div className="">
             <>
                 {(walletConnected && (
-                    <div className={`flex flex-row gap-x-2.5`}>
+                    <div className={`flex flex-row `}>
                         {ansData && (ansData.avatar || ansData.currentLabel || ansData.address_color ) ? (
                             <>
-                                <div tabIndex={0} className='dropdown dropdown-top bg-white items-center'>
-                                    <ul tabIndex={0} className="dropdown-content menu bg-white
-                                    shadow-xl rounded-xl px-4 py-4 text-base items-center mb-5 space-y-6
-                                    text-black w-[180px] h-[181px] transition ease-in-out duration-500">
-                                        <li className='w-full h-[30px]'>
-                                            <div className='btn btn-primary'>
-                                                <div className="items-center flex justify-center ml-2 space-x-3.5">
-                                                    <PlusIcon height={18} width={18} /> 
-                                                    <p>Profile</p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li className='w-full h-[30px]'>
-                                            <div className='btn-primary btn'>
-                                                <div className="mr-2">
-                                                    <FontAwesomeIcon 
-                                                        icon={faUser} height={18} width={18} strokeWidth={1} stroke={"true"}/> 
-                                                </div>
-                                                <p>Profile</p>
-                                            </div>
-                                        </li>
-                                        <li className='w-full h-[30px]'>
-                                            <div className='btn-primary btn'>
-                                                <ArrowRightOnRectangleIcon  height={18} width={18}/> 
-                                                <p>Disconnect</p>
-                                            </div>
-                                        </li>
-                                    </ul>
-
-                                    {/* name and labels */}
-                                    <div className="space-x-3 5 flex flex-row items-center">
-                                        <Avatar ansData={ansData} />
-                                        {/* nickname and label */}
-                                        <div className="flex flex-col relative top-[0.5] ">
-                                            <p className="text-base font-semibold text-left">
-                                                {ansData?.currentLabel}
-                                                {/* Hello Text */}
-                                            </p>
-                                            <p className="text-[#656] text-xs font-normal">
-                                                {ansData?.currentLabel}.ar
-                                                {/* Hello.ar */}
-                                            </p>
-                                        </div>
+                                {/* name and labels */}
+                                <div className="space-x-3.5 flex flex-row items-center">
+                                    <Avatar ansData={ansData} />
+                                    {/* nickname and label */}
+                                    <div className="flex flex-col relative top-[0.5] ">
+                                        <p className="text-base font-semibold text-left">
+                                            {ansData?.currentLabel}.ar
+                                        </p>
                                     </div>
                                 </div>
                             </>
