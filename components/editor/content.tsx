@@ -6,11 +6,11 @@ import Swal from 'sweetalert2'
 import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
 import { uploadImage, uploadTXID, isDarkMode } from '../../atoms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGlobe, faUser, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faGlobe, faUser, faXmark, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faTelegram, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { ThreeDots } from 'react-loader-spinner';
 import { userInfo } from '../../src/types';
-
+import { ANS_CONTRACT, ARWEAVE_OBJECT } from '../../src/constants';
 import { Avatar } from './inputs/avatar';
 import { Bio } from './inputs/bio';
 import { TextI } from './inputs/textI';
@@ -21,8 +21,7 @@ type Props = {
     handleClose: Function;
     userInfo: userInfo;
 };
-
-export const Content = (props: Props) => {
+export const ContentOld = (props: Props) => {
 
     const [isDark, setIsDarkMode] = useRecoilState(isDarkMode);
 
@@ -488,7 +487,7 @@ export const Content = (props: Props) => {
                     <div className={`flex flex-col w-full md:h-3/5 h-[65vh] px-8 overflow-scroll scrollbar scrollbar-thumb-blue-500 ${isDark ? "scrollbar-track-gray-700" : "scrollbar-track-gray-300"}`}>
                         <div className="flex flex-col md:flex-row md:items-center">
                             <div className="flex justify-center md:-mt-20 mr-6">
-                                <Avatar avatar={avatar} userColor={props.userColor} setText={setAvatarState} regex="^@?([a-zA-Z0-9_]{1,43})$" setValidityCheck={setValidityCheck} setImgWithProfile={setImgWithProfile} percent={percent} />
+                                <Avatar idState={idState} avatar={avatar} userColor={props.userColor} setText={setAvatarState} regex="^@?([a-zA-Z0-9_]{1,43})$" setValidityCheck={setValidityCheck} setImgWithProfile={setImgWithProfile} percent={percent} />
                             </div>
                             <div className="mt-40 md:mt-0">
                                 {/* <div className="text-center text-base-content font-semibold text-2xl">Socials</div> */}
@@ -512,6 +511,232 @@ export const Content = (props: Props) => {
                         <button className="btn btn-primary text-lg mx-auto my-8"
                             onClick={() => submitUpload()}>
                             {/* onClick={() => submitTX()}> */}
+                            {"Submit"}
+                        </button>
+                    </div>
+                </div> : (confirmOwner) ? <>
+                    <div className="w-[91vw] max-w-screen-md h-15 top-0.5 left-4 ">
+                        <h1 className="text-xl w-full mx-auto text-red-400 font-extrabold py-5 bottom-0 text-center ">Error:</h1>
+                    </div>
+                    {/* <div className="col-span-3 bg-prim1 h-0.5">
+                        </div> */}
+                    <h1 className=" w-full mx-auto py-5 bottom-0 text-center ">Selected ArConnect address does not match this ANS Profile.
+                    </h1>
+                </> : <>
+                    <div className="w-[91vw] max-w-screen-md h-15 top-0.5 left-4">
+                        <h1 className="text-xl w-full mx-auto text-sviolet font-extrabold py-5 bottom-0 text-center ">loading:</h1>
+                    </div>
+                    {/* <div className="col-span-3 bg-prim1 h-0.5">
+                        </div> */}
+                    <h1 className=" w-full mx-auto py-5 bottom-0 text-center ">please wait...</h1>
+                </>
+            }
+        </div>
+    );
+};
+
+export const Content = (props: Props) => {
+    if (window) (window as any).Swal = Swal;
+
+    const arweave = React.useRef<Arweave>(Arweave.init(ARWEAVE_OBJECT)).current;
+    const [isDark, setIsDarkMode] = useRecoilState(isDarkMode);
+    const [idState, setIdState] = useRecoilState(uploadTXID);
+
+    const [errorStatus, setErrorStatus] = React.useState<string>("");
+    const [hideError, setHideError] = React.useState<boolean>(true);
+    const [progress, setProgress] = React.useState<number>(0); // upload progress
+    const [txId, setTxId] = React.useState<string>("");
+    const [isOwner, setIsOwner] = React.useState<boolean>(false);
+    const [confirmOwner, setConfirmOwner] = React.useState<boolean>(false);
+    const [validityCheck, setValidityCheckState] = React.useState<any>({});
+    const [imgWithProfile, setImgWithProfile] = React.useState<any>(false);
+
+    const setValidityCheck = React.useCallback(error => {
+        setValidityCheckState((state: any) => {
+            const newState = state;
+            // console.log(state)
+            // console.log(error.input)
+            // console.log(error.error)
+            newState[error.input] = error.error;
+            return newState;
+        })
+    }, [])
+
+    const checkValuesAreEmpty = (fields:string[]) => {
+        return fields.filter(field => !!field.trim()).length === 0
+    }
+
+    React.useState(() => {
+        window.arweaveWallet.getActiveAddress().then((address) => {
+            setIsOwner(address == props.wallet)
+            setConfirmOwner(true);
+        });
+    })
+
+    // @ts-ignore
+    const {customUrl, github, instagram, twitter} = props.userInfo.userInfo.links;
+    const {avatar, bio, nickname} = props.userInfo.userInfo;
+
+    const [avatarState, setAvatarState] = React.useState<any>(""), //💨🍃
+        [bioState, setBioState] = React.useState(""),
+        [nicknameState, setNicknameState] = React.useState(""),
+        [githubState, setGithubState] = React.useState(""),
+        [twitterState, setTwitterState] = React.useState(""),
+        [instagramState, setInstagramState] = React.useState(""),
+        [customUrlState, setCustomUrlState] = React.useState(""),
+        [percent, setPercent] = React.useState(0);
+
+    React.useEffect(() => {
+        // @ts-ignore
+        const {customUrl, github, instagram, twitter} = props.userInfo.userInfo.links;
+        const {avatar, bio, nickname} = props.userInfo.userInfo;
+        if (customUrl) setCustomUrlState(customUrl);
+        if (github) setGithubState(github);
+        if (instagram) setInstagramState(instagram);
+        if (twitter) setTwitterState(twitter);
+        if (avatar) setAvatarState(avatar);
+        if (bio) setBioState(bio);
+        if (nickname) setNicknameState(nickname);
+    }, [props])
+
+    const showError = (text:string) => {
+        setHideError(false)
+        setErrorStatus(text);
+        setTimeout(() => {
+            setHideError(true)
+        }, 5000);
+        setProgress(0)
+    }
+
+    const submitTX: Function = React.useCallback(async (avatartTxId = "") => {
+        const fields = [avatartTxId, bioState, nicknameState, githubState, twitterState, instagramState, customUrlState]
+        if (Object.values(validityCheck).indexOf(false) > -1) {
+            showError('Some of the fields are not valid, please fix the ones highlighted in red');
+            return;
+        }
+        if (checkValuesAreEmpty(fields)){
+            showError('Please fill in at least one field');
+            return;
+        }
+        if (!avatartTxId) setProgress(1);
+
+        const interaction: {
+            function: string;
+            //savable
+            avatar?: string;
+            bio?: string;
+            nickname?: string;
+            github?: string;
+            twitter?: string;
+            instagram?: string;
+            customUrl?: string;
+        } = { "function": "updateProfileMetadata" };
+
+        if (avatartTxId != "") interaction.avatar = avatartTxId;
+        if (bioState != "") interaction.bio = bioState
+        if (nicknameState != "") interaction.nickname = nicknameState
+        if (githubState != "") interaction.github = githubState
+        if (twitterState != "") interaction.twitter = twitterState
+        if (instagramState != "") interaction.instagram = instagramState
+        if (customUrlState != "") interaction.customUrl = customUrlState
+
+        const tx = await arweave.createTransaction({ data: String(Date.now()) });
+        tx.addTag("App-Name", "SmartWeaveAction");
+        tx.addTag("App-Version", "0.3.0");
+        tx.addTag("Contract", ANS_CONTRACT);
+        tx.addTag("Input", JSON.stringify(interaction));
+        tx.addTag("Content-Type", "text/plain");
+        // to 'ensure' that the  TX will not drop when the network is congested
+        tx.reward = (+tx.reward * 5).toString();
+        setProgress(1)
+        try {
+            await arweave.transactions.sign(tx);
+            await arweave.transactions.post(tx);
+            setProgress(2);
+            setProgress(3);
+            setTxId(tx.id);
+        } catch (error) {
+            showError('Transaction failed, top up your wallet and try again');
+            return;
+        }
+    }, [validityCheck, bioState, nicknameState, githubState, twitterState, instagramState, customUrlState, arweave, props])
+
+    const submitPfp = React.useCallback(async () => {
+        if (imgWithProfile !== false) {
+            setProgress(1)
+            const tx = await arweave.createTransaction({ data: new Uint8Array(avatarState.data) });
+            tx.addTag("Content-Type", avatarState.ContentType);
+            tx.addTag("ans-action", "profile-pfp");
+            tx.tags
+            tx.reward = (+tx.reward * 10).toString();
+
+            await arweave.transactions.sign(tx);
+            console.log("signed tx", tx);
+            setIdState(tx.id);
+
+            const uploader = await arweave.transactions.getUploader(tx);
+            while (!uploader.isComplete) {
+                await uploader.uploadChunk();
+                setPercent(uploader.pctComplete)
+            }
+            if ((uploader as any).txPosted) {
+                console.log(tx.id)
+                setIdState(tx.id);
+                submitTX(tx.id)
+            } else {
+                showError('unexpected error, ask us for help in the decent.land Telegram channel')
+            }
+        }
+    }, [arweave, avatarState.ContentType, avatarState.data, imgWithProfile, setIdState, submitTX])
+
+    const submitUpload = React.useCallback(async () => {
+        if (imgWithProfile === false) {
+            submitTX()
+        } else submitPfp();
+    }, [imgWithProfile, submitPfp, submitTX])
+
+    return (
+        <div data-theme={isDark ? "ardark": "arlight"} className="rounded-md mx-1 top-0 p-6 px-4 pt-6 pb-18 max-w-full lg:max-w-screen-lg lg:mx-auto h-fit bg-base-100">
+            <FontAwesomeIcon icon={faXmark} onClick={() => props.handleClose()} className="absolute right-3 top-3 rounded-full btn btn-primary btn-circle btn-sm" />
+            {(isOwner) ?
+                <div className="mx-auto max-w-screen-md -mb-10">
+                    <div className="max-w-screen-md h-15 top-0.5 left-4">
+                        <h1 className="text-xl w-full mx-auto text-primary font-extrabold py-5 bottom-0 text-center select-none">Edit Profile</h1>
+                    </div>
+                    <div className={`flex flex-col w-full md:h-3/5 h-[65vh] px-8 overflow-scroll scrollbar scrollbar-thumb-blue-500 ${isDark ? "scrollbar-track-gray-700" : "scrollbar-track-gray-300"}`}>
+                        <div className="flex flex-col md:flex-row md:items-center pt-8">
+                            <div className="flex justify-center md:-mt-20 md:mr-6">
+                                <Avatar avatar={avatar} userColor={props.userColor} setText={setAvatarState} regex="^@?([a-zA-Z0-9_]{1,43})$" setValidityCheck={setValidityCheck} setImgWithProfile={setImgWithProfile} percent={percent} idState={idState} />
+                            </div>
+                            <div className="mt-40 md:mt-0">
+                                <div className="grid grid-cols-2 md:grid-rows-2 md:col-span-2 gap-x-6">
+                                    <TextI title="Nickname" placeholder="Nickname" svgIcon={<FontAwesomeIcon icon={faUser} className="!w-4 !h-4" />} text={nicknameState} setText={setNicknameState} regex="^@?(\S{1,30})$" setValidityCheck={setValidityCheck} />
+                                    <TextI title="Github" placeholder='Github handle' svgIcon={<FontAwesomeIcon icon={faGithub} />} text={githubState} setText={setGithubState} regex="^([a-zA-Z0-9_]{1,38})$" setValidityCheck={setValidityCheck} />
+                                    <TextI title="Twitter" placeholder='Twitter handle' svgIcon={<FontAwesomeIcon icon={faTwitter} />} text={twitterState} setText={setTwitterState} regex="^@?([a-zA-Z0-9_]{1,15})$" setValidityCheck={setValidityCheck} />
+                                    <TextI title="Instagram" placeholder='Instagram handle' svgIcon={<FontAwesomeIcon icon={faInstagram} />} text={instagramState} setText={setInstagramState} regex="^([a-zA-Z0-9_]{1,30})$" setValidityCheck={setValidityCheck} />
+                                    <div className="col-span-2">
+                                        <TextI title={'Custom Url'} placeholder={'Website URL'} svgIcon={<FontAwesomeIcon icon={faGlobe} />} text={customUrlState} setText={setCustomUrlState} regex="^@?(\S{1,43})$" setValidityCheck={setValidityCheck} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="mt-8">
+                            <Bio text={bioState} setText={setBioState} regex="^@?([\s\S]{1,150})$" setValidityCheck={setValidityCheck} />
+                        </div>
+                    </div>
+                    <div className="flex flex-col px-8 justify-center w-full">
+                        <div className={`mb-4 transition-opacity duration-500 ease-in-out text-red-500 ${hideError ? "opacity-0 select-none": "opacity-100"}`}>{errorStatus}</div>
+                        <div className={`flex flex-col items-center ${progress > 0 ? 'opacity-100' : '-mt-12 opacity-0'}`}>
+                            <div className={`w-full overflow-x-hidden bg-gray-200 rounded-full h-2.5`}>
+                                <div className={`bg-success transition-width duration-500 ease-in-out h-2.5 rounded-full ${progress > 0 && progress < 3 && "animate-pulse"}`} style={{width: (progress * 33.34) + '%'}}></div>
+                            </div>
+                            <div className={`btn btn-sm my-2 btn-outline ${progress < 3 ? `loading btn-secondary`: `btn-success`}`}>{(progress < 3) ? `Uploading... Step ${Math.round(progress)}/3` : 
+                                <a className="flex" target="_blank" href={`https://v2.viewblock.io/arweave/tx/${txId}`}>
+                                    <FontAwesomeIcon icon={faCheck} className="w-4 h-4 mr-2" /> Uploaded || {" "} Open TX
+                                </a>}
+                            </div>
+                        </div>
+                        <button className="btn btn-primary text-lg mx-auto mb-8" onClick={() => submitUpload()}>
                             {"Submit"}
                         </button>
                     </div>

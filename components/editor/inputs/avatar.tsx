@@ -3,10 +3,8 @@ import * as React from 'react';
 import Image from 'next/image';
 // import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark, faUpload } from '@fortawesome/free-solid-svg-icons';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
-import { uploadImage, uploadPercent } from '../../../atoms'
-import { ARWEAVE_URL } from '../../../src/constants';
+import { faXmark, faUpload, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { ARWEAVE_URL, ARWEAVE_EXPLORER_TX } from '../../../src/constants';
 import Swal from 'sweetalert2'
 
 type Props = {
@@ -16,10 +14,11 @@ type Props = {
     setValidityCheck: Function;
     setImgWithProfile: Function;
     percent: number;
+    idState: string;
     setText: (value: any) => void
 };
 
-export const Avatar = (props: Props) => {
+export const AvatarOld = (props: Props) => {
 
     // const [edited, setEdited] = React.useState<boolean>(false);
     // const [textState, setTextState] = React.useState("");
@@ -197,6 +196,97 @@ export const Avatar = (props: Props) => {
                 }
             </div>
             {/* <h1 className="text-3xl text-white mx-auto font-extrabold"></h1> */}
+        </>
+    );
+};
+
+export const Avatar = (props: Props) => {
+    const inputRef = React.useRef<any>();
+
+    const [thePreview, setThePreview] = React.useState("")
+
+    //pre-load the image if it exists
+    React.useEffect(() => {
+        // console.log(inputRef?.current?.value)
+        if (props.avatar) {
+            setThePreview(ARWEAVE_URL + props.avatar)
+            const createFile = async (url: string) => {
+                let response = await fetch(url);
+                let data = await response.blob();
+                let metadata = {
+                    type: 'image/jpeg'
+                };
+                let file = new File([data], "avatar.jpg", metadata);
+                if (inputRef.current?.target?.files) {
+                    inputRef.current.target.files[0] = file;
+                }
+            }
+            createFile(ARWEAVE_URL + props.avatar);
+        }
+    }, [props.avatar])
+
+    const readFileState = React.useCallback((event, ) => {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            setThePreview(URL.createObjectURL(event.target.files[0]));
+            props.setImgWithProfile({
+                data: Array.from(Buffer.from(e.target?.result as ArrayBuffer)),
+                ContentType: event.target.files[0].type
+            })
+            props.setText({
+                data: Array.from(Buffer.from(e.target?.result as ArrayBuffer)),
+                ContentType: event.target.files[0].type
+            });
+        }
+        if (event.target.files.length > 0 && event.target.files[0].type.startsWith("image")) {
+            reader.readAsArrayBuffer(event.target.files[0]);
+        }
+    }, [props])
+
+    return (
+        <>
+            <div className="z-0 py-3 h-28 flex text-lg rounded-md text-base-content relative">
+                <label htmlFor='profileUpload' className="h-48 w-48 rounded-full p-1 overflow-hidden " style={{ backgroundColor: props.userColor || "transparent", cursor: !thePreview ? "pointer": "" }}>
+                    {thePreview ? (
+                        <Image src={thePreview} alt="Avatar" width="100%" height="100%" layout="responsive" objectFit="cover" style={{borderRadius: "999px", cursor: ''}} />
+                    ):(
+                        <>
+                            <FontAwesomeIcon icon={faUpload} className="rounded-full p-4 flex mt-16 mb-1 mx-auto bg-primary w-16 h-16 text-white transition-opacity duration-300 ease-in-out hover:opacity-40" />
+                        </>
+                    )}
+                </label>
+                {props.percent > 1 &&
+                    <div className="z-40 flex absolute h-48 w-full top-0 justify-start mt-20">
+                        <a href={props.idState ? ARWEAVE_EXPLORER_TX + props.idState : ""} className={`btn btn-sm btn-secondary ${!props.idState && `loading no-animation`} w-fit mx-auto rounded-lg px-2 gap-2`}>
+                            {props.idState ? (
+                                <div className="flex items-center text-xs">
+                                    <FontAwesomeIcon icon={faCheck} className="w-4 h-4 mr-2" />
+                                    Uploaded || Open TX
+                                </div>
+                            ) : (
+                                <div>
+                                    <p className="">{props.percent}% uploaded</p>
+                                </div>
+                            )}
+                        </a>
+                    </div>
+                }
+                <input className="hidden"
+                    id="profileUpload"
+                    type="file"
+                    ref={inputRef}
+                    onChange={readFileState}
+                />
+                {thePreview && props.percent < 1 &&
+                    <div className="absolute right-6 top-3 z-30">
+                        <FontAwesomeIcon icon={faXmark} onClick={() => {
+                            setThePreview('');
+                            props.setImgWithProfile(false);
+                            props.setText(false);
+                        }} className="btn btn-secondary btn-circle btn-sm" />
+                    </div>
+                }
+            </div>
         </>
     );
 };
