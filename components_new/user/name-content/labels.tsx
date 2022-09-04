@@ -40,26 +40,26 @@ export const Labels = (props: Props) => {
     console.log(currentLabelSelected)
 
     return (
-        <div className="w-full mt-6 -px-10">
+        <div className="w-full font-inter ">
             {props.userInfo.ownedLabels && props.userInfo.ownedLabels.length > 0 ? <div className="w-full lg:col-span-4 lg:row-span-1 h-[3.5em]">
                 {/* <div className=" hideScroll "> */}
-                <div className="flex gap-x-4 gap-y-0 h-[3.5em]">
+                <div className="flex gap-x-4 gap-y-0 h-[3.5em] font-medium">
                     {
                         props.userInfo.ownedLabels.map((owned: { label: string; scarcity: string; acquisationBlock: number; mintedFor: number; }) =>
                         <div
-                        key={owned.acquisationBlock} 
-                        className="col-span-2 pt-1 float-left select-none">
+                            key={owned.acquisationBlock} 
+                            className="col-span-2 pt-1 float-left select-none ">
                                 <Tippy 
                                     arrow={true}
                                     key={owned.acquisationBlock}
                                     content={`scarcity: ${owned.scarcity} `}
-                                    className="font-mono text-sm">
+                                    className="font-inter text-sm">
                                     <button 
                                         onClick={() => { 
                                             showSelectedLabel(owned);
                                             setShowTransferModal(true);
                                         }} 
-                                        className="btn btn-sm btn-primary">
+                                        className="btn btn-sm btn-primary rounded-xl">
                                         {owned.label}.ar
                                     </button>
                                 </Tippy>

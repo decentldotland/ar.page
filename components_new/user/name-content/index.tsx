@@ -11,6 +11,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EditModal } from '../../../components/editor/editmodal';
 import { isEditorOpen } from '../../../atoms';
 import CoverPage from '../CoverPage';
+import EditProfile from '../EditProfile';
+import ChangeCover from '../ChangeCover';
 
 export const NameContent = (props: userInfo) => {
   const {
@@ -20,27 +22,21 @@ export const NameContent = (props: userInfo) => {
     arconnectConnect,
   } = useAns();
   const [editEnabled, setEditEnabled] = useRecoilState(isEditorOpen);
+  console.log(`${arconnectConnect} DATA`)
 
   return (
     <div className="h-[36px] w-full">
       {/* Cover Page */}
       <CoverPage userInfo={props.userInfo} />
-
-      <div className="flex flex-wrap max-w-full rounded-lg px-16">
-
+      <div className="flex flex-wrap max-w-full rounded-lg px-16 justify-between">
         <UserInfo userInfo={props.userInfo} />
-
-        {/* <div className="w-full flex justify-between items-center">
-            <Labels userInfo={props.userInfo} />
-            {props.userInfo.user === address && (
-              <FontAwesomeIcon icon={faPencilAlt} className="w-4 mb-0.5 mr-2 cursor-pointer" onClick={(e) => setEditEnabled(!editEnabled)} />
-            )}
-        </div> */}
-
+        
+        
+        
         {/* <EditModal userColor={props.userInfo.address_color} wallet={props.userInfo.user} userInfo={props} />       */}
-        <Panel userInfo={props.userInfo} />
-        {/* <div className="h-0 w-full -mx-10"></div> */}
       </div>
+        {/* <Panel userInfo={props.userInfo} /> */}
+        {/* <div className="h-0 w-full -mx-10"></div> */}
     </div>
   );
 };
