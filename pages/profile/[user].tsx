@@ -43,6 +43,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
     return (<>
         {/* Transfer Modal Popup */}
         {userInfo !== false && Object.keys(userInfo).length > 0 ?
+
             <>
                 <Head>
                     <title>{`${userInfo.currentLabel} | ar.page`}</title>
@@ -54,7 +55,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                     <meta name="twitter:description" content={userInfo.bio} />
                 </Head>
                 <div className="flex flex-wrap mb-10">
-
+                    
                     <div className={(hasTwtr === 2) ?
                         "flex flex-col lg:w-2/3 gap-y-0 lg:h-fit lg:max-h-screen w-full" :
                         "flex flex-col lg:h-fit gap-y-0 lg:max-h-screen w-full"}>
@@ -70,6 +71,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                             className={`mx-1 -left-1 max-w-full overflow-hidden border-2 border-prim1 rounded-md lg:px-0 px-3 pb-14 lg:pb-0 lg:shrink-0 lg:h-auto shadow-md shadow-black`}
                         />
 
+                        <LabelModal />
                     </div>
                     {hasTwtr === 2 ?
                         <>
