@@ -2,6 +2,8 @@
 import axios from 'axios';
 import * as React from 'react';
 import { NavButtons } from './buttons';
+import NavBarButtons from './NavBarButtons';
+import SearchBar from './SearchBar';
 import SearchBox from './select-search';
 // type Props = {
 //     userInfo?: any;
@@ -23,18 +25,24 @@ export const Nav = (props:any) => {
     }, []);
     const toggleDark = props.toggleDark;
 
+
+    // bg-base-100
     return (
-        <div className="bg-base-100 flex h-[56px] w-full overflow-visible z-10 font-mono">
-            <div className="mt-[15px] ml-4 overflow-visible h-full w-full">
+        <div className="flex justify-between h-[56px] overflow-visible px-16 items-center ">
+            <SearchBar />
+                {/* 
+            <div className="mt-3 ml-4 overflow-visible h-full w-full">
                 <SearchBox
                     multiple={false}
                     disabled={false}
-                    placeholder="Search a name or address..."
+                    placeholder="Search for name or address"
                     // items={["test", "test0", "test1", "test2", "test3", "test4"]} />
                     // items={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} />
-                    options={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} />
+                    options={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} /> 
             </div>
-            <NavButtons toggleDark={toggleDark} />
+                */}
+            <NavBarButtons />
+            {/* <NavButtons toggleDark={toggleDark} /> */}
         </div>
     );
 };

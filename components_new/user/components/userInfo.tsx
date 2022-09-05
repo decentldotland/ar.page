@@ -7,7 +7,11 @@ import Tippy from '@tippyjs/react';
 import { useAns } from 'ans-for-all';
 import * as React from 'react';
 import { ANSData, userInfo } from '../../../src/types';
-import Avatar from '../../avatar';
+import ProfileAvatar from '../../avatar/ProfileAvatar';
+import {DocumentDuplicateIcon, CalendarDaysIcon} from '@heroicons/react/24/outline'
+import {CheckBadgeIcon} from '@heroicons/react/24/solid'
+import { Labels } from './labels';
+import { Bio } from './bio';
 
 export const UserInfo = (props: userInfo) => {
 
@@ -68,56 +72,63 @@ export const UserInfo = (props: userInfo) => {
         avatar: avatar,
     };
 
-    return (
-        <div className="flex w-full gap-x-2.5 justify-between">
-            <div className="flex w-full gap-x-2.5 items-center">
-                {props?.userInfo && (
-                    <Avatar ansData={ansData} />
-                )}
-                {/* nickname and label */}
-                <div className="flex flex-col">
-                    <div className="text-xl font-medium leading-6">
-                        {props.userInfo.currentLabel}
-                    </div>
-                    <div onClick={copy}
-                        onMouseEnter={() => setVisible(true)}
-                        onMouseLeave={() => tippyState == "Copied" ? {} : setVisible(false)}>
-                        <Tippy
-                            arrow={true}
-                            content={<div>{tippyState}</div>}
-                            visible={visible}
-                            // {...(tippyState !== 'Copied') ? {visible: true} : {} }
-                            className="font-mono text-sm visible">
+    // User bio
+    const bio = typeof props.userInfo.bio === 'string' ? 
+    props.userInfo.bio : "";
 
-                            <div className="flex flex-row">
-                                <div className="text-[10px] font-normal">
-                                    <div className="md:flex hidden">
-                                        {props.userInfo.user}
-                                    </div>
-                                    <div className="flex md:hidden">
-                                        {(shortenAddress as Function)(props.userInfo.user)}
-                                    </div>
-                                </div>
-                                {/* <div className="ml-1 h-2 w-2"> */}
-                                    <FontAwesomeIcon icon={faClipboard} className="ml-1 h-3 w-3"/>
-                                    {/* <FontAwesomeIcon icon="fa-regular fa-globe" /> */}
-                                {/* </div> */}
+    return (
+        <div>
+            <div className="relative ">
+                <div className="relative bottom-20 flex flex-row items-end mt-3">
+                    {props?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
+                    {/* nickname and label */}
+                    <div className='ml-5 mb-5'>
+                        <div className="flex flex-row space-x-3 items-center mt-3">
+                            <div className="text-2xl font-bold leading-6 font-inter ">
+                                {props.userInfo.currentLabel}
                             </div>
-                        </Tippy>
+                            <CheckBadgeIcon height={30} width={30} color={"#325FFE"} />
+                            <div 
+                                className='p-2 bg-base-200 rounded-xl  '
+                                onClick={copy}
+                                onMouseEnter={() => setVisible(true)}
+                                onMouseLeave={() => tippyState == "Copied" ? {} : setVisible(false)}>
+                                <Tippy
+                                    arrow={true}
+                                    content={<div>{tippyState}</div>}
+                                    visible={visible}
+                                    // {...(tippyState !== 'Copied') ? {visible: true} : {} }
+                                    className="font-inter text-sm visible">
+                                    <div className="flex flex-row font-inter font-semibold text-[#666]">
+                                        <h3 className='mr-1'>
+                                            {(shortenAddress as Function)(props.userInfo.user)}
+                                        </h3>
+                                        
+                                        <DocumentDuplicateIcon height={20} width={20} color={"#666"} strokeWidth={2} />
+                                    </div>
+                                </Tippy>
+                            </div>
+                        </div>
+                        <h3 className='font-inter text-[#666] text-base mt-1 mb-1'>
+                            {props.userInfo.nickname}
+                        </h3>
+                        {/* DAO memberships */}
+                        <div className='flex flex-row items-center space-x-2 '>
+                            {/* <DaoMembership  userInfo={props.userInfo}/> */}
+                            {/* User Membership Date */}
+                            <div className='flex flex-row  items-center space-x-1 text-[#666]
+                                py-1 px-2 w-fit bg-base-200 rounded-lg font-inter  text-xs font-bold'>
+                                <CalendarDaysIcon height={14} width={14} color={'#666'} strokeWidth={2}/>
+                                <p>Since Nov 2021</p>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div className='absolute top-20 mt-10 space-y-4'>
+                    <Bio text={bio} />
+                    <Labels userInfo={props.userInfo} />
                 </div>
             </div>
-
-
-            {(Object.keys(links).length > 0) && 
-                <div className="mt-2 flex flex-end gap-0 ">
-                    {/* <h1 className="text-sviolet text-left font-extrabold text-lg">Social Links: </h1> */}
-                    <Icon url={instagram} type={'instagram'} />
-                    <Icon url={twitter} type={'twitter'} />
-                    <Icon url={github} type={'github'} />
-                    <Icon url={customUrl} type={'customUrl'} />
-                </div>
-            }
         </div>
     );
 
