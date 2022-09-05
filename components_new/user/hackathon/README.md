@@ -1,14 +1,38 @@
 WIP
-# Hackathon rules and guidelines
+# ANS Hackathon
 
-## Rules
-1. Submissions must be related to Ark Protocol / decent.land or improve / build upon the UI of user pages of ar.page
-2. Submissions must not change other parts of the webpage except for the `hackathon` / `user` folders
-3. Submissions should limit url fetches to no more than 2 urls
-4. Submissions should limit new package installs to no more than 1 package
-5. Submissions should preferrably use existing components / libraries 
+Starting from September 9th till TBA, The ANS Hackathon is open to all developers!
+ANS is a domain protocol built on Arweave. The UI, while is in active development, lacks a few worthwhile components to display  on-chain user info in a dynamic way. We're seeking to build a decent few components using the rich APIs of Ark Protocol. 
+## Prize Pool
+We have several prize spots in our pool, totalling in REDACTED spots and `REDACTED USDC`:
+**1st spot prize**: `REDACTED USDC`
+**2nd-5th spot prizes**: `REDACTED USDC`
+
+## Dates and Timing
+**Start / end dates**： September 9th - TBA
+
+**Voting**: TBA
+
+**Final Result Announcement**: TBA
+
+## Requirements
+Submissions must:
+1. Be in the context of ar.page, with a link to the live functioning, and running instance of the app itself, as well as a link to the repository it is stored within.
+2. Include a brief description of the application and functionality in the GitHub repo.
+3. Be your own original work.
+4. Only change items within the `hackathon` / `user` folders.
+5. Be open source, with the full source code available on GitHub or another open code hosting site.
 
 ## Guidelines
+
+### Contribution Tips
+You can get started hacking away by checking out the `hackathon/index.tsx` file. It has a few examples of components we'd love to build for the UI.
+
+Feel free to change items within the `hackathon` / `user` folders as you see fit. If necessary, you may install new packages with `yarn`, and use `fetch` to get info from external websites.
+
+To properly judge your submission we'd need to review both your code and the result. To make things simpler for us, please leave comments where applicable to help us understand your work better :)
+
+If you have tips for improving our codebase, we're eager to hear your feedback!
 
 ### CSS Documentation
 The project uses a mix of (TailwindCSS)[https://tailwindcss.com] + (daisyUI)[https://daisyui.com], which provides all of the components, styles and colors.
