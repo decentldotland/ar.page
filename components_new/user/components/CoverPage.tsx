@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { userInfo } from '../../src/types'
+import { userInfo } from '../../../src/types'
 import ChangeCover from './ChangeCover'
 import EditProfile from './EditProfile'
 
