@@ -17,8 +17,8 @@ export const Labels = (props: userInfo) => {
   const info = props.userInfo;
 
   return (
-    <div className="w-full flex justify-between items-center">
-      <div className="w-full mt-6 -px-10">
+    <div className="w-full ">
+      <div className="w-full">
         {info.ownedLabels && info.ownedLabels.length > 0 ? <div className="w-full lg:col-span-4 lg:row-span-1 h-[3.5em]">
           <div className="flex gap-x-4 gap-y-0 h-[3.5em]">
             {

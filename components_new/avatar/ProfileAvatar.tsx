@@ -7,7 +7,7 @@ export type AvatarOptions = {
   width?: string;
 };
 
-function Avatar ({ansData, options} :{ansData: ANSData, options?: AvatarOptions}) {
+function ProfileAvatar ({ansData, options} :{ansData: ANSData, options?: AvatarOptions}) {
   if (!ansData) ansData = DUMMY_ANS_DATA;
   let url;
   const { customUrl, height, width } = options || {};
@@ -17,18 +17,18 @@ function Avatar ({ansData, options} :{ansData: ANSData, options?: AvatarOptions}
   }
 
   return (
-    <div className="flex rounded-full overflow-hidden"
+    <div className="flex rounded-full overflow-hidden mb-5 border-8 border-[#fafafa] border-solid"
       style={{
         backgroundColor: ansData.address_color || "#000",
         // border: '2px solid '+ (ansData.address_color),
-        height: height || '32px',
-        width: width || '32px',
+        height: height || '175px',
+        width: width || '175px',
       }}
     >
       {ansData.avatar ?
         <img src={url} className="w-full h-full" alt="Profile" />
         : 
-        <div className="relative flex items-center justify-center w-full h-full">
+        <div className="relative flex  items-center justify-center w-full h-full">
           <div className="absolute z-10 uppercase select-none bg-inherit text-white font-medium text-xl">{ansData.currentLabel?.[0] || "?"}</div>
           <div className="absolute bg-gradient-to-l from-[#9E00FF] to-[#1273EA] rotate-45 origin-center w-full h-full"></div>
         </div>
@@ -46,4 +46,4 @@ export function AvatarLoading() {
 
 }
 
-export default Avatar;
+export default ProfileAvatar;
