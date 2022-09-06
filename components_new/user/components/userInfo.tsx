@@ -12,6 +12,8 @@ import {DocumentDuplicateIcon, CalendarDaysIcon} from '@heroicons/react/24/outli
 import {CheckBadgeIcon} from '@heroicons/react/24/solid'
 import { Labels } from './labels';
 import { Bio } from './bio';
+import { ANSIdentitiesManager, Poaps } from '../hackathon';
+import {SiEthereum} from 'react-icons/si'
 
 interface UserProps { 
     user: userInfo,
@@ -84,11 +86,55 @@ export const UserInfo = ({user, profile}: UserProps) => {
 
     // Member since...
     let member_since = new Date(profile?.first_linkage! * 1000);
+    // console.log(`${member_since} THIS IS WHEN YOU FIRST LINKED YOUR ACCOUNT`)
     let [month, year] = [member_since.toLocaleString('default', {month: 'short'}), member_since.getFullYear()];
+
+    // Avvy Label
+    const AVVYLabel = function() { 
+        return (
+          
+            profile?.AVVY ? (
+                <button className="px-2 font-inter 
+                font-semibold py-2
+                bg-[#E84040]/80 text-white text-sm rounded-2xl flex flex-row items-center">
+                <img 
+                    width={24}
+                    height={24}
+                    className="mr-2 "
+                    src="https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=023" alt="" />
+                    <h3 className="font-inter"> {profile?.AVVY}</h3>
+                </button>
+              ):( 
+                <div></div> 
+              )
+          
+        )
+      }
+      
+    //   ENS label
+      const ENSLabel = function() { 
+        return (
+          
+            profile?.ENS ? (
+            <button className="px-2 py-2 font-semibold space-x-1
+              bg-blue-600 opacity-60 text-white  text-sm rounded-2xl flex flex-row items-center">
+                
+                <SiEthereum width={30} height={30}/>
+                <h3 className='font-inter'>
+                  {profile?.ENS}
+                </h3>
+              
+            </button>
+      
+            ): ( <div></div> )
+          
+        )
+      }
+
 
     return (
         <div>
-            <div className="relative ">
+            <div className="relative mb-10">
                 <div className="relative bottom-20 flex flex-row items-end mt-3">
                     {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
                     {/* nickname and label */}
@@ -137,10 +183,22 @@ export const UserInfo = ({user, profile}: UserProps) => {
                 {/* User Bio and Available Labels */}
                 <div className='absolute top-20 mt-10 space-y-4'>
                     <Bio text={bio} />
-                    <Labels userInfo={user.userInfo} />
+                    
+                    
+                    
+                    {/* {profile && profile?.POAPS && <Poaps props={profile} />} */}
+                    {/* {profile && <ANSIdentitiesManager props={profile} />} */}
+
+                    <div className="flex flex-row space-x-2">
+                        <Labels user={user} />
+                        <AVVYLabel />
+                        <ENSLabel />
+
+                    </div>
                 </div>
             </div>
         </div>
     );
 
 };
+

@@ -60,7 +60,7 @@ export interface Res {
   exotic_addresses:             any[];
   ANS:                          Ans;
   ENS:                          string;
-  AVVY:                         boolean;
+  AVVY:                         string;
   GITPOAPS:                     Gitpoap[];
   POAPS:                        Poap[];
   MORALIS_NFTS:                 any |  { [key: string]: null | string }[];
