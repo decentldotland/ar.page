@@ -10,10 +10,19 @@ import EditProfile from './EditProfile'
 
 
 function CoverPage(props: userInfo) {
+  let user_cover = props.userInfo.address_color;
+
+  console.log(user_cover)
+
   return (
-    <div className={`${props.userInfo !== null ? ('bg-[#c1bdef] h-[328px]'):('h-[218px] bg-white') }  w-full transition duration relative`}>
+    <div className={`${props.userInfo !== null ? (
+      `bg-[#c1bdef] h-[328px]`
+      // `bg-[${user_cover}] h-[328px]`
+      ):('h-[218px] bg-white') 
+      }  w-full transition duration relative`}>
+
         <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pr-16 pb-3'>
-          <ChangeCover />
+          {/* <ChangeCover /> */}
           <EditProfile />
         </div>
     </div>
