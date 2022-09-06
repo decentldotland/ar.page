@@ -31,7 +31,6 @@ function PageContent(props: userInfo) {
     }
   }, [])
 
-
   return (
     <div className="h-9 w-full">
       <CoverPage userInfo={props.userInfo} />
@@ -47,10 +46,11 @@ function PageContent(props: userInfo) {
           */}
          {/* User Bio and Available Labels */}
          
-          <div>
-            {/* {arkProfile && <ANSIdentitiesManager props={arkProfile} />} */}
+            
+          <div className=''>
             {arkProfile && arkProfile.POAPS && <Poaps props={arkProfile} />}
           </div>
+          {/* {arkProfile && <ANSIdentitiesManager props={arkProfile} />} */}
       </div>
     </div>
   );

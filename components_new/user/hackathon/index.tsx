@@ -35,11 +35,13 @@ export function Poaps({ props }: { props: Res }) {
   return (
     <>
       {/* <Title>POAPS</Title> */}
-      <div className="flex flex-row space-x-4 mt-10">
+      <div className="border-y border-gray-300/80 mb-4"></div>
+      <h1 className="text-left font-inter font-bold text-xl">POAPS</h1>
+      <div className="flex flex-row space-x-4 mt-3">
         {POAPS.map((p, i) => (
           <>
             <label className="flex items-center cursor-pointer modal-button" htmlFor="my-modal-4">
-              <img src={p.event.image_url} className="w-24 h-24" />
+              <img src={p.event.image_url} className="w-28 h-28" />
               {/* <div className="ml-2 flex flex-col">
                 <div className="lg:text-sm font-semibold">{p.event.name}</div>
               </div> */}
