@@ -9,11 +9,12 @@ import { Collectibles } from './components/collectibles';
 import { Sidebar } from './sidebar';
 import { ANSIdentitiesManager, Poaps } from './hackathon';
 import CoverPage from './components/CoverPage';
+import { result } from 'lodash';
 
 function PageContent(props: userInfo) {
   const bio = typeof props.userInfo.bio === 'string' ? 
   props.userInfo.bio : "";
-  const info = props.userInfo;
+  const info = props;
   
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
 
@@ -30,21 +31,26 @@ function PageContent(props: userInfo) {
     }
   }, [])
 
+
   return (
     <div className="h-9 w-full">
-        <CoverPage userInfo={props.userInfo} />
-      <div className="flex flex-wrap  max-w-full rounded-lg px-16">
-        
-        <UserInfo userInfo={info} />
+      <CoverPage userInfo={props.userInfo} />
+      <div className="flex-wrap max-w-full rounded-lg px-16">
+        <UserInfo user={info} profile={arkProfile} />
         {/* These are temporary changes, most likely will need to bring them back as they would be helpful for contributros */}
         {/* <Labels userInfo={info} /> */}
         {/* <EditModal userColor={info.address_color} wallet={info.user} userInfo={props} />  */}
         {/* <div className="flex flex-col rounded-md w-full h-full bg-base-100 overflow-x-hidden p-8 mb-10">
           <Bio text={bio} />
           <Collectibles userInfo={info} />
-          {arkProfile && <ANSIdentitiesManager props={arkProfile} />}
-          {arkProfile && arkProfile.POAPS && <Poaps props={arkProfile} />}
-        </div> */}
+          </div> 
+          */}
+         {/* User Bio and Available Labels */}
+         
+          <div>
+            {/* {arkProfile && <ANSIdentitiesManager props={arkProfile} />} */}
+            {arkProfile && arkProfile.POAPS && <Poaps props={arkProfile} />}
+          </div>
       </div>
     </div>
   );

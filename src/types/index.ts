@@ -54,6 +54,8 @@ export interface Res {
   validator:                    string;
   ver_req_network:              string;
   verification_req:             string;
+  // Member Since.. 
+  first_linkage:                number;
   has_unevaluated_exotic_addrs: boolean;
   exotic_addresses:             any[];
   ANS:                          Ans;

@@ -6,16 +6,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
 import { useAns } from 'ans-for-all';
 import * as React from 'react';
-import { ANSData, userInfo } from '../../../src/types';
+import { ANSData, Res, userInfo } from '../../../src/types';
 import ProfileAvatar from '../../avatar/ProfileAvatar';
 import {DocumentDuplicateIcon, CalendarDaysIcon} from '@heroicons/react/24/outline'
 import {CheckBadgeIcon} from '@heroicons/react/24/solid'
 import { Labels } from './labels';
 import { Bio } from './bio';
 
-export const UserInfo = (props: userInfo) => {
+interface UserProps { 
+    user: userInfo,
+    profile: Res | undefined
+}
 
-    const links = props.userInfo.links !== undefined ? props.userInfo.links : {};
+export const UserInfo = ({user, profile}: UserProps) => {
+
+    const links = user.userInfo.links !== undefined ? user.userInfo.links : {};
 
     const {
         shortenAddress,
@@ -39,8 +44,8 @@ export const UserInfo = (props: userInfo) => {
         setTippyState("Copied");
         setVisible(true);
         copyTimer()
-        navigator.clipboard.writeText(props.userInfo.user);
-    }, [copyTimer, props.userInfo.user])
+        navigator.clipboard.writeText(user.userInfo.user);
+    }, [copyTimer, user.userInfo.user])
 
 
     const socialMedias:any = {
@@ -63,8 +68,8 @@ export const UserInfo = (props: userInfo) => {
     }
 
     // @ts-ignore
-    const { instagram, twitter, github, customUrl } = props?.userInfo?.links;
-    const { currentLabel, address_color, avatar } = props?.userInfo;
+    const { instagram, twitter, github, customUrl } = user?.userInfo?.links;
+    const { currentLabel, address_color, avatar } = user?.userInfo;
 
     const ansData:ANSData = {
         currentLabel: currentLabel,
@@ -73,23 +78,28 @@ export const UserInfo = (props: userInfo) => {
     };
 
     // User bio
-    const bio = typeof props.userInfo.bio === 'string' ? 
-    props.userInfo.bio : "";
+    const bio = typeof user.userInfo.bio === 'string' ? 
+    user.userInfo.bio : "";
+
+
+    // Member since...
+    let member_since = new Date(profile?.first_linkage! * 1000);
+    let [month, year] = [member_since.toLocaleString('default', {month: 'short'}), member_since.getFullYear()];
 
     return (
         <div>
             <div className="relative ">
                 <div className="relative bottom-20 flex flex-row items-end mt-3">
-                    {props?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
+                    {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
                     {/* nickname and label */}
                     <div className='ml-5 mb-5'>
                         <div className="flex flex-row space-x-3 items-center mt-3">
                             <div className="text-2xl font-bold leading-6 font-inter ">
-                                {props.userInfo.currentLabel}
+                                {user.userInfo.currentLabel}
                             </div>
                             <CheckBadgeIcon height={30} width={30} color={"#325FFE"} />
                             <div 
-                                className='p-2 bg-base-200 rounded-xl  '
+                                className='px-2 py-2 bg-base-200 rounded-lg  '
                                 onClick={copy}
                                 onMouseEnter={() => setVisible(true)}
                                 onMouseLeave={() => tippyState == "Copied" ? {} : setVisible(false)}>
@@ -99,9 +109,9 @@ export const UserInfo = (props: userInfo) => {
                                     visible={visible}
                                     // {...(tippyState !== 'Copied') ? {visible: true} : {} }
                                     className="font-inter text-sm visible">
-                                    <div className="flex flex-row font-inter font-semibold text-[#666]">
+                                    <div className="flex flex-row font-inter font-semibold text-[#666] text-sm">
                                         <h3 className='mr-1'>
-                                            {(shortenAddress as Function)(props.userInfo.user)}
+                                            {(shortenAddress as Function)(user.userInfo.user)}
                                         </h3>
                                         
                                         <DocumentDuplicateIcon height={20} width={20} color={"#666"} strokeWidth={2} />
@@ -110,7 +120,7 @@ export const UserInfo = (props: userInfo) => {
                             </div>
                         </div>
                         <h3 className='font-inter text-[#666] text-base mt-1 mb-1'>
-                            {props.userInfo.nickname}
+                            {user.userInfo.nickname}
                         </h3>
                         {/* DAO memberships */}
                         <div className='flex flex-row items-center space-x-2 '>
@@ -119,14 +129,15 @@ export const UserInfo = (props: userInfo) => {
                             <div className='flex flex-row  items-center space-x-1 text-[#666]
                                 py-1 px-2 w-fit bg-base-200 rounded-lg font-inter  text-xs font-bold'>
                                 <CalendarDaysIcon height={14} width={14} color={'#666'} strokeWidth={2}/>
-                                <p>Since Nov 2021</p>
+                                <p>Since {month} {year}</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                {/* User Bio and Available Labels */}
                 <div className='absolute top-20 mt-10 space-y-4'>
                     <Bio text={bio} />
-                    <Labels userInfo={props.userInfo} />
+                    <Labels userInfo={user.userInfo} />
                 </div>
             </div>
         </div>

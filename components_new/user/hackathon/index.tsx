@@ -16,7 +16,7 @@ export function ANSIdentitiesManager({ props }: { props: Res }) {
 
   return (
     <div className="mb-8">
-      <Title>Identities</Title>
+      {/* <Title>Identities/Title> */}
       <div className="grid grid-cols-2 gap-y-3 mt-2">
         <span className="text-pink-600">ANS</span>
         <span className="text-primary">{ANS.currentLabel || NotSet("impossible...")}</span>
@@ -34,15 +34,15 @@ export function Poaps({ props }: { props: Res }) {
   const {shortenAddress} = useAns();
   return (
     <>
-      <Title>POAPS</Title>
-      <div className="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-3">
+      {/* <Title>POAPS</Title> */}
+      <div className="flex flex-row space-x-4 mt-10">
         {POAPS.map((p, i) => (
           <>
             <label className="flex items-center cursor-pointer modal-button" htmlFor="my-modal-4">
               <img src={p.event.image_url} className="w-24 h-24" />
-              <div className="ml-2 flex flex-col">
+              {/* <div className="ml-2 flex flex-col">
                 <div className="lg:text-sm font-semibold">{p.event.name}</div>
-              </div>
+              </div> */}
             </label>
 
             <input type="checkbox" id="my-modal-4" className="modal-toggle" />
