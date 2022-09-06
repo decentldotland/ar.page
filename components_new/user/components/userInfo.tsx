@@ -14,6 +14,7 @@ import { Labels } from './labels';
 import { Bio } from './bio';
 import { ANSIdentitiesManager, Poaps } from '../hackathon';
 import {SiEthereum} from 'react-icons/si'
+import {FaEthereum} from 'react-icons/fa'
 
 interface UserProps { 
     user: userInfo,
@@ -94,18 +95,18 @@ export const UserInfo = ({user, profile}: UserProps) => {
         return (
           
             profile?.AVVY ? (
-                <button className="px-2 font-inter 
-                font-semibold py-2
+                <button className="px-3 font-inter 
+                font-semibold py-1
                 bg-[#E84040]/80 text-white text-sm rounded-2xl flex flex-row items-center">
                 <img 
-                    width={24}
-                    height={24}
+                    width={30}
+                    height={30}
                     className="mr-2 "
                     src="https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=023" alt="" />
                     <h3 className="font-inter"> {profile?.AVVY}</h3>
                 </button>
               ):( 
-                <div></div> 
+                <p className='hidden'></p>
               )
           
         )
@@ -116,17 +117,17 @@ export const UserInfo = ({user, profile}: UserProps) => {
         return (
           
             profile?.ENS ? (
-            <button className="px-2 py-2 font-semibold space-x-1
-              bg-blue-600 opacity-60 text-white  text-sm rounded-2xl flex flex-row items-center">
+            <button className="px-2 py-1  font-bold space-x-1
+               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
                 
-                <SiEthereum width={30} height={30}/>
+                <FaEthereum width={100} height={100} color={"#1273ea"}/>
                 <h3 className='font-inter'>
                   {profile?.ENS}
                 </h3>
               
             </button>
       
-            ): ( <div></div> )
+            ): ( <p className='hidden'></p> )
           
         )
       }
