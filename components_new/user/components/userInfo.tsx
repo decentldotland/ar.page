@@ -9,12 +9,17 @@ import * as React from 'react';
 import { ANSData, Res, userInfo } from '../../../src/types';
 import ProfileAvatar from '../../avatar/ProfileAvatar';
 import {DocumentDuplicateIcon, CalendarDaysIcon} from '@heroicons/react/24/outline'
-import {CheckBadgeIcon} from '@heroicons/react/24/solid'
+import {CheckBadgeIcon, ShieldExclamationIcon} from '@heroicons/react/24/solid'
 import { Labels } from './labels';
 import { Bio } from './bio';
 import { ANSIdentitiesManager, Poaps } from '../hackathon';
 import {SiEthereum} from 'react-icons/si'
 import {FaEthereum} from 'react-icons/fa'
+import {BsGithub, BsTwitter, BsTelegram, BsInstagram, BsGlobe2} from 'react-icons/bs'
+
+import { Globe,  } from 'react-feather';
+import { getURL } from 'next/dist/shared/lib/utils';
+
 
 interface UserProps { 
     user: userInfo,
@@ -69,7 +74,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
             </div>
         )
     }
-
+    // console.log(user.userInfo)
     // @ts-ignore
     const { instagram, twitter, github, customUrl } = user?.userInfo?.links;
     const { currentLabel, address_color, avatar } = user?.userInfo;
@@ -128,7 +133,95 @@ export const UserInfo = ({user, profile}: UserProps) => {
             </button>
       
             ): ( <p className='hidden'></p> )
+        )
+      }
+    //   Instagram
+      const Instagram = function() { 
+        return (
           
+            user?.userInfo?.links?.instagram ? (
+            <button className="px-2 py-1  font-bold space-x-1
+               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
+                
+                <BsInstagram width={100} height={100} color={"#1273ea"}/>
+                <h3 className='font-inter'>
+                  {instagram}
+                </h3>
+              
+            </button>
+      
+            ): ( <p className='hidden'></p> )
+        )
+      }
+    //   Twitter
+      const Twitter = function() { 
+        return (
+          
+            user?.userInfo?.links?.twitter? (
+            <button className="px-2 py-1  font-bold space-x-1
+               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
+                
+                <BsTwitter width={100} height={100} color={"#1273ea"}/>
+                <h3 className='font-inter'>
+                  {twitter}
+                </h3>
+              
+            </button>
+      
+            ): ( <p className='hidden'></p> )
+        )
+      }
+    //   Github
+      const Github = function() { 
+        return (
+          
+            user?.userInfo?.links?.github ? (
+            <button className="px-2 py-1  font-bold space-x-1
+               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
+                
+                <BsGithub width={100} height={100} color={"#1273ea"}/>
+                <h3 className='font-inter'>
+                  {github}
+                </h3>
+              
+            </button>
+      
+            ): ( <p className='hidden'></p> )
+        )
+      }
+      const CustomURL = function() { 
+        return (
+          
+            user?.userInfo?.links?.customUrl ? (
+            <button className="px-2 py-1  font-bold space-x-1
+               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
+                
+                <BsGlobe2 width={100} height={100} color={"#1273ea"}/>
+                <h3 className='font-inter'>
+                  {removeHttp(user?.userInfo?.links?.customUrl)}
+                  
+                </h3>
+              
+            </button>
+      
+            ): ( <p className='hidden'></p> )
+        )
+      }
+      const Telegram = function() { 
+        return (
+          
+            profile?.telegram?.username ? (
+            <button className="px-2 py-1  font-bold space-x-1
+               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
+                
+                <BsTelegram width={100} height={100} color={"#1273ea"}/>
+                <h3 className='font-inter'>
+                  {profile?.telegram.username}
+                </h3>
+              
+            </button>
+      
+            ): ( <p className='hidden'></p> )
         )
       }
 
@@ -144,7 +237,15 @@ export const UserInfo = ({user, profile}: UserProps) => {
                             <div className="text-2xl font-bold leading-6 font-inter ">
                                 {user.userInfo.currentLabel}
                             </div>
-                            <CheckBadgeIcon height={30} width={30} color={"#325FFE"} />
+                            
+                            {
+                                profile?.is_evaluated || 
+                                profile?.is_verified ? (
+                                    <CheckBadgeIcon height={30} width={30} color={"#325FFE"} />
+                                ):(
+                                    <ShieldExclamationIcon height={30} width={30} color={"#E84040"} />
+                                )
+                            }
                             <div 
                                 className='px-2 py-2 bg-base-200 rounded-lg  '
                                 onClick={copy}
@@ -190,11 +291,15 @@ export const UserInfo = ({user, profile}: UserProps) => {
                     {/* {profile && profile?.POAPS && <Poaps props={profile} />} */}
                     {/* {profile && <ANSIdentitiesManager props={profile} />} */}
 
-                    <div className="flex flex-row space-x-2">
+                    <div className="flex flex-row space-x-2 overflow-x-scroll scrollbar-none">
                         <Labels user={user} />
                         <AVVYLabel />
                         <ENSLabel />
-
+                        <Instagram />
+                        <Twitter />
+                        <Github />
+                        <Telegram />
+                        <CustomURL />
                     </div>
                 </div>
             </div>
@@ -203,3 +308,16 @@ export const UserInfo = ({user, profile}: UserProps) => {
 
 };
 
+function removeHttp(url: string) {
+    if (url.startsWith('https://www.')) {
+      const https = 'https://www.';
+      return url.slice(https.length);
+    }
+  
+    if (url.startsWith('http://www.')) {
+      const http = 'http://www.';
+      return url.slice(http.length);
+    }
+  
+    return url;
+  }

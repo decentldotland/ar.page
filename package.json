@@ -34,6 +34,7 @@
     "next": "^12.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-feather": "^2.0.10",
     "react-i18next": "^11.16.7",
     "react-icons": "^4.4.0",
     "react-loader-spinner": "^6.0.0-0",

@@ -50,7 +50,7 @@ export interface Res {
   is_verified:                  boolean;
   last_modification:            number;
   last_validation:              number;
-  telegram:                     any;
+  telegram:                     Telegram;
   validator:                    string;
   ver_req_network:              string;
   verification_req:             string;
