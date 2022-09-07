@@ -217,7 +217,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
 
         return (
           
-            profile?.telegram?.username ? (
+            profile?.telegram?.username! ? (
             <button className="px-2 py-1  font-bold space-x-1
                bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
                 
