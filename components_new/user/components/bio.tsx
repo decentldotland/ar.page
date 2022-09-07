@@ -10,6 +10,8 @@ export const Bio = (props: Props) => {
             <Title>BIO</Title>
             <div className="font-medium text-sm leading-6 text-[#666]">
                 {props.text}
+
+                
             </div>
         </div>
     );
