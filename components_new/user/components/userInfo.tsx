@@ -296,11 +296,11 @@ export const UserInfo = ({user, profile}: UserProps) => {
                     </div>
                 </div>
                 {/* User Bio and Available Labels */}
-                <div className='absolute top-20 mt-10 space-y-4'>
+                <div className='absolute top-20 mt-10 space-y-6'>
                     <Bio text={bio} />
                     {/* {profile && profile?.POAPS && <Poaps props={profile} />} */}
                     {/* {profile && <ANSIdentitiesManager props={profile} />} */}
-                    <div className="flex flex-row space-x-2 transition duration-400 relative">
+                    <div className="flex flex-row space-x-2 transition duration-400 relative ">
                         <Labels user={user} />
                         <AVVYLabel />
                         <ENSLabel />

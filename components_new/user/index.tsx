@@ -9,6 +9,8 @@ import { Collectibles } from './components/collectibles';
 import { Sidebar } from './sidebar';
 import { ANSIdentitiesManager, Poaps } from './hackathon';
 import CoverPage from './components/CoverPage';
+import GitPoapList from './components/gitpoaps/GitPoapList';
+import PoapList from './components/poaps/PoapList';
 
 function PageContent(props: userInfo) {
   const bio = typeof props.userInfo.bio === 'string' ? 
@@ -46,8 +48,13 @@ function PageContent(props: userInfo) {
          {/* User Bio and Available Labels */}
          
             
-          <div className=''>
-            {arkProfile && arkProfile.POAPS && <Poaps props={arkProfile} />}
+          <div className="border-y border-gray-300/80 mb-4"></div>
+          <h1 className="text-left font-inter font-bold text-2xl">POAPS</h1>
+          
+          <div className='flex  mt-4'>
+            {/* {arkProfile && arkProfile.POAPS && <Poaps props={arkProfile} />} */}
+            <PoapList list={arkProfile?.POAPS!} />
+            <GitPoapList list={arkProfile?.GITPOAPS!} />
           </div>
           {/* {arkProfile && <ANSIdentitiesManager props={arkProfile} />} */}
       </div>
