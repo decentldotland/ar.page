@@ -9,10 +9,10 @@ interface Props {
 }
 
 function GitPoaps({gitpoaps}: Props) {
-  console.log(`THIS IS THE GIT POAPS ${gitpoaps}`)
+  // console.log(`THIS IS THE GIT POAPS ${gitpoaps}`)
   return (
     <div>
-      {
+      {/* {
         gitpoaps?.map((poaps) => { 
           <div key={poaps.gitPoapId}>
             <Image 
@@ -26,7 +26,7 @@ function GitPoaps({gitpoaps}: Props) {
     
             
           })
-        }
+        } */}
       </div>
 
 

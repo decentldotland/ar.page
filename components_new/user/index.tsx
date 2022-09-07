@@ -49,7 +49,7 @@ function PageContent(props: userInfo) {
          {/* User Bio and Available Labels */}
          
             
-          <div className=''>
+          <div className='space-x-2'>
             {arkProfile && arkProfile.POAPS && <Poaps props={arkProfile} />}
           </div>
           {/* {arkProfile && <ANSIdentitiesManager props={arkProfile} />} */}
