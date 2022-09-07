@@ -4,7 +4,7 @@ import * as React from 'react';
 import { NavButtons } from './buttons';
 import NavBarButtons from './NavBarButtons';
 import SearchBar from './SearchBar';
-import SearchBox from './select-search';
+// import SearchBox from './select-search';
 // type Props = {
 //     userInfo?: any;
 // };
