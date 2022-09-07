@@ -8,7 +8,7 @@ function NavBarButtons() {
     <div>
         <ul className='font-inter font-semibold text-[15px] flex space-x-4 items-center'>
             <li>Ark</li>
-            <li className='px-2'>Create ANS Profile</li>
+            {/* <li className='px-2'>Create ANS Profile</li> */}
             <li><User /></li>
             <li>
                 <Bars3Icon height={21} width={21} color="black" strokeWidth={2}  />

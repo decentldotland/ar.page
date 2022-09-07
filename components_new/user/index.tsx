@@ -32,9 +32,8 @@ function PageContent(props: userInfo) {
 
   return (
     <div className="h-9 w-full">
-        <CoverPage userInfo={props.userInfo} />
-      <div className="flex flex-wrap  max-w-full rounded-lg px-16">
-        
+      <CoverPage userInfo={props.userInfo} />
+      <div className="flex-wrap max-w-full rounded-lg px-16">
         <UserInfo user={info} profile={arkProfile} />
         {/* These are temporary changes, most likely will need to bring them back as they would be helpful for contributros */}
         {/* <Labels userInfo={info} /> */}
@@ -42,9 +41,15 @@ function PageContent(props: userInfo) {
         {/* <div className="flex flex-col rounded-md w-full h-full bg-base-100 overflow-x-hidden p-8 mb-10">
           <Bio text={bio} />
           <Collectibles userInfo={info} />
-          {arkProfile && <ANSIdentitiesManager props={arkProfile} />}
-          {arkProfile && arkProfile.POAPS && <Poaps props={arkProfile} />}
-        </div> */}
+          </div> 
+          */}
+         {/* User Bio and Available Labels */}
+         
+            
+          <div className=''>
+            {arkProfile && arkProfile.POAPS && <Poaps props={arkProfile} />}
+          </div>
+          {/* {arkProfile && <ANSIdentitiesManager props={arkProfile} />} */}
       </div>
     </div>
   );
