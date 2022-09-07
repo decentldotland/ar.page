@@ -11,7 +11,8 @@ function GitPoapList({list}: GitPoapList) {
 
   return (
     <div>
-      <div ref={rowRef} className="flex items-center space-x-4 mr-4
+      <div ref={rowRef} className="
+        flex items-center space-x-4 mr-4
       ">
         {
           list?.map((poap) => (

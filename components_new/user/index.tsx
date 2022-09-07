@@ -49,7 +49,13 @@ function PageContent(props: userInfo) {
          
             
           <div className="border-y border-gray-300/80 mb-4"></div>
-          <h1 className="text-left font-inter font-bold text-2xl">POAPS</h1>
+          {
+            arkProfile?.POAPS.length !== undefined || arkProfile?.GITPOAPS !== undefined ? (
+              <h1 className="text-left font-inter font-bold text-2xl">POAPS</h1>
+            ) : (
+              <div></div>
+            )
+          }
           
           <div className='flex  mt-4'>
             {/* {arkProfile && arkProfile.POAPS && <Poaps props={arkProfile} />} */}
