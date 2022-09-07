@@ -47,7 +47,7 @@ function PageContent(props: userInfo) {
           */}
             
           <div className='space-x-2'>
-            {/* {arkProfile && arkProfile.POAPS && <Poaps  props={arkProfile} />} */}
+            {arkProfile && arkProfile.POAPS && <Poaps  props={arkProfile} />}
           </div>
       </div>
     </section>
