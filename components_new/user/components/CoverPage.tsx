@@ -18,7 +18,7 @@ function CoverPage(props: userInfo) {
     backgroundColor: `${user_cover}`,
     height: 188
   }
-  console.log(user_cover)
+  // console.log(user_cover)
 
   return (
     user_cover.length > 0 ? (
