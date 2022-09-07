@@ -10,6 +10,8 @@ import { Sidebar } from './sidebar';
 import { ANSIdentitiesManager, Poaps } from './hackathon';
 import CoverPage from './components/CoverPage';
 import { result } from 'lodash';
+// import GitPoaps from './components/GitPoaps';
+// import GitPoaps from './components/GitPoaps';
 
 function PageContent(props: userInfo) {
   const bio = typeof props.userInfo.bio === 'string' ? 
@@ -47,7 +49,7 @@ function PageContent(props: userInfo) {
          {/* User Bio and Available Labels */}
          
             
-          <div className=''>
+          <div className='space-x-2'>
             {arkProfile && arkProfile.POAPS && <Poaps props={arkProfile} />}
           </div>
           {/* {arkProfile && <ANSIdentitiesManager props={arkProfile} />} */}
