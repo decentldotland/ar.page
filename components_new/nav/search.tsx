@@ -27,7 +27,7 @@ const SearchBox = (props: Props) => {
 
     return (
         <Downshift
-         id="search"
+            id="search"
         >
             {({
                 getInputProps, // Props to pass to our input
@@ -73,7 +73,6 @@ const SearchBox = (props: Props) => {
                 </div>
             ) as React.ReactElement}
         </Downshift>
-
     )
 }
 
