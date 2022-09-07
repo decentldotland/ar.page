@@ -6,16 +6,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
 import { useAns } from 'ans-for-all';
 import * as React from 'react';
-import { ANSData, userInfo } from '../../../src/types';
+import { ANSData, Res, userInfo } from '../../../src/types';
 import ProfileAvatar from '../../avatar/ProfileAvatar';
 import {DocumentDuplicateIcon, CalendarDaysIcon} from '@heroicons/react/24/outline'
-import {CheckBadgeIcon} from '@heroicons/react/24/solid'
+import {CheckBadgeIcon, ShieldExclamationIcon} from '@heroicons/react/24/solid'
 import { Labels } from './labels';
 import { Bio } from './bio';
+import { ANSIdentitiesManager, Poaps } from '../hackathon';
+import {FaEthereum} from 'react-icons/fa'
+import {BsGithub, BsTwitter, BsTelegram, BsInstagram, BsGlobe2} from 'react-icons/bs'
 
-export const UserInfo = (props: userInfo) => {
+interface UserProps { 
+    user: userInfo,
+    profile: Res | undefined
+}
 
-    const links = props.userInfo.links !== undefined ? props.userInfo.links : {};
+export const UserInfo = ({user, profile}: UserProps) => {
+
+    const links = user.userInfo.links !== undefined ? user.userInfo.links : {};
 
     const {
         shortenAddress,
@@ -39,8 +47,8 @@ export const UserInfo = (props: userInfo) => {
         setTippyState("Copied");
         setVisible(true);
         copyTimer()
-        navigator.clipboard.writeText(props.userInfo.user);
-    }, [copyTimer, props.userInfo.user])
+        navigator.clipboard.writeText(user.userInfo.user);
+    }, [copyTimer, user.userInfo.user])
 
 
     const socialMedias:any = {
@@ -61,10 +69,10 @@ export const UserInfo = (props: userInfo) => {
             </div>
         )
     }
-
+    // console.log(user.userInfo)
     // @ts-ignore
-    const { instagram, twitter, github, customUrl } = props?.userInfo?.links;
-    const { currentLabel, address_color, avatar } = props?.userInfo;
+    const { instagram, twitter, github, customUrl } = user?.userInfo?.links;
+    const { currentLabel, address_color, avatar } = user?.userInfo;
 
     const ansData:ANSData = {
         currentLabel: currentLabel,
@@ -73,23 +81,186 @@ export const UserInfo = (props: userInfo) => {
     };
 
     // User bio
-    const bio = typeof props.userInfo.bio === 'string' ? 
-    props.userInfo.bio : "";
+    const bio = typeof user.userInfo.bio === 'string' ? 
+    user.userInfo.bio : "";
+
+
+    // Member since...
+    let epoch = profile?.first_linkage || 0;
+    let member_since = new Date( epoch * 1000);
+    // console.log(`${member_since} THIS IS WHEN YOU FIRST LINKED YOUR ACCOUNT`)
+    let [month, year] = [member_since.toLocaleString('default', {month: 'short'}), member_since.getFullYear()];
+
+    //  Below could need some refactoring
+    // Avvy Label
+    const AVVYLabel = function() { 
+        return (
+          
+            profile?.AVVY ? (
+                <button className="px-3 font-inter 
+                font-semibold py-1
+                bg-[#E84040]/80 text-white text-sm rounded-2xl flex flex-row items-center">
+                <img 
+                    width={30}
+                    height={30}
+                    className="mr-2 "
+                    src="https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=023" alt="" />
+                    <h3 className="font-inter"> {profile?.AVVY}</h3>
+                </button>
+              ):( 
+                <p className='hidden'></p>
+              )
+          
+        )
+      }
+      
+    //   ENS label
+      const ENSLabel = function() { 
+        return (
+          
+            profile?.ENS ? (
+            <button className="py-1  font-bold -space-x-3.5 px-1
+               bg-[#8a92b2]/20 text-[#454a75] text-sm rounded-2xl flex flex-row items-center">
+                <img 
+                  height={40}
+                  width={40}
+                  
+                  className="relative right-2"
+                  // className="bg-black "
+                  src="https://www.logo.wine/a/logo/Ethereum/Ethereum-Icon-Purple-Logo.wine.svg"  
+                  alt="" />
+                {/* <FaEthereum width={100} height={100} color={"#1273ea"}/> */}
+                <h3 className='font-inter relative right-1'>
+                  {profile?.ENS}
+                </h3>
+              
+            </button>
+      
+            ): ( <p className='hidden'></p> )
+        )
+      }
+    //   Instagram
+      const Instagram = function() { 
+        return (
+          
+            user?.userInfo?.links?.instagram ? (
+            <button className="px-2 py-1  font-bold space-x-1
+               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
+                
+                <BsInstagram width={100} height={100} color={"#1273ea"}/>
+                <h3 className='font-inter'>
+                  {instagram}
+                </h3>
+              
+            </button>
+      
+            ): ( <p className='hidden'></p> )
+        )
+      }
+    //   Twitter
+      const Twitter = function() { 
+        return (
+          
+            user?.userInfo?.links?.twitter? (
+            <button className="px-2 py-1  font-bold space-x-1
+               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
+                
+                <BsTwitter width={100} height={100} color={"#1273ea"}/>
+                <h3 className='font-inter'>
+                  @{twitter}
+                </h3>
+              
+            </button>
+      
+            ): ( <p className='hidden'></p> )
+        )
+      }
+    //   Github
+      const Github = function() { 
+        return (
+          
+            user?.userInfo?.links?.github ? (
+            <button className="px-2 py-1  font-bold space-x-1
+               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
+                
+                <BsGithub width={100} height={100} color={"#1273ea"}/>
+                <h3 className='font-inter'>
+                  {github}
+                </h3>
+              
+            </button>
+      
+            ): ( <p className='hidden'></p> )
+        )
+      }
+      const CustomURL = function() { 
+        return (
+          
+            user?.userInfo?.links?.customUrl ? (
+            <button className="px-2 py-1  font-bold space-x-1
+               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
+                
+                <BsGlobe2 width={100} height={100} color={"#1273ea"}/>
+                <h3 className='font-inter'>
+                  {removeHttp(user?.userInfo?.links?.customUrl)}
+                  
+                </h3>
+              
+            </button>
+      
+            ): ( <p className='hidden'></p> )
+        )
+      }
+      const Telegram = function() { 
+
+        let username = profile?.telegram?.username
+
+        return (
+          
+            profile?.telegram?.username! ? (
+            <button className="px-2 py-1  font-bold space-x-1
+               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
+                
+                <BsTelegram width={100} height={100} color={"#1273ea"}/>
+                  {
+                    username !== null || undefined ? (
+                      <h3 className='font-inter'>
+                        {profile?.ANS.nickname}
+                      </h3>
+                      ):(
+                        <h3 className="font-inter">
+                          {profile?.telegram.username} 
+                        </h3>
+                    )
+                  }
+            </button>
+            ): ( <p className='hidden'></p> )
+        )
+      }
+
 
     return (
         <div>
-            <div className="relative ">
+            <div className="relative mb-10 ">
                 <div className="relative bottom-20 flex flex-row items-end mt-3">
-                    {props?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
+                    {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
                     {/* nickname and label */}
                     <div className='ml-5 mb-5'>
                         <div className="flex flex-row space-x-3 items-center mt-3">
                             <div className="text-2xl font-bold leading-6 font-inter ">
-                                {props.userInfo.currentLabel}
+                                {user.userInfo.currentLabel}
                             </div>
-                            <CheckBadgeIcon height={30} width={30} color={"#325FFE"} />
+                            
+                            {
+                                profile?.is_evaluated || 
+                                profile?.is_verified ? (
+                                    <CheckBadgeIcon height={30} width={30} color={"#325FFE"} />
+                                ):(
+                                    <ShieldExclamationIcon height={30} width={30} color={"#E84040"} />
+                                )
+                            }
                             <div 
-                                className='p-2 bg-base-200 rounded-xl  '
+                                className='px-2 py-2 bg-base-200 rounded-lg  '
                                 onClick={copy}
                                 onMouseEnter={() => setVisible(true)}
                                 onMouseLeave={() => tippyState == "Copied" ? {} : setVisible(false)}>
@@ -99,9 +270,9 @@ export const UserInfo = (props: userInfo) => {
                                     visible={visible}
                                     // {...(tippyState !== 'Copied') ? {visible: true} : {} }
                                     className="font-inter text-sm visible">
-                                    <div className="flex flex-row font-inter font-semibold text-[#666]">
+                                    <div className="flex flex-row font-inter font-semibold text-[#666] text-sm">
                                         <h3 className='mr-1'>
-                                            {(shortenAddress as Function)(props.userInfo.user)}
+                                            {(shortenAddress as Function)(user.userInfo.user)}
                                         </h3>
                                         
                                         <DocumentDuplicateIcon height={20} width={20} color={"#666"} strokeWidth={2} />
@@ -110,7 +281,7 @@ export const UserInfo = (props: userInfo) => {
                             </div>
                         </div>
                         <h3 className='font-inter text-[#666] text-base mt-1 mb-1'>
-                            {props.userInfo.nickname}
+                            {user.userInfo.nickname}
                         </h3>
                         {/* DAO memberships */}
                         <div className='flex flex-row items-center space-x-2 '>
@@ -119,17 +290,52 @@ export const UserInfo = (props: userInfo) => {
                             <div className='flex flex-row  items-center space-x-1 text-[#666]
                                 py-1 px-2 w-fit bg-base-200 rounded-lg font-inter  text-xs font-bold'>
                                 <CalendarDaysIcon height={14} width={14} color={'#666'} strokeWidth={2}/>
-                                <p>Since Nov 2021</p>
+                                <p>Since {month} {year}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className='absolute top-20 mt-10 space-y-4'>
+                {/* User Bio and Available Labels */}
+                <div className='absolute top-20 mt-10 space-y-6'>
                     <Bio text={bio} />
-                    <Labels userInfo={props.userInfo} />
+                    {/* {profile && profile?.POAPS && <Poaps props={profile} />} */}
+                    {/* {profile && <ANSIdentitiesManager props={profile} />} */}
+                    <div className="flex flex-row space-x-2 transition duration-400 relative ">
+                        <Labels user={user} />
+                        <AVVYLabel />
+                        <ENSLabel />
+                        <Instagram />
+                        <Twitter />
+                        <Github />
+                        <Telegram />
+                        <CustomURL />
+                    </div>
                 </div>
             </div>
         </div>
     );
 
 };
+
+function removeHttp(url: string) {
+    if (url.startsWith('https://www.'))  {
+      const https = 'https://www.';
+      return url.slice(https.length);
+    }
+  
+    if (url.startsWith('https://'))  {
+      const https = 'https://';
+      return url.slice(https.length);
+    }
+  
+    if (url.startsWith('http://www.')) {
+      const http = 'http://www.';
+      return url.slice(http.length);
+    }
+    if (url.startsWith('www.')) {
+      const http = 'www.';
+      return url.slice(http.length);
+    }
+  
+    return url;
+  }

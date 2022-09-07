@@ -29,7 +29,7 @@ function ProfileAvatar ({ansData, options} :{ansData: ANSData, options?: AvatarO
         <img src={url} className="w-full h-full" alt="Profile" />
         : 
         <div className="relative flex  items-center justify-center w-full h-full">
-          <div className="absolute z-10 uppercase select-none bg-inherit text-white font-medium text-xl">{ansData.currentLabel?.[0] || "?"}</div>
+          <div className="absolute z-10 uppercase select-none bg-inherit text-white font-bold text-4xl font-inter">{ansData.currentLabel?.[0] || "?"}</div>
           <div className="absolute bg-gradient-to-l from-[#9E00FF] to-[#1273EA] rotate-45 origin-center w-full h-full"></div>
         </div>
       }
