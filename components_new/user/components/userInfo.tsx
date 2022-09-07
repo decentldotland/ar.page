@@ -13,13 +13,8 @@ import {CheckBadgeIcon, ShieldExclamationIcon} from '@heroicons/react/24/solid'
 import { Labels } from './labels';
 import { Bio } from './bio';
 import { ANSIdentitiesManager, Poaps } from '../hackathon';
-import {SiEthereum} from 'react-icons/si'
 import {FaEthereum} from 'react-icons/fa'
 import {BsGithub, BsTwitter, BsTelegram, BsInstagram, BsGlobe2} from 'react-icons/bs'
-
-import { Globe,  } from 'react-feather';
-import { getURL } from 'next/dist/shared/lib/utils';
-
 
 interface UserProps { 
     user: userInfo,
@@ -95,6 +90,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
     // console.log(`${member_since} THIS IS WHEN YOU FIRST LINKED YOUR ACCOUNT`)
     let [month, year] = [member_since.toLocaleString('default', {month: 'short'}), member_since.getFullYear()];
 
+    //  Below could need some refactoring
     // Avvy Label
     const AVVYLabel = function() { 
         return (
@@ -163,7 +159,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                 
                 <BsTwitter width={100} height={100} color={"#1273ea"}/>
                 <h3 className='font-inter'>
-                  {twitter}
+                  @{twitter}
                 </h3>
               
             </button>
@@ -208,6 +204,9 @@ export const UserInfo = ({user, profile}: UserProps) => {
         )
       }
       const Telegram = function() { 
+
+        let username = profile?.telegram?.username
+
         return (
           
             profile?.telegram?.username ? (
@@ -215,9 +214,19 @@ export const UserInfo = ({user, profile}: UserProps) => {
                bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
                 
                 <BsTelegram width={100} height={100} color={"#1273ea"}/>
-                <h3 className='font-inter'>
-                  {profile?.telegram.username}
-                </h3>
+                  {
+                    username!.length > 32 ? (
+                      <h3 className='font-inter'>
+                        {profile?.ANS.nickname}
+                      </h3>
+                      ):(
+                        <h3 className="font-inter">
+                          {profile?.telegram.username} 
+                        </h3>
+                    )
+                  }
+
+
               
             </button>
       
@@ -228,7 +237,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
 
     return (
         <div>
-            <div className="relative mb-10">
+            <div className="relative mb-10 ">
                 <div className="relative bottom-20 flex flex-row items-end mt-3">
                     {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
                     {/* nickname and label */}
@@ -285,13 +294,9 @@ export const UserInfo = ({user, profile}: UserProps) => {
                 {/* User Bio and Available Labels */}
                 <div className='absolute top-20 mt-10 space-y-4'>
                     <Bio text={bio} />
-                    
-                    
-                    
                     {/* {profile && profile?.POAPS && <Poaps props={profile} />} */}
                     {/* {profile && <ANSIdentitiesManager props={profile} />} */}
-
-                    <div className="flex flex-row space-x-2 overflow-x-scroll scrollbar-none">
+                    <div className="flex flex-row space-x-2 transition duration-400 relative">
                         <Labels user={user} />
                         <AVVYLabel />
                         <ENSLabel />
@@ -309,13 +314,22 @@ export const UserInfo = ({user, profile}: UserProps) => {
 };
 
 function removeHttp(url: string) {
-    if (url.startsWith('https://www.')) {
+    if (url.startsWith('https://www.'))  {
       const https = 'https://www.';
+      return url.slice(https.length);
+    }
+  
+    if (url.startsWith('https://'))  {
+      const https = 'https://';
       return url.slice(https.length);
     }
   
     if (url.startsWith('http://www.')) {
       const http = 'http://www.';
+      return url.slice(http.length);
+    }
+    if (url.startsWith('www.')) {
+      const http = 'www.';
       return url.slice(http.length);
     }
   
