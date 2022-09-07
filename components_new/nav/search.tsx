@@ -73,7 +73,10 @@ const SearchBox = (props: Props) => {
         //         </div>
         //     ) as React.ReactElement}
         // </Downshift>
-        <></>
+
+        <div>
+            
+        </div>
     )
 }
 
