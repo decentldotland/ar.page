@@ -1,6 +1,7 @@
 import { useAns } from "ans-for-all";
 import { Title } from "../components/reusables"
 import { Res } from "../../../src/types"
+import Image from "next/image";
 
 // Example component
 export function ANSIdentitiesManager({ props }: { props: Res }) {
@@ -34,14 +35,18 @@ export function Poaps({ props }: { props: Res }) {
   const {shortenAddress} = useAns();
   return (
     <>
-      {/* <Title>POAPS</Title> */}
       <div className="border-y border-gray-300/80 mb-4"></div>
-      <h1 className="text-left font-inter font-bold text-xl">POAPS</h1>
+      <h1 className="font-inter font-bold text-xl">POAPS</h1>
       <div className="flex flex-row space-x-4 mt-3">
         {POAPS.map((p, i) => (
           <>
             <label className="flex items-center cursor-pointer modal-button" htmlFor="my-modal-4">
-              <img src={p.event.image_url} className="w-28 h-28" />
+              <Image src={p.event.image_url} 
+                layout="fixed"
+                height={112}
+                width={112}
+                // className="w-28 h-28" 
+                />
               {/* <div className="ml-2 flex flex-col">
                 <div className="lg:text-sm font-semibold">{p.event.name}</div>
               </div> */}
@@ -51,7 +56,13 @@ export function Poaps({ props }: { props: Res }) {
             <label htmlFor="my-modal-4" className="modal cursor-pointer">
               <label className="modal-box relative" htmlFor="">
                 <div className="flex items-center">
-                  <img src={p.event.image_url} className="w-24 h-24" />
+                  <Image
+                    src={p.event.image_url}  
+                    // className="w-24 h-24"
+                    layout='fixed'
+                    height={112}
+                    width={112}
+                  />
                   <div className="ml-2 flex flex-col">
                     <div className="lg:text-sm font-semibold">{p.event.name}</div>
                   </div>
