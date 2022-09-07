@@ -118,11 +118,18 @@ export const UserInfo = ({user, profile}: UserProps) => {
         return (
           
             profile?.ENS ? (
-            <button className="px-2 py-1  font-bold space-x-1
-               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
-                
-                <FaEthereum width={100} height={100} color={"#1273ea"}/>
-                <h3 className='font-inter'>
+            <button className="py-1  font-bold -space-x-3.5 px-1
+               bg-[#8a92b2]/20 text-[#454a75] text-sm rounded-2xl flex flex-row items-center">
+                <img 
+                  height={40}
+                  width={40}
+                  
+                  className="relative right-2"
+                  // className="bg-black "
+                  src="https://www.logo.wine/a/logo/Ethereum/Ethereum-Icon-Purple-Logo.wine.svg"  
+                  alt="" />
+                {/* <FaEthereum width={100} height={100} color={"#1273ea"}/> */}
+                <h3 className='font-inter relative right-1'>
                   {profile?.ENS}
                 </h3>
               

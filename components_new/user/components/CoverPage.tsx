@@ -16,7 +16,7 @@ function CoverPage(props: userInfo) {
   const user_cover = props.userInfo.address_color;
   const coverStyle = { 
     backgroundColor: `${user_cover}`,
-    height: 328
+    height: 188
   }
   console.log(user_cover)
 
