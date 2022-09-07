@@ -220,7 +220,7 @@ export interface Attribute {
 }
 
 export interface Telegram {
-  username:     null;
+  username:     string | null;
   is_verified:  boolean;
   is_evaluated: boolean;
 }
