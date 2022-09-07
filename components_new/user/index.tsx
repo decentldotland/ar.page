@@ -11,6 +11,7 @@ import { ANSIdentitiesManager, Poaps } from './hackathon';
 import CoverPage from './components/CoverPage';
 import { result } from 'lodash';
 // import GitPoaps from './components/GitPoaps';
+// import GitPoaps from './components/GitPoaps';
 
 function PageContent(props: userInfo) {
   const bio = typeof props.userInfo.bio === 'string' ? 
@@ -33,7 +34,7 @@ function PageContent(props: userInfo) {
   }, [])
 
   return (
-    <section className="h-9 w-full">
+    <div className="h-9 w-full">
       <CoverPage userInfo={props.userInfo} />
       <div className="flex-wrap max-w-full rounded-lg px-16">
         <UserInfo user={info} profile={arkProfile} />
@@ -45,12 +46,15 @@ function PageContent(props: userInfo) {
           <Collectibles userInfo={info} />
           </div> 
           */}
+         {/* User Bio and Available Labels */}
+         
             
-          <div className='space-x-2'>
-            {arkProfile && arkProfile.POAPS && <Poaps  props={arkProfile} />}
+          <div className=''>
+            {arkProfile && arkProfile.POAPS && <Poaps props={arkProfile} />}
           </div>
+          {/* {arkProfile && <ANSIdentitiesManager props={arkProfile} />} */}
       </div>
-    </section>
+    </div>
   );
 }
 
