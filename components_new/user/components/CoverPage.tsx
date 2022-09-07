@@ -1,3 +1,4 @@
+import { height } from '@mui/system';
 import React, { useState } from 'react'
 import { userInfo } from '../../../src/types'
 import ChangeCover from './ChangeCover'
@@ -9,14 +10,36 @@ import EditProfile from './EditProfile'
 //  - Custom image 
 
 
+
+
 function CoverPage(props: userInfo) {
+  const user_cover = props.userInfo.address_color;
+  const coverStyle = { 
+    backgroundColor: `${user_cover}`,
+    height: 188
+  }
+  // console.log(user_cover)
+
   return (
-    <div className={`${props.userInfo !== null ? ('bg-[#c1bdef] h-[328px]'):('h-[218px] bg-white') }  w-full transition duration relative`}>
+    user_cover.length > 0 ? (
+      <div style={coverStyle} className=" w-full transition duration relative">
         <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pr-16 pb-3'>
-          <ChangeCover />
+          {/* <ChangeCover /> */}
           <EditProfile />
         </div>
-    </div>
+        
+
+      </div>
+    ) : (
+      <div className="h-[218px] bg-white w-full transition duration relative">
+        <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pr-16 pb-3'>
+          {/* <ChangeCover /> */}
+          <EditProfile />
+        </div>
+
+      </div>
+    )
+  
   )
 }
 

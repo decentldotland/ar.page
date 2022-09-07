@@ -50,15 +50,17 @@ export interface Res {
   is_verified:                  boolean;
   last_modification:            number;
   last_validation:              number;
-  telegram:                     any;
+  telegram:                     Telegram;
   validator:                    string;
   ver_req_network:              string;
   verification_req:             string;
+  // Member Since.. 
+  first_linkage:                number;
   has_unevaluated_exotic_addrs: boolean;
   exotic_addresses:             any[];
   ANS:                          Ans;
   ENS:                          string;
-  AVVY:                         boolean;
+  AVVY:                         string;
   GITPOAPS:                     Gitpoap[];
   POAPS:                        Poap[];
   MORALIS_NFTS:                 any |  { [key: string]: null | string }[];
@@ -218,7 +220,7 @@ export interface Attribute {
 }
 
 export interface Telegram {
-  username:     null;
+  username:     string | null;
   is_verified:  boolean;
   is_evaluated: boolean;
 }

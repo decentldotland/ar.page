@@ -13,7 +13,7 @@ import CoverPage from './components/CoverPage';
 function PageContent(props: userInfo) {
   const bio = typeof props.userInfo.bio === 'string' ? 
   props.userInfo.bio : "";
-  const info = props.userInfo;
+  const info = props;
   
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
 
@@ -35,7 +35,7 @@ function PageContent(props: userInfo) {
         <CoverPage userInfo={props.userInfo} />
       <div className="flex flex-wrap  max-w-full rounded-lg px-16">
         
-        <UserInfo userInfo={info} />
+        <UserInfo user={info} profile={arkProfile} />
         {/* These are temporary changes, most likely will need to bring them back as they would be helpful for contributros */}
         {/* <Labels userInfo={info} /> */}
         {/* <EditModal userColor={info.address_color} wallet={info.user} userInfo={props} />  */}
