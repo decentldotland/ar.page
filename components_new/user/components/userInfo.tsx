@@ -44,13 +44,18 @@ export const UserInfo = ({user, profile}: UserProps) => {
             }, 2000);
     }, []);
 
-    const copy = React.useCallback(() => {
+    const copy_link = React.useCallback(() => {
         setTippyState("Copied");
         setVisible(true);
         copyTimer()
         navigator.clipboard.writeText(user.userInfo.user);
     }, [copyTimer, user.userInfo.user])
 
+
+    const copy_text = (link: string) => { 
+        copyTimer()
+        navigator.clipboard.writeText(link);
+    }
 
     const socialMedias:any = {
         github: { url: "https://github.com/" },
@@ -129,15 +134,26 @@ export const UserInfo = ({user, profile}: UserProps) => {
       }) => {
         if (!username) return <></>
         return (
-            <button className={`${colors} px-2 py-1 font-bold text-sm rounded-2xl `}>
-                <Link href={`${link_to}/${username}/`} passHref>
-                  <a target="_blank" rel="noopener noreferrer" className='flex flex-row items-center space-x-1 '>
-                    {icon}
-                    <h3 className="font-inter">
-                      {removeHttp(username)}
-                    </h3>
-                  </a>
-                </Link>
+            <button className={`${colors} px-2 py-1 font-bold text-sm rounded-2xl hover:opacity-60`}>
+                {copy && link_to!  ? (
+                    <Link href={`${link_to}/${username}/`} passHref>
+                        <a target="_blank" rel="noopener noreferrer" className='flex flex-row items-center space-x-1 '>
+                            {icon}
+                            <h3 className="font-inter">
+                            {removeHttp(username)}
+                            </h3>
+                        </a>
+                    </Link>
+                ):(
+                    <div className={`flex flex-row items-center space-x-1`}
+                        onClick={() => copy_text(username)}
+                    >
+                        {icon}
+                        <h3 className="font-inter">
+                            {removeHttp(username)}
+                        </h3>
+                    </div>
+                )}
             </button>
         )
     }
@@ -168,19 +184,19 @@ export const UserInfo = ({user, profile}: UserProps) => {
         },
         // {username: profile?.telegram?.username, colors: colorProps, icon: <BsTelegram {...iconProps}/>},
         {username: twitter, colors: colorProps, 
-          link_to: "twitter.com",
+          link_to: "https://twitter.com",
           copy: true,  
           icon: <BsTwitter {...iconProps} />},
         {username: github, colors: colorProps, 
-          link_to: "github.com/",
+          link_to: "https://github.com/",
           copy: true,  
           icon: <BsGithub {...iconProps} />},
         {username: instagram, colors: colorProps, 
-          link_to: "instagram.com/",
+          link_to: "https://instagram.com/",
           copy: true,  
           icon: <BsInstagram {...iconProps}/>},
         {username: customUrl, colors: colorProps, 
-          link_to: null,
+          link_to: customUrl,
           copy: true,  
           icon: <BsGlobe2 {...iconProps}/>},
     ]
@@ -220,9 +236,10 @@ export const UserInfo = ({user, profile}: UserProps) => {
                             }
                             <div 
                                 className='px-2 py-2 bg-base-200 rounded-lg  '
-                                onClick={copy}
+                                onClick={copy_link}
                                 onMouseEnter={() => setVisible(true)}
-                                onMouseLeave={() => tippyState == "Copied" ? {} : setVisible(false)}>
+                                onMouseLeave={() => tippyState == "Copied" ? {} : setVisible(false)}
+                                >
                                 <Tippy
                                     arrow={true}
                                     content={<div>{tippyState}</div>}
