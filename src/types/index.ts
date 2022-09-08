@@ -55,7 +55,7 @@ export interface Res {
   RSS3:                         any;
   GALAXY_CREDS:                 any;
   ANFTS:                        Anfts;
-  ARWEAVE_TRANSACTIONS:         any[];
+  ARWEAVE_TRANSACTIONS:         ArweaveTransaction[];
 };
 
 export interface Anfts {

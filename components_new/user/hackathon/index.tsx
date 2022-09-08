@@ -1,6 +1,7 @@
 import { useAns } from "ans-for-all";
-import { Title } from "../components/reusables"
-import { Res } from "../../../src/types"
+import { Title } from "../components/reusables";
+import { Res } from "../../../src/types";
+import { Divider } from "../components/reusables";
 
 // Example component
 export function ANSIdentitiesManager({ props }: { props: Res }) {
@@ -31,39 +32,33 @@ export function ANSIdentitiesManager({ props }: { props: Res }) {
 
 export function Poaps({ props }: { props: Res }) {
   const { POAPS } = props;
-  const {shortenAddress} = useAns();
+
   return (
     <>
-      <Title>POAPS</Title>
-      <div className="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-3">
+      <h1 className="text-xl font-medium flex w-full">POAPS</h1>
+      <div className="mt-4 flex gap-x-6 carousel">
         {POAPS.map((p, i) => (
-          <>
+          <div key={i} className="carousel-item">
             <label className="flex items-center cursor-pointer modal-button" htmlFor="my-modal-4">
-              <img src={p.event.image_url} className="w-24 h-24" />
-              <div className="ml-2 flex flex-col">
-                <div className="lg:text-sm font-semibold">{p.event.name}</div>
-              </div>
+              <img src={p.event.image_url} className="w-32 h-32" />
             </label>
-
             <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-            <label htmlFor="my-modal-4" className="modal cursor-pointer">
+            <label htmlFor="my-modal-4" className="modal cursor-pointer backdrop-blur-md">
               <label className="modal-box relative" htmlFor="">
-                <div className="flex items-center">
-                  <img src={p.event.image_url} className="w-24 h-24" />
-                  <div className="ml-2 flex flex-col">
-                    <div className="lg:text-sm font-semibold">{p.event.name}</div>
-                  </div>
+                <div className="flex flex-col items-center">
+                  <img src={p.event.image_url} className="w-40 h-40 mt-4 mb-8" />
                 </div>
-                <div className="mt-2 grid grid-cols-1 gap-y-2">
-                  <>Obtained on {p.event.start_date} </>
+                <div className="flex flex-col gap-y-2 text-center">
+                  <div className="font-semibold">{p.event.name}</div>
+                  <div className="">Obtained on {p.event.start_date} </div>
                   <div><a href={p.event.event_url} className="link-primary after:content-['_↗']">{p.event.event_url}</a></div>
                 </div>
               </label>
             </label>
-
-          </>
+          </div>
         ))}
       </div>
+      <Divider />
     </>
   )
 }
