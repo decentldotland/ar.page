@@ -12,7 +12,6 @@ import {DocumentDuplicateIcon, CalendarDaysIcon} from '@heroicons/react/24/outli
 import {CheckBadgeIcon, ShieldExclamationIcon} from '@heroicons/react/24/solid'
 import { Labels } from './labels';
 import { Bio } from './bio';
-import { ANSIdentitiesManager, Poaps } from '../hackathon';
 import {FaEthereum, FaUser} from 'react-icons/fa'
 import {BsGithub, BsTwitter, BsTelegram, BsInstagram, BsGlobe2} from 'react-icons/bs'
 import { removeHttp } from '../../../src/utils'
