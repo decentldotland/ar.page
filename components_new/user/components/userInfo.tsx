@@ -15,6 +15,7 @@ import { Bio } from './bio';
 import {FaEthereum, FaUser} from 'react-icons/fa'
 import {BsGithub, BsTwitter, BsTelegram, BsInstagram, BsGlobe2} from 'react-icons/bs'
 import { removeHttp } from '../../../src/utils'
+import Link from 'next/link';
 
 interface UserProps { 
     user: userInfo,
@@ -52,23 +53,23 @@ export const UserInfo = ({user, profile}: UserProps) => {
 
 
     const socialMedias:any = {
-        github: { url: "https://github.com/", icon: faGithub },
-        instagram: { url: "https://instagram.com/", icon: faInstagram },
-        twitter: { url: "https://twitter.com/", icon: faTwitter },
-        customUrl: { url: "", icon: faGlobe },
+        github: { url: "https://github.com/" },
+        instagram: { url: "https://instagram.com/"  },
+        twitter: { url: "https://twitter.com/"  },
+        customUrl: { url: "htttps://www." },
     }
 
-    const Icon = ({type, url}:any) => {
-        return (
-            <div className="flex ml-4 mt-0 w-[32px] justify-center">
-                {url &&
-                    <a className="flex text-base-content" href={socialMedias?.[type].url + url}>
-                        <FontAwesomeIcon icon={socialMedias?.[type].icon} className="w-5 h-[32px]" />
-                    </a>
-                }
-            </div>
-        )
-    }
+    // const Icon = ({type, url}:any) => {
+    //     return (
+    //         <div className="flex ml-4 mt-0 w-[32px] justify-center">
+    //             {url &&
+    //                 <a className="flex text-base-content" href={socialMedias?.[type].url + url}>
+    //                     <FontAwesomeIcon icon={socialMedias?.[type].icon} className="w-5 h-[32px]" />
+    //                 </a>
+    //             }
+    //         </div>
+    //     )
+    // }
     // console.log(user.userInfo)
     // @ts-ignore
     const { instagram, twitter, github, customUrl } = user?.userInfo?.links;
@@ -91,54 +92,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
     // console.log(`${member_since} THIS IS WHEN YOU FIRST LINKED YOUR ACCOUNT`)
     let [month, year] = [member_since.toLocaleString('default', {month: 'short'}), member_since.getFullYear()];
 
-    //  Below could need some refactoring
-    // Avvy Label
-    const AVVYLabel = function() { 
-        return (
-          
-            profile?.AVVY ? (
-                <button className="px-3 font-inter 
-                font-semibold py-1
-                bg-[#E84040]/80 text-white text-sm rounded-2xl flex flex-row items-center">
-                <img 
-                    width={30}
-                    height={30}
-                    className="mr-2 "
-                    src="https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=023" alt="" />
-                    <h3 className="font-inter"> {profile?.AVVY}</h3>
-                </button>
-              ):( 
-                <p className='hidden'></p>
-              )
-          
-        )
-    }
-      
-    //   ENS label
-    const ENSLabel = function() { 
-        return (
-          
-            profile?.ENS ? (
-            <button className="py-1  font-bold -space-x-3.5 px-1
-               bg-[#8a92b2]/20 text-[#454a75] text-sm rounded-2xl flex flex-row items-center">
-                <img 
-                  height={40}
-                  width={40}
-                  
-                  className="relative right-2"
-                  // className="bg-black "
-                  src="https://www.logo.wine/a/logo/Ethereum/Ethereum-Icon-Purple-Logo.wine.svg"  
-                  alt="" />
-                {/* <FaEthereum width={100} height={100} color={"#1273ea"}/> */}
-                <h3 className='font-inter relative right-1'>
-                  {profile?.ENS}
-                </h3>
-              
-            </button>
-      
-            ): ( <p className='hidden'></p> )
-        )
-      }
+
     const Telegram = function() { 
 
         let username = profile?.telegram?.username
@@ -166,14 +120,24 @@ export const UserInfo = ({user, profile}: UserProps) => {
         )
     }
 
-    const GenericLabel = ({username, colors, icon}: {username: string | undefined, colors: string, icon: any}) => {
+    const GenericLabel = ({username, colors, icon, link_to, copy}: {
+        username: string | undefined, 
+        colors: string, 
+        icon: any,
+        link_to: string | null,
+        copy: boolean
+      }) => {
         if (!username) return <></>
         return (
-            <button className={`${colors} px-2 py-1 space-x-1 font-bold text-sm rounded-2xl flex flex-row items-center`}>
+            <button className={`${colors} px-2 py-1 font-bold text-sm rounded-2xl `}>
+                <Link href={`${link_to}/${username}/`} passHref>
+                  <a target="_blank" rel="noopener noreferrer" className='flex flex-row items-center space-x-1 '>
                     {icon}
                     <h3 className="font-inter">
-                        {removeHttp(username)}
+                      {removeHttp(username)}
                     </h3>
+                  </a>
+                </Link>
             </button>
         )
     }
@@ -182,17 +146,52 @@ export const UserInfo = ({user, profile}: UserProps) => {
     const ethColor = "bg-[#8a92b2]/20 text-[#454a75]"
     const iconProps = {width: 100, height: 100, color: "#1273ea"}
     const newLinks = [
-        {username: profile?.ANS.nickname, colors: colorProps, icon: <FaUser {...iconProps} />},
-        {username: profile?.AVVY, colors: avaxColor, icon: <img width={30} height={30} src="https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=023" alt="" />},
-        {username: profile?.ENS, colors: ethColor, icon: <FaEthereum {...iconProps} />},
+        // {username: profile?.ANS.nickname, colors: colorProps, icon: <FaUser {...iconProps} />},
+        {username: profile?.AVVY, colors: avaxColor, 
+          link_to: null,
+          copy: true,  
+          icon: <img 
+            width={30} 
+            height={30} 
+            src="https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=023"/>
+        },
+            
+
+        {username: profile?.ENS, colors: ethColor, 
+          link_to: null,
+          copy: true, 
+          icon: <img 
+            height={13}
+            width={13}
+            src="https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=002"  
+            alt="" /> 
+        },
         // {username: profile?.telegram?.username, colors: colorProps, icon: <BsTelegram {...iconProps}/>},
-        {username: twitter, colors: colorProps, icon: <BsTwitter {...iconProps} />},
-        {username: github, colors: colorProps, icon: <BsGithub {...iconProps} />},
-        {username: instagram, colors: colorProps, icon: <BsInstagram {...iconProps}/>},
-        {username: customUrl, colors: colorProps, icon: <BsGlobe2 {...iconProps}/>},
+        {username: twitter, colors: colorProps, 
+          link_to: "twitter.com",
+          copy: true,  
+          icon: <BsTwitter {...iconProps} />},
+        {username: github, colors: colorProps, 
+          link_to: "github.com/",
+          copy: true,  
+          icon: <BsGithub {...iconProps} />},
+        {username: instagram, colors: colorProps, 
+          link_to: "instagram.com/",
+          copy: true,  
+          icon: <BsInstagram {...iconProps}/>},
+        {username: customUrl, colors: colorProps, 
+          link_to: null,
+          copy: true,  
+          icon: <BsGlobe2 {...iconProps}/>},
     ]
 
-    const socials = newLinks.map((social, i) => <GenericLabel username={social.username} colors={social.colors} icon={social.icon} />)
+    const socials = newLinks.map((social, i) => <GenericLabel 
+      username={social.username} 
+      colors={social.colors} 
+      icon={social.icon}
+      link_to={social.link_to}
+      copy={social.copy} 
+    />)
 
     const items = [
         <Labels user={user} />,
