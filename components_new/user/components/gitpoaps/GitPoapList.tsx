@@ -11,6 +11,7 @@ function GitPoapList({list}: GitPoapList) {
 
   return (
     <div>
+      <h1 className="text-xl font-medium flex w-full">GITPOAPS</h1>
       <div ref={rowRef} className="
         flex items-center space-x-4 mr-4
       ">

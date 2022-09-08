@@ -13,8 +13,9 @@ import {CheckBadgeIcon, ShieldExclamationIcon} from '@heroicons/react/24/solid'
 import { Labels } from './labels';
 import { Bio } from './bio';
 import { ANSIdentitiesManager, Poaps } from '../hackathon';
-import {FaEthereum} from 'react-icons/fa'
+import {FaEthereum, FaUser} from 'react-icons/fa'
 import {BsGithub, BsTwitter, BsTelegram, BsInstagram, BsGlobe2} from 'react-icons/bs'
+import { removeHttp } from '../../../src/utils'
 
 interface UserProps { 
     user: userInfo,
@@ -112,10 +113,10 @@ export const UserInfo = ({user, profile}: UserProps) => {
               )
           
         )
-      }
+    }
       
     //   ENS label
-      const ENSLabel = function() { 
+    const ENSLabel = function() { 
         return (
           
             profile?.ENS ? (
@@ -139,87 +140,15 @@ export const UserInfo = ({user, profile}: UserProps) => {
             ): ( <p className='hidden'></p> )
         )
       }
-    //   Instagram
-      const Instagram = function() { 
-        return (
-          
-            user?.userInfo?.links?.instagram ? (
-            <button className="px-2 py-1  font-bold space-x-1
-               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
-                
-                <BsInstagram width={100} height={100} color={"#1273ea"}/>
-                <h3 className='font-inter'>
-                  {instagram}
-                </h3>
-              
-            </button>
-      
-            ): ( <p className='hidden'></p> )
-        )
-      }
-    //   Twitter
-      const Twitter = function() { 
-        return (
-          
-            user?.userInfo?.links?.twitter? (
-            <button className="px-2 py-1  font-bold space-x-1
-               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
-                
-                <BsTwitter width={100} height={100} color={"#1273ea"}/>
-                <h3 className='font-inter'>
-                  @{twitter}
-                </h3>
-              
-            </button>
-      
-            ): ( <p className='hidden'></p> )
-        )
-      }
-    //   Github
-      const Github = function() { 
-        return (
-          
-            user?.userInfo?.links?.github ? (
-            <button className="px-2 py-1  font-bold space-x-1
-               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
-                
-                <BsGithub width={100} height={100} color={"#1273ea"}/>
-                <h3 className='font-inter'>
-                  {github}
-                </h3>
-              
-            </button>
-      
-            ): ( <p className='hidden'></p> )
-        )
-      }
-      const CustomURL = function() { 
-        return (
-          
-            user?.userInfo?.links?.customUrl ? (
-            <button className="px-2 py-1  font-bold space-x-1
-               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
-                
-                <BsGlobe2 width={100} height={100} color={"#1273ea"}/>
-                <h3 className='font-inter'>
-                  {removeHttp(user?.userInfo?.links?.customUrl)}
-                  
-                </h3>
-              
-            </button>
-      
-            ): ( <p className='hidden'></p> )
-        )
-      }
-      const Telegram = function() { 
+    const Telegram = function() { 
 
         let username = profile?.telegram?.username
 
         return (
           
             profile?.telegram?.username! ? (
-            <button className="px-2 py-1  font-bold space-x-1
-               bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
+            <button className="px-2 py-1 space-x-1
+                font-bold bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
                 
                 <BsTelegram width={100} height={100} color={"#1273ea"}/>
                   {
@@ -236,12 +165,44 @@ export const UserInfo = ({user, profile}: UserProps) => {
             </button>
             ): ( <p className='hidden'></p> )
         )
-      }
+    }
 
+    const GenericLabel = ({username, colors, icon}: {username: string | undefined, colors: string, icon: any}) => {
+        if (!username) return <></>
+        return (
+            <button className={`${colors} px-2 py-1 space-x-1 font-bold text-sm rounded-2xl flex flex-row items-center`}>
+                    {icon}
+                    <h3 className="font-inter">
+                        {removeHttp(username)}
+                    </h3>
+            </button>
+        )
+    }
+    const colorProps = "bg-primary/10 text-primary"
+    const avaxColor = "bg-[#E84040]/80 text-white"
+    const ethColor = "bg-[#8a92b2]/20 text-[#454a75]"
+    const iconProps = {width: 100, height: 100, color: "#1273ea"}
+    const newLinks = [
+        {username: profile?.ANS.nickname, colors: colorProps, icon: <FaUser {...iconProps} />},
+        {username: profile?.AVVY, colors: avaxColor, icon: <img width={30} height={30} src="https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=023" alt="" />},
+        {username: profile?.ENS, colors: ethColor, icon: <FaEthereum {...iconProps} />},
+        // {username: profile?.telegram?.username, colors: colorProps, icon: <BsTelegram {...iconProps}/>},
+        {username: twitter, colors: colorProps, icon: <BsTwitter {...iconProps} />},
+        {username: github, colors: colorProps, icon: <BsGithub {...iconProps} />},
+        {username: instagram, colors: colorProps, icon: <BsInstagram {...iconProps}/>},
+        {username: customUrl, colors: colorProps, icon: <BsGlobe2 {...iconProps}/>},
+    ]
+
+    const socials = newLinks.map((social, i) => <GenericLabel username={social.username} colors={social.colors} icon={social.icon} />)
+
+    const items = [
+        <Labels user={user} />,
+        ...socials,
+    ]
 
     return (
         <div>
-            <div className="relative mb-10 ">
+            <div className="relative">
                 <div className="relative bottom-20 flex flex-row items-end mt-3">
                     {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
                     {/* nickname and label */}
@@ -296,19 +257,16 @@ export const UserInfo = ({user, profile}: UserProps) => {
                     </div>
                 </div>
                 {/* User Bio and Available Labels */}
-                <div className='absolute top-20 mt-10 space-y-6'>
+                <div className='space-y-6 -mt-20'>
                     <Bio text={bio} />
                     {/* {profile && profile?.POAPS && <Poaps props={profile} />} */}
                     {/* {profile && <ANSIdentitiesManager props={profile} />} */}
-                    <div className="flex flex-row space-x-2 transition duration-400 relative ">
-                        <Labels user={user} />
-                        <AVVYLabel />
-                        <ENSLabel />
-                        <Instagram />
-                        <Twitter />
-                        <Github />
-                        <Telegram />
-                        <CustomURL />
+                    <div className="flex flex-row carousel space-x-2 transition duration-400 relative ">
+                        {items.map((item, index) => (
+                            <div key={index} className="carousel-item">
+                                {item}
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -316,26 +274,3 @@ export const UserInfo = ({user, profile}: UserProps) => {
     );
 
 };
-
-function removeHttp(url: string) {
-    if (url.startsWith('https://www.'))  {
-      const https = 'https://www.';
-      return url.slice(https.length);
-    }
-  
-    if (url.startsWith('https://'))  {
-      const https = 'https://';
-      return url.slice(https.length);
-    }
-  
-    if (url.startsWith('http://www.')) {
-      const http = 'http://www.';
-      return url.slice(http.length);
-    }
-    if (url.startsWith('www.')) {
-      const http = 'www.';
-      return url.slice(http.length);
-    }
-  
-    return url;
-  }

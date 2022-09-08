@@ -9,7 +9,9 @@ interface GitPoapsProps {
 function Thumbnail({gitpoap}: GitPoapsProps) {
   return (
     <div>
-        <Image src={gitpoap.imageUrl} 
+        <Image 
+            loader={() => gitpoap.imageUrl}
+            src={gitpoap.imageUrl} 
             layout="fixed" 
             className='rounded-full '
             height={112} 

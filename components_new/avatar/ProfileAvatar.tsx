@@ -26,7 +26,7 @@ function ProfileAvatar ({ansData, options} :{ansData: ANSData, options?: AvatarO
       }}
     >
       {ansData.avatar ?
-        <img src={url} className="w-full h-full" alt="Profile" />
+        <img src={url} className="flex mx-auto object-cover w-full h-full" alt="Profile" />
         : 
         <div className="relative flex  items-center justify-center w-full h-full">
           <div className="absolute z-10 uppercase select-none bg-inherit text-white font-bold text-4xl font-inter">{ansData.currentLabel?.[0] || "?"}</div>

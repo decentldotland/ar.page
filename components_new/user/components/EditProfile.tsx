@@ -7,7 +7,7 @@ function EditProfile() {
         bg-base-200 text-base space-x-2
         flex-row items-center font-inter font-semibold text-[#666]'>
         <PencilIcon height={14} width={14} color={"#666"} strokeWidth={2} />
-        <h3 className="">
+        <h3 className="text-xs">
             Edit Profile
         </h3>
     </div>

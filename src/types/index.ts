@@ -12,26 +12,16 @@ export const DUMMY_ANS_DATA = {
 
 export type userInfo = {
   userInfo: {
-      user: string;
-      currentLabel: string;
-      ownedLabels?: {
-          label: string;
-          scarcity: string;
-          acquisationBlock: number;
-          mintedFor: number;
-      }[],
-      nickname?: string;
-      address_color: string;
-      bio?: string;
-      avatar?: string;
-      links?: {
-          github?: string;
-          twitter?: string;
-          customUrl?: string;
-          instagram?: string;
-      },
-      subdomains?: any;
-      freeSubdomains: number;
+    user:               string;
+    currentLabel:       string;
+    ownedLabels?:       OwnedLabel[];
+    nickname?:          string;
+    address_color:      string;
+    bio?:               string;
+    avatar?:            string;
+    links?:             Links;
+    subdomains?:        any;
+    freeSubdomains:     number;
   };
 };
 
@@ -66,8 +56,8 @@ export interface Res {
   MORALIS_NFTS:                 any |  { [key: string]: null | string }[];
   RSS3:                         any;
   GALAXY_CREDS:                 any;
-  ANFTS:                        any | Anfts;
-  ARWEAVE_TRANSACTIONS:         any[];
+  ANFTS:                        Anfts;
+  ARWEAVE_TRANSACTIONS:         ArweaveTransaction[];
 };
 
 export interface Anfts {
