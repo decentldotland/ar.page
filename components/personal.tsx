@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import Image from 'next/image';
-import Tippy from '@tippyjs/react';
 import { Fab } from './editor/fab';
 import { EditModal } from './editor/editmodal';
 import Header from './arconnect/arconnect_loader'; //@ts-ignore
@@ -66,14 +65,14 @@ export const Personal = (props: Props) => {
                         {
                             props.userInfo.ownedLabels.map((owned: { label: string; scarcity: string; acquisationBlock: number; mintedFor: number; }) =>
                                 <div key={owned.acquisationBlock} className="col-span-2 pt-1 w-min  float-left">
-                                    <Tippy arrow={true}
+                                    {/* <Tippy arrow={true}
                                         key={owned.acquisationBlock}
                                         content={`Scarcity: ${owned.scarcity} `}
                                         className="font-mono text-sm py-0.5">
                                         <h1 className="text-lg text-white w-min float-left">
                                             {`${owned.label}.ar`}
                                         </h1>
-                                    </Tippy>
+                                    </Tippy> */}
                                 </div>
                             )
                         }
@@ -99,13 +98,13 @@ export const Personal = (props: Props) => {
 
                 <EditModal userColor={props.userInfo.address_color} wallet={props.userInfo.user} userInfo={props.userInfo} />
 
-                <Tippy arrow={true}
+                {/* <Tippy arrow={true}
                     content="connect ArConnect to verify and edit profile."
                     className="font-mono text-sm py-0.5">
                     <a className="absolute bottom-[unset] right-3 top-3">
                         <Header />
                     </a>
-                </Tippy>
+                </Tippy> */}
             </div>
         </div>
     );
