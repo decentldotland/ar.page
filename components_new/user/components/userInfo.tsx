@@ -31,7 +31,6 @@ export const UserInfo = ({user, profile}: UserProps) => {
     const [open, setOpen] = React.useState(false);
     const copy_text = (link: string) => { 
         setOpen(true);
-        // copyTimer()
         navigator.clipboard.writeText(link);
     }
 
