@@ -42,7 +42,7 @@ export const Labels = ({user}: LabelProps) => {
                     
                     <div
                       onClick={() =>{ copy_text(`${owned.label}.ar`); }} 
-                      className="px-3 py-2 font-semibold 
+                      className="px-3 py-2 font-semibold cursor-pointer
                       bg-black text-white  text-sm rounded-2xl flex flex-row items-center">
                       <img
                         width={24}
@@ -59,7 +59,6 @@ export const Labels = ({user}: LabelProps) => {
                     onClose={() => setOpen(false)}
                     open={open}
                   />
-         
                 </div>
               )
             }

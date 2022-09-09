@@ -94,7 +94,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
         return (
             <button 
                 
-                className={`${colors} px-2 py-1 font-bold text-sm rounded-2xl`}>
+                className={`${colors} px-2 py-1 font-bold text-sm rounded-2xl relative right-4`}>
                 {copy && link_to! && link_to !== customUrl ? (
                     <Link href={`${link_to}/${username}/`} passHref>
                         <a target="_blank" rel="noopener noreferrer" className='hover:opacity-60 flex flex-row items-center space-x-1 '>
