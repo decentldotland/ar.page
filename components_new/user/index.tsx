@@ -101,7 +101,7 @@ function PageContent(props: userInfo) {
   return (
     <div className="h-9 w-full font-inter">
       <CoverPage userInfo={props.userInfo} />
-      <div className="rounded-lg px-16">
+      <div className="rounded-lg px-16 ">
         <UserInfo user={{userInfo: info}} profile={arkProfile} />
         {/* These are temporary changes, most likely will need to bring them back as they would be helpful for contributros */}
         {/* <Labels userInfo={info} /> */}

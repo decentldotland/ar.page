@@ -9,7 +9,7 @@ export function Selector(props: {items: item[], selected: number, setSelected: (
   const { items, selected, setSelected } = props;
 
   const [active, setActive] = useState(true)
-
+  // ${selected === index ? ('font-semibold text-black'): ('font-medium text-[#666]')}
   return (
     <div className="w-full font-inter mb-6">
       <div className="tabs carousel !flex-nowrap"> {/* flex-nowrap is to make tabs work with carousel */}

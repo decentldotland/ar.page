@@ -3,10 +3,14 @@ import { Bars3Icon } from '@heroicons/react/24/outline'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import { useAns } from 'ans-for-all'
+import { divide } from 'lodash'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { User } from '../user/sidebar/user'
 import { NavUser } from './NavUser'
+import {FaceFrownIcon, BookOpenIcon, MoonIcon,  } from '@heroicons/react/24/outline'
+import {FiLogIn, FiLogOut} from 'react-icons/fi'
 
 function BarMenu() {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -25,6 +29,12 @@ function BarMenu() {
     const routeToPage = (url: string) => {  
       router.push(url)
     }
+
+    const {
+      walletConnected,
+      ansData,
+      arconnectConnect,
+    } = useAns();
   
     return (
       <div className="">
@@ -39,27 +49,41 @@ function BarMenu() {
          {/* <Bars3Icon height={21} width={21} color="black" strokeWidth={2}  /> */}
          <NavUser />
         </Button>
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          className="menu"
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
-          }}
-        >
-            <div className=''>
-                <ul>
-                    <li><User /></li>
-                </ul>
-            </div>
-          <MenuItem onClick={() => {routeToPage("/")}}>Home</MenuItem>
-          <MenuItem onClick={() => {routeToPage("/")}}>TV Shows</MenuItem>
-          <MenuItem onClick={() => {routeToPage("/")}}>Movies</MenuItem>
-          <MenuItem onClick={() => {routeToPage("/")}}>New & Popular</MenuItem>
-          <MenuItem onClick={() => {routeToPage("/")}}>My List</MenuItem>
-        </Menu>
+        
+        <div className='relative '>
+            <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            className="menu"
+            MenuListProps={{
+                'aria-labelledby': 'basic-button',
+            }}
+            
+            >{
+              walletConnected ? (
+                <>
+                    <User />
+                    <MenuItem onClick={() => {routeToPage("/")}}>My Profile</MenuItem>
+                    <MenuItem onClick={() => {routeToPage("/")}}>My Collectables</MenuItem>
+                    <MenuItem onClick={() => {routeToPage("/")}}>Decent Land</MenuItem>
+                    <MenuItem onClick={() => {routeToPage("/")}}>Documentation</MenuItem>
+                    <MenuItem onClick={() => {routeToPage("/")}}>Dark Mode</MenuItem>
+                    <MenuItem onClick={() => {routeToPage("/")}}>Disconnect</MenuItem>
+                </>
+              ):(   
+                <div className=''>
+                    <User />
+                    <MenuItem onClick={() => {routeToPage("/")}}>Documentation</MenuItem>
+                    <MenuItem onClick={() => {routeToPage("/")}}>Dark Mode</MenuItem>
+                    <MenuItem onClick={() => {routeToPage("/")}}>Log In</MenuItem>
+                </div>
+              )
+            }
+            
+            </Menu>
+        </div>
       </div>
     )
   }
