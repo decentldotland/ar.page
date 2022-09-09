@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Personal } from '../../components/personal';
 import { Tweets } from '../../components/Tweets';
-import { Nfts } from '../../components/Nfts';
+// import { Nfts } from '../../components/Nfts';
 import { Bio } from '../../components/Bio';
 import { FAQ } from '../../components/FAQ';
 
@@ -56,9 +56,9 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                         <Bio userInfo={userInfo}
                             className={(`my-3 -mt-3 lg:px-3 px-6 mx-1 rounded-md shadow-md border-2 border-prim1 shadow-black -m-6 shrink-0 lg:h- h-fit flex justify-center align-middle`)}
                         />
-                        <Nfts userInfo={userInfo} setLength={setNftCount}
+                        {/* <Nfts userInfo={userInfo} setLength={setNftCount}
                             className={`mx-1 -left-1 max-w-full overflow-hidden border-2 border-prim1 rounded-md lg:px-0 px-3 pb-14 lg:pb-0 lg:shrink-0 lg:h-auto shadow-md shadow-black`}
-                        />
+                        /> */}
 
                     </div>
                     {hasTwtr === 2 ?

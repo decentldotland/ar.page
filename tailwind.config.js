@@ -11,6 +11,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        inter: 'Inter-Regular, regular'
+      },
       colors: {
         'gray-450': 'rgb(136, 136, 136)',
         sviolet : 'rgb(156, 82, 139)',

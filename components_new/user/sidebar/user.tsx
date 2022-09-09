@@ -3,6 +3,12 @@ import * as React from 'react';
 import { useAns } from 'ans-for-all';
 import Avatar from '../../avatar';
 import Favicon from '../../../public/favicon.ico';
+import {UserIcon} from '@heroicons/react/24/outline'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faPlusSquare, faArrowAltCircleRight } from '@fortawesome/free-regular-svg-icons';
+import {ArrowRightOnRectangleIcon, PlusIcon} from '@heroicons/react/24/outline'
+
+
 
 export const User = (props: any) => {
     const {
@@ -16,20 +22,20 @@ export const User = (props: any) => {
     }, [walletConnected]);
 
     return (
-        <div className="h-9 mx-4 mb-4">
+        <div className="">
             <>
                 {(walletConnected && (
-                    <div className="flex flex-row gap-x-2.5">
+                    <div className={`flex flex-row `}>
                         {ansData && (ansData.avatar || ansData.currentLabel || ansData.address_color ) ? (
                             <>
-                                <Avatar ansData={ansData} />
-                                {/* nickname and label */}
-                                <div className="flex flex-col mt-0.5">
-                                    <div className="text-sm font-medium">
-                                        {ansData?.currentLabel}
-                                    </div>
-                                    <div className="text-[#656] text-xs font-normal">
-                                        {ansData?.currentLabel}.ar
+                                {/* name and labels */}
+                                <div className="space-x-3.5 flex flex-row items-center">
+                                    <Avatar ansData={ansData} />
+                                    {/* nickname and label */}
+                                    <div className="flex flex-col relative top-[0.5] ">
+                                        <p className="text-base font-semibold text-left">
+                                            {ansData?.currentLabel}.ar
+                                        </p>
                                     </div>
                                 </div>
                             </>
@@ -37,8 +43,10 @@ export const User = (props: any) => {
                             <div className="bg-gray-400/40 px-4 h-full rounded-md animate-pulse">
                                 Loading...
                             </div>
+                            
                         )}
                     </div>
+
                 )) || (
                         <div className="flex flex-row gap-x-2.5 items-center">
                             <div

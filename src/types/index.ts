@@ -12,26 +12,16 @@ export const DUMMY_ANS_DATA = {
 
 export type userInfo = {
   userInfo: {
-      user: string;
-      currentLabel: string;
-      ownedLabels?: {
-          label: string;
-          scarcity: string;
-          acquisationBlock: number;
-          mintedFor: number;
-      }[],
-      nickname?: string;
-      address_color: string;
-      bio?: string;
-      avatar?: string;
-      links?: {
-          github?: string;
-          twitter?: string;
-          customUrl?: string;
-          instagram?: string;
-      },
-      subdomains?: any;
-      freeSubdomains: number;
+    user:               string;
+    currentLabel:       string;
+    ownedLabels?:       OwnedLabel[];
+    nickname?:          string;
+    address_color:      string;
+    bio?:               string;
+    avatar?:            string;
+    links?:             Links;
+    subdomains?:        any;
+    freeSubdomains:     number;
   };
 };
 
@@ -50,22 +40,25 @@ export interface Res {
   is_verified:                  boolean;
   last_modification:            number;
   last_validation:              number;
-  telegram:                     any;
+  telegram:                     Telegram;
   validator:                    string;
   ver_req_network:              string;
   verification_req:             string;
+  // Member Since.. 
+  first_linkage:                number;
   has_unevaluated_exotic_addrs: boolean;
   exotic_addresses:             any[];
   ANS:                          Ans;
   ENS:                          string;
-  AVVY:                         boolean;
+  AVVY:                         string;
   GITPOAPS:                     Gitpoap[];
   POAPS:                        Poap[];
-  MORALIS_NFTS:                 any |  { [key: string]: null | string }[];
+  ERC_NFTS:                     any |  { [key: string]: null | string }[];
+  URBIT_IDS:                    any |  { [key: string]: null | string }[];
   RSS3:                         any;
   GALAXY_CREDS:                 any;
-  ANFTS:                        any | Anfts;
-  ARWEAVE_TRANSACTIONS:         any[];
+  ANFTS:                        Anfts;
+  ARWEAVE_TRANSACTIONS:         ArweaveTransaction[];
 };
 
 export interface Anfts {
@@ -218,7 +211,7 @@ export interface Attribute {
 }
 
 export interface Telegram {
-  username:     null;
+  username:     string | null;
   is_verified:  boolean;
   is_evaluated: boolean;
 }
