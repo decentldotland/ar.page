@@ -53,7 +53,8 @@ export interface Res {
   AVVY:                         string;
   GITPOAPS:                     Gitpoap[];
   POAPS:                        Poap[];
-  MORALIS_NFTS:                 any |  { [key: string]: null | string }[];
+  ERC_NFTS:                     any |  { [key: string]: null | string }[];
+  URBIT_IDS:                    any |  { [key: string]: null | string }[];
   RSS3:                         any;
   GALAXY_CREDS:                 any;
   ANFTS:                        Anfts;
