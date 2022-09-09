@@ -26,23 +26,31 @@ export const Collectibles = ({NFTs, loading}: {NFTs: Koii[], loading: boolean}) 
   return (
     <>
       {NFTs.length > 0 ? (
-        <div className={`w-full h-full font-normal text-sm transition-opacity duration-500 opacity-0 ${(onLoad && !loading) && 'opacity-100' } `}>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-9 pt-0.5">
+        <div className={`  `}>
+          <div className="grid lg:grid-cols-4 gap-6 md:grid-cols-3 sm:grid-cols-1">
             {NFTs.map((
               owned: { title: string; poster: string; description: string; timestamp: number; id: string; },
               index: number
             ) =>
-              <div key={index} className="rounded-lg overflow-hidden h-full w-full duration-300 hover:-translate-y-[2px]">
+              <div className="
+              object-cover
+              relative h-[200px]  
+              min-w-[180px] min-h-[257px]   
+              cursor-pointer transition duration-500 ease-out
+              md:h-36 md:min-w-[200px] 
+              sm:min-h-[427px] sm:min-w-[200px]  
+              md:min-h-[257px] md:hover:scale-105 
+              lg:min-h-[357px]
+              ">
                 <Image src={ARWEAVE_URL + owned.id}
                   alt={owned.title}
-                  width={imageSize}
-                  height={imageSize}
                   onClick={() => {
                     setCurrent(owned);
                     setIsOpen(true)
                   }}
                   objectFit="cover"
-                  className={`rounded-lg cursor-pointer`}
+                  layout='fill'
+                  className={`rounded-3xl cursor-pointer object-cover`}
                 />
               </div>
             )}
