@@ -1,9 +1,4 @@
 // @flow 
-import { faGithub, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import { faClipboard } from '@fortawesome/free-regular-svg-icons';
-import { faGlobe } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Tippy from '@tippyjs/react';
 import { useAns } from 'ans-for-all';
 import * as React from 'react';
 import { ANSData, Res, userInfo } from '../../../src/types';
@@ -12,7 +7,7 @@ import {DocumentDuplicateIcon, CalendarDaysIcon} from '@heroicons/react/24/outli
 import {CheckBadgeIcon, ShieldExclamationIcon} from '@heroicons/react/24/solid'
 import { Labels } from './labels';
 import { Bio } from './bio';
-import {FaEthereum, FaUser} from 'react-icons/fa'
+
 import {BsGithub, BsTwitter, BsTelegram, BsInstagram, BsGlobe2} from 'react-icons/bs'
 import { removeHttp } from '../../../src/utils'
 import Link from 'next/link';
@@ -31,24 +26,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
         shortenAddress,
     } = useAns();
 
-    // const [tippyState, setTippyState] = React.useState("Copy");
-    // const [visible, setVisible] = React.useState(false);
-    // const copyTimer = React.useCallback(() => {
-    //     const timer = setTimeout(
-    //         () => {
-    //             setTimeout(
-    //                 () => {
-    //                     setVisible(false);
-    //                 }, 500);
-    //             setTippyState("Copy");
-    //         }, 2000);
-    // }, []);
-    // const copy_link = React.useCallback(() => {
-    //     setTippyState("Copied");
-    //     setVisible(true);
-    //     copyTimer()
-    //     navigator.clipboard.writeText(user.userInfo.user);
-    // }, [copyTimer, user.userInfo.user])
+  
 
     const [open, setOpen] = React.useState(false);
     const copy_text = (link: string) => { 
@@ -57,24 +35,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
         navigator.clipboard.writeText(link);
     }
 
-    // const socialMedias:any = {
-    //     github: { url: "https://github.com/" },
-    //     instagram: { url: "https://instagram.com/"  },
-    //     twitter: { url: "https://twitter.com/"  },
-    //     customUrl: { url: "htttps://www." },
-    // }
-    // const Icon = ({type, url}:any) => {
-    //     return (
-    //         <div className="flex ml-4 mt-0 w-[32px] justify-center">
-    //             {url &&
-    //                 <a className="flex text-base-content" href={socialMedias?.[type].url + url}>
-    //                     <FontAwesomeIcon icon={socialMedias?.[type].icon} className="w-5 h-[32px]" />
-    //                 </a>
-    //             }
-    //         </div>
-    //     )
-    // }
-    // console.log(user.userInfo)
+
     // @ts-ignore
     const { instagram, twitter, github, customUrl } = user?.userInfo?.links;
     const { currentLabel, address_color, avatar } = user?.userInfo;
