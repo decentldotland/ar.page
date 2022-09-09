@@ -40,13 +40,9 @@ export const Collectibles = ({NFTs, loading}: {NFTs: Koii[], loading: boolean}) 
               shrink-0
               min-w-[268px] min-h-[257px]   
               cursor-pointer transition duration-500 ease-out
-              md:min-w-[300px] 
               sm:min-h-[300px] sm:min-w-[200px]  
               md:min-h-[257px] md:hover:scale-105
-              lg:min-h-[300px] lg:min-w-[300px] 
-              xl:min-h-[300px] xl:min-w-[300px]
-              2xl:h-[420px] 
-              2xl:min-h-[360px]
+            
               ">
                 <Image src={ARWEAVE_URL + owned.id}
                   alt={owned.title}
