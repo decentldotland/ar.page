@@ -1,5 +1,6 @@
 // @flow 
 import axios from 'axios';
+import Link from 'next/link';
 import * as React from 'react';
 import { NavButtons } from './buttons';
 import NavBarButtons from './NavBarButtons';
@@ -28,8 +29,13 @@ export const Nav = (props:any) => {
 
     // bg-base-100
     return (
-        <div className="flex justify-between h-[56px] overflow-visible px-16 items-center ">
-            <SearchBar />
+        <div className="font-inter flex justify-between h-[56px] overflow-visible px-16 items-center ">
+            <div className='flex flex-rows space-x-3.5 items-center '>
+                <Link href="/" >
+                    <h1 className='text-3xl font-bold text-gray-600 cursor-pointer'>ANS</h1>
+                </Link>
+                <SearchBar />
+            </div>
                 {/* 
             <div className="mt-3 ml-4 overflow-visible h-full w-full">
                 <SearchBox

@@ -1,25 +1,25 @@
 import Image from 'next/image';
 import * as React from 'react';
 import { useAns } from 'ans-for-all';
-import Avatar from '../../avatar';
-import Favicon from '../../../public/favicon.ico';
+import Favicon from '../../public/favicon.ico';
 import {UserIcon} from '@heroicons/react/24/outline'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faPlusSquare, faArrowAltCircleRight } from '@fortawesome/free-regular-svg-icons';
 import {ArrowRightOnRectangleIcon, PlusIcon} from '@heroicons/react/24/outline'
+import Avatar from '../avatar';
 
 
 
-export const User = (props: any) => {
+export const NavUser = (props: any) => {
     const {
         walletConnected,
         ansData,
         arconnectConnect,
     } = useAns();
 
-    React.useEffect(() => {
-        console.log("walletConnected", walletConnected)
-    }, [walletConnected]);
+    // React.useEffect(() => {
+    //     console.log("walletConnected", walletConnected)
+    // }, [walletConnected]);
 
     return (
         <div className="font-inter font-semibold">
@@ -31,12 +31,6 @@ export const User = (props: any) => {
                                 {/* name and labels */}
                                 <div className="space-x-3.5 flex flex-row items-center">
                                     <Avatar ansData={ansData} />
-                                    {/* nickname and label */}
-                                    <div className="flex flex-col relative top-[0.5] ">
-                                        <p className="text-base font-semibold text-left">
-                                            {ansData?.currentLabel}.ar
-                                        </p>
-                                    </div>
                                 </div>
                             </>
                         ): (
