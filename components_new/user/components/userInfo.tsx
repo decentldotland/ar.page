@@ -57,12 +57,12 @@ export const UserInfo = ({user, profile}: UserProps) => {
         navigator.clipboard.writeText(link);
     }
 
-    const socialMedias:any = {
-        github: { url: "https://github.com/" },
-        instagram: { url: "https://instagram.com/"  },
-        twitter: { url: "https://twitter.com/"  },
-        customUrl: { url: "htttps://www." },
-    }
+    // const socialMedias:any = {
+    //     github: { url: "https://github.com/" },
+    //     instagram: { url: "https://instagram.com/"  },
+    //     twitter: { url: "https://twitter.com/"  },
+    //     customUrl: { url: "htttps://www." },
+    // }
 
     // const Icon = ({type, url}:any) => {
     //     return (
@@ -135,16 +135,25 @@ export const UserInfo = ({user, profile}: UserProps) => {
         if (!username) return <></>
         return (
             <button className={`${colors} px-2 py-1 font-bold text-sm rounded-2xl hover:opacity-60`}>
-                {copy && link_to!  ? (
+                {copy && link_to! && link_to !== customUrl ? (
                     <Link href={`${link_to}/${username}/`} passHref>
                         <a target="_blank" rel="noopener noreferrer" className='flex flex-row items-center space-x-1 '>
                             {icon}
                             <h3 className="font-inter">
-                            {removeHttp(username)}
+                                {removeHttp(username)}
                             </h3>
                         </a>
                     </Link>
-                ):(
+                ): ( copy && link_to! && link_to == customUrl ? (
+                    <Link href={`${link_to}`} passHref>
+                        <a target="_blank" rel="noopener noreferrer" className='flex flex-row items-center space-x-1 '>
+                            {icon}
+                            <h3 className="font-inter">
+                                {removeHttp(username)}
+                            </h3>
+                        </a>
+                    </Link>
+                ) : (
                     <div className={`flex flex-row items-center space-x-1`}
                         onClick={() => copy_text(username)}
                     >
@@ -153,6 +162,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                             {removeHttp(username)}
                         </h3>
                     </div>
+                )
                 )}
             </button>
         )

@@ -6,7 +6,7 @@ export function Poaps({ props }: { props: Res }) {
 
   return (
     <>
-      <h1 className="text-xl font-medium flex w-full">POAPS</h1>
+      <h1 className="text-xl font-semibold font-inter">POAPS</h1>
       <div className="mt-4 flex gap-x-6 carousel">
         {POAPS.map((p, i) => (
           <div key={i} className="carousel-item">

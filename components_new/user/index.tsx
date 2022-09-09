@@ -96,14 +96,14 @@ function PageContent(props: userInfo) {
   ];
 
   return (
-    <div className="h-9 w-full">
+    <div className="h-9 w-full ">
       <CoverPage userInfo={props.userInfo} />
       <div className="flex flex-wrap max-w-full rounded-lg px-16">
         <UserInfo user={{userInfo: info}} profile={arkProfile} />
         {/* These are temporary changes, most likely will need to bring them back as they would be helpful for contributros */}
         {/* <Labels userInfo={info} /> */}
         {/* <EditModal userColor={info.address_color} wallet={info.user} userInfo={props} />  */}
-        <Divider /> 
+          <Divider /> 
         <div className=''>
           {(arkProfile && arkProfile.POAPS.length > 0) && 
             <Poaps props={arkProfile} />
