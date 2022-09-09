@@ -16,6 +16,7 @@ import {FaEthereum, FaUser} from 'react-icons/fa'
 import {BsGithub, BsTwitter, BsTelegram, BsInstagram, BsGlobe2} from 'react-icons/bs'
 import { removeHttp } from '../../../src/utils'
 import Link from 'next/link';
+import { Snackbar } from '@mui/material';
 
 interface UserProps { 
     user: userInfo,
@@ -30,30 +31,29 @@ export const UserInfo = ({user, profile}: UserProps) => {
         shortenAddress,
     } = useAns();
 
-    const [tippyState, setTippyState] = React.useState("Copy");
-    const [visible, setVisible] = React.useState(false);
+    // const [tippyState, setTippyState] = React.useState("Copy");
+    // const [visible, setVisible] = React.useState(false);
+    // const copyTimer = React.useCallback(() => {
+    //     const timer = setTimeout(
+    //         () => {
+    //             setTimeout(
+    //                 () => {
+    //                     setVisible(false);
+    //                 }, 500);
+    //             setTippyState("Copy");
+    //         }, 2000);
+    // }, []);
+    // const copy_link = React.useCallback(() => {
+    //     setTippyState("Copied");
+    //     setVisible(true);
+    //     copyTimer()
+    //     navigator.clipboard.writeText(user.userInfo.user);
+    // }, [copyTimer, user.userInfo.user])
 
-    const copyTimer = React.useCallback(() => {
-        const timer = setTimeout(
-            () => {
-                setTimeout(
-                    () => {
-                        setVisible(false);
-                    }, 500);
-                setTippyState("Copy");
-            }, 2000);
-    }, []);
-
-    const copy_link = React.useCallback(() => {
-        setTippyState("Copied");
-        setVisible(true);
-        copyTimer()
-        navigator.clipboard.writeText(user.userInfo.user);
-    }, [copyTimer, user.userInfo.user])
-
-
+    const [open, setOpen] = React.useState(false);
     const copy_text = (link: string) => { 
-        copyTimer()
+        setOpen(true);
+        // copyTimer()
         navigator.clipboard.writeText(link);
     }
 
@@ -63,7 +63,6 @@ export const UserInfo = ({user, profile}: UserProps) => {
     //     twitter: { url: "https://twitter.com/"  },
     //     customUrl: { url: "htttps://www." },
     // }
-
     // const Icon = ({type, url}:any) => {
     //     return (
     //         <div className="flex ml-4 mt-0 w-[32px] justify-center">
@@ -94,7 +93,6 @@ export const UserInfo = ({user, profile}: UserProps) => {
     // Member since...
     let epoch = profile?.first_linkage || 0;
     let member_since = new Date( epoch * 1000);
-    // console.log(`${member_since} THIS IS WHEN YOU FIRST LINKED YOUR ACCOUNT`)
     let [month, year] = [member_since.toLocaleString('default', {month: 'short'}), member_since.getFullYear()];
 
 
@@ -134,10 +132,12 @@ export const UserInfo = ({user, profile}: UserProps) => {
       }) => {
         if (!username) return <></>
         return (
-            <button className={`${colors} px-2 py-1 font-bold text-sm rounded-2xl hover:opacity-60`}>
+            <button 
+                
+                className={`${colors} px-2 py-1 font-bold text-sm rounded-2xl`}>
                 {copy && link_to! && link_to !== customUrl ? (
                     <Link href={`${link_to}/${username}/`} passHref>
-                        <a target="_blank" rel="noopener noreferrer" className='flex flex-row items-center space-x-1 '>
+                        <a target="_blank" rel="noopener noreferrer" className='hover:opacity-60 flex flex-row items-center space-x-1 '>
                             {icon}
                             <h3 className="font-inter">
                                 {removeHttp(username)}
@@ -146,7 +146,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                     </Link>
                 ): ( copy && link_to! && link_to == customUrl ? (
                     <Link href={`${link_to}`} passHref>
-                        <a target="_blank" rel="noopener noreferrer" className='flex flex-row items-center space-x-1 '>
+                        <a target="_blank" rel="noopener noreferrer" className='hover:opacity-60 flex flex-row items-center space-x-1 '>
                             {icon}
                             <h3 className="font-inter">
                                 {removeHttp(username)}
@@ -155,14 +155,20 @@ export const UserInfo = ({user, profile}: UserProps) => {
                     </Link>
                 ) : (
                     <div className={`flex flex-row items-center space-x-1`}
-                        onClick={() => copy_text(username)}
-                    >
-                        {icon}
+                        onClick={() =>{ copy_text(username); }} >
+                            {icon}
                         <h3 className="font-inter">
                             {removeHttp(username)}
                         </h3>
+                        <Snackbar
+                            message="Copied to clibboard"
+                            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                            autoHideDuration={2000}
+                            onClose={() => setOpen(false)}
+                            open={open}
+                        />
                     </div>
-                )
+                    )
                 )}
             </button>
         )
@@ -244,26 +250,21 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                     <ShieldExclamationIcon height={30} width={30} color={"#E84040"} />
                                 )
                             }
-                            <div 
-                                className='px-2 py-2 bg-base-200 rounded-lg  '
-                                onClick={copy_link}
-                                onMouseEnter={() => setVisible(true)}
-                                onMouseLeave={() => tippyState == "Copied" ? {} : setVisible(false)}
-                                >
-                                <Tippy
-                                    arrow={true}
-                                    content={<div>{tippyState}</div>}
-                                    visible={visible}
-                                    // {...(tippyState !== 'Copied') ? {visible: true} : {} }
-                                    className="font-inter text-sm visible">
-                                    <div className="flex flex-row font-inter font-semibold text-[#666] text-sm">
-                                        <h3 className='mr-1'>
-                                            {(shortenAddress as Function)(user.userInfo.user)}
-                                        </h3>
-                                        
-                                        <DocumentDuplicateIcon height={20} width={20} color={"#666"} strokeWidth={2} />
-                                    </div>
-                                </Tippy>
+                            <div className='px-2 py-2 bg-base-200 rounded-lg cursor-pointer'
+                                onClick={() =>{ copy_text(user.userInfo.user); }} >
+                                <div className="flex flex-row font-inter font-semibold text-[#666] text-sm">
+                                    <h3 className='mr-1'>
+                                        {(shortenAddress as Function)(user.userInfo.user)}
+                                    </h3>
+                                    <DocumentDuplicateIcon height={20} width={20} color={"#666"} strokeWidth={2} />
+                                </div>
+                                <Snackbar
+                                    message="Copied to clibboard"
+                                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                                    autoHideDuration={2000}
+                                    onClose={() => setOpen(false)}
+                                    open={open}
+                                />
                             </div>
                         </div>
                         <h3 className='font-inter text-[#666] text-base mt-1 mb-1'>
