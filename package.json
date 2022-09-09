@@ -20,7 +20,6 @@
     "@heroicons/react": "^2.0.10",
     "@mui/material": "^5.10.4",
     "@svgr/webpack": "^6.2.1",
-    "@tippyjs/react": "^4.2.6",
     "ans-for-all": "nanofuxion/ans-for-all",
     "arweave": "^1.10.23",
     "arweave-multihost": "^0.1.0",
