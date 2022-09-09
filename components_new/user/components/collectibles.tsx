@@ -35,7 +35,8 @@ export const Collectibles = ({NFTs, loading}: {NFTs: Koii[], loading: boolean}) 
               <div className="
               object-cover
               relative 
-              h-[357px]
+              w-full
+              h-full
               shrink-0
               min-w-[268px] min-h-[257px]   
               cursor-pointer transition duration-500 ease-out
