@@ -9,8 +9,13 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { User } from '../user/sidebar/user'
 import { NavUser } from './NavUser'
-import {FaceFrownIcon, BookOpenIcon, MoonIcon,  } from '@heroicons/react/24/outline'
+import {FaceSmileIcon, BookOpenIcon, MoonIcon,  } from '@heroicons/react/24/outline'
 import {FiLogIn, FiLogOut} from 'react-icons/fi'
+import {BsCollection} from 'react-icons/bs'
+import { Divider } from '../user/components/reusables'
+import Image from 'next/image'
+import Link from 'next/link'
+import Favicon from '../../public/favicon.ico';
 
 function BarMenu() {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -34,6 +39,7 @@ function BarMenu() {
       walletConnected,
       ansData,
       arconnectConnect,
+      arconnectDisconnect
     } = useAns();
   
     return (
@@ -64,21 +70,103 @@ function BarMenu() {
             >{
               walletConnected ? (
                 <>
-                    <User />
-                    <MenuItem onClick={() => {routeToPage("/")}}>My Profile</MenuItem>
-                    <MenuItem onClick={() => {routeToPage("/")}}>My Collectables</MenuItem>
-                    <MenuItem onClick={() => {routeToPage("/")}}>Decent Land</MenuItem>
-                    <MenuItem onClick={() => {routeToPage("/")}}>Documentation</MenuItem>
-                    <MenuItem onClick={() => {routeToPage("/")}}>Dark Mode</MenuItem>
-                    <MenuItem onClick={() => {routeToPage("/")}}>Disconnect</MenuItem>
+                    <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                       <div>
+                          <User />                
+                        </div> 
+                    </MenuItem> 
+                    <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                       <div>
+                       <FaceSmileIcon height={20} width={20} color="black"/>
+
+                          <h1>
+                            My Profile
+                          </h1> 
+                        </div> 
+                    </MenuItem>
+                    <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                      <div>
+                      <BsCollection height={20} width={20} color="black"/>
+                        <h1>
+                          My Collectables
+                        </h1> 
+                      </div> 
+                    </MenuItem>
+                    <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                      <Link href={"https://www.decent.land/"}  className="flex flex-row  items-center ">
+                        <a target="_blank" rel="noopener noreferrer" className=' hover:opacity-60 flex flex-row items-center '>
+                            <Image src={Favicon} width={27} height={27} className='' alt="" />
+                            <h1>Go to Decent land</h1>
+                        </a>
+                      </Link>
+                    </MenuItem>
+                    <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                      <div>
+                        <BookOpenIcon height={20} width={20} color="black"/>
+                        <h1>
+                          Documentation
+                        </h1>
+                      </div>
+                    </MenuItem>
+                    <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                        <div>
+                        <MoonIcon height={20} width={20} color="black"/>
+
+                          <h1>
+                            DarkMode
+                          </h1> 
+                        </div>
+                    </ MenuItem>
+                    <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                        <div onClick={arconnectDisconnect}>
+                          <FiLogOut height={20} width={20} color="black"/>
+
+                          <h1>
+                            Disconnect
+                          </h1>
+                        </div>
+                    </MenuItem>
                 </>
               ):(   
-                <div className=''>
-                    <User />
-                    <MenuItem onClick={() => {routeToPage("/")}}>Documentation</MenuItem>
-                    <MenuItem onClick={() => {routeToPage("/")}}>Dark Mode</MenuItem>
-                    <MenuItem onClick={() => {routeToPage("/")}}>Log In</MenuItem>
-                </div>
+                <>
+                      <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                        <Link href={"https://www.decent.land/"}  className="flex flex-row  items-center ">
+                          <a target="_blank" rel="noopener noreferrer" className=' hover:opacity-60 flex flex-row items-center '>
+                              <Image src={Favicon} width={27} height={27} className='' alt="" />
+                              <h1>Go to Decent land</h1>
+                          </a>
+                        </Link>
+                      </MenuItem>
+                      <Divider />
+                      <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                          
+                          <div>
+                            <BookOpenIcon height={20} width={20} color="black"/>
+                            <h1>
+                              Documentation
+                            </h1>
+                          </div>
+                          
+
+                      </MenuItem>
+                      <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                          <div>
+                            <MoonIcon height={20} width={20} color="black"/>
+                            <h1>
+                              Dark Mode
+                            </h1>
+                          </div>
+                      </MenuItem>
+                    <Divider />
+                    <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                      <div onClick={arconnectConnect}>
+                        <FiLogIn height={20} width={20} color="black"/>
+                        <h1>
+                          Connect Wallet
+                        </h1>
+                      </div>
+                    </MenuItem>
+                </>
               )
             }
             

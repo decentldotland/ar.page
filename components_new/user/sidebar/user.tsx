@@ -42,7 +42,7 @@ export const User = (props: any) => {
                             </>
                         ): (
                             <Link href={"https://www.decent.land/"}  className="flex flex-row  items-center">
-                                <a target="_blank" rel="noopener noreferrer" className='hover:opacity-60 flex flex-row items-center space-x-2 '>
+                                <a target="_blank" rel="noopener noreferrer" className='space-x-5 hover:opacity-60 flex flex-row items-center '>
                                     <Image src={Favicon} width={36} height={36} className='mx-auto my-auto' alt="" />
                                     <h1>Go to Decent land</h1>
                                 </a>
@@ -51,8 +51,8 @@ export const User = (props: any) => {
                     </div>
 
                 )) || (
-                        <Link href={"https://www.decent.land/"}  className="flex flex-row  items-center">
-                            <a target="_blank" rel="noopener noreferrer" className='hover:opacity-60 flex flex-row items-center space-x-2 '>
+                        <Link href={"https://www.decent.land/"}  className="flex flex-row  items-center ">
+                            <a target="_blank" rel="noopener noreferrer" className='space-x-5 hover:opacity-60 flex flex-row items-center '>
                                 <Image src={Favicon} width={36} height={36} className='mx-auto my-auto' alt="" />
                                 <h1>Go to Decent land</h1>
                             </a>
