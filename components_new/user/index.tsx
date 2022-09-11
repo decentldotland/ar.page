@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { userInfo, Res } from '../../src/types';
 import { EditModal } from '../../components/editor/editmodal';
-import { Labels } from './components/labels';
 import { UserInfo } from './components/userInfo';
 import { Bio } from './components/bio';
 import { Collectibles } from './components/collectibles';

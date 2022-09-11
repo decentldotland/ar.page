@@ -5,8 +5,8 @@ export function Title (jsx: any) {
     </div>
   )
 };
-export function Divider () {
 
+export function Divider () {
   return <div className="bg-gray-300 h-[1.5px] w-full my-5"></div>
 }
 
