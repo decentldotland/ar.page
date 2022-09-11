@@ -70,102 +70,96 @@ function BarMenu() {
             >{
               walletConnected ? (
                 <>
-                    <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
-                       <div>
-                          <User />                
-                        </div> 
-                    </MenuItem> 
-                    <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
-                       <div>
-                       <FaceSmileIcon height={20} width={20} color="black"/>
-
-                          <h1>
-                            My Profile
-                          </h1> 
-                        </div> 
-                    </MenuItem>
-                    <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
-                      <div>
-                      <BsCollection height={20} width={20} color="black"/>
+                  <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                     <div>
+                        <User />                
+                      </div> 
+                  </MenuItem> 
+                  <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                     <div>
+                     <FaceSmileIcon height={20} width={20} color="black"/>
                         <h1>
-                          My Collectables
+                          My Profile
                         </h1> 
                       </div> 
-                    </MenuItem>
-                    <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
-                      <Link href={"https://www.decent.land/"}  className="flex flex-row  items-center ">
-                        <a target="_blank" rel="noopener noreferrer" className=' hover:opacity-60 flex flex-row items-center '>
-                            <Image src={Favicon} width={27} height={27} className='' alt="" />
-                            <h1>Go to Decent land</h1>
-                        </a>
-                      </Link>
-                    </MenuItem>
-                    <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                  </MenuItem>
+                  <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                    <div>
+                    <BsCollection height={20} width={20} color="black"/>
+                      <h1>
+                        My Collectables
+                      </h1> 
+                    </div> 
+                  </MenuItem>
+                  <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                    <Link href={"https://www.decent.land/"}  className="flex flex-row  items-center ">
+                      <a target="_blank" rel="noopener noreferrer" className=' hover:opacity-60 flex flex-row items-center '>
+                          <Image src={Favicon} width={27} height={27} className='' alt="" />
+                          <h1>Go to Decent land</h1>
+                      </a>
+                    </Link>
+                  </MenuItem>
+                  <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                    <div>
+                      <BookOpenIcon height={20} width={20} color="black"/>
+                      <h1>
+                        Documentation
+                      </h1>
+                    </div>
+                  </MenuItem>
+                  <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                      <div>
+                      <MoonIcon height={20} width={20} color="black"/>
+                        <h1>
+                          DarkMode
+                        </h1> 
+                      </div>
+                  </ MenuItem>
+                  <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                      <div onClick={arconnectDisconnect}>
+                        <FiLogOut height={20} width={20} color="black"/>
+                        <h1>
+                          Disconnect
+                        </h1>
+                      </div>
+                  </MenuItem>
+                </>
+              ):(   
+                <>
+                  <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                    <Link href={"https://www.decent.land/"}  className="flex flex-row  items-center ">
+                      <a target="_blank" rel="noopener noreferrer" className=' hover:opacity-60 flex flex-row items-center '>
+                          <Image src={Favicon} width={27} height={27} className='' alt="" />
+                          <h1>Go to Decent land</h1>
+                      </a>
+                    </Link>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                      
                       <div>
                         <BookOpenIcon height={20} width={20} color="black"/>
                         <h1>
                           Documentation
                         </h1>
                       </div>
-                    </MenuItem>
-                    <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
-                        <div>
+                      
+                  </MenuItem>
+                  <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row" style={{}}>
                         <MoonIcon height={20} width={20} color="black"/>
-
-                          <h1>
-                            DarkMode
-                          </h1> 
-                        </div>
-                    </ MenuItem>
-                    <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
-                        <div onClick={arconnectDisconnect}>
-                          <FiLogOut height={20} width={20} color="black"/>
-
-                          <h1>
-                            Disconnect
-                          </h1>
-                        </div>
-                    </MenuItem>
-                </>
-              ):(   
-                <>
-                      <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
-                        <Link href={"https://www.decent.land/"}  className="flex flex-row  items-center ">
-                          <a target="_blank" rel="noopener noreferrer" className=' hover:opacity-60 flex flex-row items-center '>
-                              <Image src={Favicon} width={27} height={27} className='' alt="" />
-                              <h1>Go to Decent land</h1>
-                          </a>
-                        </Link>
-                      </MenuItem>
-                      <Divider />
-                      <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
-                          
-                          <div>
-                            <BookOpenIcon height={20} width={20} color="black"/>
-                            <h1>
-                              Documentation
-                            </h1>
-                          </div>
-                          
-
-                      </MenuItem>
-                      <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
-                          <div>
-                            <MoonIcon height={20} width={20} color="black"/>
-                            <h1>
-                              Dark Mode
-                            </h1>
-                          </div>
-                      </MenuItem>
-                    <Divider />
-                    <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
-                      <div onClick={arconnectConnect}>
-                        <FiLogIn height={20} width={20} color="black"/>
                         <h1>
-                          Connect Wallet
+                          Dark Mode
                         </h1>
-                      </div>
-                    </MenuItem>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
+                    <div onClick={arconnectConnect}>
+                      <FiLogIn height={20} width={20} color="black"/>
+                      <h1>
+                        Connect Wallet
+                      </h1>
+                    </div>
+                  </MenuItem>
                 </>
               )
             }
