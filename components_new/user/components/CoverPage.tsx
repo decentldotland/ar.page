@@ -22,22 +22,25 @@ function CoverPage(props: userInfo) {
 
   return (
     user_cover.length > 0 ? (
-      <div style={coverStyle} className=" w-full transition duration relative">
-        <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pr-16 pb-3'>
-          {/* <ChangeCover /> */}
-          <EditProfile />
+      <section style={coverStyle} className=" w-full transition duration relative flex flex-row justify-center">
+        <div className='relative w-[1300px] h-full'>
+          <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pb-3 xl:px-16'>
+            {/* <ChangeCover /> */}
+            <EditProfile />
+          </div>
         </div>
         
 
-      </div>
+      </section>
     ) : (
-      <div className="h-[218px] bg-white w-full transition duration relative">
-        <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pr-16 pb-3'>
-          {/* <ChangeCover /> */}
-          <EditProfile />
+      <section className="h-[218px] bg-white w-full transition duration relative">
+        <div className='relative w-[1300px] h-full'>
+          <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pb-3 xl:px-16'>
+            {/* <ChangeCover /> */}
+            <EditProfile />
+          </div>
         </div>
-
-      </div>
+      </section>
     )
   
   )

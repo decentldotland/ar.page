@@ -27,7 +27,7 @@ export const Collectibles = ({NFTs, loading}: {NFTs: Koii[], loading: boolean}) 
     <>
       {NFTs.length > 0 ? (
         <div className={`  `}>
-          <div className="grid  lg:grid-cols-4 gap-6 md:grid-cols-3 sm:grid-cols-1">
+          <div className="grid  lg:grid-cols-4 gap-6 md:grid-cols-3 sm:grid-cols-1 ">
             {NFTs.map((
               owned: { title: string; poster: string; description: string; timestamp: number; id: string; },
               index: number
@@ -41,7 +41,8 @@ export const Collectibles = ({NFTs, loading}: {NFTs: Koii[], loading: boolean}) 
               min-w-[268px] min-h-[257px]   
               cursor-pointer transition duration-500 ease-out
               sm:min-h-[300px] sm:min-w-[200px]  
-              md:min-h-[257px] md:hover:scale-105
+              md:min-h-[257px] 
+              md:hover:scale-105
             
               ">
                 <Image src={ARWEAVE_URL + owned.id}

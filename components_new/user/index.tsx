@@ -98,21 +98,21 @@ function PageContent(props: userInfo) {
   ];
 
   return (
-    <div className="h-9 w-full font-inter">
+    <div className="h-9 w-full font-inter ">
       <CoverPage userInfo={props.userInfo} />
-      <div className="rounded-lg px-16 ">
-        <UserInfo user={{userInfo: info}} profile={arkProfile} />
-        {/* These are temporary changes, most likely will need to bring them back as they would be helpful for contributros */}
-        {/* <Labels userInfo={info} /> */}
-        {/* <EditModal userColor={info.address_color} wallet={info.user} userInfo={props} />  */}
-        <div className=''>
-          {(arkProfile && arkProfile.POAPS.length > 0) && 
-            <Poaps props={arkProfile} />
-          }
-          {/* <GitPoapList list={arkProfile?.GITPOAPS!} />   */}
-        </div>
-        <Divider />
-        <div className="flex flex-col w-full h-full ">
+      <section className="flex flex-row justify-center">
+        <div className="flex flex-col w-[1300px] xl:px-16 ">
+          <UserInfo user={{userInfo: info}} profile={arkProfile} />
+          {/* These are temporary changes, most likely will need to bring them back as they would be helpful for contributros */}
+          {/* <Labels userInfo={info} /> */}
+          {/* <EditModal userColor={info.address_color} wallet={info.user} userInfo={props} />  */}
+          <div className=''>
+            {(arkProfile && arkProfile.POAPS.length > 0) && 
+              <Poaps props={arkProfile} />
+            }
+            {/* <GitPoapList list={arkProfile?.GITPOAPS!} />   */}
+          </div>
+          <Divider />
           <Selector items={items} selected={selected} setSelected={setSelectedClear} />
           <div className="flex items-center justify-between">
             {/* TODO: MAKE REUSABLE SEARCHBAR */}
@@ -159,13 +159,13 @@ function PageContent(props: userInfo) {
           </div>
           {/* limiting the size to 44.65vw instead of 94vw to not have weird scroll logic due to content not fitting on the page*/}
          
-         {/* NFT/ COllections sections */}
+          {/* NFT/ COllections sections */}
           {/* <div className="mt-4 mb-20 max-h-[44.65vw] scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-base-100 overflow-y-scroll "> */}
+          <div className="mt-10 pb-52">
+            {items[selected].component}
+          </div>
         </div>
-        <div className="mt-10 pb-52">
-          {items[selected].component}
-        </div>
-      </div>
+      </section>
     </div>
   );
 }
