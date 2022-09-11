@@ -105,7 +105,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                     </div>
                 </div>
                 {/* User Bio and Available Labels */}
-                <div className='space-y-6 -mt-20'>
+                <div className='space-y-14 -mt-20'>
                     <Bio text={bio} />
                     <Labels items={labels} />
                 </div>

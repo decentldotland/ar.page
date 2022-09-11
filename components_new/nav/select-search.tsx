@@ -6,6 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../styles/templates';
 import { random } from 'lodash';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { GetStaticProps } from 'next';
+import axios from 'axios';
+
+
 
 const CustomSelect = ({ options, multiple, disabled, placeholder }: 
     { options: 
@@ -50,7 +55,6 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
         }
     }, [options, val])
 
-
     const handleChange = React.useCallback((event: any) => {
         event.preventDefault()
         event.stopPropagation()
@@ -76,37 +80,56 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
     });
 
     return (
-        <div className="relative h-7 outline-none w-full" ref={container}>
+        <section className="px-4 flex flex-row space-x-3.5 
+            w-[336px] py-2 border-2 border-gray-200
+            items-center rounded-2xl " 
+            ref={container}>
             {/* <button className="w-24 h-4 bg-red-300" {...valueProps}>{snapshot.displayValue}</button> */}
-            <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute mt-2 left-4 ml-1" width="15" height="15" />
+            {/* <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute mt-2 left-4 ml-1" width="15" height="15" /> */}
+            <MagnifyingGlassIcon height={20} width={20} strokeWidth={3} color="gray" />
             {/* @ts-ignore */}
             <input {...valueProps} 
-            onKeyDown={handleEnter} 
-            // style={{ paddingLeft: "22px" }} 
-            value={val} onChange={handleChange} onFocus={() => setShow(true)} 
-            placeholder={placeholder}
-            className="bg-base-100 input-bordered pr-4 ml-5 pl-6 w-10/12 h-2 font-mono text-sm leading-3 font-light py-4 rounded-none focus:outline-none border-0 mb-0.5 focus:mb-0 focus:border-b-2 focus:border-primary" />
-            {show && (
-                <div className="h-fit mt-1 p-2 bg-base-100 rounded-md w-[200px]">
-                    <ul className="h-full my-2">
-                        {snapshot.options
-                            .filter((i: any) => i.name?.toLowerCase()?.includes(val?.toLowerCase()))
-                            .slice(0, 3)
-                            .map((option) => (
-                                <li key={option.name} className="w-full mt-1 rounded-md" onClick={
-                                    (event) => {
-                                        window.location.href = `/p/${option.name}/#top`
-                                    }
-                                }>
-                                    {/* @ts-ignore */}
-                                    <button {...optionProps} className="w-full btn btn-primary btn-sm" value={option.value} >{option.name}</button>
-                                </li>
-                            ))}
-                    </ul>
-                </div>
-            )}
-            {/* <SelectSearch search={true} autoComplete="on" options={options} value="sv" name="language" placeholder="Choose your language" /> */}
-        </div>
+                onKeyDown={handleEnter} 
+                // style={{ paddingLeft: "22px" }} 
+                value={val} onChange={handleChange} onFocus={() => setShow(true)} 
+                placeholder={placeholder}
+                className=" font-inter w-full text-sm font-normal outline-none " />
+            <article className=''>
+                {show && (
+                    // Framer Motion would be nice here
+                    <div className="h-fit py-4 rounded-xl 
+                        bg-white shadow-xl w-[336px] absolute left-28 mt-10 z-50
+                        
+                        ">
+                        <h2 className="text-lg font-semibold px-7">Members</h2>
+                        <ul className="h-full my-2  ">
+                            {snapshot.options
+                                .filter((i: any) => i.name?.toLowerCase()?.includes(val?.toLowerCase()))
+                                .slice(0, 5)
+                                .map((option) => (
+                                    
+                                    <div className="hover:bg-gray-200 w-full px-7 py-2">
+                                        <li key={option.name} className="w-full mt-1 rounded-md " onClick={
+                                            (event) => {
+                                                window.location.href = `/p/${option.name}/#top`
+                                            }
+                                        }>
+                                            <div className='flex flex-row space-x-2 items-center '>
+                                                {/* <img src={option.photo} className="w-[34px] h-[34px] rounded-full"/> */}
+                                                <div className="w-[34px] h-[34px] rounded-full bg-gradient-to-l from-[#9E00FF] to-[#1273EA] rotate-45 origin-center"></div>
+
+                                                {/* @ts-ignore */}
+                                                <button {...optionProps} className=" text-sm font-semibold" value={option.value} >{option.name}</button>
+                                            </div>
+                                        </li>
+                                    </div>
+                                ))}
+                        </ul>
+                    </div>
+                )}
+            </article>
+            {/* <SelectSearch search={true} autoComplete="on" options={options} value="sv" placeholder="Choose your language" /> */}
+        </section>
     );
 };
 

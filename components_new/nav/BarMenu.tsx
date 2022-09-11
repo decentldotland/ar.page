@@ -125,7 +125,8 @@ function BarMenu() {
                   </MenuItem>
                 </>
               ):(   
-                <>
+                <div>
+
                   <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
                     <Link href={"https://www.decent.land/"}  className="flex flex-row  items-center ">
                       <a target="_blank" rel="noopener noreferrer" className=' hover:opacity-60 flex flex-row items-center '>
@@ -160,7 +161,8 @@ function BarMenu() {
                       </h1>
                     </div>
                   </MenuItem>
-                </>
+                  </div>
+
               )
             }
             

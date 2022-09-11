@@ -34,19 +34,16 @@ export const Nav = (props:any) => {
                 <Link href="/" >
                     <h1 className='text-3xl font-bold text-gray-600 cursor-pointer'>📃</h1>
                 </Link>
-                <SearchBar />
-            </div>
-                {/* 
-            <div className="mt-3 ml-4 overflow-visible h-full w-full">
                 <SearchBox
                     multiple={false}
                     disabled={false}
                     placeholder="Search for name or address"
                     // items={["test", "test0", "test1", "test2", "test3", "test4"]} />
-                    // items={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} />
+                    // items={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} /> 
                     options={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} /> 
             </div>
-                */}
+                
+               
             <NavBarButtons />
             {/* <NavButtons toggleDark={toggleDark} /> */}
         </div>
