@@ -36,8 +36,8 @@ export const avaxLabel = (AVVY:string|undefined) => {
     link_to: null,
     canCopy: true,
     icon: <img
-      width={30}
-      height={30}
+      width={20}
+      height={20}
       src="https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=023"
       alt=""
     />
