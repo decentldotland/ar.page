@@ -56,14 +56,16 @@ export const UserInfo = ({user, profile}: UserProps) => {
     const labels = [...allGenericLabels.map((label: any) => <GenericLabel {...label} />), ...HACKATHON_CUSTOM_LABELS]
 
     const [loading, setLoading] = React.useState(true);
-    const [badge, setBadge] = React.useState<boolean | undefined>(undefined)
-
     React.useEffect(() => {
         if (profile) {
-            return setLoading(true)
-        } else { 
+            console.log(profile)
+
             return setLoading(false)
+        } else { 
+            return setLoading(true)
+
         }
+        
     }, [profile])
 
     return (
@@ -88,7 +90,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                 )
                             } */}
                             {
-                                !loading ? (
+                                loading ? (
                                     <CircularProgress color="inherit" size={30}/>
                                 ) : (
                                     profile?.is_evaluated || 
