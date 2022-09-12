@@ -1,13 +1,11 @@
 import Image from 'next/image';
 import { Res } from '../../../../../src/types';
-import { Divider } from '../../reusables';
 
 export default function Poaps({ props }: { props: Res }) {
   const { POAPS } = props;
 
   return (
     <>
-      <Divider /> 
       <h1 className="text-left font-inter font-bold text-xl">POAPS</h1>
       <div className="mt-4 flex gap-x-4 carousel">
         {POAPS.map((p, i) => (
