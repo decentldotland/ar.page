@@ -40,6 +40,7 @@ export interface Resobject {
   res: Res;
 }
 
+// Primary Ark Protocol response object
 export interface Res {
   arweave_address:              string;
   evm_address:                  string;
@@ -71,6 +72,16 @@ export interface Res {
 
 export interface Anfts {
   koii: Koii[];
+}
+
+// first attempt at a generalized NFT interface for generic NFT gallery view
+export interface NFT {
+  id:          string;
+  title:       string;
+  poster:      string;
+  timestamp:   number;
+  description: string;
+  ticker?:     string;
 }
 
 export interface Koii {

@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import { Res } from '../../../../src/types';
-import { Divider } from '../reusables';
+import { Res } from '../../../../../src/types';
+import { Divider } from '../../reusables';
 
-export function Poaps({ props }: { props: Res }) {
+export default function Poaps({ props }: { props: Res }) {
   const { POAPS } = props;
 
   return (

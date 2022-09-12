@@ -85,7 +85,7 @@ export const getDefaultLabels = ({ ar, links, ENS, AVVY }: {ar: OwnedLabel[], li
 
 export const Labels = ({items}: {items: any}) => {
   return (
-    <div className="flex flex-row carousel max-w-[80vw] space-x-2">
+    <div className="flex flex-row carousel max-w-[80vw] space-x-2 py-2 max-h-[60px]">
       {items.map((item:any, index:number) => (
         <div key={index} className="carousel-item">
           {item}
@@ -126,14 +126,14 @@ export function GenericLabel ({username, classes, icon, link_to, canCopy}: Gener
             </a>
           </Link>
         ) : (
-          <div {...attrs} className={classnames + " cursor-pointer"}>
+          <button {...attrs} className={classnames + " cursor-pointer"}>
             <div className='flex flex-row items-center space-x-1'>
               {icon}
               <h3 className="font-inter">
                 {username}
               </h3>
             </div>
-          </div>
+          </button>
         )}
       </>
       {canCopy && (
