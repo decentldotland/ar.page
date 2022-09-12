@@ -108,7 +108,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                                 .slice(0, 5)
                                 .map((option) => (
                                     
-                                    <div className="hover:bg-gray-200 w-full px-7 py-2">
+                                    <div className="hover:bg-gray-200 w-full px-7 py-2 cursor-pointer">
                                         <li key={option.name} className="w-full mt-1 rounded-md " onClick={
                                             (event) => {
                                                 window.location.href = `/p/${option.name}/#top`

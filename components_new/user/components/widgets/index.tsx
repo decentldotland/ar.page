@@ -17,7 +17,6 @@ export function Widget(props: WidgetType) {
     <>
       {props.canRender ? (
         <>
-          <Divider />
           {props.children}
         </>
       ): (
@@ -40,6 +39,7 @@ export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefi
   const defaultWidgets = [
     <Widget canRender={arkProfile?.POAPS?.length > 0} loading={loading}>
       <Poaps props={arkProfile}/>
+      <Divider />
     </Widget>,
     ...TOP_WIDGETS,
     <Widget canRender={!loading}>

@@ -4,12 +4,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react'
 import { FiLogIn, FiLogOut } from 'react-icons/fi';
+import { useRecoilState } from 'recoil';
+import { isDarkMode } from '../../atoms';
 import Favicon from '../../public/favicon.ico';
 import Avatar from '../avatar';
 import { Divider } from '../user/components/reusables';
 import { User } from '../user/sidebar/user';
 import { NavUser } from './NavUser';
-
+import {SunIcon} from '@heroicons/react/24/outline'
 
 
 
@@ -23,6 +25,8 @@ function BarMenuItem() {
     shortenAddress,
   } = useAns();
   
+  const [isDark, setIsDark] = useRecoilState(isDarkMode);
+
   return (
     <section className='dropdown'>
         <button  onClick={() => setToggle(!toggle)}>
@@ -59,8 +63,8 @@ function BarMenuItem() {
                                 )
                             }
                             <Divider />
-                            <li hidden={!walletConnected} className='py-2 px-2 w-full hover:bg-gray-200 h-full rounded-lg cursor-pointer'>
-                                <Link href={`https://localhost:3000/p/${ansData?.currentLabel}/#top`}  className=" flex flex-row items-center ">
+                            <li hidden={!walletConnected} className='py-2 px-2 w-full hover:bg-gray-200 h-full rounded-xl cursor-pointer'>
+                                <Link href={`https://localhost:3000/p/${ansData?.currentLabel}`}  className=" flex flex-row items-center ">
                                     <div className=' flex flex-row items-center space-x-3.5'>
                                         <FaceSmileIcon height={20} width={20} color="black"/>
                                         <h1>My Profile</h1>
@@ -76,15 +80,21 @@ function BarMenuItem() {
                                 </Link>
                             </li>
                             <li className='py-2 px-2 w-full hover:bg-gray-200 h-full rounded-lg'>
-                                <div className='flex flex-row items-center space-x-3.5'>
-                                    <MoonIcon height={20} width={20} color="black"/>
+                                {/* This is needs to be configured --> Temporarily disabled */}
+                                <div onClick={() => {setIsDark(!isDark)}} className='cursor-pointer flex flex-row items-center space-x-3.5'>{ !isDark ? (
+                                        <MoonIcon height={20} width={20} color="black"/>
+
+                                    ):(
+                                        <SunIcon height={20} width={20} color="black"/>
+                                    )
+                                }
                                     <h1>Dark Mode</h1>
                                 </div>
                             </li>
                             <Divider />
                             {
                                 walletConnected ? (
-                                    <div onClick={arconnectDisconnect} className='cursor-pointer py-2 px-2 w-full hover:bg-gray-200 h-full rounded-lg'>
+                                    <div onClick={() => (arconnectDisconnect as Function)()} className='cursor-pointer py-2 px-2 w-full hover:bg-gray-200 h-full rounded-lg'>
                                         <div className="flex flex-row items-center space-x-3.5">
                                         <FiLogOut height={20} width={20} color="black"/>
                                             <h1>Disconnect Wallet</h1>
@@ -92,7 +102,7 @@ function BarMenuItem() {
                                     </div>
                                 ) : (
                                     <li className='cursor-pointer  py-2 px-2 w-full hover:bg-gray-200 h-full rounded-lg'>
-                                        <div onClick={arconnectConnect} className="flex flex-row items-center space-x-3.5">
+                                        <div onClick={() => (arconnectConnect as Function)()} className="flex flex-row items-center space-x-3.5">
                                             <FiLogIn height={20} width={20} color="black"/>
                                             <h1>Connect Wallet</h1>
                                         </div>

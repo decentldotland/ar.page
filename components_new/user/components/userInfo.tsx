@@ -9,6 +9,7 @@ import ProfileAvatar from '../../avatar/ProfileAvatar';
 import { Labels, GenericLabel, getDefaultLabels } from './labels';
 import { HACKATHON_GENERIC_LABELS, HACKATHON_CUSTOM_LABELS } from '../hackathon/api/labels';
 import { Bio } from './bio';
+import { Divider } from './reusables';
 
 interface UserProps { 
     user: userInfo,
@@ -63,7 +64,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                             <div className="text-2xl font-bold leading-6 font-inter ">
                                 {user.userInfo.currentLabel}
                             </div>
-                            
+                            {/* Needs to be rework! */}
                             {
                                 profile?.is_evaluated || 
                                 profile?.is_verified ? (
@@ -105,9 +106,12 @@ export const UserInfo = ({user, profile}: UserProps) => {
                     </div>
                 </div>
                 {/* User Bio and Available Labels */}
-                <div className='space-y-14 -mt-20'>
+                <div className='space-y-8 -mt-20 mb-5'>
                     <Bio text={bio} />
-                    <Labels items={labels} />
+                    <div className='space-y-2'>
+                        <Labels items={labels} />
+                        <Divider />
+                    </div>
                 </div>
             </div>
         </div>
