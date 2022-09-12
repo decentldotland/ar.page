@@ -1,40 +1,27 @@
-<<<<<<< HEAD
-import React from 'react'
-=======
 import React, { useState } from 'react'
->>>>>>> adding-edit-modal
 import Box from '@mui/material/Box';
 import MuiModal from '@mui/material/Modal'
 import { editModalState, userInfoState } from '../../../../atoms'
 import { userInfo } from '../../../../src/types';
 import { useRecoilState } from 'recoil';
-<<<<<<< HEAD
-=======
 import {PencilIcon, XMarkIcon} from '@heroicons/react/24/solid'
 import { Divider } from '../reusables';
 import { useAns } from 'ans-for-all';
 import Avatar from '../../../avatar';
 
->>>>>>> adding-edit-modal
 
 function EditModal() {
   const [showModal, setShowModal] = useRecoilState(editModalState);
   const [currUserInfo, setUserInfo] = useRecoilState(userInfoState);
   
 
-<<<<<<< HEAD
-    console.log(showModal)
-=======
  // console.log(currUserInfo)
   //console.log(showModal)
->>>>>>> adding-edit-modal
 
   const handleClose = () => { 
     setShowModal(false)
   }
 
-<<<<<<< HEAD
-=======
   const {
     walletConnected,
     ansData,
@@ -54,22 +41,10 @@ function EditModal() {
   //       [percent, setPercent] = useState(0);
 //
 
->>>>>>> adding-edit-modal
   return (
     <MuiModal 
         open={showModal} 
         onClose={handleClose}
-<<<<<<< HEAD
-        className="fixes  left-0 right-0 !mt-44 
-        z-50 mx-auto w-full max-w-3xl h-full
-        overflow-hidden overflow-y-scroll 
-        scrollbar-hide relative
-      "    
-    >
-            <>
-                <section className='bg-white h-[674px] rounded-xl'>
-                    
-=======
         className="fixes  left-0 right-0 !mt-24
         z-50 mx-auto w-full max-w-3xl h-full
         overflow-hidden overflow-y-scroll 
@@ -91,7 +66,7 @@ function EditModal() {
                     <article className="relative w-full flex items-center justify-center">
                       <div className='relative'>
                         <Avatar ansData={ansData} options={{height:"128px", width:"128px"}}/>
-                        <div className='bg-base-300 w-[33px] h-[33px] absolute bottom-1 left-24                        rounded-full items-center flex flex-row justify-center'>
+                        <div className='bg-base-300 w-[33px] h-[33px] absolute bottom-1 left-24 rounded-full items-center flex flex-row justify-center'>
                           <PencilIcon height={14} width={14} color={"#666"} strokeWidth={2}  />
                         </div>
                       </div>
@@ -141,7 +116,6 @@ function EditModal() {
                         </li>
                       </ul>
                     </div>
->>>>>>> adding-edit-modal
                 </section>
             </>
     </MuiModal>
