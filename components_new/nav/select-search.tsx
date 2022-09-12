@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../styles/templates';
 import { random } from 'lodash';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, ArrowRightOnRectangleIcon, ArrowUpRightIcon } from '@heroicons/react/24/outline';
 import { GetStaticProps } from 'next';
 import axios from 'axios';
 
@@ -120,6 +120,8 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
 
                                                 {/* @ts-ignore */}
                                                 <button {...optionProps} className=" text-sm font-semibold" value={option.value} >{option.name}</button>
+                                                <ArrowUpRightIcon height={14} width={14} color={"#666"} strokeWidth={1} />
+
                                             </a>
                                         </li>
                                     </div>
