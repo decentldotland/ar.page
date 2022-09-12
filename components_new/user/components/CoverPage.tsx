@@ -19,14 +19,16 @@ function CoverPage(props: userInfo) {
     height: 188
   }
   // console.log(user_cover)
+  // Ensure the edit feature is only available to the current users page not anyone elses!
 
+  // url site userinfo == userinfo of viewer => show edit else no 
   return (
     user_cover.length > 0 ? (
       <section style={coverStyle} className=" w-full transition duration relative flex flex-row justify-center">
         <div className='relative w-[1300px] h-full'>
           <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pb-3 xl:px-16'>
             {/* <ChangeCover /> */}
-            <EditProfile />
+            <EditProfile user={props}/>
           </div>
         </div>
         
@@ -37,7 +39,7 @@ function CoverPage(props: userInfo) {
         <div className='relative w-[1300px] h-full'>
           <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pb-3 xl:px-16'>
             {/* <ChangeCover /> */}
-            <EditProfile />
+            <EditProfile user={props}/>
           </div>
         </div>
       </section>
