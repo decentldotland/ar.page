@@ -87,9 +87,9 @@ function BarMenu() {
                   </MenuItem>
                   <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
                     <div>
-                    <BsCollection height={20} width={20} color="black"/>
+                    {/* <BsCollection height={20} width={20} color="black"/> */}
                       <h1>
-                        My Collectables
+                        {/* My Collectables */}
                       </h1> 
                     </div> 
                   </MenuItem>
