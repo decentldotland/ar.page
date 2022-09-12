@@ -59,7 +59,6 @@ export const ethLabel = (ENS:string|undefined) => {
   }
 }
 
-
 export const getDefaultLabels = ({ ar, links, ENS, AVVY }: {ar: OwnedLabel[], links: Links, ENS: string|undefined, AVVY: string|undefined}) => [
   ...arLabels(ar),
   avaxLabel(AVVY),

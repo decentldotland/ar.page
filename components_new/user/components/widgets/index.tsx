@@ -1,7 +1,7 @@
 import React from 'react';
 import Poaps from './poaps';
 import TabContent from './tabcontent';
-import { HACKATHON_WIDGETS_TOP_PART } from '../../hackathon/api/widgets';
+import { TOP_WIDGETS, BOTTOM_WIDGETS } from '../../hackathon';
 import { Res } from '../../../../src/types';
 import { Divider } from '../reusables';
 
@@ -41,10 +41,11 @@ export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefi
     <Widget canRender={arkProfile?.POAPS?.length > 0} loading={loading}>
       <Poaps props={arkProfile}/>
     </Widget>,
-    ...HACKATHON_WIDGETS_TOP_PART,
+    ...TOP_WIDGETS,
     <Widget canRender={!loading}>
       <TabContent arkProfile={arkProfile} loading={loading} />
     </Widget>,
+    ...BOTTOM_WIDGETS,
   ]
   return (
     <>
