@@ -18,9 +18,9 @@ export const User = (props: any) => {
         arconnectConnect,
     } = useAns();
 
-    // React.useEffect(() => {
-    //     console.log("walletConnected", walletConnected)
-    // }, [walletConnected]);
+    React.useEffect(() => {
+        console.log("walletConnected", walletConnected)
+    }, [walletConnected]);
 
     return (
         <div className="font-inter font-semibold">

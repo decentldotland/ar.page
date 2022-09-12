@@ -10,9 +10,7 @@ function NavBarButtons() {
     <div>
         <ul className='font-inter font-semibold text-[15px] flex space-x-4 items-center'>
             <li>Ark</li>
-            {/* <li>
-                <BarMenu />
-            </li> */}
+         
             <li>
               <BarMenuItem />
             </li>

@@ -15,7 +15,8 @@ function EditModal() {
   const [currUserInfo, setUserInfo] = useRecoilState(userInfoState);
   
 
-  console.log(showModal)
+ // console.log(currUserInfo)
+  //console.log(showModal)
 
   const handleClose = () => { 
     setShowModal(false)
@@ -30,8 +31,15 @@ function EditModal() {
     shortenAddress,
   } = useAns();
 
-
- 
+  // const [avatarState, setAvatarState] = useState<any>(""), //💨🍃
+  //       [bioState, setBioState] = useState(""),
+  //       [nicknameState, setNicknameState] = useState(""),
+  //       [githubState, setGithubState] = useState(""),
+  //       [twitterState, setTwitterState] = useState(""),
+  //       [instagramState, setInstagramState] = useState(""),
+  //       [customUrlState, setCustomUrlState] = useState(""),
+  //       [percent, setPercent] = useState(0);
+//
 
   return (
     <MuiModal 
@@ -44,7 +52,6 @@ function EditModal() {
       "    
     >
             <>
-
                 <section className='bg-white h-[825px] rounded-xl px-11 py-10 '>
                     <div className='flex flex-row justify-between'>
                         <h1 className='font-semibold text-xl text-left'>Customise Profile</h1>

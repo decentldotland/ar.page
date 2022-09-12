@@ -43,7 +43,7 @@ function CoverPage(props: userInfo) {
               address == props.userInfo.user && walletConnected && (
                 <>
                   <EditProfile user={props}/>
-                  <ChangeCover />
+                  {/* <ChangeCover /> */}
                 </>
                 )
             }
@@ -60,7 +60,7 @@ function CoverPage(props: userInfo) {
               address != props.userInfo.user && !walletConnected && (
                 <>
                   <EditProfile user={props}/>
-                  <ChangeCover />
+                  {/* <ChangeCover /> */}
                 </>
                 )
             }

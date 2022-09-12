@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {PencilIcon} from '@heroicons/react/24/solid'
-import { editModalState, userInfoState } from '../../../atoms'
+import { editModalState, isEditorOpen, userInfoState } from '../../../atoms'
 import { userInfo } from '../../../src/types';
 import { useRecoilState } from 'recoil';
 
@@ -10,13 +10,15 @@ interface EditProps {
 }
 
 function EditProfile({user}: EditProps) {
-  const [modal, showModal] = useRecoilState(editModalState);
-  const [currUserInfo, setUserInfo] = useRecoilState(userInfoState);
+  // const [modal, showModal] = useRecoilState(editModalState);
+  // This is the original EDITOR MODEL
+  const [modal, showModal] = useRecoilState(isEditorOpen);
+  // const [currUserInfo, setUserInfo] = useRecoilState(userInfoState);
   console.log(modal)
   return (
     <div 
       onClick={() => {
-        setUserInfo(user)
+        // setUserInfo(user)
         showModal(true);
       }}
       className='flex cursor-pointer

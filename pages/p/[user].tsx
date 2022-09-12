@@ -6,6 +6,8 @@ import Image from 'next/image'
 import Index from '../../components_new/home'
 import UserPage from '../../components_new/user';
 import { useRecoilValue } from 'recoil';
+
+// THESE ARE NEW UI Componetns for editing the profile
 import { editModalState, userInfoState } from '../../atoms';
 import EditModal from '../../components_new/user/components/modals/EditModal';
 
@@ -42,6 +44,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
                     <meta name="twitter:description" content={userInfo.bio} />
                 </Head>
                 <UserPage userInfo={userInfo} />
+
                 { showModel && <EditModal/>}
 
             </> : <Index />}

@@ -46,7 +46,7 @@ function PageContent(props: userInfo) {
         <div className="flex flex-row justify-center">
           <div className="flex flex-col w-[1300px] xl:px-16 ">  
             <UserInfo user={{userInfo: info}} profile={arkProfile} />
-            {/* <EditModal userColor={info.address_color} wallet={info.user} userInfo={props} />  */}
+            <EditModal userColor={info.address_color} wallet={info.user} userInfo={props} /> 
             {/* @ts-ignore  sorry about this*/}
             <Widgets arkProfile={arkProfile}/>
         </div>
