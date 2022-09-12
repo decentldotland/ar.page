@@ -35,6 +35,8 @@ function BarMenu() {
       router.push(url)
     }
 
+    const [toggle, setToggle] = useState(false);
+
     const {
       walletConnected,
       ansData,
@@ -126,7 +128,6 @@ function BarMenu() {
                 </>
               ):(   
                 <div>
-
                   <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
                     <Link href={"https://www.decent.land/"}  className="flex flex-row  items-center ">
                       <a target="_blank" rel="noopener noreferrer" className=' hover:opacity-60 flex flex-row items-center '>
@@ -147,10 +148,12 @@ function BarMenu() {
                       
                   </MenuItem>
                   <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row" style={{}}>
-                        <MoonIcon height={20} width={20} color="black"/>
-                        <h1>
-                          Dark Mode
-                        </h1>
+                        <div>
+                          <MoonIcon height={20} width={20} color="black"/>
+                          <h1>
+                            Dark Mode
+                          </h1>
+                        </div>
                   </MenuItem>
                   <Divider />
                   <MenuItem onClick={() => {routeToPage("/")}} className="flex flex-row">
@@ -168,6 +171,8 @@ function BarMenu() {
             
             </Menu>
         </div>
+
+        
       </div>
     )
   }
