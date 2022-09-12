@@ -1,7 +1,8 @@
 import { Widget } from '../../components/widgets';
 
-// Important to put Widget Components in this file
+// Important to wrap custom components in Widget tag
 export const HACKATHON_WIDGETS_TOP_PART = []; //[<HackathonWidgetExample />];
+export const HACKATHON_WIDGETS_BOTTOM_PART = []; //[<HackathonWidgetExample />];
 
 
 export function HackathonWidgetExample() {
@@ -13,4 +14,4 @@ export function HackathonWidgetExample() {
       </button>
     </Widget>
   )
-}
+};
