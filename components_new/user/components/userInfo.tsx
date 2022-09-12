@@ -1,7 +1,7 @@
 // @flow 
 import * as React from 'react';
 import { useAns } from 'ans-for-all';
-import { Snackbar } from '@mui/material';
+import { CircularProgress, Snackbar } from '@mui/material';
 import {DocumentDuplicateIcon, CalendarDaysIcon} from '@heroicons/react/24/outline'
 import {CheckBadgeIcon, ShieldExclamationIcon} from '@heroicons/react/24/solid'
 import { ANSData, Res, userInfo } from '../../../src/types';
@@ -10,6 +10,8 @@ import { Labels, GenericLabel, getDefaultLabels } from './labels';
 import { HACKATHON_GENERIC_LABELS, HACKATHON_CUSTOM_LABELS } from '../hackathon/api/labels';
 import { Bio } from './bio';
 import { Divider } from './reusables';
+import {BsPatchQuestionFill} from 'react-icons/bs'
+
 
 interface UserProps { 
     user: userInfo,
@@ -53,6 +55,17 @@ export const UserInfo = ({user, profile}: UserProps) => {
     const allGenericLabels = [...defaultLabels, ...HACKATHON_GENERIC_LABELS];
     const labels = [...allGenericLabels.map((label: any) => <GenericLabel {...label} />), ...HACKATHON_CUSTOM_LABELS]
 
+    const [loading, setLoading] = React.useState(true);
+    const [badge, setBadge] = React.useState<boolean | undefined>(undefined)
+
+    React.useEffect(() => {
+        if (profile) {
+            return setLoading(true)
+        } else { 
+            return setLoading(false)
+        }
+    }, [profile])
+
     return (
         <div>
             <div className="relative">
@@ -65,14 +78,30 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                 {user.userInfo.currentLabel}
                             </div>
                             {/* Needs to be rework! */}
-                            {
+                            {/* {
+
                                 profile?.is_evaluated || 
                                 profile?.is_verified ? (
                                     <CheckBadgeIcon height={30} width={30} color={"#325FFE"} />
                                 ):(
                                     <ShieldExclamationIcon height={30} width={30} color={"#E84040"} />
                                 )
+                            } */}
+                            {
+                                !loading ? (
+                                    <CircularProgress color="inherit" size={30}/>
+                                ) : (
+                                    profile?.is_evaluated || 
+                                    profile?.is_verified ? (
+                                        <CheckBadgeIcon height={30} width={30} color={"#325FFE"} />
+
+                                    ) : (
+                                        <BsPatchQuestionFill size={30} color={"#666"} />
+                                    )
+                                )
                             }
+
+
                             <div className='px-2 py-2 bg-base-200 rounded-lg cursor-pointer'
                                 onClick={() =>{ copy_text(user.userInfo.user); }} >
                                 <div className="flex flex-row font-inter font-semibold text-[#666] text-sm">
