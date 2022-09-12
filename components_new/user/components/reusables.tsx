@@ -1,3 +1,11 @@
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { useState, useCallback } from 'react';
+import Image from 'next/image';
+import Modal from '../../../components/portal/modal';
+import ModelContent from './modelContent';
+import { ARWEAVE_URL } from '../../../src/constants';
+import { NFT } from '../../../src/types';
+
 export function Title (jsx: any) {
   return (
     <div className="w-full text-start font-medium text-xs text-gray-450 tracking-wide uppercase">
@@ -22,3 +30,87 @@ export function LoadingOrNotFound({loading, jsxNotFound}: {loading: boolean, jsx
     </div>
   )
 }
+
+interface SearchType {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder: string;
+};
+
+export function SearchBar(props: SearchType) {
+  return (
+    <div className='px-4 flex flex-row space-x-3.5  py-3 items-center bg-gray-200 rounded-2xl'>
+      <MagnifyingGlassIcon height={20} width={20} strokeWidth={3} color="gray" />
+      <input
+        type="text"
+        value={props.value}
+        onChange={(e) => (props.onChange(e.target.value))}
+        placeholder={props.placeholder}
+        className='bg-gray-200 transition-all duration-500 ease-in-out 
+          font-inter w-60 text-sm font-normal outline-none'
+        />
+    </div>
+  )
+}
+
+
+interface GenericFrameType {
+  children: any;
+}
+
+export function GenericFrame (props: GenericFrameType) {
+  return (
+    <>
+      <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {props.children}
+      </div>
+    </>
+  )
+}
+
+export function NFTGallery ({NFTs}: {NFTs: NFT[]}) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [current, setCurrent] = useState<any>({});
+
+  const handleCloseModal = useCallback((NFT = {}) => {
+    setCurrent(NFT);
+    setIsOpen(opened => !opened);
+  }, [])
+
+  return (
+    <>
+      <GenericFrame>
+        {NFTs.map((
+          nft: NFT,
+          index: number
+        ) =>
+          <button key={index} className="
+            object-cover
+            relative 
+            w-full
+            h-full
+            shrink-0
+            cursor-pointer transition duration-500 ease-out
+            md:hover:scale-105
+            md:focus:scale-105
+          ">
+            <Image src={ARWEAVE_URL + nft.id} // TODO: make this URL dynamic
+              alt={nft.title}
+              width={99999999}
+              height={99999999}
+              onClick={() => {
+                setCurrent(nft);
+                setIsOpen(true)
+              }}
+              objectFit="cover"
+              className={`rounded-2xl cursor-pointer object-cover`}
+            />
+          </button>
+        )}
+        <Modal handleClose={handleCloseModal} isOpen={isOpen}>
+          <ModelContent handleClose={handleCloseModal} naturalRes={500} current={current} />
+        </Modal>
+      </GenericFrame>
+    </>
+  )
+};

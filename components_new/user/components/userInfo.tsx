@@ -6,7 +6,7 @@ import {DocumentDuplicateIcon, CalendarDaysIcon} from '@heroicons/react/24/outli
 import {CheckBadgeIcon, ShieldExclamationIcon} from '@heroicons/react/24/solid'
 import { ANSData, Res, userInfo } from '../../../src/types';
 import ProfileAvatar from '../../avatar/ProfileAvatar';
-import { Labels, GenericLabel, getDefaultLabels } from './labels/';
+import { Labels, GenericLabel, getDefaultLabels } from './labels';
 import { HACKATHON_GENERIC_LABELS, HACKATHON_CUSTOM_LABELS } from '../hackathon/api/labels';
 import { Bio } from './bio';
 

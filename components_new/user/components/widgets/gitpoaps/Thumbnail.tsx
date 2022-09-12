@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import { Gitpoap } from '../../../../src/types'
+import { Gitpoap } from '../../../../../src/types'
 
 interface GitPoapsProps { 
     gitpoap: Gitpoap
