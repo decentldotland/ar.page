@@ -35,7 +35,14 @@ export const DEFAULT_COMPONENT_LIST: WidgetType[] = [
 
 
 export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefined, loading: boolean}) {
-  if (!arkProfile) return <></>
+  if (!arkProfile) return (
+    <>
+      <div className='flex items-center justify-center 
+        text-3xl text-content-100/80 font-bold text-gray-300'>
+          No Collections and POAPS yet 
+      </div>
+    </>
+  )
   const defaultWidgets = [
     <Widget canRender={arkProfile?.POAPS?.length > 0} loading={loading}>
       <Poaps props={arkProfile}/>

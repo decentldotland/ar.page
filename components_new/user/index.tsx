@@ -7,7 +7,7 @@ import { Bio } from './components/bio';
 import Collectibles from './components/widgets/tabcontent/tabs.tsx/collectibles';
 import ArweaveActivity from './components/widgets/tabcontent/tabs.tsx/activity';
 import Widgets from './components/widgets';
-import { Divider } from './components/reusables';
+import { Divider, LoadingOrNotFound } from './components/reusables';
 import CoverPage from './components/CoverPage';
 import { Koii, ArweaveTransaction } from '../../src/types';
 
@@ -48,7 +48,7 @@ function PageContent(props: userInfo) {
             <UserInfo user={{userInfo: info}} profile={arkProfile} />
             {/* <EditModal userColor={info.address_color} wallet={info.user} userInfo={props} />  */}
             {/* @ts-ignore  sorry about this*/}
-            <Widgets arkProfile={arkProfile} />
+            <Widgets arkProfile={arkProfile}/>
         </div>
       </div>
     </div>
