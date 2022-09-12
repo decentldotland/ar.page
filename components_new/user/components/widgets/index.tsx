@@ -4,7 +4,8 @@ import TabContent from './tabcontent';
 import { TOP_WIDGETS, BOTTOM_WIDGETS } from '../../hackathon';
 import { Res } from '../../../../src/types';
 import { Divider } from '../reusables';
-
+import {HiOutlineSearchCircle} from 'react-icons/hi'
+import { CircularProgress, LinearProgress } from '@mui/material';
 export interface WidgetType {
   children: any; // pass default component here
   canRender: boolean; // pass conditionals here
@@ -37,10 +38,20 @@ export const DEFAULT_COMPONENT_LIST: WidgetType[] = [
 export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefined, loading: boolean}) {
   if (!arkProfile) return (
     <>
-      <div className='flex items-center justify-center 
+      {loading ? (
+        <div className='flex items-center justify-center mt-10 
+          text-3xl text-content-100/80 font-bold text-gray-300'>
+            {/* <HiOutlineSearchCircle size={60} color="#D9D9D9"/> */}
+            No Collections, Activity, POAPS... yet 
+        </div>
+      ):(
+        <div className='flex items-center justify-center space-x-5 mt-10 
         text-3xl text-content-100/80 font-bold text-gray-300'>
-          No Collections and POAPS yet 
-      </div>
+          <h1>Loading user's information</h1>
+          <CircularProgress color="inherit" />
+
+        </div>
+      )}
     </>
   )
   const defaultWidgets = [
