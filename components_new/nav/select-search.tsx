@@ -114,13 +114,13 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                                                 window.location.href = `/p/${option.name}/#top`
                                             }
                                         }>
-                                            <div className='flex flex-row space-x-2 items-center '>
+                                            <a href={"target"} className='flex flex-row space-x-2 items-center '>
                                                 {/* <img src={option.photo} className="w-[34px] h-[34px] rounded-full"/> */}
                                                 <div className="w-[34px] h-[34px] rounded-full bg-gradient-to-l from-[#9E00FF] to-[#1273EA] rotate-45 origin-center"></div>
 
                                                 {/* @ts-ignore */}
                                                 <button {...optionProps} className=" text-sm font-semibold" value={option.value} >{option.name}</button>
-                                            </div>
+                                            </a>
                                         </li>
                                     </div>
                                 ))}
