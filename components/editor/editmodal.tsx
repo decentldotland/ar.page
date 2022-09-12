@@ -1,7 +1,7 @@
 // @flow 
 import * as React from 'react';
 import { useRecoilState } from 'recoil';
-import { isEditorOpen } from '../../atoms';
+import { isEditorOpen, userInfoState } from '../../atoms';
 import Modal from '../portal/modal';
 import { Content } from './content';
 import { userInfo } from '../../src/types';

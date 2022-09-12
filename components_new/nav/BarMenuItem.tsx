@@ -63,7 +63,7 @@ function BarMenuItem() {
                                 )
                             }
                             <Divider />
-                            <li hidden={!walletConnected} className='py-2 px-2 w-full hover:bg-gray-200 h-full rounded-xl cursor-pointer'>
+                            <li hidden={!walletConnected} className='py-2 px-2 w-full hover:bg-gray-200 h-full rounded-lg cursor-pointer'>
                                 <Link href={`https://localhost:3000/p/${ansData?.currentLabel}`}  className=" flex flex-row items-center ">
                                     <div className=' flex flex-row items-center space-x-3.5'>
                                         <FaceSmileIcon height={20} width={20} color="black"/>
