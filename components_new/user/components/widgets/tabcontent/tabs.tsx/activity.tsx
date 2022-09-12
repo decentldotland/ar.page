@@ -20,7 +20,7 @@ export default function ArweaveActivity({transactions, loading}: {transactions: 
   const [search, setSearch] = useState<string>('');
   const onSearch = (e: string) => {
     setSearch(e);
-    setFilteredTransactions(filteredTransactions.filter((tx) => arweaveTransactionHandler(tx).toLowerCase().includes(e.toLowerCase())));
+    setFilteredTransactions(transactions.filter((tx) => arweaveTransactionHandler(tx).toLowerCase().includes(e.toLowerCase())));
   };
 
   useEffect(() => {
@@ -29,11 +29,11 @@ export default function ArweaveActivity({transactions, loading}: {transactions: 
 
   return (
     <>
+      <div className="flex items-center mb-6">
+        <SearchBar value={search} onChange={(e) => onSearch(e)} placeholder={"Search activity"} />
+      </div>
       {filteredTransactions.length > 0 ? (
         <div className={`flex flex-col transition-opacity duration-400 pb-3 opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
-          <div className="flex items-center">
-            <SearchBar value={search} onChange={(e) => onSearch(e)} placeholder={"Search activity"} />
-          </div>
           {filteredTransactions.map((transaction: ArweaveTransaction, index: number) => (
             <a key={index}
               className="flex items-center my-2 rounded-lg transition-all ease-in-out duratino-200 hover:shadow-lg" 

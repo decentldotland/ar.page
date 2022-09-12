@@ -3,7 +3,7 @@ import Collectibles from './tabs.tsx/collectibles';
 import ArweaveActivity from './tabs.tsx/activity';
 import Selector from './selector';
 import { ArweaveTransaction, NFT, Res } from '../../../../../src/types';
-import { HACKATHON_TABS } from '../../../hackathon/api/tabcontent';
+import { TABS } from '../../../hackathon/';
 
 export interface TabContentTabs {
   name: string;
@@ -31,7 +31,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       total: activity.length,
       component: <ArweaveActivity transactions={activity} loading={loading} />
     },
-    ...HACKATHON_TABS
+    ...TABS
   ];
 
   return (
