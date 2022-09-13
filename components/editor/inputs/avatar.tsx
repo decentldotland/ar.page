@@ -238,9 +238,9 @@ export const Avatar = (props: Props) => {
                     {thePreview ? (
                         <Image src={thePreview} alt="Avatar" width="100%" height="100%" layout="responsive" objectFit="cover" style={{borderRadius: "999px", cursor: ''}} />
                     ):(
-                        <>
-                            <FontAwesomeIcon icon={faUpload} className="rounded-full p-4 flex mt-16 mb-1 mx-auto bg-primary w-16 h-16 text-white transition-opacity duration-300 ease-in-out hover:opacity-40" />
-                        </>
+                        <div className='rounded-full flex mt-16 mb-1 mx-auto bg-primary w-16 h-16 items-center justify-center text-white transition-opacity duration-300 ease-in-out hover:opacity-80'>
+                            <FontAwesomeIcon icon={faUpload} height={20} width={20}/>
+                        </div>
                     )}
                 </label>
                 {props.percent > 1 &&
@@ -266,12 +266,23 @@ export const Avatar = (props: Props) => {
                     onChange={readFileState}
                 />
                 {thePreview && props.percent < 1 &&
-                    <div className="absolute right-6 top-3 z-30">
-                        <FontAwesomeIcon icon={faXmark} onClick={() => {
-                            setThePreview('');
-                            props.setImgWithProfile(false);
-                            props.setText(false);
-                        }} className="btn btn-secondary btn-circle btn-sm" />
+                    <div className="absolute right-6 top-3 z-40 rounded-full 
+                        bg-[#1273ea]
+                        hover:bg-[#1273ea]/80 
+                        cursor-pointer w-[40px] 
+                        h-[40px]  
+                        items-center 
+                        flex  justify-center ">
+
+                        {/* Avatar X button */}
+                        <FontAwesomeIcon height={20} width={20} 
+                            color={"#fff"}
+                            strokeWidth={1}
+                            icon={faXmark} onClick={() => {
+                                setThePreview('');
+                                props.setImgWithProfile(false);
+                                props.setText(false);
+                        }} className="" />
                     </div>
                 }
             </div>

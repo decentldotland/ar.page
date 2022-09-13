@@ -34,7 +34,7 @@ export const Bio = (props: Props) => {
     return (
         <div className="w-full">
             <div className="my-3 text-primary text-xl font-semibold select-none">About me</div>
-            <textarea className={borderColor() + "!outline-none !ring-0 text-lg textarea textarea-primary mx-auto rounded-md shadow-md w-full resize-none h-48 px-2 bg-base-100 border-2"}
+            <textarea className={borderColor() + "!outline-none text-sm !ring-0  textarea textarea-primary mx-auto rounded-md shadow-md w-full resize-none h-48 px-2 bg-base-100 border-2"}
                 placeholder='About me...'
                 onInput={setValue}
                 onPaste={setValue}

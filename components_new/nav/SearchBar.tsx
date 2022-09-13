@@ -9,7 +9,7 @@ function SearchBar() {
             <input 
                 type="text" 
                 placeholder='Search for name or address' 
-                className='bg-gray-200 font-inter w-full text-sm font-normal outline-none '/>
+                className='font-inter w-full text-sm font-normal outline-none '/>
                 
         </div>
     </div>

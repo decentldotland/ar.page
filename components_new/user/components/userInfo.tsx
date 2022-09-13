@@ -11,6 +11,8 @@ import { HACKATHON_GENERIC_LABELS, HACKATHON_CUSTOM_LABELS } from '../hackathon/
 import { Bio } from './bio';
 import { Divider } from './reusables';
 import {BsPatchQuestionFill} from 'react-icons/bs'
+import { useRecoilState } from 'recoil';
+import { isDarkMode } from '../../../atoms';
 
 
 interface UserProps { 
@@ -56,17 +58,14 @@ export const UserInfo = ({user, profile}: UserProps) => {
     const labels = [...allGenericLabels.map((label: any) => <GenericLabel {...label} />), ...HACKATHON_CUSTOM_LABELS]
 
     const [loading, setLoading] = React.useState(true);
+    
     React.useEffect(() => {
-        if (profile) {
-            console.log(profile)
-
-            return setLoading(false)
-        } else { 
-            return setLoading(true)
-
-        }
-        
-    }, [profile])
+        setTimeout(function () {
+          console.log("Delayed for 5 second."); 
+          setLoading(false); 
+        }, 5000);
+      }, []);
+    const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
     return (
         <div>
@@ -79,38 +78,30 @@ export const UserInfo = ({user, profile}: UserProps) => {
                             <div className="text-2xl font-bold leading-6 font-inter ">
                                 {user.userInfo.currentLabel}
                             </div>
-                            {/* Needs to be rework! */}
-                            {/* {
-
-                                profile?.is_evaluated || 
-                                profile?.is_verified ? (
-                                    <CheckBadgeIcon height={30} width={30} color={"#325FFE"} />
-                                ):(
-                                    <ShieldExclamationIcon height={30} width={30} color={"#E84040"} />
-                                )
-                            } */}
                             {
                                 loading ? (
                                     <CircularProgress color="inherit" size={30}/>
                                 ) : (
                                     profile?.is_evaluated || 
                                     profile?.is_verified ? (
-                                        <CheckBadgeIcon height={30} width={30} color={"#325FFE"} />
+                                        <CheckBadgeIcon height={30} width={30} color={"#325FFE"}  />
 
                                     ) : (
-                                        <BsPatchQuestionFill size={30} color={"#666"} />
+                                        <BsPatchQuestionFill size={30} color={`${isDark? ('white') : ('#666') }`} />
                                     )
                                 )
                             }
 
 
-                            <div className='px-2 py-2 bg-base-200 rounded-lg cursor-pointer'
+                            <div className={`px-2 py-2 
+                                ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')} rounded-lg cursor-pointer`}
                                 onClick={() =>{ copy_text(user.userInfo.user); }} >
-                                <div className="flex flex-row font-inter font-semibold text-[#666] text-sm">
+                                <div className="flex flex-row font-inter font-semibold text-sm">
                                     <h3 className='mr-1'>
                                         {(shortenAddress as Function)(user.userInfo.user)}
                                     </h3>
-                                    <DocumentDuplicateIcon height={20} width={20} color={"#666"} strokeWidth={2} />
+                                    <DocumentDuplicateIcon height={20} width={20} color={`${isDark? ('white') : ('#666') }`}
+                             strokeWidth={2} />
                                 </div>
                                 <Snackbar
                                     message="Copied to clipboard"
@@ -128,9 +119,14 @@ export const UserInfo = ({user, profile}: UserProps) => {
                         <div className='flex flex-row items-center space-x-2 '>
                             {/* <DaoMembership  userInfo={props.userInfo}/> */}
                             {/* User Membership Date */}
-                            <div className='flex flex-row  items-center space-x-1 text-[#666]
-                                py-1 px-2 w-fit bg-base-200 rounded-lg font-inter  text-xs font-bold'>
-                                <CalendarDaysIcon height={14} width={14} color={'#666'} strokeWidth={2}/>
+                            <div className={`flex flex-row  
+                                items-center space-x-1 
+                                py-1 px-2 w-fit ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')}  
+                                 rounded-lg 
+                                font-inter  text-xs font-bold`}>
+                                <CalendarDaysIcon height={14} width={14} 
+                                color={`${isDark? ('white') : ('#666') }`}
+                                strokeWidth={2}/>
                                 <p>Since {month} {year}</p>
                             </div>
                         </div>
