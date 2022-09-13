@@ -14,6 +14,7 @@ import { ANS_CONTRACT, ARWEAVE_EXPLORER_TX, ARWEAVE_OBJECT } from '../../src/con
 import { Avatar } from './inputs/avatar';
 import { Bio } from './inputs/bio';
 import { TextI } from './inputs/textI';
+import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
 
 type Props = {
     wallet: string;
@@ -749,13 +750,17 @@ export const Content = (props: Props) => {
                                 <div className={`bg-success transition-width duration-500 ease-in-out h-2.5 rounded-full ${progress > 0 && progress < 3 && "animate-pulse"}`} style={{width: (progress * 33.34) + '%'}}></div>
                             </div>
                            
-                           {/* Needs to just show the tx link with redirect */}
-                            <div className={`btn btn-sm my-2 btn-outline ${progress < 3 ? `loading btn-secondary`: `btn-success`}`}>
+                           
+                            <div className={`btn btn-sm my-2 btn-outline  ${progress < 3 ? `loading btn-secondary`: `btn-success`}`}>
                                 {(progress < 3) ? `Uploading... Step ${Math.round(progress)}/3` : 
                                     <>
-                                        <a className="flex" target="_blank" rel="noreferrer" href={ARWEAVE_EXPLORER_TX + txId}>
+                                        <a  target="_blank" rel="noreferrer" href={ARWEAVE_EXPLORER_TX + txId} className="space-x-2 flex flex-row items-center">
                                             {/* <FontAwesomeIcon icon={faCheck} className="w-4 h-4 mr-2" /> Uploaded || {" "} Open TX */}
-                                            {txId}
+                                            <p className='mr-2'>
+                                                {txId.replace(/(.{7})..+/, "$1…")}
+                                            </p>
+                                            <ArrowUpRightIcon height={14} width={14} color={"#36D399"} strokeWidth={1} />
+
                                         </a>
                                     </>
                                 }
@@ -764,14 +769,15 @@ export const Content = (props: Props) => {
 
                         </div>
                         {progress > 0 && (
-                            <div className="mb-2 text-center text-sm ">The transaction takes around 5 minutes to mine on Arweave</div>
+                            <div className="mb-2 text-center text-sm text-gray-400">The transaction takes around 5 minutes to mine on Arweave!</div>
                         )}
                         {
                             progress == 0 && (
                                 <div className="mb-1 text-center text-sm text-gray-400">Any unsaved changes will be discarded if you decide to leave the page.</div>
                             )
                         }
-                        <button className="btn btn-primary text-lg mx-auto mb-8 mt-4 " onClick={() => submitUpload()}>
+                        {/* Disable if not the owner */}
+                        <button disabled={!confirmOwner} className="btn btn-primary text-lg mx-auto mb-8 mt-4 " onClick={() => submitUpload()}>
                             Save Profile
                         </button>
                     </div>
