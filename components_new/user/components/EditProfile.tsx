@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {PencilIcon} from '@heroicons/react/24/solid'
-import { editModalState, isEditorOpen, userInfoState } from '../../../atoms'
+import { editModalState, isDarkMode, isEditorOpen, userInfoState } from '../../../atoms'
 import { userInfo } from '../../../src/types';
 import { useRecoilState } from 'recoil';
 
@@ -14,6 +14,9 @@ function EditProfile({user}: EditProps) {
   // This is the original EDITOR MODEL
   const [modal, showModal] = useRecoilState(isEditorOpen);
   // const [currUserInfo, setUserInfo] = useRecoilState(userInfoState);
+  
+  const [isDark, setIsDark] = useRecoilState(isDarkMode);
+
   console.log(modal)
   return (
     <div 
@@ -21,13 +24,17 @@ function EditProfile({user}: EditProps) {
         // setUserInfo(user)
         showModal(true);
       }}
-      className='flex cursor-pointer
+      className={`flex cursor-pointer
       active:scale-95
-      hover:bg-gray-300
+      ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')}
         rounded-lg  px-2 py-1.5
-        bg-base-200 text-base space-x-2 z-40
-        flex-row items-center font-inter font-semibold text-[#666]'>
-        <PencilIcon height={14} width={14} color={"#666"} strokeWidth={2} />
+        ${isDark ? ('bg-[#35466e] text-white'): ('bg-gray-200 text-[#666]')}
+        space-x-2 z-40
+        flex-row items-center font-inter font-semibold 
+        `}>
+        <PencilIcon height={14} width={14} 
+          color={`${isDark? ('white') : ('#666') }`}        
+          strokeWidth={2} />
         <h3 className="text-xs">
             Edit Profile
         </h3>

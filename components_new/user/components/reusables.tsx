@@ -43,20 +43,18 @@ export function SearchBar(props: SearchType) {
 
   const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
-
-
   return (
-    <div className={`px-4 flex flex-row space-x-3.5  py-3 items-center 
-    ${isDark ? ('bg-[#121a2f]'): ('bg-white')}
+    <div className={`px-4 flex border-gray-200 border-2 flex-row space-x-3.5  py-3 items-center 
+    ${isDark ? ('bg-[#121a2f]'): ('')}
     rounded-2xl`}>
-      <MagnifyingGlassIcon height={20} width={20} strokeWidth={3} color={`${isDark? ('white') : ('black') }`} />
+      <MagnifyingGlassIcon height={20} width={20} strokeWidth={3} color={`${isDark? ('white') : ('#666') }`} />
       <input
         type="text"
         value={props.value}
         onChange={(e) => (props.onChange(e.target.value))}
         placeholder={props.placeholder}
-        className={`${isDark ? ('bg-[#121a2f]'): ('bg-white')}
-        transition-all duration-500 ease-in-out 
+        className={`${isDark ? ('bg-[#121a2f]'): ('bg-inherit')}
+      
           font-inter w-60 text-sm font-normal outline-none   `}     />
     </div>
   )

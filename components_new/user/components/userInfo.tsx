@@ -84,23 +84,23 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                 ) : (
                                     profile?.is_evaluated || 
                                     profile?.is_verified ? (
-                                        <CheckBadgeIcon height={30} width={30} color={"#325FFE"} />
+                                        <CheckBadgeIcon height={30} width={30} color={"#325FFE"}  />
 
                                     ) : (
-                                        <BsPatchQuestionFill size={30} color={"#666"} />
+                                        <BsPatchQuestionFill size={30} color={`${isDark? ('white') : ('#666') }`} />
                                     )
                                 )
                             }
 
 
                             <div className={`px-2 py-2 
-                                ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')}                            rounded-lg cursor-pointer`}
+                                ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')} rounded-lg cursor-pointer`}
                                 onClick={() =>{ copy_text(user.userInfo.user); }} >
                                 <div className="flex flex-row font-inter font-semibold text-sm">
                                     <h3 className='mr-1'>
                                         {(shortenAddress as Function)(user.userInfo.user)}
                                     </h3>
-                                    <DocumentDuplicateIcon height={20} width={20}                                 color={`${isDark? ('white') : ('#666') }`}
+                                    <DocumentDuplicateIcon height={20} width={20} color={`${isDark? ('white') : ('#666') }`}
                              strokeWidth={2} />
                                 </div>
                                 <Snackbar
@@ -121,7 +121,8 @@ export const UserInfo = ({user, profile}: UserProps) => {
                             {/* User Membership Date */}
                             <div className={`flex flex-row  
                                 items-center space-x-1 
-                                py-1 px-2 w-fit ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')}   rounded-lg 
+                                py-1 px-2 w-fit ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')}  
+                                 rounded-lg 
                                 font-inter  text-xs font-bold`}>
                                 <CalendarDaysIcon height={14} width={14} 
                                 color={`${isDark? ('white') : ('#666') }`}

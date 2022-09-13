@@ -40,9 +40,8 @@ export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefi
   const [time, setTimeOut] = useState(false)
   React.useEffect(() => {
     setTimeout(function () {
-      console.log("Delayed for 5 second."); 
       setTimeOut(true); 
-    }, 5000);
+    }, 8000);
   }, []);
   
   if (!arkProfile) return (

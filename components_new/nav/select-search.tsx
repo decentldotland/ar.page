@@ -97,7 +97,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                 value={val} onChange={handleChange} onFocus={() => setShow(true)} 
                 placeholder={placeholder}
                 className=" font-inter w-full text-sm font-normal outline-none bg-inherit" />
-            <article className=''>
+                <article className=''>
                 {show && (
                     // Framer Motion would be nice here
                     <div className={`h-fit py-4 rounded-xl 
