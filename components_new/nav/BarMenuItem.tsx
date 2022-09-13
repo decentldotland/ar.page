@@ -60,14 +60,13 @@ useEffect(() => {
                                     <li className={`py-2 px-2 w-full ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')}h-full rounded-lg`}>
                                         <Link href={"https://www.decent.land/"}  className="flex flex-row items-center ">
                                             <a target="_blank" rel="noopener noreferrer" className=' flex flex-row items-center space-x-3.5'>
-                                                <Image src={Favicon} width={27} height={27} className='' alt="" />
-                                                <h1 className={`${isDark ? ('text-white'): ('text-black')} 
-`}>Go to Decent land</h1>
+                                                <Image src={Favicon} width={28} height={28} className='' alt="" />
+                                                <h1 className={`${isDark ? ('text-white'): ('text-black')}`}>Go to Decent land</h1>
                                             </a>
                                         </Link>
                                     </li>
                                 ) : (
-                                    <li className={`space-x-3.5 flex flex-row items-center py-3 px-2  
+                                    <li className={`space-x-3.5 flex flex-row items-center  px-2  
                                     ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')} h-full rounded-lg`}>
                                         <Avatar ansData={ansData} options={{height:"56px", width:"56px"}}/>
                                         {/* nickname and label */}
@@ -78,7 +77,6 @@ useEffect(() => {
 
                                             font-semibold text-left`}>
                                                 {ansData?.currentLabel}
-                                                {/* CrazyFrog */}
                                             </p>
                                         </div>
                                     </li>

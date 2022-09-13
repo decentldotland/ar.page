@@ -55,7 +55,7 @@ export function SearchBar(props: SearchType) {
         placeholder={props.placeholder}
         className={`${isDark ? ('bg-[#121a2f]'): ('bg-inherit')}
       
-          font-inter w-60 text-sm font-normal outline-none   `}     />
+          font-inter w-full md:w-60 text-sm font-normal outline-none   `}     />
     </div>
   )
 }

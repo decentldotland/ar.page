@@ -42,10 +42,9 @@ export const Nav = (props:any) => {
                     // items={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} /> 
                     options={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} /> 
             </div>
-                
-               
-            <NavBarButtons />
-            {/* <NavButtons toggleDark={toggleDark} /> */}
+            <div className="ml-2">
+                <NavBarButtons />
+            </div>
         </div>
     );
 };

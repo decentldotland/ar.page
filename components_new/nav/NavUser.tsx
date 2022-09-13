@@ -29,7 +29,7 @@ export const NavUser = (props: any) => {
                         {ansData && (ansData.avatar || ansData.currentLabel || ansData.address_color ) ? (
                             <>
                                 {/* name and labels */}
-                                <div className="space-x-3.5 flex flex-row items-center bg-base-100 rounded-3xl">
+                                <div className="mt-1 flex flex-row items-center bg-base-100 rounded-3xl">
                                     <Avatar ansData={ansData} />
                                 </div>
                             </>
@@ -38,7 +38,8 @@ export const NavUser = (props: any) => {
                                 onClick={arconnectConnect}
                             >
                                 <Image src={Favicon} width={36} height={36} className='mx-auto my-auto' alt="" />
-                            </div>                        )}
+                            </div>
+                            )}
                     </div>
 
                 )) || (
