@@ -21,7 +21,6 @@ export const NavUser = (props: any) => {
         console.log("walletConnected", walletConnected)
     }, [walletConnected]);
 
-    console.log(ansData)
     return (
         <div className="font-inter font-semibold">
             <>
@@ -36,8 +35,7 @@ export const NavUser = (props: any) => {
                                 </div>
                             </>
                         ): (
-<div
-                                className='flex rounded-full h-9 w-9 overflow-hidden bg-primary border-[2px] mt-[4px]'
+                            <div className='flex rounded-full h-9 w-9 overflow-hidden bg-primary border-[2px] mt-[4px]'
                                 onClick={arconnectConnect}
                             >
                                 <Image src={Favicon} width={36} height={36} className='mx-auto my-auto' alt="" />

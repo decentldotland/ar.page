@@ -9,6 +9,8 @@ import { random } from 'lodash';
 import { MagnifyingGlassIcon, ArrowRightOnRectangleIcon, ArrowUpRightIcon } from '@heroicons/react/24/outline';
 import { GetStaticProps } from 'next';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { isDarkMode } from '../../atoms';
 
 
 
@@ -78,6 +80,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
         // (i: any) => (query:string) => i.name.toLowerCase().includes(query.toLowerCase())
         // (options: SelectSearchOption[]) => (query:string) => SelectSearchOption[]
     });
+    const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
     return (
         <section className="px-4 flex flex-row space-x-3.5 
@@ -93,14 +96,16 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                 // style={{ paddingLeft: "22px" }} 
                 value={val} onChange={handleChange} onFocus={() => setShow(true)} 
                 placeholder={placeholder}
-                className=" font-inter w-full text-sm font-normal outline-none " />
+                className=" font-inter w-full text-sm font-normal outline-none bg-inherit" />
             <article className=''>
                 {show && (
                     // Framer Motion would be nice here
-                    <div className="h-fit py-4 rounded-xl 
-                        bg-white shadow-xl w-[336px] absolute left-28 mt-10 z-50
+                    <div className={`h-fit py-4 rounded-xl 
+                        ${isDark ? ('bg-[#121a2f]'): ('bg-white')}
                         
-                        ">
+                        shadow-xl w-[336px] absolute left-28 mt-10 z-50
+                        
+                        `}>
                         <h2 className="text-lg font-semibold px-7">Members</h2>
                         <ul className="h-full my-2  ">
                             {snapshot.options
@@ -108,7 +113,10 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                                 .slice(0, 5)
                                 .map((option) => (
                                     
-                                    <div className="hover:bg-gray-200 w-full px-7 py-2 cursor-pointer">
+                                    <div className={`
+                                    ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')}
+                                    
+                                     w-full px-7 py-2 cursor-pointer`}>
                                         <li key={option.name} className="w-full mt-1 rounded-md " onClick={
                                             (event) => {
                                                 window.location.href = `/p/${option.name}/#top`
