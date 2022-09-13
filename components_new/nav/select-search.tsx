@@ -114,7 +114,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                                                 window.location.href = `/p/${option.name}/#top`
                                             }
                                         }>
-                                            <a href={option.name} className='flex flex-row space-x-2 items-center '>
+                                            <a href={`${option.name}`} className='flex flex-row space-x-2 items-center '>
                                                 {/* <img src={option.photo} className="w-[34px] h-[34px] rounded-full"/> */}
                                                 <div className="w-[34px] h-[34px] rounded-full bg-gradient-to-l from-[#9E00FF] to-[#1273EA] rotate-45 origin-center"></div>
 
