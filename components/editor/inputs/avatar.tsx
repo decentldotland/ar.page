@@ -266,12 +266,23 @@ export const Avatar = (props: Props) => {
                     onChange={readFileState}
                 />
                 {thePreview && props.percent < 1 &&
-                    <div className="absolute right-6 top-3 z-30">
-                        <FontAwesomeIcon icon={faXmark} onClick={() => {
-                            setThePreview('');
-                            props.setImgWithProfile(false);
-                            props.setText(false);
-                        }} className="btn btn-secondary btn-circle btn-sm" />
+                    <div className="absolute right-6 top-3 z-40 rounded-full 
+                        bg-[#1273ea]
+                        hover:bg-[#1273ea]/30 
+                        cursor-pointer w-[40px] 
+                        h-[40px]  
+                        items-center 
+                        flex  justify-center ">
+
+                        {/* Avatar X button */}
+                        <FontAwesomeIcon height={20} width={20} 
+                            color={"#fff"}
+                            strokeWidth={1}
+                            icon={faXmark} onClick={() => {
+                                setThePreview('');
+                                props.setImgWithProfile(false);
+                                props.setText(false);
+                        }} className="" />
                     </div>
                 }
             </div>

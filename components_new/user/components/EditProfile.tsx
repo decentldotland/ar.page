@@ -25,7 +25,7 @@ function EditProfile({user}: EditProps) {
       active:scale-95
       hover:bg-gray-300
         rounded-lg  px-2 py-1.5
-        bg-base-200 text-base space-x-2 z-50
+        bg-base-200 text-base space-x-2 z-40
         flex-row items-center font-inter font-semibold text-[#666]'>
         <PencilIcon height={14} width={14} color={"#666"} strokeWidth={2} />
         <h3 className="text-xs">
