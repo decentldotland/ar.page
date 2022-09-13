@@ -29,7 +29,7 @@ export const Nav = (props:any) => {
 
     // bg-base-100
     return (
-        <div className="font-inter flex justify-between h-[56px] overflow-visible px-16 items-center ">
+        <div className="font-inter flex justify-between h-[56px] overflow-visible px-4 md:px-16 items-center w-full">
             <div className='flex flex-rows space-x-3.5 items-center '>
                 <Link href="/" >
                     <h1 className='text-3xl font-bold text-gray-600 cursor-pointer'>📃</h1>

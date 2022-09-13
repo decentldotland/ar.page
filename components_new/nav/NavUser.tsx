@@ -29,9 +29,8 @@ export const NavUser = (props: any) => {
                         {ansData && (ansData.avatar || ansData.currentLabel || ansData.address_color ) ? (
                             <>
                                 {/* name and labels */}
-                                <div className="space-x-3.5 flex flex-row items-center">
+                                <div className="space-x-3.5 flex flex-row items-center bg-base-100 rounded-3xl">
                                     <Avatar ansData={ansData} />
-                                    {ansData}
                                 </div>
                             </>
                         ): (
