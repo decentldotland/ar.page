@@ -78,7 +78,7 @@ useEffect(() => {
 
                                             font-semibold text-left`}>
                                                 {ansData?.currentLabel}
-                                                CrazyFrog
+                                                {/* CrazyFrog */}
                                             </p>
                                         </div>
                                     </li>

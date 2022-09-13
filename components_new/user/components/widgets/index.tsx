@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Poaps from './poaps';
 import TabContent from './tabcontent';
 import { TOP_WIDGETS, BOTTOM_WIDGETS } from '../../hackathon';
@@ -36,9 +36,18 @@ export const DEFAULT_COMPONENT_LIST: WidgetType[] = [
 
 
 export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefined, loading: boolean}) {
+    
+  const [time, setTimeOut] = useState(false)
+  React.useEffect(() => {
+    setTimeout(function () {
+      console.log("Delayed for 5 second."); 
+      setTimeOut(true); 
+    }, 5000);
+  }, []);
+  
   if (!arkProfile) return (
     <>
-      {loading ? (
+      {loading || time ? (
         <div className='flex items-center justify-center mt-10 
           text-3xl text-content-100/80 font-bold text-gray-300'>
             {/* <HiOutlineSearchCircle size={60} color="#D9D9D9"/> */}

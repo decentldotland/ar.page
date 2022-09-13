@@ -58,17 +58,13 @@ export const UserInfo = ({user, profile}: UserProps) => {
     const labels = [...allGenericLabels.map((label: any) => <GenericLabel {...label} />), ...HACKATHON_CUSTOM_LABELS]
 
     const [loading, setLoading] = React.useState(true);
+    
     React.useEffect(() => {
-        if (!document.hasFocus() || profile) {
-            console.log(profile)
-
-            return setLoading(false)
-        } else { 
-            return setLoading(true)
-
-        }
-        
-    }, [profile])
+        setTimeout(function () {
+          console.log("Delayed for 5 second."); 
+          setLoading(false); 
+        }, 5000);
+      }, []);
     const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
     return (
