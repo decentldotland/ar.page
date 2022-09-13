@@ -737,11 +737,11 @@ export const Content = (props: Props) => {
                     {/* Bio */}
                         <div className="mt-8">
                             <Bio text={bioState} setText={setBioState} regex="^@?([\s\S]{1,150})$" setValidityCheck={setValidityCheck} />
-                            {bioState.length} / 150
+                            <p className='text-sm text-gray-400'>{bioState.length} / 150</p>
                         </div>
                     
-                    
                     </div>
+
                     <div className="flex flex-col px-8 justify-center w-full">
                         <div className={`mb-4 transition-opacity duration-500 ease-in-out text-red-500 ${hideError ? "opacity-0 select-none": "opacity-100"}`}>{errorStatus}</div>
                         <div className={`flex flex-col items-center ${progress > 0 ? 'opacity-100' : '-mt-12 opacity-0'}`}>
@@ -764,10 +764,15 @@ export const Content = (props: Props) => {
 
                         </div>
                         {progress > 0 && (
-                            <div className="mb-2">The transaction takes around 5 minutes to mine on Arweave</div>
+                            <div className="mb-2 text-center text-sm ">The transaction takes around 5 minutes to mine on Arweave</div>
                         )}
-                        <button className="btn btn-primary text-lg mx-auto mb-8" onClick={() => submitUpload()}>
-                            {"Submit"}
+                        {
+                            progress == 0 && (
+                                <div className="mb-1 text-center text-sm text-gray-400">Any unsaved changes will be discarded if you decide to leave the page.</div>
+                            )
+                        }
+                        <button className="btn btn-primary text-lg mx-auto mb-8 mt-4 " onClick={() => submitUpload()}>
+                            Save Profile
                         </button>
                     </div>
                 </div> : (confirmOwner) ? <>
