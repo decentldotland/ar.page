@@ -696,8 +696,10 @@ export const Content = (props: Props) => {
     }, [imgWithProfile, submitPfp, submitTX])
 
     return (
-        <div data-theme={isDark ? "ardark": "arlight"} className="rounded-md mx-1 top-0 p-6 px-4 pt-6 pb-18 max-w-full lg:max-w-screen-lg lg:mx-auto h-fit bg-base-100">
-            <FontAwesomeIcon icon={faXmark} onClick={() => props.handleClose()} className="absolute right-3 top-3 rounded-full btn btn-primary btn-circle btn-sm" />
+        <div data-theme={isDark ? "ardark": "arlight"} className="rounded-md mx-1 relative top-0 p-6 px-4 pt-6  max-w-full lg:max-w-screen-lg lg:mx-auto h-fit bg-base-100">
+                <div className='absolute right-10 top-10 rounded-full bg-[#1273ea]/20 hover:bg-[#1273ea]/30 cursor-pointer w-[40px] h-[40px] items-center flex  justify-center ' >
+                    <FontAwesomeIcon icon={faXmark} height={20} width={20} strokeWidth={2} onClick={() => props.handleClose()} color="#1273ea" />
+                </div>
             {(isOwner) ?
                 <div className="mx-auto max-w-screen-md -mb-10">
                     <div className="max-w-screen-md h-15 top-0.5 left-4">
