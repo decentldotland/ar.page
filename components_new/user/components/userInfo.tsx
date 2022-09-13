@@ -26,6 +26,8 @@ export const UserInfo = ({user, profile}: UserProps) => {
         shortenAddress,
     } = useAns();
 
+    console.log(`${profile} THIS IS THE PROFILE`)
+
     const [open, setOpen] = React.useState(false);
     const copy_text = (link: string) => { 
         setOpen(true);
@@ -46,12 +48,12 @@ export const UserInfo = ({user, profile}: UserProps) => {
     const bio = typeof user.userInfo.bio === 'string' ? 
     user.userInfo.bio : "";
 
-
+    console.log(`${user.userInfo.timestamp} THE TIMESTAMP`)
     // Member since...
-    let epoch = profile?.first_linkage || 0;
+    let epoch = profile?.first_linkage || user.userInfo.timestamp || 0;
     let member_since = new Date(epoch * 1000);
     let [month, year] = [member_since.toLocaleString('default', {month: 'short'}), member_since.getFullYear()];
-
+    console.log(month)
     // Labels
     const defaultLabels = getDefaultLabels({ar: ownedLabels || [], links: {twitter, github, instagram, customUrl}, ENS: profile?.ENS, AVVY: profile?.AVVY});
     const allGenericLabels = [...defaultLabels, ...HACKATHON_GENERIC_LABELS];
@@ -73,7 +75,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                 <div className="relative bottom-20 flex flex-row items-end mt-3">
                     {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
                     {/* nickname and label */}
-                    <div className='ml-5 mb-5'>
+                    <div className={`ml-5 relative ${epoch === 0 ? ('bottom-10') : ('bottom-5')} `}>
                         <div className="flex flex-row space-x-3 items-center mt-3">
                             <div className="text-2xl font-bold leading-6 font-inter ">
                                 {user.userInfo.currentLabel}
@@ -93,7 +95,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                             }
 
 
-                            <div className={`px-2 py-2 
+                            <div className={`px-2 py-2 relative 
                                 ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')} rounded-lg cursor-pointer`}
                                 onClick={() =>{ copy_text(user.userInfo.user); }} >
                                 <div className="flex flex-row font-inter font-semibold text-sm">
@@ -112,24 +114,29 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                 />
                             </div>
                         </div>
-                        <h3 className='font-inter text-[#666] text-base mt-1 mb-1'>
+                        {/* <DaoMembership  userInfo={props.userInfo}/> */}
+
+                        <h3 className='font-inter text-[#666] text-base mt-1 mb-2'>
                             {user.userInfo.nickname}
                         </h3>
-                        {/* DAO memberships */}
-                        <div className='flex flex-row items-center space-x-2 '>
-                            {/* <DaoMembership  userInfo={props.userInfo}/> */}
-                            {/* User Membership Date */}
-                            <div className={`flex flex-row  
-                                items-center space-x-1 
-                                py-1 px-2 w-fit ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')}  
-                                 rounded-lg 
-                                font-inter  text-xs font-bold`}>
-                                <CalendarDaysIcon height={14} width={14} 
-                                color={`${isDark? ('white') : ('#666') }`}
-                                strokeWidth={2}/>
-                                <p>Since {month} {year}</p>
-                            </div>
-                        </div>
+                        
+                        {
+                            epoch > 0 && (
+                                <div className='flex flex-row items-center space-x-2 '>
+                                    <div className={`flex flex-row  
+                                        items-center space-x-1 
+                                        py-1 px-2 w-fit ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')}  
+                                        rounded-lg 
+                                        font-inter  text-xs font-bold`}>
+                                            <CalendarDaysIcon height={14} width={14} 
+                                            color={`${isDark? ('white') : ('#666') }`}
+                                            strokeWidth={2}/>
+                                            <p>Since {month} {year}</p>
+                                    </div>
+                                </div>
+                            )
+                        }
+                        
                     </div>
                 </div>
                 {/* User Bio and Available Labels */}

@@ -106,7 +106,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                         shadow-xl w-[336px] absolute left-28 mt-10 z-50
                         
                         `}>
-                        <h2 className="text-lg font-semibold px-7">Members</h2>
+                        <h2  className="text-lg font-semibold px-7">Members</h2>
                         <ul className="h-full my-2  ">
                             {snapshot.options
                                 .filter((i: any) => i.name?.toLowerCase()?.includes(val?.toLowerCase()))
@@ -128,7 +128,9 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
 
                                                 {/* @ts-ignore */}
                                                 <button {...optionProps} className=" text-sm font-semibold" value={option.value} >{option.name}</button>
-                                                <ArrowUpRightIcon height={14} width={14} color={"#666"} strokeWidth={1} />
+                                                <ArrowUpRightIcon height={14} width={14} 
+                                                    color={`${isDark? ('white') : ('#666') }`}                                                
+                                                    strokeWidth={1} />
 
                                             </a>
                                         </li>

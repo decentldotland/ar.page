@@ -62,7 +62,7 @@ useEffect(() => {
                                             <a target="_blank" rel="noopener noreferrer" className=' flex flex-row items-center space-x-3.5'>
                                                 <Image src={Favicon} width={27} height={27} className='' alt="" />
                                                 <h1 className={`${isDark ? ('text-white'): ('text-black')} 
-`}>Go to Decent land</h1>
+                                                    `}>Go to Decent land</h1>
                                             </a>
                                         </Link>
                                     </li>
@@ -86,9 +86,9 @@ useEffect(() => {
                             }
                             <Divider />
                             <li hidden={!walletConnected} 
-                           className={`py-2 px-2 w-full 
-                           ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')} 
-                           h-full rounded-lg`}
+                                className={`py-2 px-2 w-full cursor-pointer
+                                ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')} 
+                                h-full rounded-lg`}
                             >
                                 <Link href={`https://localhost:3000/p/${ansData?.currentLabel}`}  className=" flex flex-row items-center ">
                                     <div className=' flex flex-row items-center space-x-3.5'>
