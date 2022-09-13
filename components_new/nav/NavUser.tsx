@@ -21,6 +21,7 @@ export const NavUser = (props: any) => {
         console.log("walletConnected", walletConnected)
     }, [walletConnected]);
 
+    console.log(ansData)
     return (
         <div className="font-inter font-semibold">
             <>
@@ -31,18 +32,23 @@ export const NavUser = (props: any) => {
                                 {/* name and labels */}
                                 <div className="space-x-3.5 flex flex-row items-center">
                                     <Avatar ansData={ansData} />
+                                    {ansData}
                                 </div>
                             </>
                         ): (
-                            <Image src={Favicon} width={36} height={36} className='mx-auto my-auto' alt="" />
-                        )}
+<div
+                                className='flex rounded-full h-9 w-9 overflow-hidden bg-primary border-[2px] mt-[4px]'
+                                onClick={arconnectConnect}
+                            >
+                                <Image src={Favicon} width={36} height={36} className='mx-auto my-auto' alt="" />
+                            </div>                        )}
                     </div>
 
                 )) || (
                         <div className="flex flex-row gap-x-2.5 items-center">
                             <div
                                 className='flex rounded-full h-9 w-9 overflow-hidden bg-primary border-[2px] mt-[4px]'
-                                // onClick={arconnectConnect}
+                                onClick={arconnectConnect}
                             >
                                 <Image src={Favicon} width={36} height={36} className='mx-auto my-auto' alt="" />
                             </div>
@@ -58,4 +64,7 @@ export const NavUser = (props: any) => {
             </>
         </div>
     );
+
+
+    
 };
