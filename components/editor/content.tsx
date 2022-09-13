@@ -769,11 +769,11 @@ export const Content = (props: Props) => {
 
                         </div>
                         {progress > 0 && (
-                            <div className="mb-2 text-center text-sm text-gray-400">The transaction takes around 5 minutes to mine on Arweave!</div>
+                            <div className="text-center text-sm text-gray-400 sm:text-xs sm:mb-0">The transaction takes around 5 minutes to mine on Arweave!</div>
                         )}
                         {
                             progress == 0 && (
-                                <div className="mb-1 text-center text-sm text-gray-400">Any unsaved changes will be discarded if you decide to leave the page.</div>
+                                <div className=" text-center text-sm text-gray-400">Any unsaved changes will be discarded if you decide to leave the page.</div>
                             )
                         }
                         {/* Disable if not the owner */}
