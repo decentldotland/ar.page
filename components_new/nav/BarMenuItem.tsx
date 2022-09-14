@@ -57,7 +57,9 @@ useEffect(() => {
                         <ul tabIndex={0} className='h-full'>
                             {
                                 !walletConnected ? (
-                                    <li className={`py-2 px-2 w-full ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')}h-full rounded-lg`}>
+                                    <li className={`py-2 px-2 w-full 
+                                    ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')} 
+                                    h-full rounded-lg`}>
                                         <Link href={"https://www.decent.land/"}  className="flex flex-row items-center ">
                                             <a target="_blank" rel="noopener noreferrer" className=' flex flex-row items-center space-x-3.5'>
                                                 <Image src={Favicon} width={27} height={27} className='' alt="" />
@@ -68,7 +70,7 @@ useEffect(() => {
                                         </Link>
                                     </li>
                                 ) : (
-                                    <li className={`space-x-3.5 flex flex-row items-center  px-2  
+                                    <li className={`space-x-3.5 flex flex-row items-center  px-2  py-2
                                     ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')} h-full rounded-lg`}>
                                         <Avatar ansData={ansData} options={{height:"56px", width:"56px"}}/>
                                         {/* nickname and label */}

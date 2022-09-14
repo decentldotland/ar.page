@@ -85,7 +85,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
     return (
         <section className="px-4 flex flex-row space-x-3.5 
             w-full md:w-[336px] py-2 border-2 border-gray-200
-            items-center rounded-2xl " 
+            items-center rounded-2xl sm:w-[50%]  " 
             ref={container}>
             {/* <button className="w-24 h-4 bg-red-300" {...valueProps}>{snapshot.displayValue}</button> */}
             {/* <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute mt-2 left-4 ml-1" width="15" height="15" /> */}
