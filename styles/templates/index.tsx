@@ -5,7 +5,7 @@ const styles =  {
     buttonSelected: "rounded-[6px] bg-buttonSelected active:bg-transparent text-[#1273EA] active:text-blue-200 px-[12px] my-auto min-h-[26px]",
     Header: "font-semibold",
     Landing: {
-        h1: "text-[72px] mx-auto",
+        h1: "text-[50px] md:text-[72px] mx-auto",
         h4: "text-[18px] mx-auto"
     },
     Section: {
