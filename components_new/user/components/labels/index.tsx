@@ -90,7 +90,7 @@ export const getDefaultLabels = ({ ar, links, ENS, AVVY }: {ar: OwnedLabel[], li
 
 export const Labels = ({items}: {items: any}) => {
   return (
-    <div className="flex flex-row carousel max-w-[80vw] space-x-2 py-2 max-h-[60px]">
+    <div className="flex flex-row carousel max-w-[100vw] space-x-2 py-2 max-h-[60px]">
       {items.map((item:any, index:number) => (
         <div key={index} className="carousel-item">
           {item}

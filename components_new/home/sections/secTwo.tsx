@@ -8,13 +8,13 @@ type Props = {
 };
 export const SectionTwo = (props: Props) => {
     return (
-        <div className="flex flex-row sm:flex-nowrap flex-wrap mx-auto mt-8 max-w-4xl gap-x-8">
+        <div className="flex flex-col md:flex-row sm:flex-nowrap flex-wrap mx-auto mt-8 max-w-4xl gap-x-8">
             <div className="md:flex mt-8 hidden flex-row flex-wrap md:w-1/3 w-full full">
                 <div className="mx-auto my-auto scale-110 h-72">
                     <Names />
                 </div>
             </div>
-            <div className="flex flex-col md:w-2/3 w-full ml-12">
+            <div className="flex flex-col md:w-2/3 w-full ml-0 md:ml-12">
                 <h3 className={[styles.Header, styles.Section.h3, "w-full"].join(' ')}>
                     How can I access my profile?
                 </h3>

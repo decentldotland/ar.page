@@ -84,7 +84,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
 
     return (
         <section className="px-4 flex flex-row space-x-3.5 
-            w-[336px] py-2 border-2 border-gray-200
+            w-full md:w-[336px] py-2 border-2 border-gray-200
             items-center rounded-2xl " 
             ref={container}>
             {/* <button className="w-24 h-4 bg-red-300" {...valueProps}>{snapshot.displayValue}</button> */}
@@ -96,49 +96,45 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                 // style={{ paddingLeft: "22px" }} 
                 value={val} onChange={handleChange} onFocus={() => setShow(true)} 
                 placeholder={placeholder}
-                className=" font-inter w-full text-sm font-normal outline-none bg-inherit" />
-                <article className=''>
-                {show && (
-                    // Framer Motion would be nice here
-                    <div className={`h-fit py-4 rounded-xl 
-                        ${isDark ? ('bg-[#121a2f]'): ('bg-white')}
-                        
-                        shadow-xl w-[336px] absolute left-28 mt-10 z-50
-                        
-                        `}>
-                        <h2  className="text-lg font-semibold px-7">Members</h2>
-                        <ul className="h-full my-2  ">
-                            {snapshot.options
-                                .filter((i: any) => i.name?.toLowerCase()?.includes(val?.toLowerCase()))
-                                .slice(0, 5)
-                                .map((option) => (
-                                    
-                                    <div className={`
-                                    ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')}
-                                    
-                                     w-full px-7 py-2 cursor-pointer`}>
-                                        <li key={option.name} className="w-full mt-1 rounded-md " onClick={
-                                            (event) => {
-                                                window.location.href = `/p/${option.name}/#top`
-                                            }
-                                        }>
-                                            <a href={`/p/${option.name}`} className='flex flex-row space-x-2 items-center '>
-                                                {/* <img src={option.photo} className="w-[34px] h-[34px] rounded-full"/> */}
-                                                <div className="w-[34px] h-[34px] rounded-full bg-gradient-to-l from-[#9E00FF] to-[#1273EA] rotate-45 origin-center"></div>
+                className=" font-inter w-full text-sm font-normal outline-none bg-inherit"
+            />
+            <article className={`z-50 transition-all duration-300 ease-in-out ${show ? 'opacity-100': 'opacity-0 pointer-events-none'}`}>
+            <div className={`h-fit py-4 rounded-xl 
+                ${isDark ? ('bg-[#121a2f]'): ('bg-white')}
+                
+                shadow-xl max-w-[220px] md:max-w-[326px] md:w-full absolute left-0 mt-10 z-50
+                ml-16 md:ml-28
+                `}>
+                <h2 className="text-lg font-semibold px-7">Members</h2>
+                <ul className="h-full my-2  ">
+                    {snapshot.options
+                        .filter((i: any) => i.name?.toLowerCase()?.includes(val?.toLowerCase()))
+                        .slice(0, 5)
+                        .map((option) => (
+                            
+                            <div className={`
+                            ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')}
+                            
+                                w-full px-7 py-2 cursor-pointer`}>
+                                <li key={option.name} className="w-full mt-1 rounded-md " onClick={
+                                    (event) => {
+                                        window.location.href = `/p/${option.name}/#top`
+                                    }
+                                }>
+                                    <a href={`/p/${option.name}`} className='flex flex-row space-x-2 items-center '>
+                                        {/* <img src={option.photo} className="w-[34px] h-[34px] rounded-full"/> */}
+                                        <div className="w-[34px] h-[34px] rounded-full bg-gradient-to-l from-[#9E00FF] to-[#1273EA] rotate-45 origin-center"></div>
 
-                                                {/* @ts-ignore */}
-                                                <button {...optionProps} className=" text-sm font-semibold" value={option.value} >{option.name}</button>
-                                                <ArrowUpRightIcon height={14} width={14} 
-                                                    color={`${isDark? ('white') : ('#666') }`}                                                
-                                                    strokeWidth={1} />
+                                        {/* @ts-ignore */}
+                                        <button {...optionProps} className=" text-sm font-semibold" value={option.value} >{option.name}</button>
+                                        <ArrowUpRightIcon height={14} width={14} color={"#666"} strokeWidth={1} />
 
-                                            </a>
-                                        </li>
-                                    </div>
-                                ))}
-                        </ul>
-                    </div>
-                )}
+                                    </a>
+                                </li>
+                            </div>
+                        ))}
+                </ul>
+            </div>
             </article>
             {/* <SelectSearch search={true} autoComplete="on" options={options} value="sv" placeholder="Choose your language" /> */}
         </section>

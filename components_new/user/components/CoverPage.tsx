@@ -37,8 +37,8 @@ function CoverPage(props: userInfo) {
   return (
     user_cover.length > 0 ? (
       <section style={coverStyle} className=" w-full transition duration relative flex flex-row justify-center">
-        <div className='relative w-[1300px] h-full'>
-          <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pb-3 xl:px-16'>
+        <div className='relative max-w-[1300px] h-full'>
+          <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pb-3 px-4 md:px-16'>
             {
               address == props.userInfo.user && walletConnected && (
                 <>
@@ -55,7 +55,7 @@ function CoverPage(props: userInfo) {
     ) : (
       <section className="h-[218px] bg-white w-full transition duration relative">
         <div className='relative w-[1300px] h-full'>
-          <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pb-3 xl:px-16'>
+          <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pb-3 px-4 md:px-16'>
           {
               address != props.userInfo.user && !walletConnected && (
                 <>

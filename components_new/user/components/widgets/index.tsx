@@ -74,9 +74,9 @@ export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefi
     ...BOTTOM_WIDGETS,
   ]
   return (
-    <>
+    <div className="overflow-x-hidden">
       {defaultWidgets.map((w, i) => <React.Fragment key={i}>{w}</React.Fragment>)}
-    </>
+    </div>
   )
 }
 
