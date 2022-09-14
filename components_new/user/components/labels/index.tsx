@@ -108,6 +108,7 @@ export function GenericLabel ({username, classes, icon, link_to, canCopy}: Gener
     setOpen(true);
     navigator.clipboard.writeText(link);
   }
+  const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
   const attrs = {
     onClick: canCopy ? () => copy_text(username || '') : undefined
