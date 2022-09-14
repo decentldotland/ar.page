@@ -61,7 +61,6 @@ export const UserInfo = ({user, profile}: UserProps) => {
     
     React.useEffect(() => {
         setTimeout(function () {
-          console.log("Delayed for 5 second."); 
           setLoading(false); 
         }, 5000);
       }, []);
@@ -96,7 +95,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                 <div className="relative bottom-20 flex flex-col md:flex-row items-center md:items-end mt-3">
                     {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
                     {/* nickname and label */}
-                    <div className={`ml-5 relative ${epoch === 0 ? ('bottom-10') : ('bottom-5')} `}>
+                    <div className={`ml-5 relative ${epoch === 0 ? ('bottom-12') : ('bottom-6')} `}>
                         <div className="flex flex-row space-x-3 items-center mt-3 ">
                             <div className="flex items-center space-x-1 ">
                                 <div className={`text-2xl 

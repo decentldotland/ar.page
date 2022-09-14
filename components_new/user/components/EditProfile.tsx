@@ -25,9 +25,9 @@ function EditProfile({user}: EditProps) {
         showModal(true);
       }}
       className={`flex cursor-pointer
-      active:scale-95 lg:w-[105px] 
+      active:scale-95 
       ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')}
-        rounded-lg  px-2 py-1.5
+        rounded-lg  px-2 py-2
         ${isDark ? ('bg-[#35466e] text-white'): ('bg-gray-200 text-[#666]')}
         space-x-2 z-40
         flex-row items-center font-inter font-semibold 
