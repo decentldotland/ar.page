@@ -27,7 +27,7 @@ export type userInfo = {
 
 export type GenericLabelInterface = {
   username: string | undefined,
-  classes: string, // tailwind css classes go here 
+  classes: string, // tailwind css color classes go here 
   link_to: string | null,
   canCopy: boolean,
   icon: any; // react component, or text

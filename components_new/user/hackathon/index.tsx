@@ -1,9 +1,8 @@
 import { HACKATHON_WIDGETS_TOP_PART, HACKATHON_WIDGETS_BOTTOM_PART } from './api/widgets'
 import { HACKATHON_TABS } from './api/tabcontent'
-import { HACKATHON_CUSTOM_LABELS, HACKATHON_GENERIC_LABELS } from './api/labels'
+import { HackathonLabels } from './api/labels'
 
 export const TOP_WIDGETS = HACKATHON_WIDGETS_TOP_PART
 export const BOTTOM_WIDGETS = HACKATHON_WIDGETS_BOTTOM_PART
 export const TABS = HACKATHON_TABS
-export const CUSTOM_LABELS = HACKATHON_CUSTOM_LABELS
-export const GENERIC_LABELS = HACKATHON_GENERIC_LABELS
+export const GenericLabelsComponent = HackathonLabels

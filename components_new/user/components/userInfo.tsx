@@ -7,12 +7,13 @@ import {CheckBadgeIcon, ShieldExclamationIcon} from '@heroicons/react/24/solid'
 import { ANSData, Res, userInfo } from '../../../src/types';
 import ProfileAvatar from '../../avatar/ProfileAvatar';
 import { Labels, GenericLabel, getDefaultLabels } from './labels';
-import { HACKATHON_GENERIC_LABELS, HACKATHON_CUSTOM_LABELS } from '../hackathon/api/labels';
+import { GenericLabelsComponent } from '../hackathon';
 import { Bio } from './bio';
 import { Divider } from './reusables';
 import {BsPatchQuestionFill} from 'react-icons/bs'
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../atoms';
+import { HackathonLabels } from '../hackathon/api/labels';
 
 
 interface UserProps { 
@@ -54,8 +55,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
 
     // Labels
     const defaultLabels = getDefaultLabels({ar: ownedLabels || [], links: {twitter, github, instagram, customUrl}, ENS: profile?.ENS, AVVY: profile?.AVVY});
-    const allGenericLabels = [...defaultLabels, ...HACKATHON_GENERIC_LABELS];
-    const labels = [...allGenericLabels.map((label: any) => <GenericLabel {...label} />), ...HACKATHON_CUSTOM_LABELS]
+    const labels = [...defaultLabels.map((label: any) => <GenericLabel {...label} />), ...HackathonLabels(profile)]
 
     const [loading, setLoading] = React.useState(true);
     
