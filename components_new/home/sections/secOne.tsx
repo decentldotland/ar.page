@@ -9,7 +9,7 @@ type Props = {
 export const SectionOne = (props: Props) => {
 
     return (
-        <div className="flex flex-col md:flex-row md:flex-nowrap flex-wrap mx-auto mt-8 max-w-4xl gap-x-8">
+        <div className="font-inter flex flex-col md:flex-row md:flex-nowrap flex-wrap mx-auto mt-8 max-w-4xl gap-x-8">
             <div className="flex flex-col w-full md:w-2/3 mb-16">
                 <h3 className={[styles.Header, styles.Section.h3, "w-full"].join(' ')}>
                     What is ANS?
@@ -17,15 +17,17 @@ export const SectionOne = (props: Props) => {
                 <h6 className={[styles.Section.h6, "w-full mb-12"].join(' ')}>
                     Arweave Names Service combines a decentralized domains naming service and a decentralized Gravatar-like protocol into a new protocol called ANS. Learn more about ANS.
                 </h6>
-                <h3 className={[styles.Header, styles.Section.h3, "w-full"].join(' ')}>
+                <h3 className={[styles.Header, styles.Section.h3, "w-full font-bold"].join(' ')}>
                     What is ar.page?
                 </h3>
-                <h6 className={[styles.Section.h6, "w-full"].join(' ')}>
-                    ar.page is a web app that renders your ANS metadata in a page displaying your profile&apos;s data, and aggregates a feed of your activities over the Arweave network (Ardrive, Koii, Permacast, etc).
+                <h6 className={[styles.Section.h6, "w-full font-bold"].join(' ')}>
+                    <p><span className='font-bold '>ar.page </span>
+                        is a web app that renders your ANS metadata in a page displaying your profile&apos;s data, and aggregates a feed of your activities over the Arweave network (Ardrive, Koii, Permacast, etc).
+                    </p>  
                 </h6>
             </div>
             <div className="flex flex-row flex-wrap mx-auto md:w-1/3 justify-center h-48 -mt-12 md:mt-4">
-                <div className="relative w-full md:block flex">
+                <div className="relative w-full md:block flex font-bold">
                     {
                         [["xy", 32, 28], ["letey", 150, 168],
                         ["arweavesam", 120, 58], ["caoyin", 45, 88],
