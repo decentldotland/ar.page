@@ -97,9 +97,11 @@ export const UserInfo = ({user, profile}: UserProps) => {
                     {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
                     {/* nickname and label */}
                     <div className={`ml-5 relative ${epoch === 0 ? ('bottom-10') : ('bottom-5')} `}>
-                        <div className="flex flex-row space-x-3 items-center mt-3">
-                            <div className="flex items-center ">
-                                <div className="text-2xl font-bold leading-6 font-inter mr-1">
+                        <div className="flex flex-row space-x-3 items-center mt-3 ">
+                            <div className="flex items-center space-x-1 ">
+                                <div className={`text-2xl 
+                                ${isDark ? (' text-white'): (' text-[#000]')}
+                                font-bold leading-6 font-inter mr-1`}>
                                     {user.userInfo.currentLabel}
                                 </div>
                                 <ProfileBadge
@@ -128,7 +130,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                 />
                             </div>
                         </div>
-                        <h3 className='font-inter text-[#666] text-base mt-1 mb-1'>
+                        <h3 className='font-inter text-[#666] text-base mt-1 mb-1 '>
                             {user.userInfo.nickname}
                         </h3>
                         

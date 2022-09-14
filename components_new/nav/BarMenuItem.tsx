@@ -90,12 +90,12 @@ useEffect(() => {
                                 ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')} 
                                 h-full rounded-lg`}
                             >
-                                <Link href={`https://localhost:3000/p/${ansData?.currentLabel}`}  className=" flex flex-row items-center ">
+                                <a href={`/p/${ansData?.currentLabel}`}  className=" flex flex-row items-center ">
                                     <div className=' flex flex-row items-center space-x-3.5'>
                                         <FaceSmileIcon height={20} width={20} color={`${isDark? ('white') : ('black') }`}/>
                                         <h1>My Profile</h1>
                                     </div>
-                                </Link>
+                                </a>
                             </li>
                             <li className={`py-2 px-2 w-full 
                                 ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')} 

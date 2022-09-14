@@ -25,7 +25,7 @@ function EditProfile({user}: EditProps) {
         showModal(true);
       }}
       className={`flex cursor-pointer
-      active:scale-95
+      active:scale-95 lg:w-[105px] 
       ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')}
         rounded-lg  px-2 py-1.5
         ${isDark ? ('bg-[#35466e] text-white'): ('bg-gray-200 text-[#666]')}
@@ -35,7 +35,7 @@ function EditProfile({user}: EditProps) {
         <PencilIcon height={14} width={14} 
           color={`${isDark? ('white') : ('#666') }`}        
           strokeWidth={2} />
-        <h3 className="text-xs">
+        <h3 className="text-xs hidden md:block">
             Edit Profile
         </h3>
     </div>
