@@ -7,6 +7,7 @@ import {UserIcon} from '@heroicons/react/24/outline'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faPlusSquare, faArrowAltCircleRight } from '@fortawesome/free-regular-svg-icons';
 import {ArrowRightOnRectangleIcon, PlusIcon} from '@heroicons/react/24/outline'
+import Link from 'next/link';
 
 
 
@@ -22,7 +23,7 @@ export const User = (props: any) => {
     }, [walletConnected]);
 
     return (
-        <div className="">
+        <div className="font-inter font-semibold">
             <>
                 {(walletConnected && (
                     <div className={`flex flex-row `}>
@@ -40,29 +41,22 @@ export const User = (props: any) => {
                                 </div>
                             </>
                         ): (
-                            <div className="bg-gray-400/40 px-4 h-full rounded-md animate-pulse">
-                                Loading...
-                            </div>
-                            
+                            <Link href={"https://www.decent.land/"}  className="flex flex-row  items-center">
+                                <a target="_blank" rel="noopener noreferrer" className='space-x-5 hover:opacity-60 flex flex-row items-center '>
+                                    <Image src={Favicon} width={36} height={36} className='mx-auto my-auto' alt="" />
+                                    <h1>Go to Decent land</h1>
+                                </a>
+                            </Link>
                         )}
                     </div>
 
                 )) || (
-                        <div className="flex flex-row gap-x-2.5 items-center">
-                            <div
-                                className='flex rounded-full h-9 w-9 overflow-hidden bg-primary border-[2px] mt-[4px]'
-                                onClick={arconnectConnect}
-                            >
+                        <Link href={"https://www.decent.land/"}  className="flex flex-row  items-center ">
+                            <a target="_blank" rel="noopener noreferrer" className='space-x-5 hover:opacity-60 flex flex-row items-center '>
                                 <Image src={Favicon} width={36} height={36} className='mx-auto my-auto' alt="" />
-                            </div>
-
-                            {/* nickname and label */}
-                            <div className="flex flex-col mt-1 max-w-[80px]">
-                                <div className="text-xs font-medium">
-                                    No wallet detected...
-                                </div>
-                            </div>
-                        </div>
+                                <h1>Go to Decent land</h1>
+                            </a>
+                        </Link>
                     )}
             </>
         </div>

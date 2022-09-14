@@ -14,6 +14,7 @@ import { ANS_CONTRACT, ARWEAVE_EXPLORER_TX, ARWEAVE_OBJECT } from '../../src/con
 import { Avatar } from './inputs/avatar';
 import { Bio } from './inputs/bio';
 import { TextI } from './inputs/textI';
+import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
 
 type Props = {
     wallet: string;
@@ -696,8 +697,13 @@ export const Content = (props: Props) => {
     }, [imgWithProfile, submitPfp, submitTX])
 
     return (
-        <div data-theme={isDark ? "ardark": "arlight"} className="rounded-md mx-1 top-0 p-6 px-4 pt-6 pb-18 max-w-full lg:max-w-screen-lg lg:mx-auto h-fit bg-base-100">
-            <FontAwesomeIcon icon={faXmark} onClick={() => props.handleClose()} className="absolute right-3 top-3 rounded-full btn btn-primary btn-circle btn-sm" />
+        <div data-theme={isDark ? "ardark": "arlight"} className="font-inter rounded-md mx-1 relative top-0 p-6 px-4 pt-6  max-w-full lg:max-w-screen-lg lg:mx-auto h-fit bg-base-100">
+                
+                {/* The new close button */}
+                <div className='absolute right-10 top-10 rounded-full bg-[#1273ea]/20 hover:bg-[#1273ea]/30 cursor-pointer w-[40px] h-[40px] items-center flex  justify-center ' >
+                    <FontAwesomeIcon icon={faXmark} height={20} width={20} strokeWidth={2} onClick={() => props.handleClose()} color="#1273ea" />
+                </div>
+
             {(isOwner) ?
                 <div className="mx-auto max-w-screen-md -mb-10">
                     <div className="max-w-screen-md h-15 top-0.5 left-4">
@@ -706,7 +712,15 @@ export const Content = (props: Props) => {
                     <div className={`flex flex-col w-full md:h-3/5 h-[65vh] px-8 overflow-scroll scrollbar scrollbar-thumb-blue-500 ${isDark ? "scrollbar-track-gray-700" : "scrollbar-track-gray-300"}`}>
                         <div className="flex flex-col md:flex-row md:items-center pt-8">
                             <div className="flex justify-center md:-mt-20 md:mr-6">
-                                <Avatar avatar={avatar} userColor={props.userColor} setText={setAvatarState} regex="^@?([a-zA-Z0-9_]{1,43})$" setValidityCheck={setValidityCheck} setImgWithProfile={setImgWithProfile} percent={percent} idState={idState} />
+                                <Avatar avatar={avatar} 
+                                    userColor={props.userColor} 
+                                    setText={setAvatarState} 
+                                    regex="^@?([a-zA-Z0-9_]{1,43})$" 
+                                    setValidityCheck={setValidityCheck} 
+                                    setImgWithProfile={setImgWithProfile} 
+                                    percent={percent}
+                                    idState={idState} />
+
                             </div>
                             <div className="mt-40 md:mt-0">
                                 <div className="grid grid-cols-2 md:grid-rows-2 md:col-span-2 gap-x-6">
@@ -720,31 +734,51 @@ export const Content = (props: Props) => {
                                 </div>
                             </div>
                         </div>
+
+                    {/* Bio */}
                         <div className="mt-8">
                             <Bio text={bioState} setText={setBioState} regex="^@?([\s\S]{1,150})$" setValidityCheck={setValidityCheck} />
+                            <p className='text-sm text-gray-400'>{bioState.length} / 150</p>
                         </div>
+                    
                     </div>
+
                     <div className="flex flex-col px-8 justify-center w-full">
                         <div className={`mb-4 transition-opacity duration-500 ease-in-out text-red-500 ${hideError ? "opacity-0 select-none": "opacity-100"}`}>{errorStatus}</div>
                         <div className={`flex flex-col items-center ${progress > 0 ? 'opacity-100' : '-mt-12 opacity-0'}`}>
                             <div className={`w-full overflow-x-hidden bg-gray-200 rounded-full h-2.5`}>
                                 <div className={`bg-success transition-width duration-500 ease-in-out h-2.5 rounded-full ${progress > 0 && progress < 3 && "animate-pulse"}`} style={{width: (progress * 33.34) + '%'}}></div>
                             </div>
-                            <div className={`btn btn-sm my-2 btn-outline ${progress < 3 ? `loading btn-secondary`: `btn-success`}`}>
+                           
+                           
+                            <div className={`btn btn-sm my-2 btn-outline  ${progress < 3 ? `loading btn-secondary`: `btn-success`}`}>
                                 {(progress < 3) ? `Uploading... Step ${Math.round(progress)}/3` : 
                                     <>
-                                        <a className="flex" target="_blank" rel="noreferrer" href={ARWEAVE_EXPLORER_TX + txId}>
-                                            <FontAwesomeIcon icon={faCheck} className="w-4 h-4 mr-2" /> Uploaded || {" "} Open TX
+                                        <a  target="_blank" rel="noreferrer" href={ARWEAVE_EXPLORER_TX + txId} className="space-x-2 flex flex-row items-center">
+                                            {/* <FontAwesomeIcon icon={faCheck} className="w-4 h-4 mr-2" /> Uploaded || {" "} Open TX */}
+                                            <p className='mr-2'>
+                                                {txId.replace(/(.{7})..+/, "$1…")}
+                                            </p>
+                                            <ArrowUpRightIcon height={14} width={14} color={"#36D399"} strokeWidth={1} />
+
                                         </a>
                                     </>
                                 }
                             </div>
+
+
                         </div>
                         {progress > 0 && (
-                            <div className="mb-2">The transaction takes around 5 minutes to mine on Arweave</div>
+                            <div className="text-center text-sm text-gray-400 sm:text-xs sm:mb-0">The transaction takes around 5 minutes to mine on Arweave!</div>
                         )}
-                        <button className="btn btn-primary text-lg mx-auto mb-8" onClick={() => submitUpload()}>
-                            {"Submit"}
+                        {
+                            progress == 0 && (
+                                <div className=" text-center text-sm text-gray-400">Any unsaved changes will be discarded if you decide to leave the page.</div>
+                            )
+                        }
+                        {/* Disable if not the owner */}
+                        <button disabled={!confirmOwner} className="btn btn-primary text-lg mx-auto mb-8 mt-4 " onClick={() => submitUpload()}>
+                            Save Profile
                         </button>
                     </div>
                 </div> : (confirmOwner) ? <>

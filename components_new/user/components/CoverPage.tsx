@@ -1,4 +1,5 @@
 import { height } from '@mui/system';
+import { useAns } from 'ans-for-all';
 import React, { useState } from 'react'
 import { userInfo } from '../../../src/types'
 import ChangeCover from './ChangeCover'
@@ -19,25 +20,53 @@ function CoverPage(props: userInfo) {
     height: 188
   }
   // console.log(user_cover)
+  // Ensure the edit feature is only available to the current users page not anyone elses!
+
+  // url site userinfo == userinfo of viewer => show edit else no 
+  const {
+    walletConnected,
+    ansData,
+    address,
+    arconnectConnect,
+    arconnectDisconnect,
+    shortenAddress,
+  } = useAns();
+  // if wallet connected and user info address == address
+
 
   return (
     user_cover.length > 0 ? (
-      <div style={coverStyle} className=" w-full transition duration relative">
-        <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pr-16 pb-3'>
-          {/* <ChangeCover /> */}
-          <EditProfile />
+      <section style={coverStyle} className=" w-full transition duration relative flex flex-row justify-center">
+        <div className='relative max-w-[1300px] h-full'>
+          <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pb-3 px-4 md:px-16'>
+            {
+              address == props.userInfo.user && walletConnected && (
+                <>
+                  <EditProfile user={props}/>
+                  {/* <ChangeCover /> */}
+                </>
+                )
+            }
+          </div>
         </div>
         
 
-      </div>
+      </section>
     ) : (
-      <div className="h-[218px] bg-white w-full transition duration relative">
-        <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pr-16 pb-3'>
-          {/* <ChangeCover /> */}
-          <EditProfile />
+      <section className="h-[218px] bg-white w-full transition duration relative">
+        <div className='relative w-[1300px] h-full'>
+          <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pb-3 px-4 md:px-16'>
+          {
+              address != props.userInfo.user && !walletConnected && (
+                <>
+                  <EditProfile user={props}/>
+                  {/* <ChangeCover /> */}
+                </>
+                )
+            }
+          </div>
         </div>
-
-      </div>
+      </section>
     )
   
   )

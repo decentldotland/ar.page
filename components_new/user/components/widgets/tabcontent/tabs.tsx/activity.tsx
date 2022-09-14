@@ -1,30 +1,40 @@
-// @flow 
-import * as React from 'react';
-import { LoadingOrNotFound } from './reusables';
-import { ARWEAVE_EXPLORER_TX } from '../../../src/constants';
-import { ArweaveTransaction, userInfo } from '../../../src/types';
-import { arweaveTransactionHandler } from '../../../src/utils';
+import { useEffect, useState } from 'react';
+import { LoadingOrNotFound } from '../../../reusables';
+import { ARWEAVE_EXPLORER_TX } from '../../../../../../src/constants';
+import { ArweaveTransaction, userInfo } from '../../../../../../src/types';
+import { arweaveTransactionHandler } from '../../../../../../src/utils';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { SearchBar } from '../../../reusables';
 
 // TODO: Create a general component for this
-export const ArweaveActivity = ({transactions, loading}: {transactions: ArweaveTransaction[], loading: boolean}) => {
+export default function ArweaveActivity({transactions, loading}: {transactions: ArweaveTransaction[], loading: boolean}) {
 
-  const [onLoad, setOnLoad] = React.useState<boolean>(false);
+  const [onLoad, setOnLoad] = useState<boolean>(false);
+  const [filteredTransactions, setFilteredTransactions] = useState<ArweaveTransaction[]>(transactions || []);
 
   const epochToDate = (epoch: number) => {
     return (new Date(epoch * 1000)).toLocaleString();
   }
 
-  React.useEffect(() => {
+  const [search, setSearch] = useState<string>('');
+  const onSearch = (e: string) => {
+    setSearch(e);
+    setFilteredTransactions(transactions.filter((tx) => arweaveTransactionHandler(tx).toLowerCase().includes(e.toLowerCase())));
+  };
+
+  useEffect(() => {
     setOnLoad(true);
   }, [])
 
   return (
     <>
-      {transactions.length > 0 ? (
-        <div className={`flex flex-col transition-opacity duration-500 pb-3 opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
-          {transactions.map((transaction: ArweaveTransaction, index: number) => (
+      <div className="flex md:items-center mb-6">
+        <SearchBar value={search} onChange={(e) => onSearch(e)} placeholder={"Search activity"} />
+      </div>
+      {filteredTransactions.length > 0 ? (
+        <div className={`flex flex-col transition-opacity duration-400 pb-3 opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
+          {filteredTransactions.map((transaction: ArweaveTransaction, index: number) => (
             <a key={index}
               className="flex items-center my-2 rounded-lg transition-all ease-in-out duratino-200 hover:shadow-lg" 
               href={ARWEAVE_EXPLORER_TX + transaction.txid}

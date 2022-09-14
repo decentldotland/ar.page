@@ -1,5 +1,7 @@
 import { ANSData, DUMMY_ANS_DATA } from '../../src/types';
 import { MESON_URL } from '../../src/constants';
+import { useRecoilState } from 'recoil';
+import { isDarkMode } from '../../atoms';
 
 export type AvatarOptions = {
   customUrl?: string;
@@ -16,8 +18,11 @@ function ProfileAvatar ({ansData, options} :{ansData: ANSData, options?: AvatarO
     if (ansData.avatar) url = `${MESON_URL + ansData.avatar}`;
   }
 
+
+  const [isDark, setIsDark] = useRecoilState(isDarkMode);
+
   return (
-    <div className="flex rounded-full overflow-hidden mb-5 border-8 border-[#fafafa] border-solid"
+    <div className={`flex rounded-full overflow-hidden mb-5 ${ isDark? ('border-8 border-[#0B111F]'):('border-8 border-[#fafafa]')} border-solid`}
       style={{
         backgroundColor: ansData.address_color || "#000",
         // border: '2px solid '+ (ansData.address_color),

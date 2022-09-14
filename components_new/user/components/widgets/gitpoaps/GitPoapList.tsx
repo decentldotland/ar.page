@@ -1,6 +1,6 @@
 import { listClasses } from '@mui/material';
 import React, { useRef } from 'react'
-import { Gitpoap } from '../../../../src/types'
+import { Gitpoap } from '../../../../../src/types'
 import Thumbnail from './Thumbnail';
 
 interface GitPoapList { 

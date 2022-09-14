@@ -38,11 +38,11 @@ export const TextI = (props: Props) => {
     }, [edited, regex, text])
 
     return (
-        <div className="relative flex justify-start my-3 w-full">
-            <div data-tip={title} className="absolute w-4 h-4 mt-2.5 ml-2.5 tooltip ">
+        <div className="relative flex justify-start my-3 w-full items-center">
+            <div data-tip={title} className="absolute w-4 h-4 tooltip ">
                 {svgIcon}
             </div>
-            <input className={"border-primary "+ borderColor() + " transition-all duration-300 ease-in-out ring-0 outline-none text-lg mx-auto text-base-content bg-base-100 pl-8 pr-2 py-1 w-full border-b-2"}
+            <input className={"border-primary "+ borderColor() + " transition-all duration-300 ease-in-out ring-0 outline-none text-sm mx-auto text-base-content bg-base-100 pl-8 pr-2 py-1 w-full border-b-2"}
                 onInput={setValue}
                 onPaste={setValue}
                 onChange={setValue}

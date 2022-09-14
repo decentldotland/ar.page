@@ -21,15 +21,15 @@ function Avatar ({ansData, options} :{ansData: ANSData, options?: AvatarOptions}
       style={{
         backgroundColor: ansData.address_color || "#000",
         // border: '2px solid '+ (ansData.address_color),
-        height: height || '32px',
-        width: width || '32px',
+        height: height || '38px',
+        width: width || '38px',
       }}
     >
       {ansData.avatar ?
         <img src={url} className="w-full h-full" alt="Profile" />
         : 
         <div className="relative flex items-center justify-center w-full h-full">
-          <div className="absolute z-10 uppercase select-none bg-inherit text-white font-medium text-xl">{ansData.currentLabel?.[0] || "?"}</div>
+          <div className="absolute z-10 uppercase select-none bg-inherit text-white font-medium text-4xl font-inter">{ansData.currentLabel?.[0] || "?"}</div>
           <div className="absolute bg-gradient-to-l from-[#9E00FF] to-[#1273EA] rotate-45 origin-center w-full h-full"></div>
         </div>
       }

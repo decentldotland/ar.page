@@ -1,5 +1,6 @@
 // @flow 
 import axios from 'axios';
+import Link from 'next/link';
 import * as React from 'react';
 import { NavButtons } from './buttons';
 import NavBarButtons from './NavBarButtons';
@@ -28,21 +29,22 @@ export const Nav = (props:any) => {
 
     // bg-base-100
     return (
-        <div className="flex justify-between h-[56px] overflow-visible px-16 items-center ">
-            <SearchBar />
-                {/* 
-            <div className="mt-3 ml-4 overflow-visible h-full w-full">
+        <div className="font-inter flex justify-between h-[56px] overflow-visible px-4 md:px-16 items-center w-full">
+            <div className='flex flex-rows space-x-3.5 items-center '>
+                <Link href="/" >
+                    <h1 className='text-3xl font-bold text-gray-600 cursor-pointer'>📃</h1>
+                </Link>
                 <SearchBox
                     multiple={false}
                     disabled={false}
                     placeholder="Search for name or address"
                     // items={["test", "test0", "test1", "test2", "test3", "test4"]} />
-                    // items={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} />
+                    // items={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} /> 
                     options={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} /> 
             </div>
-                */}
-            <NavBarButtons />
-            {/* <NavButtons toggleDark={toggleDark} /> */}
+            <div className="ml-2">
+                <NavBarButtons />
+            </div>
         </div>
     );
 };

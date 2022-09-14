@@ -1,17 +1,19 @@
 // @flow 
-import { useAns } from 'ans-for-all';
 import * as React from 'react';
-import { ANSData, Res, userInfo } from '../../../src/types';
-import ProfileAvatar from '../../avatar/ProfileAvatar';
+import { useAns } from 'ans-for-all';
+import { CircularProgress, Snackbar } from '@mui/material';
 import {DocumentDuplicateIcon, CalendarDaysIcon} from '@heroicons/react/24/outline'
 import {CheckBadgeIcon, ShieldExclamationIcon} from '@heroicons/react/24/solid'
-import { Labels } from './labels';
+import { ANSData, Res, userInfo } from '../../../src/types';
+import ProfileAvatar from '../../avatar/ProfileAvatar';
+import { Labels, GenericLabel, getDefaultLabels } from './labels';
+import { HACKATHON_GENERIC_LABELS, HACKATHON_CUSTOM_LABELS } from '../hackathon/api/labels';
 import { Bio } from './bio';
+import { Divider } from './reusables';
+import {BsPatchQuestionFill} from 'react-icons/bs'
+import { useRecoilState } from 'recoil';
+import { isDarkMode } from '../../../atoms';
 
-import {BsGithub, BsTwitter, BsTelegram, BsInstagram, BsGlobe2} from 'react-icons/bs'
-import { removeHttp } from '../../../src/utils'
-import Link from 'next/link';
-import { Snackbar } from '@mui/material';
 
 interface UserProps { 
     user: userInfo,
@@ -20,13 +22,9 @@ interface UserProps {
 
 export const UserInfo = ({user, profile}: UserProps) => {
 
-    const links = user.userInfo.links !== undefined ? user.userInfo.links : {};
-
     const {
         shortenAddress,
     } = useAns();
-
-  
 
     const [open, setOpen] = React.useState(false);
     const copy_text = (link: string) => { 
@@ -34,10 +32,9 @@ export const UserInfo = ({user, profile}: UserProps) => {
         navigator.clipboard.writeText(link);
     }
 
-
     // @ts-ignore
     const { instagram, twitter, github, customUrl } = user?.userInfo?.links;
-    const { currentLabel, address_color, avatar } = user?.userInfo;
+    const { ownedLabels, currentLabel, address_color, avatar } = user?.userInfo;
 
     const ansData:ANSData = {
         currentLabel: currentLabel,
@@ -52,174 +49,78 @@ export const UserInfo = ({user, profile}: UserProps) => {
 
     // Member since...
     let epoch = profile?.first_linkage || 0;
-    let member_since = new Date( epoch * 1000);
+    let member_since = new Date(epoch * 1000);
     let [month, year] = [member_since.toLocaleString('default', {month: 'short'}), member_since.getFullYear()];
 
+    // Labels
+    const defaultLabels = getDefaultLabels({ar: ownedLabels || [], links: {twitter, github, instagram, customUrl}, ENS: profile?.ENS, AVVY: profile?.AVVY});
+    const allGenericLabels = [...defaultLabels, ...HACKATHON_GENERIC_LABELS];
+    const labels = [...allGenericLabels.map((label: any) => <GenericLabel {...label} />), ...HACKATHON_CUSTOM_LABELS]
 
-    const Telegram = function() { 
+    const [loading, setLoading] = React.useState(true);
+    
+    React.useEffect(() => {
+        setTimeout(function () {
+          console.log("Delayed for 5 second."); 
+          setLoading(false); 
+        }, 5000);
+      }, []);
+    const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
-        let username = profile?.telegram?.username
-
-        return (
-          
-            profile?.telegram?.username! ? (
-            <button className="px-2 py-1 space-x-1
-                font-bold bg-[#1273ea]/10 text-[#1273ea] text-sm rounded-2xl flex flex-row items-center">
-                
-                <BsTelegram width={100} height={100} color={"#1273ea"}/>
-                  {
-                    username !== null || undefined ? (
-                      <h3 className='font-inter'>
-                        {profile?.ANS.nickname}
-                      </h3>
-                      ):(
-                        <h3 className="font-inter">
-                          {profile?.telegram.username} 
-                        </h3>
-                    )
-                  }
-            </button>
-            ): ( <p className='hidden'></p> )
-        )
+    interface ProfileBadge {
+        loading: boolean,
+        is_evaluated: boolean | undefined,
+        is_verified: boolean | undefined,
+        isDark: boolean
     }
 
-    const GenericLabel = ({username, colors, icon, link_to, copy}: {
-        username: string | undefined, 
-        colors: string, 
-        icon: any,
-        link_to: string | null,
-        copy: boolean
-      }) => {
-        if (!username) return <></>
-        return (
-            <button 
-                
-                className={`${colors} px-2 py-1 font-bold text-sm rounded-2xl`}>
-                {copy && link_to! && link_to !== customUrl ? (
-                    <Link href={`${link_to}/${username}/`} passHref>
-                        <a target="_blank" rel="noopener noreferrer" className='hover:opacity-60 flex flex-row items-center space-x-1 '>
-                            {icon}
-                            <h3 className="font-inter">
-                                {removeHttp(username)}
-                            </h3>
-                        </a>
-                    </Link>
-                ): ( copy && link_to! && link_to == customUrl ? (
-                    <Link href={`${link_to}`} passHref>
-                        <a target="_blank" rel="noopener noreferrer" className='hover:opacity-60 flex flex-row items-center space-x-1 '>
-                            {icon}
-                            <h3 className="font-inter">
-                                {removeHttp(username)}
-                            </h3>
-                        </a>
-                    </Link>
+    // TODO: export
+    const ProfileBadge = ({loading, is_evaluated, is_verified, isDark}: ProfileBadge) => (
+        <>
+            {loading ? (
+                <CircularProgress color="inherit" size={30}/>
+            ) : (
+                is_evaluated || 
+                is_verified ? (
+                    <CheckBadgeIcon height={30} width={30} color={"#325FFE"} />
                 ) : (
-                    <div className={`flex flex-row items-center space-x-1`}
-                        onClick={() =>{ copy_text(username); }} >
-                            {icon}
-                        <h3 className="font-inter">
-                            {removeHttp(username)}
-                        </h3>
-                        <Snackbar
-                            message="Copied to clibboard"
-                            anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                            autoHideDuration={2000}
-                            onClose={() => setOpen(false)}
-                            open={open}
-                        />
-                    </div>
-                    )
-                )}
-            </button>
-        )
-    }
-    const colorProps = "bg-primary/10 text-primary"
-    const avaxColor = "bg-[#E84040]/80 text-white"
-    const ethColor = "bg-[#8a92b2]/20 text-[#454a75]"
-    const iconProps = {width: 100, height: 100, color: "#1273ea"}
-    const newLinks = [
-        // {username: profile?.ANS.nickname, colors: colorProps, icon: <FaUser {...iconProps} />},
-        {username: profile?.AVVY, colors: avaxColor, 
-          link_to: null,
-          copy: true,  
-          icon: <img 
-            width={30} 
-            height={30} 
-            src="https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=023"/>
-        },
-            
-
-        {username: profile?.ENS, colors: ethColor, 
-          link_to: null,
-          copy: true, 
-          icon: <img 
-            height={13}
-            width={13}
-            src="https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=002"  
-            alt="" /> 
-        },
-        // {username: profile?.telegram?.username, colors: colorProps, icon: <BsTelegram {...iconProps}/>},
-        {username: twitter, colors: colorProps, 
-          link_to: "https://twitter.com",
-          copy: true,  
-          icon: <BsTwitter {...iconProps} />},
-        {username: github, colors: colorProps, 
-          link_to: "https://github.com/",
-          copy: true,  
-          icon: <BsGithub {...iconProps} />},
-        {username: instagram, colors: colorProps, 
-          link_to: "https://instagram.com/",
-          copy: true,  
-          icon: <BsInstagram {...iconProps}/>},
-        {username: customUrl, colors: colorProps, 
-          link_to: customUrl,
-          copy: true,  
-          icon: <BsGlobe2 {...iconProps}/>},
-    ]
-
-    const socials = newLinks.map((social, i) => <GenericLabel 
-      username={social.username} 
-      colors={social.colors} 
-      icon={social.icon}
-      link_to={social.link_to}
-      copy={social.copy} 
-    />)
-
-    const items = [
-        <Labels user={user} />,
-        ...socials,
-    ]
+                    <BsPatchQuestionFill size={30} color={`${isDark? ('white') : ('#666') }`} />
+                )
+            )}
+        </>
+    )
 
     return (
         <div>
             <div className="relative">
-                <div className="relative bottom-20 flex flex-row items-end mt-3">
+                <div className="relative bottom-20 flex flex-col md:flex-row items-center md:items-end mt-3">
                     {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
                     {/* nickname and label */}
                     <div className='ml-5 mb-5'>
                         <div className="flex flex-row space-x-3 items-center mt-3">
-                            <div className="text-2xl font-bold leading-6 font-inter ">
-                                {user.userInfo.currentLabel}
+                            <div className="flex items-center ">
+                                <div className="text-2xl font-bold leading-6 font-inter mr-1">
+                                    {user.userInfo.currentLabel}
+                                </div>
+                                <ProfileBadge
+                                    loading={loading}
+                                    is_evaluated={profile?.is_evaluated}
+                                    is_verified={profile?.is_verified}
+                                    isDark={isDark}
+                                />
                             </div>
-                            
-                            {
-                                profile?.is_evaluated || 
-                                profile?.is_verified ? (
-                                    <CheckBadgeIcon height={30} width={30} color={"#325FFE"} />
-                                ):(
-                                    <ShieldExclamationIcon height={30} width={30} color={"#E84040"} />
-                                )
-                            }
-                            <div className='px-2 py-2 bg-base-200 rounded-lg cursor-pointer'
+                            <div className={`px-2 py-2 
+                                ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')} rounded-lg cursor-pointer`}
                                 onClick={() =>{ copy_text(user.userInfo.user); }} >
-                                <div className="flex flex-row font-inter font-semibold text-[#666] text-sm">
-                                    <h3 className='mr-1'>
+                                <div className="flex flex-row font-inter font-semibold text-sm">
+                                    <h3 className='mr-1 hidden md:block'>
                                         {(shortenAddress as Function)(user.userInfo.user)}
                                     </h3>
-                                    <DocumentDuplicateIcon height={20} width={20} color={"#666"} strokeWidth={2} />
+                                    <DocumentDuplicateIcon height={20} width={20} color={`${isDark? ('white') : ('#666') }`}
+                             strokeWidth={2} />
                                 </div>
                                 <Snackbar
-                                    message="Copied to clibboard"
+                                    message="Copied to clipboard"
                                     anchorOrigin={{ vertical: "top", horizontal: "center" }}
                                     autoHideDuration={2000}
                                     onClose={() => setOpen(false)}
@@ -227,32 +128,32 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                 />
                             </div>
                         </div>
-                        <h3 className='font-inter text-[#666] text-base mt-1 mb-1'>
+                        <h3 className='font-inter text-[#666] text-base my-1 text-center md:text-left'>
                             {user.userInfo.nickname}
                         </h3>
                         {/* DAO memberships */}
-                        <div className='flex flex-row items-center space-x-2 '>
+                        <div className='flex flex-row items-center justify-center md:justify-start space-x-2 '>
                             {/* <DaoMembership  userInfo={props.userInfo}/> */}
                             {/* User Membership Date */}
-                            <div className='flex flex-row  items-center space-x-1 text-[#666]
-                                py-1 px-2 w-fit bg-base-200 rounded-lg font-inter  text-xs font-bold'>
-                                <CalendarDaysIcon height={14} width={14} color={'#666'} strokeWidth={2}/>
+                            <div className={`flex flex-row  
+                                items-center space-x-1  
+                                py-1 px-2 w-fit ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')}  
+                                 rounded-lg 
+                                font-inter  text-xs font-bold`}>
+                                <CalendarDaysIcon height={14} width={14} 
+                                color={`${isDark? ('white') : ('#666') }`}
+                                strokeWidth={2}/>
                                 <p>Since {month} {year}</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 {/* User Bio and Available Labels */}
-                <div className='space-y-6 -mt-20'>
+                <div className='space-y-8 -mt-20 mb-5'>
                     <Bio text={bio} />
-                    {/* {profile && profile?.POAPS && <Poaps props={profile} />} */}
-                    {/* {profile && <ANSIdentitiesManager props={profile} />} */}
-                    <div className="flex flex-row carousel space-x-2 transition duration-400 relative ">
-                        {items.map((item, index) => (
-                            <div key={index} className="carousel-item">
-                                {item}
-                            </div>
-                        ))}
+                    <div className='space-y-2 !mt-0 md:!mt-4'>
+                        <Labels items={labels} />
+                        <Divider />
                     </div>
                 </div>
             </div>
