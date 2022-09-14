@@ -92,11 +92,11 @@ export const UserInfo = ({user, profile}: UserProps) => {
     return (
         <div>
             <div className="relative">
-                <div className="relative bottom-20 flex flex-col md:flex-row items-center md:items-end mt-3">
+                <div className="relative bottom-20 flex flex-col md:flex-row items-center md:items-end mt-5">
                     {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
                     {/* nickname and label */}
                     <div className={`ml-5 relative  ${epoch === 0 ? ('bottom-12') : ('bottom-6')} `}>
-                        <div className="sm:mt-7  flex flex-row items-center space-x-3 justify-center mt-3">
+                        <div className="sm:mt-7  flex flex-row items-center space-x-3 justify-center mt-5">
                             <div className="flex items-center ">
                                 <div className={`text-2xl 
                                 ${isDark ? (' text-white'): (' text-[#000]')}
