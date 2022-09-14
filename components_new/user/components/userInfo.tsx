@@ -67,37 +67,53 @@ export const UserInfo = ({user, profile}: UserProps) => {
       }, []);
     const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
+    interface ProfileBadge {
+        loading: boolean,
+        is_evaluated: boolean | undefined,
+        is_verified: boolean | undefined,
+        isDark: boolean
+    }
+
+    // TODO: export
+    const ProfileBadge = ({loading, is_evaluated, is_verified, isDark}: ProfileBadge) => (
+        <>
+            {loading ? (
+                <CircularProgress color="inherit" size={30}/>
+            ) : (
+                is_evaluated || 
+                is_verified ? (
+                    <CheckBadgeIcon height={30} width={30} color={"#325FFE"} />
+                ) : (
+                    <BsPatchQuestionFill size={30} color={`${isDark? ('white') : ('#666') }`} />
+                )
+            )}
+        </>
+    )
+
     return (
         <div>
             <div className="relative">
-                <div className="relative bottom-20 flex flex-row items-end mt-3">
+                <div className="relative bottom-20 flex flex-col md:flex-row items-center md:items-end mt-3">
                     {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
                     {/* nickname and label */}
                     <div className='ml-5 mb-5'>
                         <div className="flex flex-row space-x-3 items-center mt-3">
-                            <div className="text-2xl font-bold leading-6 font-inter ">
-                                {user.userInfo.currentLabel}
+                            <div className="flex items-center ">
+                                <div className="text-2xl font-bold leading-6 font-inter mr-1">
+                                    {user.userInfo.currentLabel}
+                                </div>
+                                <ProfileBadge
+                                    loading={loading}
+                                    is_evaluated={profile?.is_evaluated}
+                                    is_verified={profile?.is_verified}
+                                    isDark={isDark}
+                                />
                             </div>
-                            {
-                                loading ? (
-                                    <CircularProgress color="inherit" size={30}/>
-                                ) : (
-                                    profile?.is_evaluated || 
-                                    profile?.is_verified ? (
-                                        <CheckBadgeIcon height={30} width={30} color={"#325FFE"}  />
-
-                                    ) : (
-                                        <BsPatchQuestionFill size={30} color={`${isDark? ('white') : ('#666') }`} />
-                                    )
-                                )
-                            }
-
-
                             <div className={`px-2 py-2 
                                 ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')} rounded-lg cursor-pointer`}
                                 onClick={() =>{ copy_text(user.userInfo.user); }} >
                                 <div className="flex flex-row font-inter font-semibold text-sm">
-                                    <h3 className='mr-1'>
+                                    <h3 className='mr-1 hidden md:block'>
                                         {(shortenAddress as Function)(user.userInfo.user)}
                                     </h3>
                                     <DocumentDuplicateIcon height={20} width={20} color={`${isDark? ('white') : ('#666') }`}
@@ -112,15 +128,15 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                 />
                             </div>
                         </div>
-                        <h3 className='font-inter text-[#666] text-base mt-1 mb-1'>
+                        <h3 className='font-inter text-[#666] text-base my-1 text-center md:text-left'>
                             {user.userInfo.nickname}
                         </h3>
                         {/* DAO memberships */}
-                        <div className='flex flex-row items-center space-x-2 '>
+                        <div className='flex flex-row items-center justify-center md:justify-start space-x-2 '>
                             {/* <DaoMembership  userInfo={props.userInfo}/> */}
                             {/* User Membership Date */}
                             <div className={`flex flex-row  
-                                items-center space-x-1 
+                                items-center space-x-1  
                                 py-1 px-2 w-fit ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')}  
                                  rounded-lg 
                                 font-inter  text-xs font-bold`}>
@@ -135,7 +151,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                 {/* User Bio and Available Labels */}
                 <div className='space-y-8 -mt-20 mb-5'>
                     <Bio text={bio} />
-                    <div className='space-y-2'>
+                    <div className='space-y-2 !mt-0 md:!mt-4'>
                         <Labels items={labels} />
                         <Divider />
                     </div>

@@ -7,7 +7,7 @@ type Props = {
 };
 export const Sections = (props: Props) => {
     return (
-        <div className="mx-8 md:mx-auto">
+        <div className="px-6 md:mx-auto">
             <SectionOne />
             <SectionTwo />
         </div>

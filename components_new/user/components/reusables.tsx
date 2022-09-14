@@ -37,6 +37,7 @@ interface SearchType {
   value: string;
   onChange: (value: string) => void;
   placeholder: string;
+  slideOutable?: boolean;
 };
 
 export function SearchBar(props: SearchType) {
@@ -44,7 +45,7 @@ export function SearchBar(props: SearchType) {
   const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
   return (
-    <div className={`px-4 flex border-gray-200 border-2 flex-row space-x-3.5  py-3 items-center 
+    <div className={`px-4 flex border-gray-200 border-2 flex-row space-x-3.5 max-w-[80vw] py-3 items-center 
     ${isDark ? ('bg-[#121a2f]'): ('')}
     rounded-2xl`}>
       <MagnifyingGlassIcon height={20} width={20} strokeWidth={3} color={`${isDark? ('white') : ('#666') }`} />
@@ -54,8 +55,9 @@ export function SearchBar(props: SearchType) {
         onChange={(e) => (props.onChange(e.target.value))}
         placeholder={props.placeholder}
         className={`${isDark ? ('bg-[#121a2f]'): ('bg-inherit')}
-      
-          font-inter w-60 text-sm font-normal outline-none   `}     />
+          font-inter text-sm font-normal outline-none transition-all duration-300 ease-in-out
+          ${props.slideOutable ? "w-8 focus:w-[80vw] md:w-60" : "w-full md:w-60"}
+        `} />
     </div>
   )
 }
