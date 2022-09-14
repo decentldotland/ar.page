@@ -22,7 +22,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
 
   const tabs = [
     {
-      name: "Collectibles",
+      name: "Collectables",
       total: NFTs.length,
       component: <Collectibles NFTs={NFTs} loading={loading} />
     },

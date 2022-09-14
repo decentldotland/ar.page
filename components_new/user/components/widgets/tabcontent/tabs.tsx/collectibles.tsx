@@ -22,10 +22,10 @@ export default function Collectibles({NFTs, loading}: {NFTs: NFT[], loading: boo
   }, [NFTs])
 
   return (
-    <div className={`transition-opacity duration-400 pb-3 opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
-      <div className={`flex flex-col md:flex-row items-start justify-between mb-8`}>
-        <SearchBar value={search} onChange={(e) => onSearch(e)} placeholder={"Search collectibles"} slideOutable={true} />
-        <div className="flex items-center">
+    <div className={`transition-opacity duration-400 pb-3  opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
+      <div className={`flex flex-col md:flex-row items-start md:justify-between mb-8 sm:flex-row sm:space-x-2 `}>
+        <SearchBar value={search} onChange={(e) => onSearch(e)} placeholder={"Search collectables"} slideOutable={true} />
+        <div className="flex items-center sm:relative sm:bottom-2">
           {/* <button className="bg-primary/20 text-primary rounded-lg hover:bg-primary/30 p-2 flex items-center mr-2">
             <ListBulletIcon height={20} width={20} strokeWidth={3}/>
           </button>
@@ -33,7 +33,8 @@ export default function Collectibles({NFTs, loading}: {NFTs: NFT[], loading: boo
             <BsGrid height={25} width={25} strokeWidth={1}/>
           </button> */}
           <button
-            className="bg-primary/20 text-primary font-semibold rounded-lg hover:bg-primary/30 py-1.5 px-2.5 flex items-center mt-4 md:mt-0"
+            className="bg-primary/20 text-primary font-semibold rounded-lg hover:bg-primary/30 
+              py-1.5 px-2.5 flex items-center mt-4 md:mt-0 "
             onClick={() => setAscending(() => {
               filter()
               return !ascending
