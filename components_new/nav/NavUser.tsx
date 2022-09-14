@@ -35,7 +35,7 @@ export const NavUser = (props: any) => {
                             </>
                         ): (
                             <div className='flex rounded-full h-9 w-9 overflow-hidden bg-primary border-[2px] mt-[4px]'
-                                onClick={arconnectConnect}
+                                // onClick={arconnectConnect}
                             >
                                 <Image src={Favicon} width={36} height={36} className='mx-auto my-auto' alt="" />
                             </div>

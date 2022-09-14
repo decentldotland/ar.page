@@ -96,8 +96,8 @@ export const UserInfo = ({user, profile}: UserProps) => {
                     {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
                     {/* nickname and label */}
                     <div className={`ml-5 relative  ${epoch === 0 ? ('bottom-12') : ('bottom-6')} `}>
-                        <div className="flex flex-row items-center space-x-3 justify-center mt-3">
-                            <div className="flex items-start ">
+                        <div className="sm:mt-7  flex flex-row items-center space-x-3 justify-center mt-3">
+                            <div className="flex items-center space-x-2 ">
                                 <div className={`text-2xl 
                                 ${isDark ? (' text-white'): (' text-[#000]')}
                                 font-bold leading-6 font-inter mr-1`}>
