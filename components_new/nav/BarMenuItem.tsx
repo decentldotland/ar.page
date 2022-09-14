@@ -64,7 +64,7 @@ useEffect(() => {
                                             <a target="_blank" rel="noopener noreferrer" className=' flex flex-row items-center space-x-3.5'>
                                                 <Image src={Favicon} width={27} height={27} className='' alt="" />
                                                 <h1 className={`${isDark ? ('text-white'): ('text-black')} `}>
-                                                    Go to Decent land
+                                                    Go to decent.land
                                                 </h1>
                                             </a>
                                         </Link>

@@ -77,13 +77,13 @@ export const UserInfo = ({user, profile}: UserProps) => {
     const ProfileBadge = ({loading, is_evaluated, is_verified, isDark}: ProfileBadge) => (
         <>
             {loading ? (
-                <CircularProgress color="inherit" size={30}/>
+                <CircularProgress color="inherit" size={23}/>
             ) : (
                 is_evaluated || 
                 is_verified ? (
-                    <CheckBadgeIcon height={27} width={27} color={"#325FFE"} enableBackground={"white"}/>
+                    <CheckBadgeIcon height={22} width={22} color={"#325FFE"} enableBackground={"white"}/>
                 ) : (
-                    <BsPatchQuestionFill size={30} color={`${isDark? ('white') : ('#666') }`} />
+                    <BsPatchQuestionFill size={20} color={`${isDark? ('white') : ('#666') }`} />
                 )
             )}
         </>
@@ -97,10 +97,10 @@ export const UserInfo = ({user, profile}: UserProps) => {
                     {/* nickname and label */}
                     <div className={`ml-5 relative  ${epoch === 0 ? ('bottom-12') : ('bottom-6')} `}>
                         <div className="sm:mt-7  flex flex-row items-center space-x-3 justify-center mt-3">
-                            <div className="flex items-center space-x-2 ">
+                            <div className="flex items-center ">
                                 <div className={`text-2xl 
                                 ${isDark ? (' text-white'): (' text-[#000]')}
-                                font-bold leading-6 font-inter mr-1`}>
+                                font-bold leading-6 font-inter mr-2`}>
                                     {user.userInfo.currentLabel}
                                 </div>
                                 <ProfileBadge
@@ -110,7 +110,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                     isDark={isDark}
                                 />
                             </div>
-                            <div className={`px-2 py-2 sm:scale-90 md:scale-100
+                            <div className={`px-2 py-2 sm:scale-90 md:scale-100 
                                 ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')} rounded-lg cursor-pointer`}
                                 onClick={() =>{ copy_text(user.userInfo.user); }} >
                                 <div className="flex flex-row font-inter font-semibold text-sm">
