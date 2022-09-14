@@ -47,9 +47,13 @@ export const avaxLabel = (AVVY:string|undefined) => {
 }
 
 export const ethLabel = (ENS:string|undefined) => {
+  const [isDark, setIsDark] = useRecoilState(isDarkMode);
+
+  let dark_mode = `${isDark ? ('bg-[#8a92b2]/60 text-white') : (ethColor)} `;
+
   if (!ENS) return null;
   return {
-    username: ENS, classes: ethColor,
+    username: ENS, classes: dark_mode,
     link_to: null,
     canCopy: true,
     icon: <img
