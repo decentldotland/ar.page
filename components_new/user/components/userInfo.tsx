@@ -111,7 +111,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                 />
                             </div>
                             <div className={`px-2 py-2 sm:scale-90 md:scale-100 
-                                ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')} rounded-lg cursor-pointer`}
+                                ${isDark ? ('bg-[#2c467e] text-white'): ('bg-gray-200 text-[#666]')} rounded-lg cursor-pointer`}
                                 onClick={() =>{ copy_text(user.userInfo.user); }} >
                                 <div className="flex flex-row font-inter font-semibold text-sm">
                                     <h3 className='mr-1 hidden md:block'>
