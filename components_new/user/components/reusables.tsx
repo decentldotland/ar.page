@@ -17,7 +17,7 @@ export function Title (jsx: any) {
 };
 
 export function Divider () {
-  return <div className="bg-gray-300 h-[1.5px] w-full my-5"></div>
+  return <div className="bg-gray-300 h-[1px] w-full my-5"></div>
 }
 
 export function LoadingOrNotFound({loading, jsxNotFound}: {loading: boolean, jsxNotFound: any}) {
@@ -112,7 +112,7 @@ export function NFTGallery ({NFTs}: {NFTs: NFT[]}) {
                 setIsOpen(true)
               }}
               objectFit="cover"
-              className={`rounded-2xl cursor-pointer object-cover`}
+              className={`rounded-lg cursor-pointer object-cover`}
             />
           </button>
         )}

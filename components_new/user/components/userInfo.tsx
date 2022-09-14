@@ -13,6 +13,7 @@ import { Divider } from './reusables';
 import {BsPatchQuestionFill} from 'react-icons/bs'
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../atoms';
+import ProfileBadge from './modals/ProfileBadge';
 
 
 interface UserProps { 
@@ -66,28 +67,8 @@ export const UserInfo = ({user, profile}: UserProps) => {
       }, []);
     const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
-    interface ProfileBadge {
-        loading: boolean,
-        is_evaluated: boolean | undefined,
-        is_verified: boolean | undefined,
-        isDark: boolean
-    }
+ 
 
-    // TODO: export
-    const ProfileBadge = ({loading, is_evaluated, is_verified, isDark}: ProfileBadge) => (
-        <>
-            {loading ? (
-                <CircularProgress color="inherit" size={23}/>
-            ) : (
-                is_evaluated || 
-                is_verified ? (
-                    <CheckBadgeIcon height={22} width={22} color={"#325FFE"} enableBackground={"white"}/>
-                ) : (
-                    <BsPatchQuestionFill size={20} color={`${isDark? ('white') : ('#666') }`} />
-                )
-            )}
-        </>
-    )
 
     return (
         <div>
@@ -100,7 +81,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                             <div className="flex items-center ">
                                 <div className={`text-2xl 
                                 ${isDark ? (' text-white'): (' text-[#000]')}
-                                font-bold leading-6 font-inter mr-2`}>
+                                font-bold leading-6 font-inter`}>
                                     {user.userInfo.currentLabel}
                                 </div>
                                 <ProfileBadge
