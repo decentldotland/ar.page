@@ -23,7 +23,7 @@ export default function Collectibles({NFTs, loading}: {NFTs: NFT[], loading: boo
 
   return (
     <div className={`transition-opacity duration-400 pb-3  opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
-      <div className={`flex flex-col md:flex-row items-start md:justify-between mb-8 sm:flex-row sm:space-x-2 `}>
+      <div className={`flex flex-col md:flex-row  md:items-end md:justify-between mb-8 sm:flex-row sm:space-x-2 `}>
         <SearchBar value={search} onChange={(e) => onSearch(e)} placeholder={"Search collectables"} slideOutable={true} />
         <div className="flex items-center sm:relative sm:bottom-2">
           {/* <button className="bg-primary/20 text-primary rounded-lg hover:bg-primary/30 p-2 flex items-center mr-2">
