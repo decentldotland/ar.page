@@ -33,7 +33,7 @@ export default function Collectibles({NFTs, loading}: {NFTs: NFT[], loading: boo
             <BsGrid height={25} width={25} strokeWidth={1}/>
           </button> */}
           <button
-            className="bg-primary/20 text-primary font-semibold rounded-lg hover:bg-primary/30 
+            className="bg-primary/20 text-primary font-medium rounded-md hover:bg-primary/30 
               py-1.5 px-2.5 flex items-center mt-4 md:mt-0 "
             onClick={() => setAscending(() => {
               filter()

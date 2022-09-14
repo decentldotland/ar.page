@@ -23,7 +23,7 @@ export default function Selector(props: SelectorInterface) {
               customJSX
             ) : (
               <>
-                <span className={`text-xl ${selected === index ? ('font-semibold'): ('font-medium')}`}>{tab.name}</span>
+                <span className={`text-lg ${selected === index ? ('font-semibold'): ('font-medium')}`}>{tab.name}</span>
                 <span className=" ml-2 bg-base-200 rounded-lg px-2 py-0.5 text-[#666] text-sm">{tab.total}</span>  
               </>
             )}

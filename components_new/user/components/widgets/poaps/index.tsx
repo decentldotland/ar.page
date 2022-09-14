@@ -7,8 +7,8 @@ export default function Poaps({ props }: { props: Res }) {
 
   return (
     <>
-      <h1 className="text-left font-inter font-bold text-xl">POAPS</h1>
-      <div className="mt-5 flex gap-x-4 carousel mb-5">
+      {/* <h1 className="text-left font-inter font-bold text-xl">POAPS</h1> */}
+      <div className=" flex gap-x-4 carousel mb-5">
         {POAPS.map((p, i) => (
           <div key={i} className="carousel-item">
             <label className="flex items-center cursor-pointer modal-button" htmlFor="my-modal-4">
@@ -18,7 +18,7 @@ export default function Poaps({ props }: { props: Res }) {
             <label htmlFor="my-modal-4" className="modal cursor-pointer backdrop-blur-md">
               <label className="modal-box relative" htmlFor="">
                 <div className="flex flex-col items-center">
-                  <Image loader={() => p.event.image_url} src={p.event.image_url} width={112} height={112} className="mt-4 mb-8" />
+                  <Image loader={() => p.event.image_url} src={p.event.image_url} width={112} height={112} className="mt-4 mb-8 shadow-sm" />
                 </div>
                 <div className="flex flex-col gap-y-2 text-center">
                   <div className="font-semibold">{p.event.name}</div>
