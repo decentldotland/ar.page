@@ -6,8 +6,7 @@ type Props = {
 };
 export const Bio = (props: Props) => {
     return (
-        <div className="flex flex-wrap shrink w-full font-inter">
-            <Title>BIO</Title>
+        <div className="flex flex-wrap shrink w-full font-inter mt-5">
             <div className="font-medium text-sm leading-6 text-[#666]">
                 {props.text}
 

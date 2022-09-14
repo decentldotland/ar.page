@@ -1,4 +1,4 @@
-import { BookOpenIcon, FaceSmileIcon, MoonIcon } from '@heroicons/react/24/outline';
+import { BookOpenIcon, CheckBadgeIcon, FaceSmileIcon, MoonIcon } from '@heroicons/react/24/outline';
 import { useAns } from 'ans-for-all';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,6 +12,7 @@ import { Divider } from '../user/components/reusables';
 import { User } from '../user/sidebar/user';
 import { NavUser } from './NavUser';
 import {SunIcon} from '@heroicons/react/24/outline'
+import { CircularProgress } from '@mui/material';
 
 
 
@@ -75,13 +76,22 @@ useEffect(() => {
                                         <Avatar ansData={ansData} options={{height:"56px", width:"56px"}}/>
                                         {/* nickname and label */}
                                         <div className="flex flex-col relative top-[0.5] ">
-                                            <p className={`text-lg
+                                            {
+                                                ansData ? (
+                                                    <p className={`text-lg
                                             
-                                            ${isDark ? ('text-white'): ('text-black')} 
-
-                                            font-semibold text-left`}>
-                                                {ansData?.currentLabel}
-                                            </p>
+                                                    ${isDark ? ('text-white'): ('text-black')} 
+        
+                                                    font-semibold text-left`}>
+                                                        {ansData?.currentLabel}
+                                                    </p>
+                                                ): (
+                                                    <div className='ml-2'> 
+                                                        <CircularProgress color={`${isDark ? ('primary'):('inherit')}`} size={40}/>
+                                                    </div>
+                                                )
+                                            }
+                                 
                                         </div>
                                     </li>
                                 )
