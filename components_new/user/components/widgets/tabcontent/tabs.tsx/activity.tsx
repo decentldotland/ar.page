@@ -29,7 +29,7 @@ export default function ArweaveActivity({transactions, loading}: {transactions: 
 
   return (
     <>
-      <div className="flex items-center mb-6">
+      <div className="flex md:items-center mb-6">
         <SearchBar value={search} onChange={(e) => onSearch(e)} placeholder={"Search activity"} />
       </div>
       {filteredTransactions.length > 0 ? (

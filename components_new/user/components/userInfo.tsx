@@ -97,8 +97,8 @@ export const UserInfo = ({user, profile}: UserProps) => {
                     {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
                     {/* nickname and label */}
                     <div className='ml-5 mb-5'>
-                        <div className="flex flex-col md:flex-row space-x-3 items-center mt-3">
-                            <div className="flex items-center mb-2 md:mb-0">
+                        <div className="flex flex-row space-x-3 items-center mt-3">
+                            <div className="flex items-center ">
                                 <div className="text-2xl font-bold leading-6 font-inter mr-1">
                                     {user.userInfo.currentLabel}
                                 </div>
@@ -113,7 +113,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                 ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')} rounded-lg cursor-pointer`}
                                 onClick={() =>{ copy_text(user.userInfo.user); }} >
                                 <div className="flex flex-row font-inter font-semibold text-sm">
-                                    <h3 className='mr-1'>
+                                    <h3 className='mr-1 hidden md:block'>
                                         {(shortenAddress as Function)(user.userInfo.user)}
                                     </h3>
                                     <DocumentDuplicateIcon height={20} width={20} color={`${isDark? ('white') : ('#666') }`}

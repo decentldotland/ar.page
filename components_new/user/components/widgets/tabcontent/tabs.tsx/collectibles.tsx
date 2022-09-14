@@ -23,8 +23,8 @@ export default function Collectibles({NFTs, loading}: {NFTs: NFT[], loading: boo
 
   return (
     <div className={`transition-opacity duration-400 pb-3 opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
-      <div className={`flex flex-col md:flex-row items-center justify-between mb-8`}>
-        <SearchBar value={search} onChange={(e) => onSearch(e)} placeholder={"Search collectibles"} />
+      <div className={`flex flex-col md:flex-row items-start justify-between mb-8`}>
+        <SearchBar value={search} onChange={(e) => onSearch(e)} placeholder={"Search collectibles"} slideOutable={true} />
         <div className="flex items-center">
           {/* <button className="bg-primary/20 text-primary rounded-lg hover:bg-primary/30 p-2 flex items-center mr-2">
             <ListBulletIcon height={20} width={20} strokeWidth={3}/>
