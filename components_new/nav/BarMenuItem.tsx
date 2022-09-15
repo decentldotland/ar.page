@@ -45,17 +45,19 @@ useEffect(() => {
     }
 }, [isDark]);
   return (
-    <section className='dropdown'>
+    <section className=''>
         <button  onClick={() => setToggle(!toggle)}>
             <NavUser />
         </button>
 
-        <article className={`relative `} >
+        <article className={`relative`} >
             {
                 toggle && (
-                    <div className={`dropdown-content ${isDark ? ('bg-[#121a2f]'):('bg-white ')} text-black absolute z-50 py-5 px-2 right-1 shadow-xl 
+                    <div 
+                        hidden={!toggle}
+                        className={` ${isDark ? ('bg-[#121a2f]'):('bg-white ')} text-black absolute z-50 py-5 px-2 right-1 shadow-xl 
                         rounded-xl mt-4 w-[272px]`}>
-                        <ul tabIndex={0} className='h-full'>
+                        <ul className='h-full'>
                             {
                                 !walletConnected ? (
                                     <li className={`py-2 px-2 w-full 
