@@ -711,7 +711,7 @@ export const Content = (props: Props) => {
         } 
         setTimeout(function () {
         setTimeOut(true); 
-        setEditEnabled(false)
+        setEditEnabled(false);
         }, 5000);
     }, [progress]);
 

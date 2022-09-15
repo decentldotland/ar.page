@@ -36,6 +36,21 @@ function BarMenuItem() {
     setIsDark(!isDark);
 }
 
+const container: any = React.useRef();
+
+useEffect(() => {
+    const ev = (event: any) => {
+        if (!container.current.contains(event.target)) {
+            setToggle(false);
+            document.removeEventListener('click', ev);
+        }
+    }
+    if (toggle)
+        document.addEventListener('click', ev);
+    else
+        document.removeEventListener('click', ev);
+}, [toggle]);
+
 useEffect(() => {
     // On page load or when changing themes, best to add inline in `head` to avoid FOUC
     if (localStorage.theme === 'ardark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -45,7 +60,7 @@ useEffect(() => {
     }
 }, [isDark]);
   return (
-    <section className=''>
+    <section className=''  ref={container}>
         <button  onClick={() => setToggle(!toggle)}>
             <NavUser />
         </button>
