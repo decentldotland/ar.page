@@ -1,17 +1,37 @@
+import Image from 'next/image';
+import { ARWEAVE_URL } from '../../../../src/constants';
+import { Res } from '../../../../src/types';
 import { Widget } from '../../components/widgets';
 
-// Important to wrap custom components in Widget tag
-export const HACKATHON_WIDGETS_TOP_PART = []; //[<HackathonWidgetExample />];
-export const HACKATHON_WIDGETS_BOTTOM_PART = []; //[<HackathonWidgetExample />];
+export function HackathonTopWidgets (arkProfile: Res | undefined) {
+  // It's important to wrap custom components in Widget tag
+  
+  const widgets: any[] = [] //[<HackathonWidgetExample arkProfile={arkProfile} />];
+
+  return widgets
+
+};
 
 
-export function HackathonWidgetExample() {
+export function HackathonWidgetExample({arkProfile}: {arkProfile: Res | undefined}) {
+
   return (
-    <Widget canRender={true}>
-      <div className="text-2xl font-bold mb-2">Custom hackathon widget</div>
-      <button className="bg-gradient-to-bl from-indigo-200 via-red-200 to-yellow-100 px-2.5 py-2 font-bold text-sm text-blue-500 rounded-2xl flex items-center cursor-pointer">
-        do a thing
-      </button>
+    <Widget canRender={!!arkProfile?.ANFTS?.koii} divider={true}> {/* canRender is a boolean that determines if the widget should be rendered */}
+      <div className="text-xl font-semibold mb-2">Favourite NFT</div>
+      <div className="w-[150px] h-[150px]">
+        <Image width={150} height={150} objectFit="cover" src={ARWEAVE_URL + arkProfile?.ANFTS?.koii?.[0].id} className="rounded-xl" />
+      </div>
     </Widget>
   )
+};
+
+
+// unused for now
+export function HackathonBottomWidgets (arkProfile: Res | undefined) {
+  // It's important to wrap custom components in Widget tag
+
+  const widgets: any[] = [] //[<HackathonWidgetExample arkProfile={arkProfile} />];
+
+  return widgets
+
 };

@@ -31,7 +31,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       total: activity.length,
       component: <ArweaveActivity transactions={activity} loading={loading} />
     },
-    ...TABS
+    ...TABS(arkProfile),
   ];
 
   return (

@@ -11,6 +11,7 @@ export interface WidgetType {
   canRender: boolean; // pass conditionals here
   loading?: boolean;
   loadingChildren?: any; // pass loading animation component here
+  divider?: boolean;
 }
 
 export function Widget(props: WidgetType) {
@@ -19,6 +20,7 @@ export function Widget(props: WidgetType) {
       {props.canRender ? (
         <>
           {props.children}
+          {props.divider && <Divider />}
         </>
       ): (
         <>
@@ -63,15 +65,13 @@ export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefi
     </>
   )
   const defaultWidgets = [
-    <Widget canRender={arkProfile?.POAPS?.length > 0} loading={loading}>
+    <Widget canRender={arkProfile?.POAPS?.length > 0} loading={loading} divider={true}>
       <Poaps props={arkProfile}/>
-      <Divider />
     </Widget>,
-    ...TOP_WIDGETS,
-    <Widget canRender={!loading}>
+    ...TOP_WIDGETS(arkProfile),
+    <Widget canRender={!loading} divider={false}>
       <TabContent arkProfile={arkProfile} loading={loading} />
     </Widget>,
-    ...BOTTOM_WIDGETS,
   ]
   return (
     <div className="overflow-x-hidden">
