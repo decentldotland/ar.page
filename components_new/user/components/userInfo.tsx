@@ -111,8 +111,8 @@ export const UserInfo = ({user, profile}: UserProps) => {
                             </div>
                         </div>
                         
-                        <div className='sm:flex sm:flex-col sm:space-y-1'>
-                            <h3 className='font-inter text-[#666]  text-base mt-1 mb-1 sm:text-center md:text-left'>
+                        <div className='sm:flex sm:flex-col sm:space-y-1 '>
+                            <h3 className='font-inter text-[#666]  text-base mt-1 sm:mb-2 mb-1 text-center sm:text-center md:text-left lg:text-left' >
                                 {user.userInfo.nickname}
                             </h3>
                             <div>
