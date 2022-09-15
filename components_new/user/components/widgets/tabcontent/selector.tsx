@@ -1,3 +1,5 @@
+import { useRecoilState } from "recoil";
+import { isDarkMode } from "../../../../../atoms";
 
 interface tab {
   name: string;
@@ -13,6 +15,7 @@ interface SelectorInterface{
 
 export default function Selector(props: SelectorInterface) {
   const { tabs, selected, setSelected } = props;
+  const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
   return (
     <div className="w-full font-inter mb-6">
@@ -24,7 +27,10 @@ export default function Selector(props: SelectorInterface) {
             ) : (
               <>
                 <span className={`text-lg ${selected === index ? ('font-semibold'): ('font-medium')}`}>{tab.name}</span>
-                <span className=" ml-2 bg-base-200 rounded-lg px-2 py-0.5 text-[#666] text-sm">{tab.total}</span>  
+                <span className={`ml-2 ${isDark ? ('bg-[#2c467e] text-white'): ('bg-gray-200 text-[#666]')} 
+                  rounded-lg px-2 py-0.5 text-sm`}>
+                  {tab.total}
+                  </span>  
               </>
             )}
           </button>

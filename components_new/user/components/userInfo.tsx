@@ -15,6 +15,7 @@ import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../atoms';
 import { HackathonLabels } from '../hackathon/api/labels';
 import ProfileBadge from './modals/ProfileBadge';
+import EditProfile from './EditProfile';
 
 
 interface UserProps { 
@@ -26,6 +27,8 @@ export const UserInfo = ({user, profile}: UserProps) => {
 
     const {
         shortenAddress,
+        walletConnected,
+        address
     } = useAns();
 
     const [open, setOpen] = React.useState(false);
@@ -74,7 +77,23 @@ export const UserInfo = ({user, profile}: UserProps) => {
         <div>
             <div className="relative">
                 <div className="relative bottom-20 flex flex-col md:flex-row items-center md:items-end mt-5">
-                    {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
+                    <article className='relative'>
+                        {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
+                        <div className='absolute bottom-10 right-4 w-[30px] md:hidden'>
+                            {
+                                address == user.userInfo.user && walletConnected && (
+                                    <>
+                                    <EditProfile user={user}/>
+                                    {/* <ChangeCover /> */}
+                                    </>
+                                    )
+                            }
+
+                        </div>
+
+                    </article>
+                   
+
                     {/* nickname and label */}
                     <div className={`ml-5 relative  ${epoch === 0 ? ('bottom-12') : ('bottom-6')} `}>
                         <div className="sm:mt-7  flex flex-row items-center space-x-3 justify-center mt-5">
@@ -101,6 +120,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                     <DocumentDuplicateIcon height={20} width={20} color={`${isDark? ('white') : ('#666') }`}
                                         strokeWidth={2} />
                                 </div>
+                               
                                 <Snackbar
                                     message="Copied to clipboard"
                                     anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -109,10 +129,14 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                     open={open}
                                 />
                             </div>
+                            
                         </div>
                         
                         <div className='sm:flex sm:flex-col sm:space-y-1 '>
-                            <h3 className='font-inter text-[#666]  text-base mt-1 sm:mb-2 mb-1 text-center sm:text-center md:text-left lg:text-left' >
+                            <h3 className={`font-inter 
+                            ${isDark ? (' text-white/60'): (' text-[#666]')}
+                            text-base mt-1 sm:mb-2 mb-1 
+                            text-center sm:text-center md:text-left lg:text-left`} >
                                 {user.userInfo.nickname}
                             </h3>
                             <div>
