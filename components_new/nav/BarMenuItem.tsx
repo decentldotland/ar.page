@@ -1,4 +1,4 @@
-import { BookOpenIcon, FaceSmileIcon, MoonIcon } from '@heroicons/react/24/outline';
+import { BookOpenIcon, CheckBadgeIcon, FaceSmileIcon, MoonIcon } from '@heroicons/react/24/outline';
 import { useAns } from 'ans-for-all';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,6 +12,7 @@ import { Divider } from '../user/components/reusables';
 import { User } from '../user/sidebar/user';
 import { NavUser } from './NavUser';
 import {SunIcon} from '@heroicons/react/24/outline'
+import { CircularProgress } from '@mui/material';
 
 
 
@@ -57,43 +58,56 @@ useEffect(() => {
                         <ul tabIndex={0} className='h-full'>
                             {
                                 !walletConnected ? (
-                                    <li className={`py-2 px-2 w-full ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')}h-full rounded-lg`}>
+                                    <li className={`py-2 px-2 w-full 
+                                    ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')} 
+                                    h-full rounded-lg`}>
                                         <Link href={"https://www.decent.land/"}  className="flex flex-row items-center ">
                                             <a target="_blank" rel="noopener noreferrer" className=' flex flex-row items-center space-x-3.5'>
-                                                <Image src={Favicon} width={28} height={28} className='' alt="" />
-                                                <h1 className={`${isDark ? ('text-white'): ('text-black')}`}>Go to Decent land</h1>
+                                                <Image src={Favicon} width={27} height={27} className='' alt="" />
+                                                <h1 className={`${isDark ? ('text-white'): ('text-black')} `}>
+                                                    Go to decent.land
+                                                </h1>
                                             </a>
                                         </Link>
                                     </li>
                                 ) : (
-                                    <li className={`space-x-3.5 flex flex-row items-center  px-2  
+                                    <li className={`space-x-3.5 flex flex-row items-center  px-2  py-2
                                     ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')} h-full rounded-lg`}>
                                         <Avatar ansData={ansData} options={{height:"56px", width:"56px"}}/>
                                         {/* nickname and label */}
                                         <div className="flex flex-col relative top-[0.5] ">
-                                            <p className={`text-lg
+                                            {
+                                                ansData ? (
+                                                    <p className={`text-lg
                                             
-                                            ${isDark ? ('text-white'): ('text-black')} 
-
-                                            font-semibold text-left`}>
-                                                {ansData?.currentLabel}
-                                            </p>
+                                                    ${isDark ? ('text-white'): ('text-black')} 
+        
+                                                    font-semibold text-left`}>
+                                                        {ansData?.currentLabel}
+                                                    </p>
+                                                ): (
+                                                    <div className='ml-2'> 
+                                                        <CircularProgress color={`${isDark ? ('primary'):('inherit')}`} size={40}/>
+                                                    </div>
+                                                )
+                                            }
+                                 
                                         </div>
                                     </li>
                                 )
                             }
                             <Divider />
                             <li hidden={!walletConnected} 
-                           className={`py-2 px-2 w-full 
-                           ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')} 
-                           h-full rounded-lg`}
+                                className={`py-2 px-2 w-full cursor-pointer
+                                ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')} 
+                                h-full rounded-lg`}
                             >
-                                <Link href={`https://localhost:3000/p/${ansData?.currentLabel}`}  className=" flex flex-row items-center ">
+                                <a href={`/p/${ansData?.currentLabel}`}  className=" flex flex-row items-center ">
                                     <div className=' flex flex-row items-center space-x-3.5'>
                                         <FaceSmileIcon height={20} width={20} color={`${isDark? ('white') : ('black') }`}/>
                                         <h1>My Profile</h1>
                                     </div>
-                                </Link>
+                                </a>
                             </li>
                             <li className={`py-2 px-2 w-full 
                                 ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')} 

@@ -4,6 +4,8 @@ import { User } from '../user/sidebar/user'
 import BarMenuItem from './BarMenuItem'
 import { useAns } from 'ans-for-all';
 import { FiLogIn, FiLogOut } from 'react-icons/fi';
+import { useRecoilState } from 'recoil';
+import { isDarkMode } from '../../atoms';
 
 
 function NavBarButtons() {
@@ -15,14 +17,21 @@ function NavBarButtons() {
     shortenAddress,
   } = useAns();
 
+  const [isDark, setIsDark] = useRecoilState(isDarkMode);
+
   return (
     <div>
-        <ul className='font-inter font-semibold text-[15px] flex items-center '>
-            <li hidden={walletConnected} className='cursor-pointer hidden md:block mr-2 py-2 px-4 w-full hover:bg-blue-300/40 h-full rounded-2xl bg-[#1273EA]/20'>
+        <ul className='font-inter font-semibold text-[15px] flex space-x-4 items-center'>
+            {/* <li>Ark</li> */}
+            <li hidden={walletConnected} className={`cursor-pointer  py-2 px-4 w-full
+               ${isDark ? (' hover:bg-[#07215e] bg-[#367acc]') : (' hover:bg-blue-300/40 bg-[#1273EA]/20')}
+               h-full rounded-2xl sm:shrink `}>
                 <div onClick={() => (arconnectConnect as Function)()} 
                   className="flex flex-row items-center space-x-3.5">
                     {/* <FiLogIn height={20} width={20} color="black"/> */}
-                    <h1 className='text-primary'>Connect Wallet</h1>
+                    <h1 className={`
+                      ${isDark ? (' text-white font-semibold') : (' text-[#1273EA] font-semibold')}
+                    `}>Connect Wallet</h1>
                 </div>
             </li>
             <li>

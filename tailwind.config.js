@@ -26,7 +26,7 @@ module.exports = {
       height: {
         'body': 'calc(100vh - 56px)',
       },
-    },
+    }
   },
   plugins: [
 

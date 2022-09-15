@@ -11,6 +11,8 @@ import { GetStaticProps } from 'next';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../atoms';
+import Image from 'next/image';
+import { Divider } from '../user/components/reusables';
 
 
 
@@ -19,6 +21,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
         { 
             value: string; 
             name: string;
+            photo: string | undefined;
         }[]; 
         multiple: boolean; 
         disabled: boolean; 
@@ -60,7 +63,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
     const handleChange = React.useCallback((event: any) => {
         event.preventDefault()
         event.stopPropagation()
-        console.log("handleChange", event.target.value)
+        // console.log("handleChange", event.target.value)
         setVal(event.target.value)
         // if (event.key === 'Enter') {
         //     if(options.map((item: any) => item.name).includes(val))
@@ -80,41 +83,56 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
         // (i: any) => (query:string) => i.name.toLowerCase().includes(query.toLowerCase())
         // (options: SelectSearchOption[]) => (query:string) => SelectSearchOption[]
     });
-    const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
+
+    const [isDark, setIsDark] = useRecoilState(isDarkMode);
     return (
-        <section className="px-4 flex flex-row space-x-3.5 
+        <section className="px-4 flex flex-row space-x-3.5 sm:shrink
             w-full md:w-[336px] py-2 border-2 border-gray-200
-            items-center rounded-2xl " 
+            items-center rounded-2xl sm:w-[50%]  " 
             ref={container}>
             {/* <button className="w-24 h-4 bg-red-300" {...valueProps}>{snapshot.displayValue}</button> */}
             {/* <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute mt-2 left-4 ml-1" width="15" height="15" /> */}
-            <MagnifyingGlassIcon height={20} width={20} strokeWidth={3} color="gray" />
+            <MagnifyingGlassIcon height={20} width={20} strokeWidth={3} color={`${isDark? ('white') : ('#666') }`} />
+
             {/* @ts-ignore */}
             <input {...valueProps} 
                 onKeyDown={handleEnter} 
                 // style={{ paddingLeft: "22px" }} 
                 value={val} onChange={handleChange} onFocus={() => setShow(true)} 
                 placeholder={placeholder}
-                className=" font-inter w-full text-sm font-normal outline-none bg-inherit"
+                className=" font-inter w-full text-sm font-normal outline-none bg-transparent"
             />
             <article className={`z-50 transition-all duration-300 ease-in-out ${show ? 'opacity-100': 'opacity-0 pointer-events-none'}`}>
             <div className={`h-fit py-4 rounded-xl 
                 ${isDark ? ('bg-[#121a2f]'): ('bg-white')}
-                
                 shadow-xl max-w-[220px] md:max-w-[326px] md:w-full absolute left-0 mt-10 z-50
                 ml-16 md:ml-28
                 `}>
                 <h2 className="text-lg font-semibold px-7">Members</h2>
-                <ul className="h-full my-2  ">
+                <ul className="h-full my-1   ">
+
+                    {/* If nothing is found in our database, print out the text that user is typing instead */}
+                    {val  && (
+                        <>
+                            <div className=" space-x-1 px-7 text-2xs overflow-x-hidden text-left
+                                text-gray-400">
+                                <p className=''>
+                                    <span className='mr-1 font-semibold'>
+                                        Searching for:
+                                    </span> 
+                                    "{val}"</p>
+                            <Divider />
+                            </div>
+                        
+                        </>
+                    )}
+
                     {snapshot.options
                         .filter((i: any) => i.name?.toLowerCase()?.includes(val?.toLowerCase()))
                         .slice(0, 5)
                         .map((option) => (
-                            
-                            <div className={`
-                            ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')}
-                            
+                            <div className={`${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')}
                                 w-full px-7 py-2 cursor-pointer`}>
                                 <li key={option.name} className="w-full mt-1 rounded-md " onClick={
                                     (event) => {
@@ -122,9 +140,26 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                                     }
                                 }>
                                     <a href={`/p/${option.name}`} className='flex flex-row space-x-2 items-center '>
-                                        {/* <img src={option.photo} className="w-[34px] h-[34px] rounded-full"/> */}
-                                        <div className="w-[34px] h-[34px] rounded-full bg-gradient-to-l from-[#9E00FF] to-[#1273EA] rotate-45 origin-center"></div>
-
+                                        {
+                                            option.photo ? (
+                                                <div className='bg-gray-400 w-[34px] h-[34px] rounded-full'>
+                                                    <Image src={`https://arweave.net/${option.photo}`} 
+                                                        height={34}
+                                                        width={34}
+                                                        quality={1}
+                                                        alt={option.name}
+                                                        className="w-[34px] h-[34px] rounded-full "/>
+                                                </div>
+                                            ) : (
+                                                <div className='w-[34px] h-[34px] rounded-full 
+                                                    bg-gradient-to-l from-[#9E00FF] to-[#1273EA] 
+                                                     origin-center items-center flex justify-center'>
+                                                        <p className='text-white font-medium '>
+                                                            {option.name[0]}
+                                                        </p>
+                                                </div>
+                                            )
+                                        }
                                         {/* @ts-ignore */}
                                         <button {...optionProps} className=" text-sm font-semibold" value={option.value} >{option.name}</button>
                                         <ArrowUpRightIcon height={14} width={14} color={"#666"} strokeWidth={1} />

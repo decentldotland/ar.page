@@ -11,28 +11,42 @@ import SearchBox from './select-search';
 // };
 export const Nav = (props:any) => {
 
-    const [userInfo, setUserInfo] = React.useState<any>({res: [{name: "dummy", value: "dummy"}]});
+    const [userInfo, setUserInfo] = React.useState<any>({res: [
+        {
+            name: "dummy", 
+            value: "dummy",
+            photo: "dummy"
+        }]
+    });
 
     React.useEffect(() => {
         // const data = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
         // const res = await data.json();
         // setninja(res);
         const fetchData = async () => {
-            const result = await axios(`https://ans-stats.decent.land/users`);
+            const result = await axios(`https://ans-stats.decent.land/users`, {
+                params: {
+                    // Doing this prevents the constant access to the server 
+                    // Before it would send multiple request on this api
+                    per_page: 1
+                }
+            });
             // console.log({res: [], ...result.data}.res, "test 0")
             setUserInfo({res: [], ...result.data});
         };
         fetchData();
     }, []);
+
+    // console.log(userInfo)
     const toggleDark = props.toggleDark;
 
 
     // bg-base-100
     return (
-        <div className="font-inter flex justify-between h-[56px] overflow-visible px-4 md:px-16 items-center w-full">
+        <div className="font-inter flex justify-between h-[56px] overflow-visible px-2 md:px-16 items-center w-full sm:px-10">
             <div className='flex flex-rows space-x-3.5 items-center '>
                 <Link href="/" >
-                    <h1 className='text-3xl font-bold text-gray-600 cursor-pointer'>📃</h1>
+                    <h1 className='text-xl font-bold text-gray-600 cursor-pointer'>📃</h1>
                 </Link>
                 <SearchBox
                     multiple={false}
@@ -40,7 +54,12 @@ export const Nav = (props:any) => {
                     placeholder="Search for name or address"
                     // items={["test", "test0", "test1", "test2", "test3", "test4"]} />
                     // items={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} /> 
-                    options={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} /> 
+                    options={userInfo.res.map(
+                            (member: { 
+                                currentLabel: string, 
+                                nickname: string
+                                avatar: string | undefined
+                                }) => ({name: member.currentLabel, value: member.nickname, photo: member.avatar}))} /> 
             </div>
             <div className="ml-2">
                 <NavBarButtons />

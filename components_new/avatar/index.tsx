@@ -1,5 +1,7 @@
 import { ANSData, DUMMY_ANS_DATA } from '../../src/types';
 import { MESON_URL } from '../../src/constants';
+import { motion } from "framer-motion";
+
 
 export type AvatarOptions = {
   customUrl?: string;

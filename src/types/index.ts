@@ -22,6 +22,7 @@ export type userInfo = {
     links?:             Links;
     subdomains?:        any;
     freeSubdomains:     number;
+    timestamp: number;
   };
 };
 

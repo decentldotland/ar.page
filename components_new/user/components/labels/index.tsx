@@ -4,11 +4,13 @@ import Link from 'next/link';
 import { Snackbar } from '@mui/material';
 import { BsGithub, BsTwitter, BsInstagram, BsGlobe2 } from 'react-icons/bs';
 import { removeHttp } from '../../../../src/utils';
+import { useRecoilState } from 'recoil';
+import { isDarkMode } from '../../../../atoms';
 
 
-const colorProps = "bg-primary/10 text-primary"
+const colorProps = `bg-primary/10 text-primary `
 const avaxColor = "bg-[#E84040]/80 text-white"
-const ethColor = "bg-[#8a92b2]/20 text-[#454a75]"
+const ethColor = `bg-[#8a92b2]/20 text-[#454a75]`
 const arColor = "bg-black text-white"
 const iconProps = {width: 100, height: 100, color: "#1273ea"}
 
@@ -45,9 +47,13 @@ export const avaxLabel = (AVVY:string|undefined) => {
 }
 
 export const ethLabel = (ENS:string|undefined) => {
+  const [isDark, setIsDark] = useRecoilState(isDarkMode);
+
+  let dark_mode = `${isDark ? ('bg-[#8a92b2]/60 text-white') : (ethColor)} `;
+
   if (!ENS) return null;
   return {
-    username: ENS, classes: ethColor,
+    username: ENS, classes: dark_mode,
     link_to: null,
     canCopy: true,
     icon: <img
@@ -102,6 +108,7 @@ export function GenericLabel ({username, classes, icon, link_to, canCopy}: Gener
     setOpen(true);
     navigator.clipboard.writeText(link);
   }
+  const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
   const attrs = {
     onClick: canCopy ? () => copy_text(username || '') : undefined
