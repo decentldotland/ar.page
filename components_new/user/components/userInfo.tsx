@@ -73,7 +73,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
     return (
         <div>
             <div className="relative">
-                <div className="relative bottom-20 flex flex-col md:flex-row items-center md:items-end mt-5">
+                <div className="relative bottom-20 flex flex-col md:flex-row items-center md:items-end mt-8">
                     {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
                     {/* nickname and label */}
                     <div className={`ml-5 relative  ${epoch === 0 ? ('bottom-12') : ('bottom-6')} `}>

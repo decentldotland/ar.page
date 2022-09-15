@@ -11,7 +11,7 @@ export const Landing = (props: Props) => {
                 ANS
             </h1>
             <h4 className={[styles.Header, styles.Landing.h4].join(' ')}>
-                The Arweave Names Service
+                Arweave Name Service
             </h4>
         </div>
     );

@@ -15,7 +15,7 @@ export const SectionOne = (props: Props) => {
                     What is ANS?
                 </h3>
                 <h6 className={[styles.Section.h6, "w-full mb-12"].join(' ')}>
-                    Arweave Names Service combines a decentralized domains naming service and a decentralized Gravatar-like protocol into a new protocol called ANS. Learn more about ANS.
+                    Arweave Names Service (ANS) is an identity and social metadata protocol built on Arweave. It is the username layer of decent.land as well as a human-readable proxy for wallet addresses, supported by ViewBlock.    
                 </h6>
                 <h3 className={[styles.Header, styles.Section.h3, "w-full font-bold"].join(' ')}>
                     What is ar.page?
