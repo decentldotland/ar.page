@@ -19,7 +19,7 @@ export const User = (props: any) => {
     } = useAns();
 
     React.useEffect(() => {
-        console.log("walletConnected", walletConnected)
+        // console.log("walletConnected", walletConnected)
     }, [walletConnected]);
 
     return (

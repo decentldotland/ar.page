@@ -38,7 +38,7 @@ function CoverPage(props: userInfo) {
     user_cover.length > 0 ? (
       <section style={coverStyle} className="  w-full transition duration relative flex flex-row justify-center">
         <div className='max-w-[1280px]  flex justify-end '>
-          <div className=' space-x-3 flex pb-3 absolute bottom-1
+          <div className=' space-x-3 md:flex pb-3 absolute bottom-1 hidden 
           md:right-1 sm:right-10  md:px-16'>
             {
               address == props.userInfo.user && walletConnected && (
@@ -58,7 +58,7 @@ function CoverPage(props: userInfo) {
         <div className='relative w-[1300px] h-full'>
           <div className='flex flex-row space-x-3 absolute right-1 bottom-1 pb-3 px-4 md:px-16'>
           {
-              address != props.userInfo.user && !walletConnected && (
+              address == props.userInfo.user && !walletConnected && (
                 <>
                   <EditProfile user={props}/>
                   {/* <ChangeCover /> */}
