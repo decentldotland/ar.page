@@ -704,19 +704,16 @@ export const Content = (props: Props) => {
         } else submitPfp();
     }, [imgWithProfile, submitPfp, submitTX])
 
+    const [time, setTimeOut] = React.useState(false)
     React.useEffect(() => {
-      if (progress === 3 ) { 
-          toast(`✅ Transaction Success!`, {duration: 8000})
-
-        // for (let i = 0; i <= 8000; i +=1) { 
-        //     if (i === 8000) { setEditEnabled(false)}
-
-        // }
-
-
-      } 
-    }, [progress])
-    
+        if (progress === 3 ) { 
+            toast(`✅ Transaction Success!`, {duration: 8000})
+        } 
+        setTimeout(function () {
+        setTimeOut(true); 
+        setEditEnabled(false)
+        }, 5000);
+    }, [progress]);
 
 
     return (
@@ -816,6 +813,7 @@ export const Content = (props: Props) => {
                                             </h1>
                                             <h1>
                                                 The window will automatically close. 
+                                            
                                             </h1>
                                         </div>
                                     </div>
