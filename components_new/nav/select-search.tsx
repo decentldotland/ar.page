@@ -11,6 +11,7 @@ import { GetStaticProps } from 'next';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../atoms';
+import Image from 'next/image';
 
 
 
@@ -19,6 +20,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
         { 
             value: string; 
             name: string;
+            photo: string | undefined;
         }[]; 
         multiple: boolean; 
         disabled: boolean; 
@@ -80,6 +82,8 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
         // (i: any) => (query:string) => i.name.toLowerCase().includes(query.toLowerCase())
         // (options: SelectSearchOption[]) => (query:string) => SelectSearchOption[]
     });
+
+
     const [isDark, setIsDark] = useRecoilState(isDarkMode);
     return (
         <section className="px-4 flex flex-row space-x-3.5 sm:shrink
@@ -122,8 +126,24 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                                 }>
                                     <a href={`/p/${option.name}`} className='flex flex-row space-x-2 items-center '>
                                         {/* <img src={option.photo} className="w-[34px] h-[34px] rounded-full"/> */}
-                                        <div className="w-[34px] h-[34px] rounded-full bg-gradient-to-l from-[#9E00FF] to-[#1273EA] rotate-45 origin-center"></div>
-
+                                        {
+                                            option.photo ? (
+                                                <div className='bg-gray-200 w-[34px] h-[34px] rounded-full'>
+                                                    <Image src={`https://arweave.net/${option.photo}`} 
+                                                        height={34}
+                                                        width={34}
+                                                        className="w-[34px] h-[34px] rounded-full "/>
+                                                </div>
+                                            ) : (
+                                                <div className='w-[34px] h-[34px] rounded-full 
+                                                    bg-gradient-to-l from-[#9E00FF] to-[#1273EA] 
+                                                     origin-center items-center flex justify-center'>
+                                                        <p className='text-white font-medium '>
+                                                            {option.name[0]}
+                                                        </p>
+                                                </div>
+                                            )
+                                        }
                                         {/* @ts-ignore */}
                                         <button {...optionProps} className=" text-sm font-semibold" value={option.value} >{option.name}</button>
                                         <ArrowUpRightIcon height={14} width={14} color={"#666"} strokeWidth={1} />

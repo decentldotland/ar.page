@@ -11,19 +11,31 @@ import SearchBox from './select-search';
 // };
 export const Nav = (props:any) => {
 
-    const [userInfo, setUserInfo] = React.useState<any>({res: [{name: "dummy", value: "dummy"}]});
+    const [userInfo, setUserInfo] = React.useState<any>({res: [
+        {
+            name: "dummy", 
+            value: "dummy",
+            photo: "dummy"
+        }]
+    });
 
     React.useEffect(() => {
         // const data = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
         // const res = await data.json();
         // setninja(res);
         const fetchData = async () => {
-            const result = await axios(`https://ans-stats.decent.land/users`);
+            const result = await axios(`https://ans-stats.decent.land/users`, {
+                params: {
+                    per_page: 2
+                }
+            });
             // console.log({res: [], ...result.data}.res, "test 0")
             setUserInfo({res: [], ...result.data});
         };
         fetchData();
     }, []);
+
+    console.log(userInfo)
     const toggleDark = props.toggleDark;
 
 
@@ -40,7 +52,12 @@ export const Nav = (props:any) => {
                     placeholder="Search for name or address"
                     // items={["test", "test0", "test1", "test2", "test3", "test4"]} />
                     // items={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} /> 
-                    options={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} /> 
+                    options={userInfo.res.map(
+                            (member: { 
+                                currentLabel: string, 
+                                nickname: string
+                                avatar: string | undefined
+                                }) => ({name: member.currentLabel, value: member.nickname, photo: member.avatar}))} /> 
             </div>
             <div className="ml-2">
                 <NavBarButtons />
