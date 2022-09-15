@@ -4,7 +4,7 @@ import Arweave from "arweave";
 import ReactDOM from 'react-dom';
 import Swal from 'sweetalert2'
 import { useSetRecoilState, useRecoilValue, useRecoilState } from 'recoil';
-import { uploadImage, uploadTXID, isDarkMode } from '../../atoms';
+import { uploadImage, uploadTXID, isDarkMode, isEditorOpen } from '../../atoms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe, faUser, faXmark, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faGithub, faTelegram, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
@@ -15,6 +15,9 @@ import { Avatar } from './inputs/avatar';
 import { Bio } from './inputs/bio';
 import { TextI } from './inputs/textI';
 import { ArrowUpRightIcon } from '@heroicons/react/24/outline';
+import toast, { Toaster, useToasterStore } from 'react-hot-toast';
+
+
 
 type Props = {
     wallet: string;
@@ -690,13 +693,36 @@ export const Content = (props: Props) => {
         }
     }, [arweave, avatarState.ContentType, avatarState.data, imgWithProfile, setIdState, submitTX])
 
+    // Opens up a modal
+    const [editEnabled, setEditEnabled] = useRecoilState(isEditorOpen);
+
     const submitUpload = React.useCallback(async () => {
         if (imgWithProfile === false) {
+            // Submit transaction 
             submitTX()
+            
         } else submitPfp();
     }, [imgWithProfile, submitPfp, submitTX])
 
+    React.useEffect(() => {
+      if (progress === 3 ) { 
+          toast(`✅ Transaction Success!`, {duration: 8000})
+
+        // for (let i = 0; i <= 8000; i +=1) { 
+        //     if (i === 8000) { setEditEnabled(false)}
+
+        // }
+
+
+      } 
+    }, [progress])
+    
+
+
     return (
+        <>
+                    <Toaster position='top-center'/>
+
         <div data-theme={isDark ? "ardark": "arlight"} className="font-inter rounded-md mx-1 relative top-0 p-6 px-4 pt-6  max-w-full lg:max-w-screen-lg lg:mx-auto h-fit bg-base-100">
                 
                 {/* The new close button */}
@@ -768,18 +794,36 @@ export const Content = (props: Props) => {
 
 
                         </div>
-                        {progress > 0 && (
-                            <div className="text-center text-sm text-gray-400 sm:text-xs sm:mb-0">The transaction takes around 5 minutes to mine on Arweave!</div>
-                        )}
-                        {
-                            progress == 0 && (
-                                <div className=" text-center text-sm text-gray-400">Any unsaved changes will be discarded if you decide to leave the page.</div>
-                            )
-                        }
-                        {/* Disable if not the owner */}
-                        <button disabled={!confirmOwner} className="btn btn-primary text-lg mx-auto mb-8 mt-4 " onClick={() => submitUpload()}>
-                            Save Profile
-                        </button>
+
+
+                        <section className='mb-5 flex justify-center'>
+                            {
+                                progress == 0 ? (
+                                    <div className='flex flex-col '>
+                                        <h1 className="text-center text-sm text-gray-400 sm:text-xs sm:mb-0">The transaction takes around 5 minutes to mine on Arweave!</h1>
+
+                                        <h1 className='text-sm text-gray-400'>Any unsaved changes will be discarded if you decide to leave the page.</h1>
+                                        <button  disabled={!confirmOwner} className="btn btn-primary text-lg mx-auto mb-8 mt-4 " onClick={() => submitUpload()}>
+                                            Save Profile
+                                        </button>
+                                    </div>
+                                ) : (
+
+                                    <div className='mt-5 mb-6'>
+                                        <div className=" text-center text-sm text-gray-400">
+                                            <h1>
+                                                Any unsaved changes will be discarded if you decide to leave the page.
+                                            </h1>
+                                            <h1>
+                                                The window will automatically close. 
+                                            </h1>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        </section>
+
+
                     </div>
                 </div> : (confirmOwner) ? <>
                     <div className="w-[91vw] max-w-screen-md h-15 top-0.5 left-4 ">
@@ -799,5 +843,7 @@ export const Content = (props: Props) => {
                 </>
             }
         </div>
+        </>
+
     );
 };
