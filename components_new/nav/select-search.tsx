@@ -12,6 +12,7 @@ import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../atoms';
 import Image from 'next/image';
+import { Divider } from '../user/components/reusables';
 
 
 
@@ -105,28 +106,40 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
             <article className={`z-50 transition-all duration-300 ease-in-out ${show ? 'opacity-100': 'opacity-0 pointer-events-none'}`}>
             <div className={`h-fit py-4 rounded-xl 
                 ${isDark ? ('bg-[#121a2f]'): ('bg-white')}
-                
                 shadow-xl max-w-[220px] md:max-w-[326px] md:w-full absolute left-0 mt-10 z-50
                 ml-16 md:ml-28
                 `}>
                 <h2 className="text-lg font-semibold px-7">Members</h2>
-                <ul className="h-full my-2  ">
+                <ul className="h-full my-1  px-7 ">
+
+                    {/* If nothing is found in our database, print out the text that user is typing instead */}
+                    {val  && (
+                        <>
+                            <div className="flex flex-row space-x-1  text-2xs overflow-x-hidden text-left
+                                text-gray-400">
+                                <p className=''>
+                                    <span className='mr-1 font-semibold underline'>
+                                        Searching for:
+                                    </span> 
+                                    "{val}"</p>
+                            </div>
+                            <Divider />
+                        
+                        </>
+                    )}
+
                     {snapshot.options
                         .filter((i: any) => i.name?.toLowerCase()?.includes(val?.toLowerCase()))
                         .slice(0, 5)
                         .map((option) => (
-                            
-                            <div className={`
-                            ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')}
-                            
-                                w-full px-7 py-2 cursor-pointer`}>
+                            <div className={`${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')}
+                                w-full py-2 cursor-pointer`}>
                                 <li key={option.name} className="w-full mt-1 rounded-md " onClick={
                                     (event) => {
                                         window.location.href = `/p/${option.name}/#top`
                                     }
                                 }>
                                     <a href={`/p/${option.name}`} className='flex flex-row space-x-2 items-center '>
-                                        {/* <img src={option.photo} className="w-[34px] h-[34px] rounded-full"/> */}
                                         {
                                             option.photo ? (
                                                 <div className='bg-gray-200 w-[34px] h-[34px] rounded-full'>
