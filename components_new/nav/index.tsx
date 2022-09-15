@@ -26,7 +26,9 @@ export const Nav = (props:any) => {
         const fetchData = async () => {
             const result = await axios(`https://ans-stats.decent.land/users`, {
                 params: {
-                    per_page: 2
+                    // Doing this prevents the constant access to the server 
+                    // Before it would send multiple request on this api
+                    per_page: 1
                 }
             });
             // console.log({res: [], ...result.data}.res, "test 0")
@@ -35,7 +37,7 @@ export const Nav = (props:any) => {
         fetchData();
     }, []);
 
-    console.log(userInfo)
+    // console.log(userInfo)
     const toggleDark = props.toggleDark;
 
 

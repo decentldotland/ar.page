@@ -62,7 +62,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
     const handleChange = React.useCallback((event: any) => {
         event.preventDefault()
         event.stopPropagation()
-        console.log("handleChange", event.target.value)
+        // console.log("handleChange", event.target.value)
         setVal(event.target.value)
         // if (event.key === 'Enter') {
         //     if(options.map((item: any) => item.name).includes(val))
@@ -92,14 +92,15 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
             ref={container}>
             {/* <button className="w-24 h-4 bg-red-300" {...valueProps}>{snapshot.displayValue}</button> */}
             {/* <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute mt-2 left-4 ml-1" width="15" height="15" /> */}
-            <MagnifyingGlassIcon height={20} width={20} strokeWidth={3} color="gray" />
+            <MagnifyingGlassIcon height={20} width={20} strokeWidth={3} color={`${isDark? ('white') : ('#666') }`} />
+
             {/* @ts-ignore */}
             <input {...valueProps} 
                 onKeyDown={handleEnter} 
                 // style={{ paddingLeft: "22px" }} 
                 value={val} onChange={handleChange} onFocus={() => setShow(true)} 
                 placeholder={placeholder}
-                className=" font-inter w-full text-sm font-normal outline-none bg-inherit"
+                className=" font-inter w-full text-sm font-normal outline-none bg-transparent"
             />
             <article className={`z-50 transition-all duration-300 ease-in-out ${show ? 'opacity-100': 'opacity-0 pointer-events-none'}`}>
             <div className={`h-fit py-4 rounded-xl 

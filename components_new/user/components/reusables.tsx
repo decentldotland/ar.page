@@ -54,7 +54,7 @@ export function SearchBar(props: SearchType) {
         value={props.value}
         onChange={(e) => (props.onChange(e.target.value))}
         placeholder={props.placeholder}
-        className={`${isDark ? ('bg-[#121a2f]'): ('bg-inherit')}
+        className={`${isDark ? ('bg-transparent'): ('bg-transparent')}
           font-inter text-sm font-normal outline-none transition-all duration-300 ease-in-out
           ${props.slideOutable ? "w-8 focus:w-[20vw] md:w-40" : "w-full md:w-40"}
         `} />
