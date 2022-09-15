@@ -63,7 +63,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
          
         </>
     },
-    ...TABS
+    ...TABS(arkProfile),
   ];
 
   return (

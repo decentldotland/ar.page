@@ -1,14 +1,22 @@
+import { Res } from '../../../../src/types';
 import { TabContentTabs } from '../../components/widgets/tabcontent';
 
 // Check out tabcontent file for more info and examples
 
-export const HACKATHON_TABS = [
-  // {
-  //   name: "Friends",
-  //   total: 9,
-  //   component: <HackathonTabContentExample />
-  // },
-]
+export function HackathonTabs(arkProfile: Res | undefined) {
+
+  // Tabs are an array of objects, unlike widgets which are an array of components
+
+  // START HERE
+
+  return [
+    // {
+    //   name: "Friends",
+    //   total: 9,
+    //   component: <HackathonTabContentExample />
+    // },
+  ]
+};
 
 export function HackathonTabContentExample() {
   const friends = [
