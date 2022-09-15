@@ -20,7 +20,7 @@ export const SectionOne = (props: Props) => {
                 <h3 className={[styles.Header, styles.Section.h3, "w-full font-bold"].join(' ')}>
                     What is ar.page?
                 </h3>
-                <h6 className={[styles.Section.h6, "w-full font-bold"].join(' ')}>
+                <h6 className={[styles.Section.h6, "w-full"].join(' ')}>
                     <p><span className='font-bold '>ar.page </span>
                         is a web app that renders your ANS metadata in a page displaying your profile&apos;s data, and aggregates a feed of your activities over the Arweave network (Ardrive, Koii, Permacast, etc).
                     </p>  
