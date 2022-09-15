@@ -55,8 +55,8 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
         if (event.key === 'Enter') {
             if (options.map((item: any) => item.name).includes(val))
                 window.location.href = `/p/${val}/#top`
-            console.log('do validate')
-            console.log(val, options)
+            // console.log('do validate')
+            // console.log(val, options)
         }
     }, [options, val])
 
