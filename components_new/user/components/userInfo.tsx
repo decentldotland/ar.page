@@ -76,7 +76,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
     return (
         <div>
             <div className="relative">
-                <div className="relative bottom-20 flex flex-col md:flex-row items-center md:items-end mt-5">
+                <div className="relative bottom-20 flex flex-col md:flex-row items-center md:items-end mt-8">
                     <article className='relative'>
                         {user?.userInfo && ( <ProfileAvatar ansData={ansData} /> )}
                         <div className='absolute bottom-10 right-4 w-[30px] md:hidden'>
