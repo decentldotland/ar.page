@@ -696,39 +696,45 @@ export const Content = (props: Props) => {
     // Opens up a modal
     const [editEnabled, setEditEnabled] = useRecoilState(isEditorOpen);
     const [time, setTimeOut] = React.useState(false)
-
+    const [submitted, setSubmitted] = React.useState(false)
     const submitUpload = React.useCallback(async () => {
         if (imgWithProfile === false) {
             // Submit transaction 
-            toast(`✅ Sending Transaction!`, {duration: 4000})
-
-            submitTX()
+            toast(`✅ Sending Transaction!`, {duration: 3000})
             
+            // Confirm state 
+            setSubmitted(true)
+            // Submit transaction
+            submitTX()
+            // Count Down to 3 seconds
+            setTimeout(function () { setTimeOut(true); }, 4000);
 
            
         } else submitPfp();
     }, [imgWithProfile, submitPfp, submitTX])
 
-    React.useEffect(() => {
-        setTimeout(function () {
-        setTimeOut(true); 
-        }, 6000);
-    }, [progress]);
-
-
     React.useEffect(() => { 
-         // If time out close the modal
-         if (time) {
+         // if timeout or progress is 3 and already submitted 
+         if (time || progress === 3 && submitted) {
             setEditEnabled(false);
             toast(`✅ Profile Updated Successfully!`, {
-                duration: 4000,
+                duration: 8000,
                 style: {
                     backgroundColor: "#76E1B5",
                     color: "#fff"
                 }
             })
+            setSubmitted(false)
         }
-    }, [time])
+    }, [time, imgWithProfile])
+
+    // React.useEffect(() => {
+    //     setTimeout(function () {
+    //     setTimeOut(true); 
+    //     }, 3000);
+    //     console.log(time)
+    // }, []);
+
 
 
     return (
