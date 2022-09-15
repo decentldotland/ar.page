@@ -695,30 +695,45 @@ export const Content = (props: Props) => {
 
     // Opens up a modal
     const [editEnabled, setEditEnabled] = useRecoilState(isEditorOpen);
+    const [time, setTimeOut] = React.useState(false)
 
     const submitUpload = React.useCallback(async () => {
         if (imgWithProfile === false) {
             // Submit transaction 
+            toast(`✅ Sending Transaction!`, {duration: 4000})
+
             submitTX()
             
+
+           
         } else submitPfp();
     }, [imgWithProfile, submitPfp, submitTX])
 
-    const [time, setTimeOut] = React.useState(false)
     React.useEffect(() => {
-        if (progress === 3 ) { 
-            toast(`✅ Transaction Success!`, {duration: 8000})
-        } 
         setTimeout(function () {
         setTimeOut(true); 
-        setEditEnabled(false);
-        }, 5000);
+        }, 6000);
     }, [progress]);
+
+
+    React.useEffect(() => { 
+         // If time out close the modal
+         if (time) {
+            setEditEnabled(false);
+            toast(`✅ Profile Updated Successfully!`, {
+                duration: 4000,
+                style: {
+                    backgroundColor: "#76E1B5",
+                    color: "#fff"
+                }
+            })
+        }
+    }, [time])
 
 
     return (
         <>
-                    <Toaster position='top-center'/>
+        {/* <Toaster position='top-center'/> */}
 
         <div data-theme={isDark ? "ardark": "arlight"} className="font-inter rounded-md mx-1 relative top-0 p-6 px-4 pt-6  max-w-full lg:max-w-screen-lg lg:mx-auto h-fit bg-base-100">
                 

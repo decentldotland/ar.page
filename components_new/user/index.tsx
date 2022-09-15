@@ -10,6 +10,7 @@ import Widgets from './components/widgets';
 import { Divider, LoadingOrNotFound } from './components/reusables';
 import CoverPage from './components/CoverPage';
 import { Koii, ArweaveTransaction } from '../../src/types';
+import { Toaster } from 'react-hot-toast';
 
 function PageContent(props: userInfo) {
   const bio = typeof props.userInfo.bio === 'string' ? 
@@ -42,6 +43,8 @@ function PageContent(props: userInfo) {
 
   return (
     <div className="h-9 w-full font-inter ">
+    <Toaster position='top-center'/>
+
       <CoverPage userInfo={props.userInfo} />
       <div className="flex xl:justify-center ">
         <div className="flex flex-col px-4 md:px-16 sm:px-10  max-w-[100vw] xl:max-w-[1280px] w-full">
