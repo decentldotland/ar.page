@@ -41,7 +41,7 @@ function ProfileBadge({loading, is_evaluated, is_verified, isDark}: ProfileProps
                           <CheckIcon height={15} width={15} color={"white"} strokeWidth={2}/>
                         </div>
                         <p>ar.page verification is powered by Ark and VouchDAO</p>
-                        <a href="/" className='underline'>Link your ANS with Ark to get stared</a>
+                        <a href="https://ark.decent.land" className='underline'>Link your ANS with Ark to get stared</a>
                       </article>
                     </>
                   }
