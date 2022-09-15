@@ -35,7 +35,7 @@ export const NavUser = (props: any) => {
                             </>
                         ): (
                             <div className='flex rounded-full h-9 w-9 overflow-hidden bg-primary border-[2px] mt-[4px]'
-                                // onClick={arconnectConnect}
+                                onClick={arconnectConnect}
                             >
                                 <Image src={Favicon} width={36} height={36} className='mx-auto my-auto' alt="" />
                             </div>
@@ -46,7 +46,7 @@ export const NavUser = (props: any) => {
                         <div className="flex flex-row gap-x-2.5 items-center">
                             <div
                                 className='flex rounded-full sm:h-10 sm:w-10  md:h-9 md:w-9 overflow-hidden bg-primary border-[2px] mt-[4px]'
-                                // onClick={arconnectConnect}
+                                onClick={arconnectConnect}
                             >
                                 <Image src={Favicon} width={36} height={36} className='mx-auto my-auto' alt="" />
                             </div>
