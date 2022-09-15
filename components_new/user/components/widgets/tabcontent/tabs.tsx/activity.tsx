@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SearchBar } from '../../../reusables';
 
 // TODO: Create a general component for this
-export default function ArweaveActivity({transactions, loading}: {transactions: ArweaveTransaction[], loading: boolean}) {
+export default function ArweaveActivity({transactions, loading, perPage}: {transactions: ArweaveTransaction[], loading: boolean, perPage: number}) {
 
   const [onLoad, setOnLoad] = useState<boolean>(false);
   const [filteredTransactions, setFilteredTransactions] = useState<ArweaveTransaction[]>(transactions || []);
@@ -34,7 +34,7 @@ export default function ArweaveActivity({transactions, loading}: {transactions: 
       </div>
       {filteredTransactions.length > 0 ? (
         <div className={`flex flex-col transition-opacity duration-400 pb-3 opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
-          {filteredTransactions.map((transaction: ArweaveTransaction, index: number) => (
+          {filteredTransactions.slice(0, perPage).map((transaction: ArweaveTransaction, index: number) => (
             <a key={index}
               className="flex items-center my-2 rounded-lg transition-all ease-in-out duratino-200 hover:shadow-lg" 
               href={ARWEAVE_EXPLORER_TX + transaction.txid}

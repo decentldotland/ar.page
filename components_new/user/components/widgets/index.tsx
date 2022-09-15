@@ -41,23 +41,25 @@ export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefi
   React.useEffect(() => {
     setTimeout(function () {
       setTimeOut(true); 
-    }, 8000);
+    }, 5000);
   }, []);
   
   if (!arkProfile) return (
     <>
       {loading || time ? (
-        <div className='flex items-center justify-center mt-10 
-          text-3xl text-content-100/80 font-bold text-gray-300'>
+        <div className='flex items-center justify-center mt-5  flex-col space-y-2
+          text-lg text-content-100/80 '>
             {/* <HiOutlineSearchCircle size={60} color="#D9D9D9"/> */}
-            No Collections, Activity, POAPS... yet 
+            <h1 className='text-xl font-bold'>
+              No User Information
+            </h1>
+            <p className='text-sm  text-gray-400'>This user has no collection, activity, poaps...</p>
         </div>
       ):(
-        <div className='flex items-center justify-center space-x-5 mt-10 
-        text-3xl text-content-100/80 font-bold text-gray-300'>
-          <h1>Loading user's information</h1>
-          <CircularProgress color="inherit" />
-
+        <div className='flex flex-col items-center justify-center space-y-2 mt-5
+        text-content-100/80 '>
+          <CircularProgress color="inherit" size={40}/>
+          <h1 className='text-xl text-gray-400'>Retrieving user's assets</h1>
         </div>
       )}
     </>

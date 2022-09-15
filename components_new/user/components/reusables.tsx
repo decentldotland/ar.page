@@ -17,7 +17,7 @@ export function Title (jsx: any) {
 };
 
 export function Divider () {
-  return <div className="bg-gray-300 h-[1.5px] w-full my-5"></div>
+  return <div className="bg-gray-300 h-[1px] w-full my-5"></div>
 }
 
 export function LoadingOrNotFound({loading, jsxNotFound}: {loading: boolean, jsxNotFound: any}) {
@@ -45,7 +45,7 @@ export function SearchBar(props: SearchType) {
   const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
   return (
-    <div className={`px-4 flex border-gray-200 border-2 flex-row space-x-3.5 max-w-[80vw] py-3 items-center 
+    <div className={`px-4 flex border-gray-200 border-2 flex-row space-x-3.5 max-w-[50vw] py-3 items-center 
     ${isDark ? ('bg-[#121a2f]'): ('')}
     rounded-2xl`}>
       <MagnifyingGlassIcon height={20} width={20} strokeWidth={3} color={`${isDark? ('white') : ('#666') }`} />
@@ -54,9 +54,9 @@ export function SearchBar(props: SearchType) {
         value={props.value}
         onChange={(e) => (props.onChange(e.target.value))}
         placeholder={props.placeholder}
-        className={`${isDark ? ('bg-[#121a2f]'): ('bg-inherit')}
+        className={`${isDark ? ('bg-transparent'): ('bg-transparent')}
           font-inter text-sm font-normal outline-none transition-all duration-300 ease-in-out
-          ${props.slideOutable ? "w-8 focus:w-[80vw] md:w-60" : "w-full md:w-60"}
+          ${props.slideOutable ? "w-8 focus:w-[20vw] md:w-40" : "w-full md:w-40"}
         `} />
     </div>
   )
@@ -112,7 +112,7 @@ export function NFTGallery ({NFTs}: {NFTs: NFT[]}) {
                 setIsOpen(true)
               }}
               objectFit="cover"
-              className={`rounded-2xl cursor-pointer object-cover`}
+              className={`rounded-lg cursor-pointer object-cover`}
             />
           </button>
         )}

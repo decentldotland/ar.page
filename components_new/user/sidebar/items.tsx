@@ -28,7 +28,7 @@ export const Items = () => {
             } /> */}
             <button className="btn btn-sm btn-primary">
                 <FontAwesomeIcon icon={faGift} className="w-3 mb-0.5 mr-2"/>
-                <span className="">Collectibles</span>
+                <span className="">Collectables</span>
             </button>
         </div>
     );
