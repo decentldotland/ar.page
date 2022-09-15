@@ -4,6 +4,7 @@ AR.page is a cross-chain social identity aggregator. All your blockchain info an
 
 ## Prize Pool
 First prize: `4,500 USDC` + an [Ark NFT](https://mint.decent.land/) (0.3 ETH value)
+
 Runner-up pool: `6,000 USDC` split between accepted entrants
 
 ## Dates and Timing
