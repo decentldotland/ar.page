@@ -110,20 +110,20 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                 ml-16 md:ml-28
                 `}>
                 <h2 className="text-lg font-semibold px-7">Members</h2>
-                <ul className="h-full my-1  px-7 ">
+                <ul className="h-full my-1   ">
 
                     {/* If nothing is found in our database, print out the text that user is typing instead */}
                     {val  && (
                         <>
-                            <div className="flex flex-row space-x-1  text-2xs overflow-x-hidden text-left
+                            <div className=" space-x-1 px-7 text-2xs overflow-x-hidden text-left
                                 text-gray-400">
                                 <p className=''>
-                                    <span className='mr-1 font-semibold underline'>
+                                    <span className='mr-1 font-semibold'>
                                         Searching for:
                                     </span> 
                                     "{val}"</p>
-                            </div>
                             <Divider />
+                            </div>
                         
                         </>
                     )}
@@ -133,7 +133,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                         .slice(0, 5)
                         .map((option) => (
                             <div className={`${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')}
-                                w-full py-2 cursor-pointer`}>
+                                w-full px-7 py-2 cursor-pointer`}>
                                 <li key={option.name} className="w-full mt-1 rounded-md " onClick={
                                     (event) => {
                                         window.location.href = `/p/${option.name}/#top`
@@ -142,10 +142,12 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                                     <a href={`/p/${option.name}`} className='flex flex-row space-x-2 items-center '>
                                         {
                                             option.photo ? (
-                                                <div className='bg-gray-200 w-[34px] h-[34px] rounded-full'>
+                                                <div className='bg-gray-400 w-[34px] h-[34px] rounded-full'>
                                                     <Image src={`https://arweave.net/${option.photo}`} 
                                                         height={34}
                                                         width={34}
+                                                        quality={1}
+                                                        alt={option.name}
                                                         className="w-[34px] h-[34px] rounded-full "/>
                                                 </div>
                                             ) : (
