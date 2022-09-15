@@ -104,7 +104,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                 className=" font-inter w-full text-sm font-normal outline-none bg-transparent"
             />
             <article className={`z-50 transition-all duration-300 ease-in-out ${show ? 'opacity-100': 'opacity-0 pointer-events-none'}`}>
-            <div className={`h-fit py-4 rounded-xl 
+            <div className={` py-4 rounded-xl  h-[330px] md:h-fit
                 ${isDark ? ('bg-[#121a2f]'): ('bg-white')}
                 shadow-xl max-w-[220px] md:max-w-[326px] md:w-full absolute left-0 mt-10 z-50
                 ml-16 md:ml-28
