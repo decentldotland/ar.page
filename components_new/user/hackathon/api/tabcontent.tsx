@@ -4,6 +4,11 @@ import { TabContentTabs } from '../../components/widgets/tabcontent';
 // Check out tabcontent file for more info and examples
 
 export function HackathonTabs(arkProfile: Res | undefined) {
+
+  // Tabs are an array of objects, unlike widgets which are an array of components
+
+  // START HERE
+
   return [
     // {
     //   name: "Friends",

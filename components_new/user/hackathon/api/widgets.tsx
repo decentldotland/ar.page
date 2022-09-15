@@ -6,6 +6,8 @@ import { Widget } from '../../components/widgets';
 export function HackathonTopWidgets (arkProfile: Res | undefined) {
   // It's important to wrap custom components in Widget tag
   
+  // START HERE
+  
   const widgets: any[] = [] //[<HackathonWidgetExample arkProfile={arkProfile} />];
 
   return widgets

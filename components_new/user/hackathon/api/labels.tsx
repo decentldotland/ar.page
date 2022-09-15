@@ -16,6 +16,9 @@ export function HackathonLabels(arkProfile: Res | undefined) {
   //   canCopy: true,
   //   icon: <img height={13} width={13} src="https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=002" alt="" />
   // }
+  
+  // START HERE
+
   const labels: any[] = []; // [ <GenericLabel {...genericLabelArguments} />, <HackathonLabelExample arkProfile={arkProfile} /> ];
 
   return labels;
