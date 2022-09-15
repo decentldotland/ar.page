@@ -2,6 +2,7 @@ import { ANSData, DUMMY_ANS_DATA } from '../../src/types';
 import { MESON_URL } from '../../src/constants';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../atoms';
+import Image from 'next/image';
 
 export type AvatarOptions = {
   customUrl?: string;
@@ -11,7 +12,7 @@ export type AvatarOptions = {
 
 function ProfileAvatar ({ansData, options} :{ansData: ANSData, options?: AvatarOptions}) {
   if (!ansData) ansData = DUMMY_ANS_DATA;
-  let url;
+  let url: string;
   const { customUrl, height, width } = options || {};
   if (customUrl) url = customUrl;
   else {
@@ -31,7 +32,13 @@ function ProfileAvatar ({ansData, options} :{ansData: ANSData, options?: AvatarO
       }}
     >
       {ansData.avatar ?
-        <img src={url} className="flex mx-auto object-cover w-full h-full" alt="Profile" />
+        <Image src={url!} 
+          height={9999999} 
+          width={99999999} 
+          className="flex mx-auto object-cover w-full h-full" 
+          alt="Profile" 
+          quality={70}/>
+
         : 
         <div className="relative flex  items-center justify-center w-full h-full">
           <div className="absolute z-10 uppercase select-none bg-inherit text-white font-bold text-4xl font-inter">{ansData.currentLabel?.[0] || "?"}</div>

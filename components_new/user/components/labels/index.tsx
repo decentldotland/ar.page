@@ -6,6 +6,7 @@ import { BsGithub, BsTwitter, BsInstagram, BsGlobe2 } from 'react-icons/bs';
 import { removeHttp } from '../../../../src/utils';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../../atoms';
+import Image from 'next/image';
 
 
 const colorProps = `bg-primary/10 text-primary `
@@ -20,12 +21,13 @@ export const arLabels = (ownedLabels: OwnedLabel[]) => ownedLabels.map((owned: O
     classes: arColor,
     canCopy: true,
     link_to: null,
-    icon: <img
+    icon: <Image
       width={20}
       height={20}
       className="bg-white rounded-full"
       src="https://cryptologos.cc/logos/arweave-ar-logo.svg?v=023"
-      alt="" />,
+      alt=""
+      quality={50} />,
     hovertext: `Scarcity: ${owned.scarcity}`
   }
 }) || [];
@@ -37,11 +39,12 @@ export const avaxLabel = (AVVY:string|undefined) => {
     username: AVVY, classes: avaxColor,
     link_to: null,
     canCopy: true,
-    icon: <img
+    icon: <Image
       width={20}
       height={20}
       src="https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=023"
       alt=""
+      quality={50}
     />
   }
 }
@@ -56,11 +59,12 @@ export const ethLabel = (ENS:string|undefined) => {
     username: ENS, classes: dark_mode,
     link_to: null,
     canCopy: true,
-    icon: <img
+    icon: <Image
       height={13}
       width={13}
       src="https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=002"
       alt=""
+      quality={50}
     />
   }
 }

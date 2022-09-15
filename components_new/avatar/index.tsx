@@ -1,6 +1,7 @@
 import { ANSData, DUMMY_ANS_DATA } from '../../src/types';
 import { MESON_URL } from '../../src/constants';
 import { motion } from "framer-motion";
+import Image from 'next/image';
 
 
 export type AvatarOptions = {
@@ -11,7 +12,7 @@ export type AvatarOptions = {
 
 function Avatar ({ansData, options} :{ansData: ANSData, options?: AvatarOptions}) {
   if (!ansData) ansData = DUMMY_ANS_DATA;
-  let url;
+  let url: string;
   const { customUrl, height, width } = options || {};
   if (customUrl) url = customUrl;
   else {
@@ -28,7 +29,13 @@ function Avatar ({ansData, options} :{ansData: ANSData, options?: AvatarOptions}
       }}
     >
       {ansData.avatar ?
-        <img src={url} className="w-full h-full" alt="Profile" />
+        <Image src={url!}  
+          height={9999999}
+          width={9999999}
+          className="w-full h-full" 
+          alt="Profile" 
+          quality={10}
+          />
         : 
         <div className="relative flex items-center justify-center w-full h-full">
           <div className="absolute z-10 uppercase select-none bg-inherit text-white font-medium text-4xl font-inter">{ansData.currentLabel?.[0] || "?"}</div>
