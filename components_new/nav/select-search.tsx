@@ -13,7 +13,7 @@ import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../atoms';
 import Image from 'next/image';
 import { Divider } from '../user/components/reusables';
-
+import { resolveDomain } from '../../src/utils';
 
 
 const CustomSelect = ({ options, multiple, disabled, placeholder }: 
@@ -54,9 +54,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
     const handleEnter = React.useCallback((event) => {
         if (event.key === 'Enter') {
             if (options.map((item: any) => item.name).includes(val))
-                window.location.href = `/p/${val}/#top`
-            // console.log('do validate')
-            // console.log(val, options)
+                window.location.href = resolveDomain(val);
         }
     }, [options, val])
 
@@ -136,10 +134,10 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                                 w-full px-7 py-2 cursor-pointer `}>
                                 <li key={option.name} className="w-full mt-1 rounded-md " onClick={
                                     (event) => {
-                                        window.location.href = `/p/${option.name}/#top`
+                                        window.location.href = resolveDomain(option.name);
                                     }
                                 }>
-                                    <a href={`/p/${option.name}`} className='flex flex-row space-x-2 items-center '>
+                                    <a href={resolveDomain(option.name)} className='flex flex-row space-x-2 items-center '>
                                         {
                                             option.photo ? (
                                                 <div className='bg-gray-400 w-[34px] h-[34px] rounded-full'>

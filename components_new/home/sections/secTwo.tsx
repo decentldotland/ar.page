@@ -19,7 +19,7 @@ export const SectionTwo = (props: Props) => {
                     How can I access my profile?
                 </h3>
                 <h6 className={[styles.Section.h6, "w-full mb-12"].join(' ')}>
-                    Simply head to <Button onClick={() => {}}  text="your_domain.ar.page" selected={true} />
+                    Simply head to <Button onClick={() => {}}  text="your_domain.ar.page" selected={true} />, or find your username in the top searchbar.
                 </h6>
                 <h3 className={[styles.Header, styles.Section.h3, "w-full"].join(' ')}>
                     What is ar.page?

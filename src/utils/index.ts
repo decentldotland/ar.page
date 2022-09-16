@@ -1,5 +1,12 @@
 import { ArweaveTransaction } from "../types";
 
+export function resolveDomain(username: string) {
+  let domain = "";
+  if (username.length > 0) domain = username + ".";
+  const protocol = window.location.protocol + '//';
+  return protocol + domain + window.location.host;
+}
+
 // write all the social events here
 export function arweaveTransactionHandler (transaction: ArweaveTransaction): string {
   const tags = transaction.tags

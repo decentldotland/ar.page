@@ -13,7 +13,7 @@ import { User } from '../user/sidebar/user';
 import { NavUser } from './NavUser';
 import {SunIcon} from '@heroicons/react/24/outline'
 import { CircularProgress } from '@mui/material';
-
+import { resolveDomain } from '../../src/utils';
 
 
 function BarMenuItem() {
@@ -119,7 +119,7 @@ useEffect(() => {
                                 ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')} 
                                 h-full rounded-lg`}
                             >
-                                <a href={`/p/${ansData?.currentLabel}`}  className=" flex flex-row items-center ">
+                                <a href={resolveDomain(!!ansData?.currentLabel ? ansData.currentLabel: "")}  className=" flex flex-row items-center ">
                                     <div className=' flex flex-row items-center space-x-3.5'>
                                         <FaceSmileIcon height={20} width={20} color={`${isDark? ('white') : ('black') }`}/>
                                         <h1>My Profile</h1>

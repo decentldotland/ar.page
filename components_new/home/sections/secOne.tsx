@@ -3,10 +3,8 @@ import Link from 'next/link';
 import * as React from 'react';
 import styles from '../../../styles/templates'
 import { Button } from '../../buttons';
-type Props = {
-
-};
-export const SectionOne = (props: Props) => {
+import { resolveDomain } from '../../../src/utils';
+export const SectionOne = () => {
 
     return (
         <div className="font-inter flex flex-col md:flex-row md:flex-nowrap flex-wrap mx-auto mt-8 max-w-4xl gap-x-8">
@@ -33,7 +31,7 @@ export const SectionOne = (props: Props) => {
                         ["arweavesam", 120, 58], ["caoyin", 45, 88],
                         ["martonlederer", 125, 118], ["msfew", 24, 148]].map((data: (string | number)[], i: number) =>
                             <div className="absolute" style={{ left: `${data[1] as string}px`, top: `${data[2] as string}px` }} key={i}>
-                                <Link href={`/p/${data[0] as string}#top`} scroll={true}>
+                                <Link href={resolveDomain(!!data ? (data[0] as string) : "")} scroll={true}>
                                     <a><Button text={data[0] as string} selected={true} /></a>
                                 </Link>
                             </div>)

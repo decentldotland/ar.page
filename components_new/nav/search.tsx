@@ -1,9 +1,10 @@
 import React from 'react';
 import Downshift from 'downshift';
-import { useRouter } from 'next/router'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+
+import { resolveDomain } from '../../src/utils';
 
 type Props = {
     items: any;
@@ -13,17 +14,16 @@ type Props = {
 
 const SearchBox = (props: Props) => {
     const items = props.items;
-    const router = useRouter()
     const [val, setVal] = React.useState<string>('')
-    // console.log(items);
+    // Great addition!
     const handleEnter = React.useCallback((event: any) => {
         if (event.key === 'Enter') {
             if(props.items.includes(val))
-            router.push(`/p/${val}#top`)
+            window.location.href = resolveDomain(val); 
             console.log('do validate')
             console.log(val, props.items)
         }
-    },[props.items, router, val])
+    },[props.items, val])
 
     return (
         <Downshift

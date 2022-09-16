@@ -1,85 +1,41 @@
 import axios from 'axios';
-import App from 'next/app'
 import React from 'react';
 import Head from 'next/head'
-import Image from 'next/image'
-import { Personal } from '../../components/personal';
-import { Tweets } from '../../components/Tweets';
-// import { Nfts } from '../../components/Nfts';
-import { Bio } from '../../components/Bio';
-import { FAQ } from '../../components/FAQ';
 
 import _404 from '../404';
 import Index from '../../components_new/home';
-// import { Fab } from '../../components/editor/fab';
 
+import UserPage from '../../components_new/user';
+import { useRecoilValue } from 'recoil';
+
+import { editModalState, userInfoState } from '../../atoms';
+import EditModal from '../../components_new/user/components/modals/EditModal';
 
 const User = ({ uInfo, pathFullInfo }: any) => {
-    const [hasTwtr, setHasTwtr] = React.useState<number>(2);
-    const [nftCount, setNftCount] = React.useState<number>(0);
 
     const userInfo = React.useRef((uInfo) ? uInfo : pathFullInfo).current;
+    const showModel = useRecoilValue(editModalState);
 
-    React.useEffect(() => {
-        if (userInfo !== false)
-            setHasTwtr((prevState) => {
-                console.log(prevState);
-                const currentState = userInfo.links && userInfo.links.twitter ? 2 : 3;
-                console.log(currentState);
-                console.log(userInfo);
-                return currentState;
-            })
-    }, [userInfo])
-
-    return (<>
-        {userInfo !== false && Object.keys(userInfo).length > 0 ?
-            <>
-                <Head>
-                    <title>{`${userInfo.currentLabel} | ar.page`}</title>
-                    <meta name="description" content={`${userInfo.currentLabel} | ar.page`} />
-
-                    <meta name="twitter:image" content={(userInfo.avatar !== "") ? `https://pz-prepnb.meson.network/${userInfo.avatar}` : "https://ar.page/favicon.png"} />
-                    <meta name="twitter:title" content={`${userInfo.currentLabel} | ar.page`} />
-                    <meta name="twitter:url" content={`https://${userInfo.currentLabel}.ar.page`}></meta>
-                    <meta name="twitter:description" content={userInfo.bio} />
-                </Head>
-                <div className="flex flex-wrap mb-10">
-
-                    <div className={(hasTwtr === 2) ?
-                        "flex flex-col lg:w-2/3 gap-y-0 lg:h-fit lg:max-h-screen w-full" :
-                        "flex flex-col lg:h-fit gap-y-0 lg:max-h-screen w-full"}>
-
-                        <Personal userInfo={userInfo}
-                            className={(`mt-6 mb-6 lg:px-3 px-2 mx-1 rounded-md shadow-md border-2 border-prim1 shadow-black -m-6 shrink-0 lg:h-52 h-fit`)}
-                        />
-
-                        <Bio userInfo={userInfo}
-                            className={(`my-3 -mt-3 lg:px-3 px-6 mx-1 rounded-md shadow-md border-2 border-prim1 shadow-black -m-6 shrink-0 lg:h- h-fit flex justify-center align-middle`)}
-                        />
-                        {/* <Nfts userInfo={userInfo} setLength={setNftCount}
-                            className={`mx-1 -left-1 max-w-full overflow-hidden border-2 border-prim1 rounded-md lg:px-0 px-3 pb-14 lg:pb-0 lg:shrink-0 lg:h-auto shadow-md shadow-black`}
-                        /> */}
-
-                    </div>
-                    {hasTwtr === 2 ?
-                        <>
-                            {(nftCount > 0) ?
-                                <div className="flex flex-col w-1/3" >
-                                    <Tweets user={userInfo.links.twitter} className="mt-6 pb-5 px-6 overflow-y-hidden hidden lg:grid shrink-0" style={{ height: (nftCount > 0) ? "47.75rem" : "26.5rem" }} />
-                                </div> :
-                                <div className="flex flex-col w-1/3" >
-                                    <Tweets user={userInfo.links.twitter} className="mt-6 pb-5 px-6 overflow-y-hidden hidden lg:grid shrink-0" style={{ height: (nftCount > 0) ? "47.75rem" : "26.5rem" }} />
-                                </div>}
-                        </>
-                        : <></>}
-                </div></> : <Index />}
-    </>
-
-    )
+    return !!userInfo && Object?.keys(userInfo)?.length > 0 ?
+        <>
+            <Head>
+                <title>{`${userInfo.currentLabel} | ar.page`}</title>
+                <meta name="description" content={`${userInfo.currentLabel} | ar.page`} />
+                <meta name="twitter:image" content={(userInfo.avatar !== "") ? `https://pz-prepnb.meson.network/${userInfo.avatar}` : "https://ar.page/favicon.png"} />
+                <meta name="twitter:title" content={`${userInfo.currentLabel} | ar.page`} />
+                <meta name="twitter:url" content={`https://${userInfo.currentLabel}.ar.page`}></meta>
+                <meta name="twitter:description" content={userInfo.bio} />
+            </Head>
+            <UserPage userInfo={userInfo} />
+            {showModel && <EditModal/>}
+        </>
+        : 
+        <Index />
 }
 
 User.getInitialProps = async ({ query }: { query: { user: string; } }) => {
     try {
+        if (!query.user) return
         const res = await axios.get(`https://ans-testnet.herokuapp.com/profile/${query.user}`);
         const userInfo = res.data;  // <-- Access one more data object here
         return { pathFullInfo: userInfo };
