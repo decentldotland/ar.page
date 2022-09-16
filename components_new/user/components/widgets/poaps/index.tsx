@@ -9,13 +9,13 @@ export default function Poaps({ props }: { props: Res }) {
     <>
       {/* <h1 className="text-left font-inter font-bold text-xl">POAPS</h1> */}
       <div className=" flex gap-x-4 carousel mb-5">
-        {POAPS.map((p, i) => (
-          <div key={i} className="carousel-item">
-            <label className="flex items-center cursor-pointer modal-button" htmlFor="my-modal-4">
+        {POAPS.map((p, idx) => (
+          <div key={idx} className="carousel-item">
+            <label className="flex items-center cursor-pointer modal-button" htmlFor={"poap-modal-" + idx}>
               <Image loader={() => p.event.image_url} src={p.event.image_url}  width={112} height={112} />
             </label>
-            <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-            <label htmlFor="my-modal-4" className="modal cursor-pointer backdrop-blur-md">
+            <input type="checkbox" id={"poap-modal-" + idx} className="modal-toggle" />
+            <label htmlFor={"poap-modal-" + idx} className="modal cursor-pointer backdrop-blur-md">
               <label className="modal-box relative" htmlFor="">
                 <div className="flex flex-col items-center">
                   <Image loader={() => p.event.image_url} src={p.event.image_url} width={112} height={112} className="mt-4 mb-8 shadow-sm" />

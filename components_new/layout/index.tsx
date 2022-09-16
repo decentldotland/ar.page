@@ -15,19 +15,17 @@ export const Layout = (props: Props) => {
     const [loaded, setLoaded] = useState(false); // necessary to remove FOUC
 
     const toggleDark = () => {
-        if (isDark) {
-            localStorage.theme = 'arlight';
-        } else {
-            localStorage.theme = 'ardark';
-        }
+        localStorage.setItem('theme', isDark ? 'ardark': 'arlight');
         setIsDark(!isDark);
     }
 
     useEffect(() => {
         // On page load or when changing themes, best to add inline in `head` to avoid FOUC
         if (localStorage.theme === 'ardark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          localStorage.setItem('theme', 'ardark');
           setIsDark(true)
         } else {
+          localStorage.setItem('theme', 'arlight');
           setIsDark(false)
         }
         setLoaded(true)
@@ -42,9 +40,9 @@ export const Layout = (props: Props) => {
                     <Script strategy="beforeInteractive">
                         {`
                             if (localStorage.theme === 'ardark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                                localStorage.theme = 'ardark'
+                                localStorage.setItem('theme', 'ardark');
                             } else {
-                                localStorage.theme = 'arlight'
+                                localStorage.setItem('theme', 'arlight');
                             }
                         `}
                     </Script>
