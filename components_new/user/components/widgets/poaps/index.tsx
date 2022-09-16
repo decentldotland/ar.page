@@ -41,7 +41,7 @@ export default function Poaps({ props }: { props: Res }) {
           onClick={() => handleClick("left")}
           />
 
-          <div ref={rowRef} className=" flex gap-x-12 md:p-2 carousel mb-5 md:ml-1 group relative">
+          <div ref={rowRef} className="gap-x-5    flex md:gap-x-12 md:p-2 carousel mb-5 md:ml-1 group relative">
             {POAPS.map((p, idx) => (
               <div  key={idx} className="carousel-item">
                 <label className="flex items-center cursor-pointer modal-button" htmlFor={"poap-modal-" + idx}>
