@@ -15,8 +15,8 @@ export function resolveDomain(username: string) {
     if (host.length > 1) final = domain + host[1]
     else final = domain + host[0]
   } else if (host.length > 2) {
-    final = username + host[1] + host[2]
-  } else final = domain + host[0]
+    final = domain + host[1] + "." + host[2];
+  } else final = domain + host[0] + "." + host[1];
   
   return protocol + final;
 }
