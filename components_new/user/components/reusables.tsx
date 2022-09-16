@@ -100,8 +100,7 @@ export function NFTGallery ({NFTs}: {NFTs: NFT[]}) {
             h-full
             shrink-0
             cursor-pointer transition duration-500 ease-out
-            md:hover:scale-105
-            md:focus:scale-105
+            md:focus:opacity-60
           ">
             <Image src={ARWEAVE_URL + nft.id} // TODO: make this URL dynamic
               alt={nft.title}
@@ -112,7 +111,7 @@ export function NFTGallery ({NFTs}: {NFTs: NFT[]}) {
                 setIsOpen(true)
               }}
               objectFit="cover"
-              className={`rounded-lg cursor-pointer object-cover`}
+              className={`rounded-md cursor-pointer object-cover`}
             />
           </button>
         )}
