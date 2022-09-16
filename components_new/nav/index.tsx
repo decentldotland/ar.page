@@ -6,9 +6,8 @@ import { NavButtons } from './buttons';
 import NavBarButtons from './NavBarButtons';
 import SearchBar from './SearchBar';
 import SearchBox from './select-search';
-// type Props = {
-//     userInfo?: any;
-// };
+import { resolveDomain } from '../../src/utils';
+
 export const Nav = (props:any) => {
 
     const [userInfo, setUserInfo] = React.useState<any>({res: [
@@ -45,7 +44,7 @@ export const Nav = (props:any) => {
     return (
         <div className=" font-inter flex justify-between h-[56px] overflow-visible px-2 md:px-16 items-center w-full sm:px-10">
             <div className='flex flex-rows space-x-3.5 items-center '>
-                <Link href="/" >
+                <Link href={resolveDomain("")} >
                     <h1 className='text-xl font-bold text-gray-600 cursor-pointer'>📃</h1>
                 </Link>
                 <SearchBox

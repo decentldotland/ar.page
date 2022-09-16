@@ -1,10 +1,24 @@
 import { ArweaveTransaction } from "../types";
 
+
+// for handling redirects / url switches to a different page, treat this as a "return url" function
 export function resolveDomain(username: string) {
   let domain = "";
   if (username.length > 0) domain = username + ".";
   const protocol = window.location.protocol + '//';
-  return protocol + domain + window.location.host;
+  const host = window.location.host.split(".");
+  // host can be several different urls:
+  // ar.page, xy.ar.page, localhost:3000. xy.localhost:3000
+  // this logic is to handle switching between different domains, and to handle localhost
+  let final = ""
+  if (window.location.host.includes("localhost")) {
+    if (host.length > 1) final = domain + host[1]
+    else final = domain + host[0]
+  } else if (host.length > 2) {
+    final = username + host[1] + host[2]
+  } else final = domain + host[0]
+  
+  return protocol + final;
 }
 
 // write all the social events here
