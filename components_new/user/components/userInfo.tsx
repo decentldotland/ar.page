@@ -98,7 +98,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                     <div className={`ml-5 relative  ${epoch === 0 ? ('bottom-12') : ('bottom-6')} `}>
                         <div className="sm:mt-7  flex flex-row items-center space-x-3 justify-center mt-5">
                             <div className="flex items-center ">
-                                <div className={`text-2xl 
+                                <div className={`md:text-3xl text-2xl 
                                 ${isDark ? (' text-white'): (' text-[#000]')}
                                 font-bold leading-6 font-inter`}>
                                     {user.userInfo.currentLabel}

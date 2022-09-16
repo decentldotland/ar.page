@@ -53,7 +53,7 @@ function ProfileBadge({loading, is_evaluated, is_verified, isDark}: ProfileProps
                           color: 'black'
                           
                         }} >
-                        <BsPatchQuestionFill size={24} color={`${isDark? ('white') : ('#666') }`} />
+                        <BsPatchQuestionFill size={22} color={`${isDark? ('white') : ('#666') }`} />
                       </IconButton>
                   </HtmlTooltip>
                 )
