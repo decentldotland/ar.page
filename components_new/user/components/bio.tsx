@@ -11,10 +11,10 @@ export const Bio = (props: Props) => {
     const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
     return (
-        <div className="flex flex-wrap shrink w-full font-inter mt-5 md:justify-start
-        sm:mt-0 sm:justify-center sm:mb-6 md:pr-20 sm:px-2
+        <div className="flex flex-wrap shrink w-full font-inter  md:justify-start
+        sm:mt-0 justify-center mb-6 md:pr-20 sm:px-2
         ">
-            <div className={`font-medium text-sm leading-6 sm:text-center md:text-left
+            <div className={`font-medium text-sm leading-6 text-center md:text-left
                 ${isDark ? (' text-white'): (' text-[#666]')} 
              `}>
                 {props.text}
