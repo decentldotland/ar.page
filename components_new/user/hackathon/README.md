@@ -33,7 +33,7 @@ The specifics are open-ended, but **here are some ideas** we think would be awes
 ### Rules
 
 - Submissions must be your own original work
-- Submissions must be a fork of the ar-page-component repo
+- Submissions must be a fork of this repo ([ANS_UI_2.0](https://github.com/decentldotland/ANS_UI_2.0))
 - The component built must be shown in the context of ar.page, with a link to the live functioning, and running instance of the app itself, as well as a link to the repository it is stored within.
 - Submissions must be open source, with the full source code available on GitHub or another open code hosting site. Feel free to use whatever OSS licence you prefer.
 - All submissions must include a brief description of the application and functionality in the GitHub repo.
