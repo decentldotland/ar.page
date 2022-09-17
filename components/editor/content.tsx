@@ -701,15 +701,12 @@ export const Content = (props: Props) => {
         if (imgWithProfile === false) {
             // Submit transaction 
             toast(`✅ Sending Transaction!`, {duration: 3000})
-            
             // Confirm state 
             setSubmitted(true)
             // Submit transaction
-            submitTX()
-            // Count Down to 3 seconds
-            setTimeout(function () { setTimeOut(true); }, 4000);
-
-           
+            submitTX() 
+            // Count Down to 5 seconds to
+            setTimeout(function () { setTimeOut(true); }, 5000);
         } else submitPfp();
     }, [imgWithProfile, submitPfp, submitTX])
 
@@ -726,7 +723,7 @@ export const Content = (props: Props) => {
             })
             setSubmitted(false)
         }
-    }, [time, imgWithProfile])
+    }, [time, submitted, progress])
 
     // React.useEffect(() => {
     //     setTimeout(function () {

@@ -17,7 +17,7 @@ function EditProfile({user}: EditProps) {
   
   const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
-  console.log(modal)
+  // console.log(modal)
   return (
     <div 
       onClick={() => {
