@@ -82,13 +82,16 @@ Submissions must:
 5. Be open source, with the full source code available on GitHub or another open code hosting site.
 
 ## Guidelines
+
+[ARK API](https://github.com/decentldotland/ark-network) provides all the user data that you can find on the frontend. To get familiar with the data, check out the TypeScript interface [Res](/src/types/index.ts).
+
 We support several different profile extension options by default:
 
 ![Info](images/info.jpg "Extension options")
 
 All the profile items are considered widgets, and adding new widgets is as simple as heading over to `api/widgets.tsx` and adding a new JSX element into the array!
 
-```JSX
+```TSX
 export function HackathonTopWidgets (arkProfile: Res | undefined) {
   // It's important to wrap custom components in Widget tag
   const NewWidget = <Widget canRender={true}>Hi, I am a new widget!</Widget>;
