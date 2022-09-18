@@ -6,6 +6,10 @@ import { TabContentTabs } from '../../components/widgets/tabcontent';
 export function HackathonTabs(arkProfile: Res | undefined) {
 
   // Tabs are an array of objects, unlike widgets which are an array of components
+  // Each object has title, total, and component properties.
+  // title is the title of the tab, and total is the total number of items in the tab.
+  // component is the component that will be rendered within the tab.
+  // If you want to render a component determined by a condition, you can use a simple ternary operator
 
   // START HERE
 

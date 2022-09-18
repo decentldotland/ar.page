@@ -4,12 +4,12 @@ import ArweaveActivity from './tabs.tsx/activity';
 import Selector from './selector';
 import { ArweaveTransaction, NFT, Res } from '../../../../../src/types';
 import { TABS } from '../../../hackathon/';
-import ShowMore from '../../pagination/ShowMore';
+
 
 export interface TabContentTabs {
-  name: string;
-  total: number;
-  component: JSX.Element;
+  name: string; // Name of the tab
+  total: number; // total number of items in the tab
+  component: JSX.Element; // The component that will be rendered
 }
 
 export default function Content({ arkProfile, loading }: { arkProfile: Res; loading: boolean }) {
