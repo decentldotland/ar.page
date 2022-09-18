@@ -31,15 +31,15 @@ export default function Poaps({ props }: { props: Res }) {
       {/* <h1 className="text-left font-inter font-bold text-xl">POAPS</h1> */}
       <div className="group relative">
 
-        <ChevronLeftIcon className={`absolute top-0 
-            bottom-0 left-2
-            m-auto z-50 h-9 w-9
-            cursor-pointer opacity-0 
-            transition hover:scale-125 
-            group-hover:opacity-100 
-          ${!isMoved && "hidden"}`}
-          onClick={() => handleClick("left")}
-          />
+          <ChevronLeftIcon height={10} color="#222" width={10} strokeWidth={2} className={`absolute top-0 
+              bottom-0 left-2 bg-gray-500/50 rounded-full 
+              m-auto z-50 h-6 w-6
+              cursor-pointer opacity-0 
+              transition hover:scale-125 
+              group-hover:opacity-100 
+            ${!isMoved && "hidden"}`}
+            onClick={() => handleClick("left")}
+            />
 
           <div ref={rowRef} className="gap-x-5    flex md:gap-x-12 md:p-2 carousel mb-5 md:ml-1 group relative">
             {POAPS.map((p, idx) => (
@@ -64,14 +64,14 @@ export default function Poaps({ props }: { props: Res }) {
             ))}
           </div>
         
-          <ChevronRightIcon 
+          <ChevronRightIcon  height={10} color="#222" width={10} strokeWidth={2}
             className={`absolute top-0 
-              bottom-0 right-2
-              m-auto z-50 h-9 w-9
+              bottom-0 right-2 bg-gray-500/50 rounded-full
+              m-auto z-50 h-6 w-6
               cursor-pointer opacity-0 
               transition hover:scale-125 
               group-hover:opacity-100`}
-            onClick={() => handleClick("right")}
+              onClick={() => handleClick("right")}
             />
       </div>
             
