@@ -65,7 +65,7 @@ export interface Res {
   POAPS:                        Poap[];
   ERC_NFTS:                     any |  { [key: string]: null | string }[];
   URBIT_IDS:                    any |  { [key: string]: null | string }[];
-  RSS3:                         any;
+  RSS3:                         Rss3[];
   GALAXY_CREDS:                 any;
   ANFTS:                        Anfts;
   ARWEAVE_TRANSACTIONS:         ArweaveTransaction[];

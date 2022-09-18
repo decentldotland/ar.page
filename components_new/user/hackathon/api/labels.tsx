@@ -1,4 +1,4 @@
-import React, { FunctionComponent, PropsWithChildren } from 'react';
+import React from 'react';
 import { GenericLabelInterface, Res } from '../../../../src/types'
 import { getDefaultLabels } from '../../components/labels'
 import { GenericLabel } from '../../components/labels';
@@ -7,8 +7,8 @@ import { BsHeart } from 'react-icons/bs';
 
 
 export function HackathonLabels(arkProfile: Res | undefined) {
-  // Use this array for holding labels 
   // for using our labeling system, check out GenericLabelInterface, and examples in getDefaultLabels
+
   // const genericLabelArguments = {
   //   username: arkProfile?.ENS,
   //   classes: "bg-gradient-to-bl from-indigo-200 via-red-200 to-yellow-100",
