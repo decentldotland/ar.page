@@ -50,12 +50,12 @@ When writing custom components, keep in mind to use daisyUI color scheme to keep
 `[prefix]-base-200` - Slightly darker version of the default background color
 `[prefix]-primary` - Default primary color for all the existing UI components
 
-daisyUI supports mixing theme colors, so you can do `bg-primary`, `text-base-100`, `bg-info`, etc. For all existing daisyUI color scheme patterns, check out the (theme generator)[https://daisyui.com/theme-generator].
+daisyUI supports mixing theme colors, so you can do `bg-primary`, `text-base-100`, `bg-info`, etc. For all existing daisyUI color scheme patterns, check out the [theme generator](https://daisyui.com/theme-generator).
 
-Finally, you may add new `tailwindcss.config.js` variables / modules. However, please avoid editing existing parameters.
+Finally, you may add new [tailwindcss.config.js](/tailwind.config.js) variables / modules. However, please avoid editing existing parameters.
 
 # Contribution Tips
 
-Feel free to change items within the `hackathon` folder as you see fit. There are no restrictions to installing third-party libraries or data fetching. However, please avoid removing existing libraries or components. If you'd like to add a new extensible component, please add it to the `hackathon` folder.
+Feel free to change items within the [hackathon](/components_new/user/hackathon/) folder as you see fit. There are no restrictions to installing third-party libraries or data fetching. However, please avoid removing existing libraries or components. If you'd like to add a new component that doesn't fit in the current design system, please let us know in our [discord](https://discord.gg/decentland) and we'll help you out!
 
 To properly judge your submission we'd need to review both your code and the result. To make the review process simpler for us, please leave comments where applicable to help us understand your work better.
