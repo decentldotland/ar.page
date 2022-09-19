@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { userInfo, Res } from '../../src/types';
-import { EditModal } from '../../components/editor/editmodal';
+import { EditModal } from '../editor/editmodal';
 import { UserInfo } from './components/userInfo';
 import { Bio } from './components/bio';
 import Collectibles from './components/widgets/tabcontent/tabs.tsx/collectibles';
@@ -11,6 +11,7 @@ import { Divider, LoadingOrNotFound } from './components/reusables';
 import CoverPage from './components/CoverPage';
 import { Koii, ArweaveTransaction } from '../../src/types';
 import { Toaster } from 'react-hot-toast';
+import GitPoapList from './components/widgets/gitpoaps/GitPoapList';
 
 function PageContent(props: userInfo) {
   const bio = typeof props.userInfo.bio === 'string' ? 

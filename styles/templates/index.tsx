@@ -3,7 +3,7 @@ const styles =  {
     },
     button: "rounded-[6px] focus:bg-buttonSelected focus:text-[#1273EA] text-[#665]  px-[12px] my-auto min-h-[26px] mx-auto",
     buttonSelected: "rounded-[6px] bg-buttonSelected active:bg-transparent text-[#1273EA] active:text-blue-200 px-[12px] my-auto min-h-[26px]",
-    Header: "font-semibold",
+    Header: "font-bold",
     Landing: {
         h1: "text-[50px] md:text-[72px] mx-auto",
         h4: "text-[18px] mx-auto"

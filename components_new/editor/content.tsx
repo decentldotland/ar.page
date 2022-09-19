@@ -721,7 +721,8 @@ export const Content = (props: Props) => {
                     color: "#fff"
                 }
             })
-            setSubmitted(false)
+            setSubmitted(false);
+            console.log(time, submitted, progress)
         }
     }, [time, submitted, progress])
 
