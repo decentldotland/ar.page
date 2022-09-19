@@ -5,7 +5,7 @@ import * as React from 'react';
 //@ts-ignore
 import { getWeaveAggregator } from "weave-aggregator";
 import useWindowDimensions from '../src/useWindowDimension';
-import Modal from './portal/modal';
+import Modal from '../components_new/portal/modal';
 import ModelContent from '../components_new/user/components/modelContent';
 type Props = {
     children?: any;

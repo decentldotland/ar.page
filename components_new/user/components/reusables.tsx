@@ -1,7 +1,7 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { useState, useCallback } from 'react';
 import Image from 'next/image';
-import Modal from '../../../components/portal/modal';
+import Modal from '../../portal/modal';
 import ModelContent from './modelContent';
 import { ARWEAVE_URL } from '../../../src/constants';
 import { NFT } from '../../../src/types';
