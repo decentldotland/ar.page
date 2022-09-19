@@ -4,7 +4,7 @@ import * as React from 'react';
 import Image from 'next/image';
 import { Fab } from '../components_new/editor/fab';
 import { EditModal } from '../components_new/editor/editmodal';
-import Header from './arconnect/arconnect_loader'; //@ts-ignore
+//@ts-ignore
 // import ReactRoundedImage from "react-rounded-image";
 import { createGlobalStyle } from 'styled-components';
 
