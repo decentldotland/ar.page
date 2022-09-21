@@ -58,7 +58,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
     let [month, year] = [member_since.toLocaleString('default', {month: 'short'}), member_since.getFullYear()];
     // console.log(month)
     // Labels
-    const defaultLabels = getDefaultLabels({ar: ownedLabels || [], links: {twitter, github, instagram, customUrl}, ENS: profile?.ENS, AVVY: profile?.AVVY});
+    const defaultLabels = getDefaultLabels({ar: ownedLabels || [], links: {twitter, github, instagram, customUrl}, ENS: profile?.ENS, AVVY: profile?.AVVY, URBIT: profile?.URBIT_IDS[0]});
     const labels = [...defaultLabels.map((label: any) => <GenericLabel {...label} />), ...HackathonLabels(profile)]
 
     const [loading, setLoading] = React.useState(true);
