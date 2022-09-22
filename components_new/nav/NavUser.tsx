@@ -45,7 +45,7 @@ export const NavUser = (props: any) => {
                 )) || (
                         <div className="flex flex-row gap-x-2.5 items-center">
                             <div
-                                className='flex rounded-full h-12 w-12 justify-center items-center  
+                                className='flex rounded-full h-11 w-11 justify-center items-center  
                                     md:h-10 md:w-10 overflow-hidden bg-[#242B48]'
                                 // onClick={arconnectConnect}
                             >

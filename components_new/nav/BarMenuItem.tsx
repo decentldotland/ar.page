@@ -14,6 +14,7 @@ import { NavUser } from './NavUser';
 import {SunIcon} from '@heroicons/react/24/outline'
 import { CircularProgress } from '@mui/material';
 import { resolveDomain } from '../../src/utils';
+import SearchBar from './SearchBar';
 
 
 function BarMenuItem() {
@@ -70,9 +71,20 @@ useEffect(() => {
                 toggle && (
                     <div 
                         hidden={!toggle}
-                        className={` ${isDark ? ('bg-[#121a2f]'):('bg-white ')} text-black absolute z-50 py-5 px-2 right-1 shadow-xl 
-                        rounded-xl mt-4 w-[272px]`}>
+                        className={` ${isDark ? ('bg-[#121a2f]'):('bg-white ')} text-black absolute z-50 
+                        w-screen -right-5 rounded-b-xl px-5
+                        py-5 sm:px-2 sm:right-1 shadow-xl 
+                        sm:rounded-xl sm:mt-4 sm:w-[272px]`}>
                         <ul className='h-full'>
+                            <div className='sm:hidden relative bottom-3'>
+                                <Divider />
+                            </div>
+                            <li className='w-full  relative bottom-2  sm:hidden'>
+                                <SearchBar />
+                            </li>
+                            <div className='sm:hidden '>
+                                <Divider />
+                            </div>
                             {
                                 !walletConnected ? (
                                     <li className={`py-2 px-2 w-full 

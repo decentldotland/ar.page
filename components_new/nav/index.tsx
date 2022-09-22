@@ -7,6 +7,8 @@ import NavBarButtons from './NavBarButtons';
 import SearchBar from './SearchBar';
 import SearchBox from './select-search';
 import { resolveDomain } from '../../src/utils';
+import { useRecoilState } from 'recoil';
+import { isDarkMode } from '../../atoms';
 
 export const Nav = (props:any) => {
 
@@ -38,12 +40,16 @@ export const Nav = (props:any) => {
 
     // console.log(userInfo)
     const toggleDark = props.toggleDark;
+    const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
 
     // bg-base-100
     return (
-        <div className="z-30 font-inter flex justify-between md:h-[56px] h-[96px] px-5 
-        overflow-visible md:px-16 items-center w-full sm:px-10 ">
+        <div className={`z-30 font-inter flex justify-between md:h-[56px] h-[96px] px-5 
+
+        ${isDark ? ('bg-[#131A2E]'):('bg-white ')}
+
+        overflow-visible md:px-16 items-center w-full sm:px-10`}>
             <div className='flex flex-rows space-x-3.5 items-center '>
                 <Link href={resolveDomain("")} >
                     <h1 className='text-xl font-bold text-gray-600 cursor-pointer hidden md:block'>📃</h1>
