@@ -42,25 +42,31 @@ export const Nav = (props:any) => {
 
     // bg-base-100
     return (
-        <div className="z-30 font-inter flex justify-between h-[56px] overflow-visible px-2 md:px-16 items-center w-full sm:px-10 ">
+        <div className="z-30 font-inter flex justify-between md:h-[56px] h-[96px] px-5 
+        overflow-visible md:px-16 items-center w-full sm:px-10 ">
             <div className='flex flex-rows space-x-3.5 items-center '>
                 <Link href={resolveDomain("")} >
-                    <h1 className='text-xl font-bold text-gray-600 cursor-pointer'>📃</h1>
+                    <h1 className='text-xl font-bold text-gray-600 cursor-pointer hidden md:block'>📃</h1>
                 </Link>
-                <SearchBox
-                    multiple={false}
-                    disabled={false}
-                    placeholder="Search for name or address"
-                    // items={["test", "test0", "test1", "test2", "test3", "test4"]} />
-                    // items={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} /> 
-                    options={userInfo.res.map(
-                            (member: { 
-                                currentLabel: string, 
-                                nickname: string
-                                avatar: string | undefined
-                                }) => ({name: member.currentLabel, value: member.nickname, photo: member.avatar}))} /> 
+                <div className='hidden md:block'>
+                    <SearchBox
+                        multiple={false}
+                        disabled={false}
+                        placeholder="Search for name or address"
+                        // items={["test", "test0", "test1", "test2", "test3", "test4"]} />
+                        // items={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} /> 
+                        options={userInfo.res.map(
+                                (member: { 
+                                    currentLabel: string, 
+                                    nickname: string
+                                    avatar: string | undefined
+                                    }) => ({name: member.currentLabel, value: member.nickname, photo: member.avatar}))} /> 
+
+                </div>
             </div>
-            <div className="ml-2">
+            
+            <h1 className='text-4xl font-bold relative top-3 left-10 text-gray-600 cursor-pointer  md:hidden'>📃</h1>
+            <div className="ml-2 mt-5 sm:mb-6">
                 <NavBarButtons />
             </div>
         </div>

@@ -49,7 +49,7 @@ function PageContent(props: userInfo) {
   }, [])
 
   return (
-    <div className="h-9 w-full font-inter ">
+    <div className=" w-full font-inter ">
     <Toaster position='top-center'/>
 
       <CoverPage userInfo={props.userInfo} />
