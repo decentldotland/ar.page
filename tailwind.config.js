@@ -87,6 +87,7 @@ module.exports = {
     }),
     require("daisyui"),
     require('tailwind-scrollbar'),
+    require('tailwind-scrollbar-hide')
   ],
   daisyui: {
     styled: true,
