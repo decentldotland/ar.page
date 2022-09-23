@@ -48,7 +48,7 @@ function EditModal() {
         className="fixes  left-0 right-0 !mt-24
         z-50 mx-auto w-full max-w-3xl h-full
         overflow-hidden overflow-y-scroll 
-        scrollbar-hide relative font-inter
+        relative font-inter
       "    
     >
             <>
