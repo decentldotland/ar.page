@@ -86,8 +86,11 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
     const [isDark, setIsDark] = useRecoilState(isDarkMode);
     return (
         <section className="px-4 flex flex-row space-x-3.5 sm:shrink
-            w-full md:w-[336px] py-2 border-2 border-gray-200 
-            items-center rounded-2xl  " 
+            w-full md:w-[336px] py-4 md:py-2  border-2 border-gray-200 
+            items-center rounded-xl  
+            md:bg-transparent
+            bg-gray-200
+            " 
             ref={container}>
             {/* <button className="w-24 h-4 bg-red-300" {...valueProps}>{snapshot.displayValue}</button> */}
             {/* <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute mt-2 left-4 ml-1" width="15" height="15" /> */}
@@ -113,7 +116,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                     {/* If nothing is found in our database, print out the text that user is typing instead */}
                     {val  && (
                         <>
-                            <div className=" space-x-1 px-7 text-2xs overflow-x-hidden text-left
+                            <div className=" hidden md:block space-x-1 px-7 text-2xs overflow-x-hidden text-left
                                 text-gray-400">
                                 <p className=''>
                                     <span className='mr-1 font-semibold'>

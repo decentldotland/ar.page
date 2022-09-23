@@ -71,7 +71,7 @@ export const Nav = (props:any) => {
                 </div>
             </div>
             
-            <h1 className='text-4xl font-bold relative top-3 left-10 text-gray-600 cursor-pointer  md:hidden'>📃</h1>
+            <h1 className='text-4xl font-bold relative top-3 left-10 text-gray-600 cursor-pointer sm:hidden'>📃</h1>
             <div className="ml-2 mt-5 sm:mb-6">
                 <NavBarButtons />
             </div>

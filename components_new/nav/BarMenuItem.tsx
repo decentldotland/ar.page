@@ -76,15 +76,21 @@ useEffect(() => {
                         py-5 sm:px-2 sm:right-1 shadow-xl 
                         sm:rounded-xl sm:mt-4 sm:w-[272px]`}>
                         <ul className='h-full'>
-                            <div className='sm:hidden relative bottom-3'>
-                                <Divider />
-                            </div>
-                            <li className='w-full  relative bottom-2  sm:hidden'>
-                                <SearchBar />
-                            </li>
-                            <div className='sm:hidden '>
-                                <Divider />
-                            </div>
+
+                            {/* Search Bar is visible only smaller screens */}
+                            <article>
+                                <div className='sm:hidden relative bottom-3'>
+                                    <Divider />
+                                </div>
+                                <li className='w-full  relative bottom-2  sm:hidden'>
+                                    <SearchBar />
+                                </li>
+                                <div className='sm:hidden '>
+                                    <Divider />
+                                </div>
+                            </article>
+                            {/*  */}
+
                             {
                                 !walletConnected ? (
                                     <li className={`py-2 px-2 w-full 

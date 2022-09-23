@@ -41,11 +41,20 @@ export default function Poaps({ props }: { props: Res }) {
             onClick={() => handleClick("left")}
             />
 
-          <div ref={rowRef} className="gap-x-5    flex md:gap-x-12 md:p-2 carousel mb-5 md:ml-1 group relative">
+          <div ref={rowRef} className="md:gap-x-10 -space-x-3.5 flex  md:p-2 carousel mb-5 md:ml-1 group relative">
             {POAPS.map((p, idx) => (
               <div  key={idx} className="carousel-item">
-                <label className="flex items-center cursor-pointer modal-button" htmlFor={"poap-modal-" + idx}>
-                  <Image loader={() => p.event.image_url} src={p.event.image_url}  width={112} height={112} />
+                <label className="flex 
+                  items-center 
+                  cursor-pointer 
+                  modal-button " 
+                  htmlFor={"poap-modal-" + idx}>
+                  <Image loader={() => p.event.image_url} 
+                    src={p.event.image_url} 
+                    width={112} 
+                    height={112}  
+                    className="scale-75 md:scale-100"
+                  />
                 </label>
                 <input type="checkbox" id={"poap-modal-" + idx} className="modal-toggle" />
                 <label htmlFor={"poap-modal-" + idx} className="modal cursor-pointer backdrop-blur-md">
