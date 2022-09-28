@@ -15,12 +15,12 @@ const ethColor = `bg-[#8a92b2]/20 text-[#454a75]`
 const arColor = "bg-black text-white"
 const iconProps = {width: 100, height: 100, color: "#1273ea"}
 
-export const arLabels = (ownedLabels: OwnedLabel[]) => ownedLabels.map((owned: OwnedLabel) => {
+export const arLabels = (arweave_address: string, ownedLabels: OwnedLabel[]) => ownedLabels.map((owned: OwnedLabel) => {
   return {
     username: owned.label + '.ar',
     classes: arColor,
-    canCopy: true,
-    link_to: null,
+    canCopy: false,
+    link_to: 'https://v2.viewblock.io/arweave/address/' + arweave_address,
     icon: <Image
       width={20}
       height={20}
@@ -36,9 +36,10 @@ export const arLabels = (ownedLabels: OwnedLabel[]) => ownedLabels.map((owned: O
 export const avaxLabel = (AVVY:string|undefined) => {
   if (!AVVY) return null
   return {
-    username: AVVY, classes: avaxColor,
-    link_to: null,
-    canCopy: true,
+    username: AVVY,
+    classes: avaxColor,
+    link_to: "https://app.avvy.domains/domains/" + AVVY,
+    canCopy: false,
     icon: <Image
       width={20}
       height={20}
@@ -56,9 +57,10 @@ export const ethLabel = (ENS:string|undefined) => {
 
   if (!ENS) return null;
   return {
-    username: ENS, classes: dark_mode,
-    link_to: null,
-    canCopy: true,
+    username: ENS,
+    classes: dark_mode,
+    link_to: "https://etherscan.io/enslookup-search?search=" + ENS,
+    canCopy: false,
     icon: <Image
       height={13}
       width={13}
@@ -69,8 +71,8 @@ export const ethLabel = (ENS:string|undefined) => {
   }
 }
 
-export const getDefaultLabels = ({ ar, links, ENS, AVVY }: {ar: OwnedLabel[], links: Links, ENS: string|undefined, AVVY: string|undefined}) => [
-  ...arLabels(ar),
+export const getDefaultLabels = ({ arweave_address, ar, links, ENS, AVVY }: {arweave_address: string, ar: OwnedLabel[], links: Links, ENS: string|undefined, AVVY: string|undefined}) => [
+  ...arLabels(arweave_address, ar),
   avaxLabel(AVVY),
   ethLabel(ENS),
   links?.twitter && {username: links.twitter, classes: colorProps,

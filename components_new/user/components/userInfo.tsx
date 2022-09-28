@@ -16,6 +16,7 @@ import { isDarkMode } from '../../../atoms';
 import { HackathonLabels } from '../hackathon/api/labels';
 import ProfileBadge from './modals/ProfileBadge';
 import EditProfile from './EditProfile';
+import { userInfo } from 'os';
 
 
 interface UserProps { 
@@ -39,7 +40,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
 
     // @ts-ignore
     const { instagram, twitter, github, customUrl } = user?.userInfo?.links;
-    const { ownedLabels, currentLabel, address_color, avatar } = user?.userInfo;
+    const { ownedLabels, currentLabel, address_color, avatar, } = user?.userInfo;
 
     const ansData:ANSData = {
         currentLabel: currentLabel,
@@ -58,7 +59,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
     let [month, year] = [member_since.toLocaleString('default', {month: 'short'}), member_since.getFullYear()];
     // console.log(month)
     // Labels
-    const defaultLabels = getDefaultLabels({ar: ownedLabels || [], links: {twitter, github, instagram, customUrl}, ENS: profile?.ENS, AVVY: profile?.AVVY});
+    const defaultLabels = getDefaultLabels({arweave_address: user?.userInfo?.user, ar: ownedLabels || [], links: {twitter, github, instagram, customUrl}, ENS: profile?.ENS, AVVY: profile?.AVVY});
     const labels = [...defaultLabels.map((label: any) => <GenericLabel {...label} />), ...HackathonLabels(profile)]
 
     const [loading, setLoading] = React.useState(true);
