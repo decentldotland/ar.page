@@ -16,7 +16,6 @@ import { isDarkMode } from '../../../atoms';
 import { HackathonLabels } from '../hackathon/api/labels';
 import ProfileBadge from './modals/ProfileBadge';
 import EditProfile from './EditProfile';
-import { userInfo } from 'os';
 
 
 interface UserProps { 
