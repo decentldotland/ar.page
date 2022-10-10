@@ -55,7 +55,7 @@ export default function StampsTab({currentUser, stamps, loading, perPage}: {curr
               </div>
               <div className="grow flex justify-between items-start">
                 <div className="flex flex-col mb-5">
-                  <div className='font-medium '>{currentUser.ANS.nickname} made a new stamp!</div>
+                  <div className='font-semibold '>{currentUser.ANS.nickname} made a new stamp!</div>
                   <div className='text-sm'>{epochToDate(stamp.timestamp)}</div>
                 </div>
                 <div className="flex mr-4">
