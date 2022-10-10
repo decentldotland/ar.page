@@ -41,14 +41,22 @@ export default function StampsTab({stamps, loading, perPage}: {stamps: Stamp[], 
               href={ARWEAVE_EXPLORER_TX + stamp.stampedAsset}
               rel="noopener noreferrer" target="_blank"
             >
-              <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center mr-4">
+              <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center mr-4">
+              <Image src={ARWEAVE_URL +  stamp.stampedAsset} // TODO: make this URL dynamic
+                alt={stamp.stampedAsset}
+                width={9999}
+                height={9999}
+                objectFit="cover"
+                className={`rounded-md cursor-pointer object-cover`}
+              />
+{/*                 
                 <div className="w-12 h-12 bg-yellow-300/80 rounded-full">
-                </div>
+                </div> */}
               </div>
               <div className="grow flex justify-between items-center">
                 <div className="flex flex-col ">
-                  <div>stamper: {stamp.stamper}</div>
-                  <div>Timestamp: {epochToDate(stamp.timestamp)}</div>
+                  <div>{stamp.stamper}</div>
+                  <div>{epochToDate(stamp.timestamp)}</div>
                 </div>
                 <div className="flex mr-4">
                   {/* TODO: make it non-static */}
