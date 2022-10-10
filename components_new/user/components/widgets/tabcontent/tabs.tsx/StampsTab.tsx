@@ -35,38 +35,41 @@ export default function StampsTab({currentUser, stamps, loading, perPage}: {curr
       </div>
       {filteredTransactions.length > 0 ? (
         <div className={`flex flex-col transition-opacity duration-400 pb-3 opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
-          {filteredTransactions.slice(0, perPage).map((stamp: Stamp, index: number) => (
-            <a key={index}
-              className="flex items-center my-2 rounded-lg transition-all ease-in-out duratino-200 hover:shadow-lg" 
-              href={ARWEAVE_EXPLORER_TX + stamp.stampedAsset}
-              rel="noopener noreferrer" target="_blank"
-            >
-              <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center mr-4">
-              <Image src={ARWEAVE_IMG +  stamp.stampedAsset} // TODO: make this URL dynamic
-                alt={stamp.stampedAsset}
-                width={9999}
-                height={9999}
-                objectFit="cover"
-                className={`rounded-md cursor-pointer object-cover`}
-              />
-{/*                 
-                <div className="w-12 h-12 bg-yellow-300/80 rounded-full">
-                </div> */}
-              </div>
-              <div className="grow flex justify-between items-start">
-                <div className="flex flex-col mb-5">
-                  <div className='font-semibold '>{currentUser.ANS.nickname} made a new stamp!</div>
-                  <div className='text-sm'>{epochToDate(stamp.timestamp)}</div>
+          {filteredTransactions
+            .slice(0, perPage)
+            .filter((i) => i.stampedAssetType === "image")
+            .map((stamp: Stamp, index: number) => (
+              <a key={index}
+                className="flex items-center my-2 rounded-lg transition-all ease-in-out duratino-200 hover:shadow-lg" 
+                href={ARWEAVE_EXPLORER_TX + stamp.stampedAsset}
+                rel="noopener noreferrer" target="_blank"
+              >
+                <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center mr-4">
+                <Image src={ARWEAVE_IMG +  stamp.stampedAsset} // TODO: make this URL dynamic
+                  alt={stamp.stampedAsset}
+                  width={9999}
+                  height={9999}
+                  objectFit="cover"
+                  className={`rounded-md cursor-pointer object-cover`}
+                />
+  {/*                 
+                  <div className="w-12 h-12 bg-yellow-300/80 rounded-full">
+                  </div> */}
                 </div>
-                <div className="flex mr-4">
-                  {/* TODO: make it non-static */}
-                  <div>
-                    {/* <FontAwesomeIcon icon={faCheck} className="w-9 h-9 bg-green-400 text-white rounded-full p-2" /> */}
-                    <ArrowTopRightOnSquareIcon  color='#666666' strokeWidth={2} className="w-9 h-9 p-2"/>
+                <div className="grow flex justify-between items-start">
+                  <div className="flex flex-col mb-5">
+                    <div className='font-semibold '>{currentUser.ANS.nickname} made a new stamp!</div>
+                    <div className='text-sm'>{epochToDate(stamp.timestamp)}</div>
+                  </div>
+                  <div className="flex mr-4">
+                    {/* TODO: make it non-static */}
+                    <div>
+                      {/* <FontAwesomeIcon icon={faCheck} className="w-9 h-9 bg-green-400 text-white rounded-full p-2" /> */}
+                      <ArrowTopRightOnSquareIcon  color='#666666' strokeWidth={2} className="w-9 h-9 p-2"/>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </a>
+              </a>
         ))}
         </div>
       ) : (
