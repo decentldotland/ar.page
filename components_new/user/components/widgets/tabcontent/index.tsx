@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import Collectibles from './tabs.tsx/collectibles';
 import ArweaveActivity from './tabs.tsx/activity';
 import Selector from './selector';
-import { ArweaveTransaction, NFT, Res } from '../../../../../src/types';
+import { ArweaveTransaction, NFT, Res, Stamp } from '../../../../../src/types';
 import { TABS } from '../../../hackathon/';
+import StampsTab from './tabs.tsx/StampsTab';
 
 
 export interface TabContentTabs {
@@ -16,6 +17,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   const [selected, setSelected] = useState<number>(0);
   const [NFTs, setNFTs] = useState<NFT[]>(arkProfile.ANFTS?.koii || []);
   const [activity, setActivity] = useState<ArweaveTransaction[]>(arkProfile.ARWEAVE_TRANSACTIONS);
+  const [stamp, setStamp] = useState<Stamp[]>(arkProfile.STAMPS);
 
   const setSelectedWrapper = (idx: number) => {
     setSelected(idx)
@@ -47,6 +49,31 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
           {
             // TODO: 
             activity.length - ActivityPerPage  > 0 ? (
+              <article className='flex justify-center mt-12'>
+                <button  onClick={() => showMore()} className='py-2 px-6 btn-primary  text-lg
+                  text-white font-semibold flex flex-row 
+                    justify-center rounded-lg'>
+                  <h1>Show More</h1>
+                </button>
+              </article>
+            ) : (
+              <article className='flex justify-center mt-12'>
+                <h1>You have reached the end result!</h1>
+              </article>
+            )
+          }
+         
+        </>
+    },
+    {
+      name: "Stamps",
+      total: stamp.length,
+      component: 
+        <>
+          <StampsTab stamps={stamp} loading={loading} perPage={ActivityPerPage}/>
+          {
+            // TODO: 
+            stamp.length - ActivityPerPage  > 0 ? (
               <article className='flex justify-center mt-12'>
                 <button  onClick={() => showMore()} className='py-2 px-6 btn-primary  text-lg
                   text-white font-semibold flex flex-row 
