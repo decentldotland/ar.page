@@ -70,7 +70,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       total: stamp.length,
       component: 
         <>
-          <StampsTab stamps={stamp} loading={loading} perPage={ActivityPerPage}/>
+          <StampsTab currentUser={arkProfile} stamps={stamp} loading={loading} perPage={ActivityPerPage}/>
           {
             // TODO: 
             stamp.length - ActivityPerPage  > 0 ? (
