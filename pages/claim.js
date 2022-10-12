@@ -5,7 +5,7 @@ import Web3 from 'web3';
 
 const web3 = new Web3(Web3.givenProvider);
 
-const claim = () => {
+const Claim = () => {
 
   const [hidden, setHidden] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -153,4 +153,4 @@ const claim = () => {
   )
 }
 
-export default claim
+export default Claim
