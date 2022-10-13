@@ -1,3 +1,5 @@
+import { timeStamp } from "console";
+
 export type ANSData = {
   address_color: string | undefined | null;
   currentLabel: string | undefined | null;
@@ -82,33 +84,53 @@ export interface Anfts {
 }
 
 // first attempt at a generalized NFT interface for generic NFT gallery view
-export interface NFT {
-  id:            string;
-  poster:        string;
-  timestamp:     number;
-  title:         string;
-  description:   string;
+// export interface NFT {
+//   id:            string;
+//   poster:        string;
+//   timestamp:     number;
+//   title:         string;
+//   description:   string;
+//   ticker?:       string;
+//   content_type?: string;
+// }
+
+export class NFT  {
+  id?:            string;
+  poster?:        string;
+  timestamp?:     number;
+  title?:         string;
+  description?:   string;
   ticker?:       string;
   content_type?: string;
+  
+  constructor() {}
+
+  add_id(id: string) {this.id  = id; return this;}
+  add_poster(poster: string) {this.poster  = poster; return this;}
+  add_timestamp(timestamp: number) {this.timestamp  = timestamp; return this;}
+  add_title(title: string) {this.title  = title; return this;}
+  add_description(description: string) {this.description  = description; return this;}
+  add_ticker(ticker: string) {this.ticker  = ticker; return this;}
+  add_content_type(content_type: string) {this.content_type  = content_type; return this;}
+} 
+
+export class Koii extends NFT {
+  // id:            string;
+  // poster:        string;
+  // timestamp:     number;
+  // title:         string;
+  // description:   string;
+  // ticker:        string;
 }
 
-export interface Koii {
-  id:            string;
-  poster:        string;
-  timestamp:     number;
-  title:         string;
-  description:   string;
-  ticker:        string;
-}
-
-export interface Permapage {
-  id:            string;
-  poster:        string;
-  timestamp:     number;
-  title:         string;
-  description:   string;
-  ticker:        string;
-  content_type: string;
+export class Permapage extends NFT {
+  // id:            string;
+  // poster:        string;
+  // timestamp:     number;
+  // title:         string;
+  // description:   string;
+  // ticker:        string;
+  // content_type: string;
 }
 
 export interface Ans {

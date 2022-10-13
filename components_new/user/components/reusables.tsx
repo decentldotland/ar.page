@@ -86,6 +86,8 @@ export function NFTGallery ({NFTs}: {NFTs: NFT[]}) {
     setIsOpen(opened => !opened);
   }, [])
 
+  
+
   return (
     <>
       <GenericFrame>
