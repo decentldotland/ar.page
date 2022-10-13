@@ -65,7 +65,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   //   }
   // }
 
-  const [CollectiblePerPage, setCollectiblePerPage] = useState(12);
+  const [CollectiblePerPage, setCollectiblePerPage] = useState(8);
   const [CurrentCollectiblePage, setcurrentCollectiblePage] = useState(1);
   let indexLastCollection = CurrentCollectiblePage * CollectiblePerPage;
   let firstIndexCollection = indexLastCollection - CollectiblePerPage;

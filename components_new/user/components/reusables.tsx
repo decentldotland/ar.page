@@ -108,7 +108,7 @@ export function NFTGallery ({NFTs, perPage}: {NFTs: NFT[], perPage: number}) {
               alt={nft.title}
               width={99999999}
               height={99999999}
-              loading="lazy"
+              // loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/png;base64,[IMAGE_CODE_FROM_PNG_PIXEL]"
               onClick={() => {
