@@ -17,8 +17,10 @@ export interface TabContentTabs {
 export default function Content({ arkProfile, loading }: { arkProfile: Res; loading: boolean }) {
   const [selected, setSelected] = useState<number>(0);
   const [activity, setActivity] = useState<ArweaveTransaction[]>(arkProfile.ARWEAVE_TRANSACTIONS);
-  const [stamp, setStamp] = useState<Stamp[]>(arkProfile.STAMPS);
   
+  
+  // ------------------------------NFT, Stamps Section-----------------------------------
+  const [stamp, setStamp] = useState<Stamp[]>(arkProfile.STAMPS);
   let tmp: NFT[] = [];
   const [NFTs, setNFTs] = useState<NFT[]>(tmp);
   // feel free to simplify
@@ -59,10 +61,21 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   //         .add_ticker(n.ticker!)
   //         .add_content_type(n.content_type!);
   //     }
-     
   //     tmp.push(anft);
   //   }
   // }
+
+  const [CollectiblePerPage, setCollectiblePerPage] = useState(12);
+  const [CurrentCollectiblePage, setcurrentCollectiblePage] = useState(1);
+  let indexLastCollection = CurrentCollectiblePage * CollectiblePerPage;
+  let firstIndexCollection = indexLastCollection - CollectiblePerPage;
+  let currentCollection = activity.slice(firstIndexCollection, indexLastCollection) 
+  const showMoreCollection = () => { 
+    setCollectiblePerPage(currentCollection.length + CollectiblePerPage);
+  }
+
+
+// --------------------------------------Activity Section----------------------------------
 
   const setSelectedWrapper = (idx: number) => {
     setSelected(idx)
@@ -83,7 +96,27 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
     {
       name: "Collectables",
       total: NFTs.length,
-      component: <Collectibles NFTs={NFTs} loading={loading} />
+      component: 
+      <>
+        <Collectibles NFTs={NFTs} loading={loading} perPage={CollectiblePerPage}/>
+        {
+          // TODO: 
+          NFTs.length - CollectiblePerPage  > 0 ? (
+            <article className='flex justify-center mt-12'>
+              <button  onClick={() => showMoreCollection()} className='py-2 px-6 btn-primary  text-lg
+                text-white font-semibold flex flex-row 
+                  justify-center rounded-lg'>
+                <h1>Show More</h1>
+              </button>
+            </article>
+          ) : (
+            <article className='flex justify-center mt-12'>
+              <h1>You have reached the end result!</h1>
+            </article>
+          )
+        }
+      </>
+      
     },
     {
       name: "Activity",

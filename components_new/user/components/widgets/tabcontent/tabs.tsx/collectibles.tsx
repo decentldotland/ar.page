@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { LoadingOrNotFound, SearchBar, NFTGallery } from '../../../reusables';
 import { NFT } from '../../../../../../src/types';
 
-export default function Collectibles({NFTs, loading}: {NFTs: NFT[], loading: boolean}) {
+export default function Collectibles({NFTs, loading, perPage}: {NFTs: NFT[], loading: boolean, perPage: number}) {
   const [filteredNFTs, setFilteredNFTs] = useState<NFT[]>(NFTs);
 
   const [onLoad, setOnLoad] = useState<boolean>(false);
@@ -46,7 +46,7 @@ export default function Collectibles({NFTs, loading}: {NFTs: NFT[], loading: boo
       </div>
 
       {filteredNFTs.length > 0 ? (
-        <NFTGallery NFTs={filteredNFTs} />
+        <NFTGallery NFTs={filteredNFTs} perPage={perPage} />
       ): (
         <LoadingOrNotFound loading={loading} jsxNotFound={"No NFTs found"} />
       )}

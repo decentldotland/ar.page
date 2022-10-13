@@ -77,7 +77,7 @@ export function GenericFrame (props: GenericFrameType) {
   )
 }
 
-export function NFTGallery ({NFTs}: {NFTs: NFT[]}) {
+export function NFTGallery ({NFTs, perPage}: {NFTs: NFT[], perPage: number}) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [current, setCurrent] = useState<any>({});
 
@@ -91,9 +91,9 @@ export function NFTGallery ({NFTs}: {NFTs: NFT[]}) {
   return (
     <>
       <GenericFrame>
-        {NFTs.map((
-          nft: NFT,
-          index: number
+        {NFTs
+          .slice(0, perPage)
+          .map((nft: NFT, index: number
         ) =>
           <button key={index} className="
             object-cover
@@ -108,6 +108,7 @@ export function NFTGallery ({NFTs}: {NFTs: NFT[]}) {
               alt={nft.title}
               width={99999999}
               height={99999999}
+              loading="lazy"
               onClick={() => {
                 setCurrent(nft);
                 setIsOpen(true)
