@@ -5,6 +5,7 @@ import Selector from './selector';
 import { ArweaveTransaction, NFT, Permapage, Res, Stamp } from '../../../../../src/types';
 import { TABS } from '../../../hackathon/';
 import { Nfts } from '../../../../../components/Nfts';
+import StampsTab from './tabs.tsx/StampsTab';
 
 
 export interface TabContentTabs {
@@ -93,6 +94,31 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
           {
             // TODO: 
             activity.length - ActivityPerPage  > 0 ? (
+              <article className='flex justify-center mt-12'>
+                <button  onClick={() => showMore()} className='py-2 px-6 btn-primary  text-lg
+                  text-white font-semibold flex flex-row 
+                    justify-center rounded-lg'>
+                  <h1>Show More</h1>
+                </button>
+              </article>
+            ) : (
+              <article className='flex justify-center mt-12'>
+                <h1>You have reached the end result!</h1>
+              </article>
+            )
+          }
+         
+        </>
+    },
+    {
+      name: "Stamps",
+      total: stamp.length,
+      component: 
+        <>
+          <StampsTab currentUser={arkProfile} stamps={stamp} loading={loading} perPage={ActivityPerPage}/>
+          {
+            // TODO: 
+            stamp.length - ActivityPerPage  > 0 ? (
               <article className='flex justify-center mt-12'>
                 <button  onClick={() => showMore()} className='py-2 px-6 btn-primary  text-lg
                   text-white font-semibold flex flex-row 
