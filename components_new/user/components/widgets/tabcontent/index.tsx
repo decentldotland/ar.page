@@ -46,22 +46,22 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       tmp.push(anft);
     }
   }
-  if (arkProfile.ANFTS.permapages_img.length !== 0) { 
-    for (let n of arkProfile.ANFTS.permapages_img) { 
-      let anft = new NFT();
-      if (n.content_type === "image/png") {
-        anft.add_id(n.id!)
-          .add_poster(n.poster!)
-          .add_timestamp(n.timestamp!)
-          .add_title(n.title!)
-          .add_description(n.description!)
-          .add_ticker(n.ticker!)
-          .add_content_type(n.content_type!);
-      }
+  // if (arkProfile.ANFTS.permapages_img.length !== 0) { 
+  //   for (let n of arkProfile.ANFTS.permapages_img) { 
+  //     let anft = new NFT();
+  //     if (n.content_type === "image/png") {
+  //       anft.add_id(n.id!)
+  //         .add_poster(n.poster!)
+  //         .add_timestamp(n.timestamp!)
+  //         .add_title(n.title!)
+  //         .add_description(n.description!)
+  //         .add_ticker(n.ticker!)
+  //         .add_content_type(n.content_type!);
+  //     }
      
-      tmp.push(anft);
-    }
-  }
+  //     tmp.push(anft);
+  //   }
+  // }
 
   const setSelectedWrapper = (idx: number) => {
     setSelected(idx)

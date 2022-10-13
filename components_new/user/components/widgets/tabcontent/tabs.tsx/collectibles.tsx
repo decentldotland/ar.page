@@ -8,12 +8,12 @@ export default function Collectibles({NFTs, loading}: {NFTs: NFT[], loading: boo
   const [onLoad, setOnLoad] = useState<boolean>(false);
 
   const [ascending, setAscending] = useState<boolean>(true);
-  const filter = () => filteredNFTs.sort((a, b) => ascending ? a.timestamp - b.timestamp: b.timestamp - a.timestamp)
+  const filter = () => filteredNFTs.sort((a, b) => ascending ? a.timestamp! - b.timestamp!: b.timestamp! - a.timestamp!)
 
   const [search, setSearch] = useState<string>('');
   const onSearch = (e: string) => {
     setSearch(e);
-    setFilteredNFTs(NFTs.filter((nft) => nft.title.toLowerCase().includes(e.toLowerCase())));
+    setFilteredNFTs(NFTs.filter((nft) => nft.title!.toLowerCase().includes(e.toLowerCase())));
   };
 
   useEffect(() => {
