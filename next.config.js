@@ -7,7 +7,8 @@ module.exports = {
               'assets.poap.xyz', 
               'cryptologos.cc', 
               'img.arweave.dev',
-              'lens.xyz'
+              'lens.xyz',
+              'raw.githubusercontent.com'
             ],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
