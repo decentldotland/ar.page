@@ -109,6 +109,8 @@ export function NFTGallery ({NFTs, perPage}: {NFTs: NFT[], perPage: number}) {
               width={99999999}
               height={99999999}
               loading="lazy"
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,[IMAGE_CODE_FROM_PNG_PIXEL]"
               onClick={() => {
                 setCurrent(nft);
                 setIsOpen(true)
