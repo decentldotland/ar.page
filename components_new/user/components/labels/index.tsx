@@ -76,7 +76,7 @@ export const lensLabel = (lens:string[] |undefined) => {
 
   let dark_mode = `${isDark ? ('bg-[#8a92b2]/60 text-white') : (ethColor)} `;
 
-  if (!lens) return null;
+  if (lens?.length == 0) return null;
   return {
     username: lens,
     classes: lenProps,
