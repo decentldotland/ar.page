@@ -24,18 +24,18 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   let tmp: NFT[] = [];
   const [NFTs, setNFTs] = useState<NFT[]>(tmp);
   // feel free to simplify
-  if (arkProfile.STAMPS.length !== 0) {
-    for (let n of arkProfile.STAMPS) { 
-      if (n.stampedAssetType === "image" ) {
-        let stamp_nft = new NFT()
-          .add_id(n.stampedAsset)
-          .add_poster(n.stampedAsset!)
-          .add_timestamp(n.timestamp!)
-          .add_content_type(n.stampedAssetType!);
-        tmp.push(stamp_nft);
-      }
-    }
-  }
+  // if (arkProfile.STAMPS.length !== 0) {
+  //   for (let n of arkProfile.STAMPS) { 
+  //     if (n.stampedAssetType === "image" ) {
+  //       let stamp_nft = new NFT()
+  //         .add_id(n.stampedAsset)
+  //         .add_poster(n.stampedAsset!)
+  //         .add_timestamp(n.timestamp!)
+  //         .add_content_type(n.stampedAssetType!);
+  //       tmp.push(stamp_nft);
+  //     }
+  //   }
+  // }
 
   if (arkProfile.ANFTS.koii.length !== 0) { 
     for (let n of arkProfile.ANFTS.koii) { 
@@ -49,21 +49,21 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       tmp.push(anft);
     }
   }
-  // if (arkProfile.ANFTS.permapages_img.length !== 0) { 
-  //   for (let n of arkProfile.ANFTS.permapages_img) { 
-  //     let anft = new NFT();
-  //     if (n.content_type === "image/png") {
-  //       anft.add_id(n.id!)
-  //         .add_poster(n.poster!)
-  //         .add_timestamp(n.timestamp!)
-  //         .add_title(n.title!)
-  //         .add_description(n.description!)
-  //         .add_ticker(n.ticker!)
-  //         .add_content_type(n.content_type!);
-  //     }
-  //     tmp.push(anft);
-  //   }
-  // }
+  if (arkProfile.ANFTS.permapages_img.length !== 0) { 
+    for (let n of arkProfile.ANFTS.permapages_img) { 
+      let anft = new NFT();
+      if (n.content_type === "image/jpeg" || n.content_type === "image/png") {
+        anft.add_id(n.id!)
+          .add_poster(n.poster!)
+          .add_timestamp(n.timestamp!)
+          .add_title(n.title!)
+          .add_description(n.description!)
+          .add_ticker(n.ticker!)
+          .add_content_type(n.content_type!);
+      }
+      tmp.push(anft);
+    }
+  }
 
   const [CollectiblePerPage, setCollectiblePerPage] = useState(8);
   const [CurrentCollectiblePage, setcurrentCollectiblePage] = useState(1);
@@ -80,8 +80,6 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   const setSelectedWrapper = (idx: number) => {
     setSelected(idx)
   };
-
-
   // Adding Pagination to limit the number of transactions
   const [ActivityPerPage, setActivityPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
@@ -92,6 +90,10 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       setActivityPerPage(currentActivity.length + ActivityPerPage);
     }
   
+// ---------------------------------- Stamp S-----------------------------------------------
+
+
+
   const tabs = [
     {
       name: "Collectables",
