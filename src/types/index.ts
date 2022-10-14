@@ -214,7 +214,9 @@ export interface Stamp {
   stampedAsset: string;
   stamper:      string;
   timestamp:    number;
-  stampedAssetType: string
+  stampedAssetType: string;
+  title: string;
+  description: string;
 }
 
 export interface LensProtocolsActv {

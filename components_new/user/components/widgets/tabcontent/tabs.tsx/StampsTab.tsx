@@ -28,6 +28,12 @@ export default function StampsTab({currentUser, stamps, loading, perPage}: {curr
     setOnLoad(true);
   }, [])
 
+  const dotTrunctate = ( id: string ) => {
+    const first = id.slice(0, 5);
+    const last = id.slice(-6, -1);
+    return `${first}...${last}`;
+  }
+
   return (
     <>
       <div className="flex md:items-center mb-6">
@@ -58,7 +64,8 @@ export default function StampsTab({currentUser, stamps, loading, perPage}: {curr
                 </div>
                 <div className="grow flex justify-between items-start">
                   <div className="flex flex-col mb-5">
-                    <div className='font-semibold '>{currentUser.ANS.nickname} made a new stamp!</div>
+                    <div className='font-semibold '><span className="text-[#777]">{currentUser.ANS.nickname} stamped</span> {stamp.title}</div>
+                    {console.log(stamp)}
                     <div className='text-sm'>{epochToDate(stamp.timestamp)}</div>
                   </div>
                   <div className="flex mr-4">
