@@ -3,7 +3,7 @@ import axios from "axios"
 
 export default async function handler(req, res) {
   try {
-    const data = await axios.get(`https://ans-stats.decent.land/users?per_page=1`)
+    const data = await axios.get(`http://ans-stats.decent.land/users`)
     res.status(200).json(data.data)
   } catch (error) {
     console.error(error)

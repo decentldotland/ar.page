@@ -19,6 +19,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@heroicons/react": "^2.0.10",
     "@mui/material": "^5.10.4",
+    "@rainbow-me/rainbowkit": "^0.7.1",
     "@svgr/webpack": "^6.2.1",
     "ans-for-all": "nanofuxion/ans-for-all",
     "arweave": "^1.10.23",
@@ -27,6 +28,7 @@
     "base64url": "^3.0.1",
     "daisyui": "^2.24.0",
     "downshift": "^6.1.7",
+    "ethers": "^5.7.1",
     "framer-motion": "^6.5.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
@@ -47,6 +49,7 @@
     "sweetalert2": "^11.4.9",
     "tailwind-scrollbar": "^1.3.1",
     "tippy.js": "^6.3.7",
+    "wagmi": "^0.6.8",
     "weave-aggregator": "^0.3.4",
     "web3": "^1.8.0"
   },
