@@ -6,7 +6,9 @@ module.exports = {
               'arweave.net', 
               'assets.poap.xyz', 
               'cryptologos.cc', 
-              'img.arweave.dev'
+              'img.arweave.dev',
+              'lens.xyz',
+              'raw.githubusercontent.com'
             ],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,

@@ -27,7 +27,7 @@ export const Nav = (props:any) => {
                 params: {
                     // Doing this prevents the constant access to the server 
                     // Before it would send multiple request on this api
-                    per_page: 1
+                    per_page: 0
                 }
             });
             // console.log({res: [], ...result.data}.res, "test 0")

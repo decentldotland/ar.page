@@ -14,6 +14,7 @@ const avaxColor = "bg-[#E84040]/80 text-white"
 const ethColor = `bg-[#8a92b2]/20 text-[#454a75]`
 const arColor = "bg-black text-white"
 const iconProps = {width: 100, height: 100, color: "#1273ea"}
+const lenProps = "bg-[#abfe2c] text-[#05501F] bg-[#aafe2ccb]"
 
 export const arLabels = (arweave_address: string, ownedLabels: OwnedLabel[]) => ownedLabels.map((owned: OwnedLabel) => {
   return {
@@ -70,11 +71,39 @@ export const ethLabel = (ENS:string|undefined) => {
     />
   }
 }
+export const lensLabel = (lens:string[] |undefined) => {
+  const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
-export const getDefaultLabels = ({ arweave_address, ar, links, ENS, AVVY }: {arweave_address: string, ar: OwnedLabel[], links: Links, ENS: string|undefined, AVVY: string|undefined}) => [
+  let dark_mode = `${isDark ? ('bg-[#8a92b2]/60 text-white') : (ethColor)} `;
+
+  if (lens?.length == 0) return null;
+  return {
+    username: lens,
+    classes: lenProps,
+    link_to: "https://etherscan.io/enslookup-search?search=" ,
+    canCopy: false,
+    icon: <Image
+      height={20}
+      width={20}
+      src="https://raw.githubusercontent.com/lens-protocol/brand-kit/main/Logo/SVG/LENS%20LOGO_%20copy_Icon%20Only.svg"
+      alt=""
+      quality={50}
+    />
+  }
+}
+
+export const getDefaultLabels = ({ arweave_address, ar, links, ENS, AVVY, LENS }: {
+  arweave_address: string, 
+  ar: OwnedLabel[], 
+  links: Links, 
+  ENS: string|undefined, 
+  AVVY: string|undefined,
+  LENS: string[] |undefined
+}) => [
   ...arLabels(arweave_address, ar),
   avaxLabel(AVVY),
   ethLabel(ENS),
+  lensLabel(LENS),
   links?.twitter && {username: links.twitter, classes: colorProps,
     link_to: "https://twitter.com/" + links.twitter,
     canCopy: true,
