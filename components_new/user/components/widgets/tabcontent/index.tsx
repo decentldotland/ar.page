@@ -36,7 +36,6 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   //     }
   //   }
   // }
-
   if (arkProfile.ANFTS.koii.length !== 0) { 
     for (let n of arkProfile.ANFTS.koii) { 
       let anft: NFT = new NFT()
@@ -64,6 +63,9 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       tmp.push(anft);
     }
   }
+
+  // Temporary FIx
+  NFTs.sort((a, b) =>  b.timestamp! - a.timestamp!)
 
   const [CollectiblePerPage, setCollectiblePerPage] = useState(8);
   const [CurrentCollectiblePage, setcurrentCollectiblePage] = useState(1);
