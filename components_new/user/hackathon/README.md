@@ -24,7 +24,7 @@ The specifics are open-ended, but **here are some ideas** we think would be awes
 
 - Add badges to show DAO and PSC membership
 - Aggregated tweets or other linked social web3 data sources like Mirror.xyz
-- Integrate Arweave’s Stamp protocol - show a user’s stamps, and allow users to stamp other profiles
+- Make it possible to [STAMP](https://stamps.live) assets from the Collectibles tab
 - Add more ways to get verified status with VouchDAO or with ArNS name linking
 - Expand existing components (e.g. build search and filters into the activity feed or collections view)
 - Build components for subsections of a user’s collection, e.g: all of their metaverse land, all of their ANS names…
