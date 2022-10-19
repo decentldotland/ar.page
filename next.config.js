@@ -2,7 +2,14 @@ module.exports = {
   reactStrictMode: true,
   // swcMinify: true,
   images: {
-    domains: ['pz-prepnb.meson.network', 'arweave.net', 'assets.poap.xyz', 'cryptologos.cc'],
+    domains: ['pz-prepnb.meson.network', 
+              'arweave.net', 
+              'assets.poap.xyz', 
+              'cryptologos.cc', 
+              'img.arweave.dev',
+              'lens.xyz',
+              'raw.githubusercontent.com'
+            ],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     formats: ['image/avif', 'image/webp'],
