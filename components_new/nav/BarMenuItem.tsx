@@ -15,6 +15,7 @@ import {SunIcon} from '@heroicons/react/24/outline'
 import { CircularProgress } from '@mui/material';
 import { resolveDomain } from '../../src/utils';
 import SearchBar from './SearchBar';
+import {Bars3Icon}  from '@heroicons/react/24/solid'
 
 
 function BarMenuItem() {
@@ -62,8 +63,9 @@ useEffect(() => {
 }, [isDark]);
   return (
     <section className=''  ref={container}>
-        <button  onClick={() => setToggle(!toggle)}>
-            <NavUser />
+        <button  onClick={() => setToggle(!toggle)} className="items-center">
+            {/* <NavUser /> */}
+            <Bars3Icon height={30} width={30} strokeWidth={2}/>
         </button>
 
         <article className={`sm:relative flex flex-row-reverse`} >

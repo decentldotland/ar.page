@@ -45,18 +45,12 @@ export const NavUser = (props: any) => {
                 )) || (
                         <div className="flex flex-row gap-x-2.5 items-center">
                             <div
-                                className='flex rounded-full h-10 w-10 justify-center items-center  
+                                className='flex rounded-full h-9 w-9 justify-center items-center  
                                     md:h-10 md:w-10 overflow-hidden bg-[#242B48]'
                                 // onClick={arconnectConnect}
                             >
-                                <Image src={Favicon} width={30} height={30} className='mx-auto my-auto' alt="" />
-                            </div>
-
-                            {/* nickname and label */}
-                            <div hidden={true} className="flex flex-col mt-1 max-w-[80px]">
-                                <div className="text-xs font-medium">
-                                    No wallet detected...
-                                </div>
+                                
+                                <Image src={Favicon} width={25} height={25} className='mx-auto my-auto' alt="" />
                             </div>
                         </div>
                     )}
