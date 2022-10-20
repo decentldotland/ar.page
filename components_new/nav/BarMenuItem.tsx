@@ -66,14 +66,15 @@ useEffect(() => {
             <NavUser />
         </button>
 
-        <article className={`relative`} >
+        <article className={`relative flex justify-center w-full`} >
             {
                 toggle && (
-                    <div 
-                        hidden={!toggle}
-                        className={` ${isDark ? ('bg-[#121a2f]'):('bg-white ')} text-black absolute z-50 
-                        w-screen -right-5 rounded-b-xl px-5
-                        py-5 sm:px-2 sm:right-1 shadow-xl 
+                    // Controls the body of dropdown menu
+                    <div hidden={!toggle}
+                        className={` ${isDark ? ('bg-[#121a2f]'):('bg-white ')}
+                        text-black absolute z-50 w-screen  rounded-b-xl px-5 -right-7 py-5 
+                        sm:px-2 sm:right-1
+                         shadow-xl 
                         sm:rounded-xl sm:mt-4 sm:w-[272px]`}>
                         <ul className='h-full'>
 
@@ -89,8 +90,9 @@ useEffect(() => {
                                     <Divider />
                                 </div>
                             </article>
-                            {/*  */}
+                 
 
+                            {/* Checks if the user is signed -> to show the user avatar or not */}
                             {
                                 !walletConnected ? (
                                     <li className={`py-2 px-2 w-full 

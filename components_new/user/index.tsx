@@ -71,7 +71,7 @@ export default function UserPage (props: userInfo) {
       {/* <div className="h-full max-h-full overflow-clip w-[250px] md:block hidden bg-base-100">
         <Sidebar />
       </div> */}
-      <div className="w-full h-body overflow-y-scroll bg-base-200/25">
+      <div className="w-full h-body ">
         <PageContent userInfo={props.userInfo} />
       </div>
     </div>

@@ -46,7 +46,7 @@ export const Layout = (props: Props) => {
                             }
                         `}
                     </Script>
-                    <div className="h-body  grow md:overflow-y-auto overflow-y-scroll">
+                    <div className="h-body items-center">
                     <div id="top"className="h-0 w-0"></div>
                         {props.children}
                     </div>
