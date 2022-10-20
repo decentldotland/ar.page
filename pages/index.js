@@ -23,9 +23,10 @@ export async function getServerSideProps(context) {
 
     if(wildcard !== "404")
       try {
-        const res = await axios.get(`https://ans-testnet.herokuapp.com/profile/${wildcard}`);
-        const userInfo = res.data;  // <-- Access one more data object here
-        return { props: {wildcard, userInfo} };
+          const res = await axios.get(`https://ans-stats.decent.land/users`);
+          const userInfo = res.data?.res?.find((user) => user.currentLabel === wildcard);
+          if (userInfo) return { props: {wildcard, userInfo} };
+          else return { props: {wildcard} };
       } catch (error) {
         console.log("Failed to use domain routing...")
       };
