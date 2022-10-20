@@ -24,7 +24,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   let tmp: NFT[] = [];
   const [NFTs, setNFTs] = useState<NFT[]>(tmp);
   // feel free to simplify
-  // if (arkProfile.STAMPS.length !== 0) {
+  // if (arkProfile.STAMPS !== undefined || null) {
   //   for (let n of arkProfile.STAMPS) { 
   //     if (n.stampedAssetType === "image" ) {
   //       let stamp_nft = new NFT()
@@ -36,7 +36,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   //     }
   //   }
   // }
-  if (arkProfile.ANFTS.koii.length !== 0) { 
+  if (arkProfile.ANFTS?.koii !== undefined || null) { 
     for (let n of arkProfile.ANFTS.koii) { 
       let anft: NFT = new NFT()
         .add_id(n.id!)
@@ -48,7 +48,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       tmp.push(anft);
     }
   }
-  if (arkProfile.ANFTS.permapages_img.length !== 0) { 
+  if (arkProfile.ANFTS?.permapages_img !== undefined || null) { 
     for (let n of arkProfile.ANFTS.permapages_img) { 
       let anft = new NFT();
       if (n.content_type === "image/jpeg" ||
