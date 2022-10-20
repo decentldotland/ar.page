@@ -39,7 +39,7 @@ The specifics are open-ended, but **here are some ideas** we think would be awes
 - Add more ways to get verified status with [VouchDAO](https://vouchdao.xyz) or with [ArNS](https://ar.io/arns) name linking (note that ArNS is totally separate from ANS, despite the similar name)
 - Expand existing components (e.g. build search and filters into the activity feed or collections view)
 - Build components for subsections of a user’s collection, e.g: all of their metaverse land, all of their ANS names…
-- Show a user's [permacast](https://ar.io/arns) podcasts or Pianity tracks with the [weave-aggregator](https://github.com/decentldotland/weave-aggregator)
+- Show a user's [permacast](https://permacast.dev) podcasts or Pianity tracks with the [weave-aggregator](https://github.com/decentldotland/weave-aggregator)
 - Implement an activity feed which reads all of a user's activity from the weave-aggregator
 - General performance optimizations to the [API](https://github.com/decentldotland/ark-network) and UI
 
