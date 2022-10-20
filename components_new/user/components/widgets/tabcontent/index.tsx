@@ -36,7 +36,6 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   //     }
   //   }
   // }
-
   if (arkProfile.ANFTS.koii.length !== 0) { 
     for (let n of arkProfile.ANFTS.koii) { 
       let anft: NFT = new NFT()
@@ -52,7 +51,11 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   if (arkProfile.ANFTS.permapages_img.length !== 0) { 
     for (let n of arkProfile.ANFTS.permapages_img) { 
       let anft = new NFT();
-      if (n.content_type === "image/jpeg" || n.content_type === "image/png") {
+      if (n.content_type === "image/jpeg" ||
+         n.content_type === "image/png" || 
+         n.content_type === "image/gif" 
+        //  n.content_type==="video/mp4"
+         ) {
         anft.add_id(n.id!)
           .add_poster(n.poster!)
           .add_timestamp(n.timestamp!)
@@ -64,6 +67,9 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       tmp.push(anft);
     }
   }
+
+  // Temporary FIx
+  NFTs.sort((a, b) =>  b.timestamp! - a.timestamp!)
 
   const [CollectiblePerPage, setCollectiblePerPage] = useState(8);
   const [CurrentCollectiblePage, setcurrentCollectiblePage] = useState(1);
