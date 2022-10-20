@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SelectSearch, { useSelect } from 'react-select-search';
 import { useRouter } from 'next/router'
 
@@ -14,6 +14,7 @@ import { isDarkMode } from '../../atoms';
 import Image from 'next/image';
 import { Divider } from '../user/components/reusables';
 import { resolveDomain } from '../../src/utils';
+import {XCircleIcon} from '@heroicons/react/24/solid'
 
 
 const CustomSelect = ({ options, multiple, disabled, placeholder }: 
@@ -104,75 +105,81 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                 placeholder={placeholder}
                 className=" font-inter w-full text-sm font-normal outline-none bg-transparent"
             />
-            <article className={`z-50 transition-all duration-300 ease-in-out ${show ? 'opacity-100': 'opacity-0 pointer-events-none'}`}>
-            
-            
-            <div className={` py-4 rounded-xl  md:h-fit  px-4
-                ${isDark ? ('bg-[#121a2f]'): ('bg-white')}
-                shadow-xl sm:shadow-sm w-screen md:max-w-[326px] md:w-full absolute md:left-0 -right-7 mt-10 z-50
-                ml-16 md:ml-28
-                `}>
-                <h2 className="text-lg font-semibold px-7">Members</h2>
-                <ul className="h-full">
-
-                    {/* If nothing is found in our database, print out the text that user is typing instead */}
-                    {val  && (
-                        <>
-                            <div className=" hidden md:block space-x-1 px-7 text-2xs overflow-x-hidden text-left
-                                text-gray-400">
-                                <p className=''>
-                                    <span className='mr-1 font-semibold'>
-                                        Searching for:
-                                    </span> 
-                                    "{val}"</p>
-                            <Divider />
-                            </div>
-                        
-                        </>
-                    )}
-
-                    {snapshot.options
-                        .filter((i: any) => i.name?.toLowerCase()?.includes(val?.toLowerCase()))
-                        .slice(0, 4)
-                        .map((option) => (
-                            <div key={option.name} className={`${isDark ? ('hover:bg-[#1a2745] '): ('hover:bg-gray-200 ')}
-                                w-full sm:px-7 py-2 px-10 cursor-pointer `}>
-                                <li key={option.name} className="w-full mt-1 rounded-md " onClick={
-                                    (event) => {
-                                        window.location.href = resolveDomain(option.name);
-                                    }
-                                }>
-                                    <a href={resolveDomain(option.name)} className='flex flex-row space-x-2 items-center '>
-                                        {
-                                            option.photo ? (
-                                                <div className='bg-gray-400 w-[34px] h-[34px] rounded-full'>
-                                                    <Image src={`https://arweave.net/${option.photo}`} 
-                                                        height={34}
-                                                        width={34}
-                                                        quality={1}
-                                                        alt={option.name}
-                                                        className="w-[34px] h-[34px] rounded-full "/>
-                                                </div>
-                                            ) : (
-                                                <div className='w-[34px] h-[34px] rounded-full 
-                                                    bg-gradient-to-l from-[#9E00FF] to-[#1273EA] 
-                                                     origin-center items-center flex justify-center'>
-                                                        <p className='text-white font-medium '>
-                                                            {option.name[0]}
-                                                        </p>
-                                                </div>
-                                            )
-                                        }
-                                        {/* @ts-ignore */}
-                                        <button {...optionProps} className=" text-sm font-semibold" value={option.value} >{option.name}</button>
-                                        <ArrowUpRightIcon height={14} width={14} color={"#666"} strokeWidth={1} />
-
-                                    </a>
-                                </li>
-                            </div>
-                        ))}
-                </ul>
+            <div hidden={val.length <= 1}>
+                <XCircleIcon
+                    
+                    onClick={() => {setVal('')}}
+                    className='cursor-pointer relative left-1' 
+                    height={20} width={20} strokeWidth={3} color={`${isDark? ('white') : ('#666') }`} />
             </div>
+
+            <article className={`z-50 transition-all duration-300 ease-in-out ${show ? 'opacity-100': 'opacity-0 pointer-events-none'}`}>
+                
+                <div className={` py-4 sm:rounded-xl  rounded-none  md:h-fit  
+                    ${isDark ? ('bg-[#121a2f]'): ('bg-white')}
+                    shadow-lg sm:shadow-xl  w-screen sm:w-[336px]  md:max-w-[326px] md:w-[336px]  absolute sm:left-0 -right-7 mt-10 z-50
+                    ml-16 md:ml-28 
+                    `}>
+                    <h2 className="text-lg font-semibold sm:px-4 px-10">Members</h2>
+                    <ul className="h-full">
+                        {/* If nothing is found in our database, print out the text that user is typing instead */}
+                        {val  && (
+                            <>
+                                <div className=" hidden md:block space-x-1 px-7 text-2xs overflow-x-hidden text-left
+                                    text-gray-400">
+                                    <p className=''>
+                                        <span className='mr-1 font-semibold'>
+                                            Searching for:
+                                        </span> 
+                                        "{val}"</p>
+                                <Divider />
+                                </div>
+                            
+                            </>
+                        )}
+
+                        {snapshot.options
+                            .filter((i: any) => i.name?.toLowerCase()?.includes(val?.toLowerCase()))
+                            .slice(0, 4)
+                            .map((option) =>  (
+                                <div key={option.name} className={`${isDark ? ('hover:bg-[#1a2745] '): ('hover:bg-gray-200 ')}
+                                    w-full sm:px-4 py-2 px-14 cursor-pointer `}>
+                                    <li key={option.name} className="w-full mt-1 rounded-md " onClick={
+                                        (event) => {
+                                            window.location.href = resolveDomain(option.name);
+                                        }
+                                    }>
+                                        <a href={resolveDomain(option.name)} className='flex flex-row space-x-2 items-center '>
+                                            {
+                                                option.photo ? (
+                                                    <div className='bg-gray-400 w-[34px] h-[34px] rounded-full'>
+                                                        <Image src={`https://arweave.net/${option.photo}`} 
+                                                            height={34}
+                                                            width={34}
+                                                            quality={1}
+                                                            alt={option.name}
+                                                            className="w-[34px] h-[34px] rounded-full "/>
+                                                    </div>
+                                                ) : (
+                                                    <div className='w-[34px] h-[34px] rounded-full 
+                                                        bg-gradient-to-l from-[#9E00FF] to-[#1273EA] 
+                                                        origin-center items-center flex justify-center'>
+                                                            <p className='text-white font-medium '>
+                                                                {option.name[0]}
+                                                            </p>
+                                                    </div>
+                                                )
+                                            }
+                                            {/* @ts-ignore */}
+                                            <button {...optionProps} className=" text-sm font-semibold" value={option.value} >{option.name}</button>
+                                            <ArrowUpRightIcon height={14} width={14} color={"#666"} strokeWidth={1} />
+
+                                        </a>
+                                    </li>
+                                </div>
+                            ))}
+                    </ul>
+                </div>
             </article>
             {/* <SelectSearch search={true} autoComplete="on" options={options} value="sv" placeholder="Choose your language" /> */}
         </section>
