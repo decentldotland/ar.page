@@ -35,8 +35,8 @@ function CoverPage(props: userInfo) {
 
   return (
     user_cover.length > 0 ? (
-      <section style={coverStyle} className="w-full transition duration relative flex flex-row justify-center">
-        <div className='max-w-[1280px]  flex justify-end '>
+      <section style={coverStyle} className=" transition duration relative flex flex-row justify-center">
+        <div className='max-w-[1145px]  flex justify-end '>
           <div className=' space-x-3 md:flex pb-3 absolute bottom-1 hidden 
           md:right-1 sm:right-10  md:px-16'>
             {

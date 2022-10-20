@@ -66,17 +66,15 @@ useEffect(() => {
             <NavUser />
         </button>
 
-        <article className={`relative flex justify-center w-full`} >
+        <article className={`sm:relative flex flex-row-reverse`} >
             {
                 toggle && (
                     // Controls the body of dropdown menu
                     <div hidden={!toggle}
                         className={` ${isDark ? ('bg-[#121a2f]'):('bg-white ')}
-                        text-black absolute z-50 w-screen  rounded-b-xl px-5 -right-7 py-5 
-                        sm:px-2 sm:right-1
-                         shadow-xl 
-                        sm:rounded-xl sm:mt-4 sm:w-[272px]`}>
-                        <ul className='h-full'>
+                        text-black absolute z-50 w-screen -right-0 rounded px-3  py-5 
+                        sm:px-4 sm:right-1 shadow-xl sm:rounded-xl sm:mt-4 sm:w-[272px]`}>
+                        <ul className='h-full px-5 relative left-2'>
 
                             {/* Search Bar is visible only smaller screens */}
                             <article>

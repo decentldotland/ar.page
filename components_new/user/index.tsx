@@ -54,7 +54,7 @@ function PageContent(props: userInfo) {
 
       <CoverPage userInfo={props.userInfo} />
       <div className="flex xl:justify-center ">
-        <div className="flex flex-col px-4 md:px-16 sm:px-10  max-w-[100vw] xl:max-w-[1145px] w-full">
+        <div className="flex flex-col px-6 md:px-16 sm:px-10  max-w-[100vw] xl:max-w-[1145px] w-full">
           <UserInfo user={{userInfo: info}} profile={arkProfile} />
           <EditModal userColor={info.address_color} wallet={info.user} userInfo={props} /> 
           {/* @ts-ignore  sorry about this */}
