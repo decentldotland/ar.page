@@ -34,6 +34,9 @@ The specifics are open-ended, but **here are some ideas** we think would be awes
 
 ### Ideas to build
 
+- Make it possible to mint a new image into your collection without leaving the page -- use img.arweave.dev (the current way Collectibles is populated), relying on [their repo](https://github.com/twilson63/permaweb-img-app/tree/atomic-tx) for inspiration and instruction 
+- Add the option to choose an NFT you own as your profile picture instead of uploading a file; add a border to the NFT when it's the user's pfp, to show it's verified
+- Improve the design of the modal that triggers when a Collectibles item is clicked, and display more of the available metadata
 - Add badges to show DAO and PSC membership
 - Add ERC-721 NFTs to the Collectibles tab -- this data is already present in the Ark API
 - Aggregated tweets or other linked social web3 data sources like Mirror.xyz
