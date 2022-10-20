@@ -73,8 +73,8 @@ useEffect(() => {
                     <div hidden={!toggle}
                         className={` ${isDark ? ('bg-[#121a2f]'):('bg-white ')}
                         text-black absolute z-50 w-screen -right-0 rounded px-3  py-5 
-                        sm:px-4 sm:right-1 shadow-xl sm:rounded-xl sm:mt-4 sm:w-[272px]`}>
-                        <ul className='h-full px-5 relative left-2'>
+                        sm:px-1 sm:right-1 shadow-xl sm:rounded-xl sm:mt-4 sm:w-[272px]`}>
+                        <ul className='h-full px-5 sm:px-1 relative left-2'>
 
                             {/* Search Bar is visible only smaller screens */}
                             <article>
