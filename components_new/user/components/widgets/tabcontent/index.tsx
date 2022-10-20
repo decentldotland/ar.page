@@ -36,8 +36,8 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   //     }
   //   }
   // }
-  if (arkProfile.ANFTS.koii.length !== 0) { 
-    for (let n of arkProfile.ANFTS.koii) { 
+  if (arkProfile.ANFTS.koii?.length > 0 ) { 
+    for (let n of arkProfile.ANFTS?.koii) { 
       let anft: NFT = new NFT()
         .add_id(n.id!)
         .add_poster(n.poster!)
@@ -48,7 +48,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       tmp.push(anft);
     }
   }
-  if (arkProfile.ANFTS.permapages_img.length !== 0) { 
+  if (arkProfile.ANFTS.permapages_img?.length > 0) { 
     for (let n of arkProfile.ANFTS.permapages_img) { 
       let anft = new NFT();
       if (n.content_type === "image/jpeg" || n.content_type === "image/png") {

@@ -24,22 +24,15 @@ function PageContent(props: userInfo) {
 
   // fetches user info by arweave wallet address
   const fetchData = async (address: string) => {
-    const result = await axios(`https://ark-api.decent.land/v1/profile/arweave/${address}`, {
-      params: {
-          // Doing this prevents the constant access to the server 
-          // Before it would send multiple request on this api
-          per_page: 1
-      }
-    });
+    setLoading(true)
+    const result = await axios(`https://ark-api.decent.land/v1/profile/arweave/${address}/true`);
 
-    const resobject: Res = result?.data?.res;
-    if (resobject) {
-      setLoading(true)
-
+    if (result.data) {
+      const parsed = JSON.parse(result.data);
+      const resobject: Res = parsed?.res;
       setArkProfile(resobject);
-
-      setLoading(false)
     }
+    setLoading(false)
   };
 
   useEffect(() => {
