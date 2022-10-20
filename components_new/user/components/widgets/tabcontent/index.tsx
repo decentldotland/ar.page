@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import Collectibles from './tabs.tsx/collectibles';
 import ArweaveActivity from './tabs.tsx/activity';
 import Selector from './selector';
-import { ArweaveTransaction, NFT, Res } from '../../../../../src/types';
+import { ArweaveTransaction, NFT, Permapage, Res, Stamp } from '../../../../../src/types';
 import { TABS } from '../../../hackathon/';
+import { Nfts } from '../../../../../components/Nfts';
+import StampsTab from './tabs.tsx/StampsTab';
 
 
 export interface TabContentTabs {
@@ -14,14 +16,70 @@ export interface TabContentTabs {
 
 export default function Content({ arkProfile, loading }: { arkProfile: Res; loading: boolean }) {
   const [selected, setSelected] = useState<number>(0);
-  const [NFTs, setNFTs] = useState<NFT[]>(arkProfile.ANFTS?.koii || []);
   const [activity, setActivity] = useState<ArweaveTransaction[]>(arkProfile.ARWEAVE_TRANSACTIONS);
+  
+  
+  // ------------------------------NFT, Stamps Section-----------------------------------
+  const [stamp, setStamp] = useState<Stamp[]>(arkProfile.STAMPS);
+  let tmp: NFT[] = [];
+  const [NFTs, setNFTs] = useState<NFT[]>(tmp);
+  // feel free to simplify
+  // if (arkProfile.STAMPS.length !== 0) {
+  //   for (let n of arkProfile.STAMPS) { 
+  //     if (n.stampedAssetType === "image" ) {
+  //       let stamp_nft = new NFT()
+  //         .add_id(n.stampedAsset)
+  //         .add_poster(n.stampedAsset!)
+  //         .add_timestamp(n.timestamp!)
+  //         .add_content_type(n.stampedAssetType!);
+  //       tmp.push(stamp_nft);
+  //     }
+  //   }
+  // }
+
+  if (arkProfile.ANFTS.koii.length !== 0) { 
+    for (let n of arkProfile.ANFTS.koii) { 
+      let anft: NFT = new NFT()
+        .add_id(n.id!)
+        .add_poster(n.poster!)
+        .add_timestamp(n.timestamp!)
+        .add_title(n.title!)
+        .add_description(n.description!)
+        .add_ticker(n.ticker!);
+      tmp.push(anft);
+    }
+  }
+  if (arkProfile.ANFTS.permapages_img.length !== 0) { 
+    for (let n of arkProfile.ANFTS.permapages_img) { 
+      let anft = new NFT();
+      if (n.content_type === "image/jpeg" || n.content_type === "image/png") {
+        anft.add_id(n.id!)
+          .add_poster(n.poster!)
+          .add_timestamp(n.timestamp!)
+          .add_title(n.title!)
+          .add_description(n.description!)
+          .add_ticker(n.ticker!)
+          .add_content_type(n.content_type!);
+      }
+      tmp.push(anft);
+    }
+  }
+
+  const [CollectiblePerPage, setCollectiblePerPage] = useState(8);
+  const [CurrentCollectiblePage, setcurrentCollectiblePage] = useState(1);
+  let indexLastCollection = CurrentCollectiblePage * CollectiblePerPage;
+  let firstIndexCollection = indexLastCollection - CollectiblePerPage;
+  let currentCollection = activity.slice(firstIndexCollection, indexLastCollection) 
+  const showMoreCollection = () => { 
+    setCollectiblePerPage(currentCollection.length + CollectiblePerPage);
+  }
+
+
+// --------------------------------------Activity Section----------------------------------
 
   const setSelectedWrapper = (idx: number) => {
     setSelected(idx)
   };
-
-
   // Adding Pagination to limit the number of transactions
   const [ActivityPerPage, setActivityPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,11 +90,35 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       setActivityPerPage(currentActivity.length + ActivityPerPage);
     }
   
+// ---------------------------------- Stamp S-----------------------------------------------
+
+
+
   const tabs = [
     {
       name: "Collectables",
       total: NFTs.length,
-      component: <Collectibles NFTs={NFTs} loading={loading} />
+      component: 
+      <>
+        <Collectibles NFTs={NFTs} loading={loading} perPage={CollectiblePerPage}/>
+        {
+          // TODO: 
+          NFTs.length - CollectiblePerPage  > 0 ? (
+            <article className='flex justify-center mt-12'>
+              <button  onClick={() => showMoreCollection()} className='py-2 px-6 btn-primary  text-lg
+                text-white font-semibold flex flex-row 
+                  justify-center rounded-lg'>
+                <h1>Show More</h1>
+              </button>
+            </article>
+          ) : (
+            <article className='flex justify-center mt-12'>
+              <h1>You have reached the end result!</h1>
+            </article>
+          )
+        }
+      </>
+      
     },
     {
       name: "Activity",
@@ -47,6 +129,31 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
           {
             // TODO: 
             activity.length - ActivityPerPage  > 0 ? (
+              <article className='flex justify-center mt-12'>
+                <button  onClick={() => showMore()} className='py-2 px-6 btn-primary  text-lg
+                  text-white font-semibold flex flex-row 
+                    justify-center rounded-lg'>
+                  <h1>Show More</h1>
+                </button>
+              </article>
+            ) : (
+              <article className='flex justify-center mt-12'>
+                <h1>You have reached the end result!</h1>
+              </article>
+            )
+          }
+         
+        </>
+    },
+    {
+      name: "Stamps",
+      total: stamp.length,
+      component: 
+        <>
+          <StampsTab currentUser={arkProfile} stamps={stamp} loading={loading} perPage={ActivityPerPage}/>
+          {
+            // TODO: 
+            stamp.length - ActivityPerPage  > 0 ? (
               <article className='flex justify-center mt-12'>
                 <button  onClick={() => showMore()} className='py-2 px-6 btn-primary  text-lg
                   text-white font-semibold flex flex-row 

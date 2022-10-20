@@ -29,7 +29,7 @@ export const Nav = (props:any) => {
                 params: {
                     // Doing this prevents the constant access to the server 
                     // Before it would send multiple request on this api
-                    per_page: 1
+                    per_page: 0
                 }
             });
             // console.log({res: [], ...result.data}.res, "test 0")
@@ -45,11 +45,7 @@ export const Nav = (props:any) => {
 
     // bg-base-100
     return (
-        <div className={`z-30 font-inter flex justify-between sm:h-[76px] h-[86px] px-5 items-center 
-
-        ${isDark ? ('bg-[#131A2E]'):('bg-white ')}
-
-        overflow-visible md:px-16 items-center w-full sm:px-10`}>
+        <div className=" font-inter flex justify-between h-[56px] overflow-visible px-2 md:px-16 items-center w-full sm:px-10 ">
             <div className='flex flex-rows space-x-3.5 items-center '>
                 <Link href={resolveDomain("")} >
                     <h1 className='text-xl font-bold text-gray-600 cursor-pointer hidden md:block'>📃</h1>

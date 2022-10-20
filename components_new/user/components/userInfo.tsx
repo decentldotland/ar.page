@@ -39,7 +39,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
 
     // @ts-ignore
     const { instagram, twitter, github, customUrl } = user?.userInfo?.links;
-    const { ownedLabels, currentLabel, address_color, avatar } = user?.userInfo;
+    const { ownedLabels, currentLabel, address_color, avatar, } = user?.userInfo;
 
     const ansData:ANSData = {
         currentLabel: currentLabel,
@@ -58,7 +58,14 @@ export const UserInfo = ({user, profile}: UserProps) => {
     let [month, year] = [member_since.toLocaleString('default', {month: 'short'}), member_since.getFullYear()];
     // console.log(month)
     // Labels
-    const defaultLabels = getDefaultLabels({ar: ownedLabels || [], links: {twitter, github, instagram, customUrl}, ENS: profile?.ENS, AVVY: profile?.AVVY});
+    const defaultLabels = getDefaultLabels({
+        arweave_address: user?.userInfo?.user, 
+        ar: ownedLabels || [], 
+        links: {twitter, github, instagram, customUrl}, 
+        ENS: profile?.ENS, 
+        AVVY: profile?.AVVY, 
+        LENS: profile?.LENS_HANDLES || []
+    });
     const labels = [...defaultLabels.map((label: any) => <GenericLabel {...label} />), ...HackathonLabels(profile)]
 
     const [loading, setLoading] = React.useState(true);
@@ -83,7 +90,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                             {
                                 address == user.userInfo.user && walletConnected && (
                                     <>
-                                    <EditProfile user={user}/>
+                                        <EditProfile user={user}/>
                                     {/* <ChangeCover /> */}
                                     </>
                                     )

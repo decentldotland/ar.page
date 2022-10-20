@@ -69,7 +69,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "pages/claim.js"
   ],
   "exclude": [
     "node_modules"
