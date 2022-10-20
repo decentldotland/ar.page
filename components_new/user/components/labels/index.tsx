@@ -76,11 +76,13 @@ export const lensLabel = (lens:string[] |undefined) => {
 
   let dark_mode = `${isDark ? ('bg-[#8a92b2]/60 text-white') : (ethColor)} `;
 
-  if (lens?.length == 0) return null;
+  if (!lens || lens?.length == 0) return null;
+
+  const lensLabel = lens[0].replace("@", "")
   return {
-    username: lens,
+    username: lensLabel,
     classes: lenProps,
-    link_to: "https://etherscan.io/enslookup-search?search=" ,
+    link_to: `https://lenster.xyz/u/${lensLabel}` ,
     canCopy: false,
     icon: <Image
       height={20}

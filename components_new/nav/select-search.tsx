@@ -37,7 +37,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
 
     React.useEffect(() => {
         const ev = (event: any) => {
-            if (!container.current.contains(event.target)) {
+            if (!container.current?.contains(event.target)) {
                 setShow(false);
 
                 document.removeEventListener('click', ev);
