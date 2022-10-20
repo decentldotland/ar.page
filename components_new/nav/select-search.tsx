@@ -86,8 +86,8 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
     const [isDark, setIsDark] = useRecoilState(isDarkMode);
     return (
         <section className="px-4 flex flex-row space-x-3.5 sm:shrink
-            w-full md:w-[336px] py-4 sm:py-2  border-2 border-gray-200 
-            items-center rounded-2xl  
+            w-full md:w-[336px] py-4 sm:py-3  border-2 border-gray-200 
+            items-center rounded-xl  
             sm:bg-transparent
             bg-gray-200
             " 
@@ -105,13 +105,15 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                 className=" font-inter w-full text-sm font-normal outline-none bg-transparent"
             />
             <article className={`z-50 transition-all duration-300 ease-in-out ${show ? 'opacity-100': 'opacity-0 pointer-events-none'}`}>
-            <div className={` py-4 rounded-xl   md:h-fit
+            
+            
+            <div className={` py-4 rounded-xl  md:h-fit  px-4
                 ${isDark ? ('bg-[#121a2f]'): ('bg-white')}
-                shadow-xl max-w-[220px] md:max-w-[326px] md:w-full absolute left-0 mt-10 z-50
+                shadow-2xl sm:shadow-xl w-screen md:max-w-[326px] md:w-full absolute md:left-0 -right-7 mt-10 z-50
                 ml-16 md:ml-28
                 `}>
                 <h2 className="text-lg font-semibold px-7">Members</h2>
-                <ul className="h-full    ">
+                <ul className="h-full">
 
                     {/* If nothing is found in our database, print out the text that user is typing instead */}
                     {val  && (
@@ -131,7 +133,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
 
                     {snapshot.options
                         .filter((i: any) => i.name?.toLowerCase()?.includes(val?.toLowerCase()))
-                        .slice(0, 5)
+                        .slice(0, 4)
                         .map((option) => (
                             <div key={option.name} className={`${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')}
                                 w-full px-7 py-2 cursor-pointer `}>
