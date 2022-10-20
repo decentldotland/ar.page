@@ -45,7 +45,7 @@ export const Nav = (props:any) => {
 
     // bg-base-100
     return (
-        <div className={`z-30 font-inter flex justify-between sm:h-[76px] h-[66px] px-5 items-center
+        <div className={`z-30 font-inter flex justify-between sm:h-[76px] h-[66px] px-5 items-center w-screen
 
         ${isDark ? ('bg-[#131A2E]'):('bg-white ')}
 
