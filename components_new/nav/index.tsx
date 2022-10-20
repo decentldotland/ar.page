@@ -73,7 +73,7 @@ export const Nav = (props:any) => {
             {/* <Link href={resolveDomain("")} >
                 <h1 className='text-4xl font-bold relative top-3 left-10 text-gray-600 cursor-pointer sm:hidden'>📃</h1>
             </Link> */}
-            <div className="ml-2 mt-5 sm:mb-6">
+            <div className="ml-2 mt-4">
                 <NavBarButtons />
             </div>
         </div>
