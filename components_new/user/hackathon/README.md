@@ -1,4 +1,7 @@
-# Build social with Arweave data: decent.land mini-hackathon
+![photo_2022-10-20_08-49-44](https://user-images.githubusercontent.com/69069725/196877043-b7e07153-1281-48a0-a834-53d77d9c4bc7.jpg)
+
+# Build social with Arweave data
+## [decent.land](https://decent.land) x [Hacker House](https://twitter.com/hackerhouse_cn) mini-hackathon
 
 Starting September 19th, the ar.page hackathon is open to all developers! Use a stack of identity tooling built on Arweave and EVM to build better web3 social.
 
@@ -14,6 +17,13 @@ The decent.land Ark API is able to return on-chain activity on Arweave and EVM c
 
 **…with all of that data combined, there’s a lot the [ar.page](http://ar.page) dApp could show about a user!**
 
+## Quickstart
+
+1. Check out [this user profile](https://xy.ar.page) on ar.page
+2. GET and inspect [the Ark API response for that user](http://ark-api.decent.land/v1/profile/arweave/kaYP9bJtpqON8Kyy3RbqnqdtDBDUsPTQTNUCvZtKiFI)
+3. Come up with an idea based on the data that the API **does or does not** return. What's missing from the API? What's missing from the UI?
+4. Fork this repo (or the [Ark repo](https://github.com/decentldotland/ark-network)) and code your idea
+
 ## Goals
 
 The goal of this hackathon is to use ANS and Ark to display interesting insights about Arweave users on [ar.page](https://ar.page) - build a new UI component, integrate a new data source, or enrich data we already have.
@@ -23,12 +33,15 @@ How can we slice and transform a user's on-chain data and display it in a way th
 The specifics are open-ended, but **here are some ideas** we think would be awesome for the Arweave ecosystem and beyond:
 
 - Add badges to show DAO and PSC membership
+- Add ERC-721 NFTs to the Collectibles tab -- this data is already present in the Ark API
 - Aggregated tweets or other linked social web3 data sources like Mirror.xyz
 - Make it possible to [STAMP](https://stamps.live) assets from the Collectibles tab
-- Add more ways to get verified status with VouchDAO or with ArNS name linking
+- Add more ways to get verified status with [VouchDAO](https://vouchdao.xyz) or with [ArNS](https://ar.io/arns) name linking (note that ArNS is totally separate from ANS, despite the similar name)
 - Expand existing components (e.g. build search and filters into the activity feed or collections view)
 - Build components for subsections of a user’s collection, e.g: all of their metaverse land, all of their ANS names…
-- Show a user's permacast podcasts or Pianity tracks with the [weave-aggregator](https://github.com/decentldotland/weave-aggregator)
+- Show a user's [permacast](https://permacast.dev) podcasts or Pianity tracks with the [weave-aggregator](https://github.com/decentldotland/weave-aggregator)
+- Implement an activity feed which reads all of a user's activity from the weave-aggregator
+- General performance optimizations to the [API](https://github.com/decentldotland/ark-network) and UI
 
 ## Rules
 
