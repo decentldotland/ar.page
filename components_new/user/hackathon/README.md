@@ -41,6 +41,7 @@ The specifics are open-ended, but **here are some ideas** we think would be awes
 - Build components for subsections of a user’s collection, e.g: all of their metaverse land, all of their ANS names…
 - Show a user's [permacast](https://ar.io/arns) podcasts or Pianity tracks with the [weave-aggregator](https://github.com/decentldotland/weave-aggregator)
 - Implement an activity feed which reads all of a user's activity from the weave-aggregator
+- General performance optimizations to the [API](https://github.com/decentldotland/ark-network) and UI
 
 ## Rules
 
