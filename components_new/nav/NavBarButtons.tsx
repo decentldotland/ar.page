@@ -21,11 +21,11 @@ function NavBarButtons() {
 
   return (
     <div>
-        <ul className='font-inter font-semibold text-[15px] flex space-x-6 items-center'>
+        <ul className='font-inter font-semibold text-[15px] flex space-x-6 items-center sm:mb-4'>
             {/* <li>Ark</li> */}
-            <li hidden={walletConnected} className={`cursor-pointer  py-2 px-4 w-full mt-1
+            <li hidden={walletConnected} className={`cursor-pointer  py-2 px-4 w-full 
                ${isDark ? (' hover:bg-[#07215e] bg-[#85b5ef]') : (' hover:bg-blue-300/40 bg-[#1273EA]/20')}
-               h-full rounded-2xl hidden mb:block`}>
+               h-full rounded-2xl hidden sm:block`}>
                 <div onClick={() => (arconnectConnect as Function)()} 
                   className="flex flex-row items-center space-x-3.5">
                     {/* <FiLogIn height={20} width={20} color="black"/> */}
