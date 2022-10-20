@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faPlusSquare, faArrowAltCircleRight } from '@fortawesome/free-regular-svg-icons';
 import {ArrowRightOnRectangleIcon, PlusIcon} from '@heroicons/react/24/outline'
 import Avatar from '../avatar';
+import { Bars3Icon } from '@heroicons/react/24/solid';
 
 
 
@@ -43,16 +44,20 @@ export const NavUser = (props: any) => {
                     </div>
 
                 )) || (
-                        <div className="flex flex-row gap-x-2.5 items-center">
+                    <div>
+
+                        <div className="flex flex-row gap-x-2.5 items-center hidden sm:block">
                             <div
                                 className='flex rounded-full h-9 w-9 justify-center items-center  
-                                    md:h-10 md:w-10 overflow-hidden bg-[#242B48]'
+                                    md:h-10 md:w-10 overflow-hidden bg-[#242B48] '
                                 // onClick={arconnectConnect}
                             >
-                                
                                 <Image src={Favicon} width={25} height={25} className='mx-auto my-auto' alt="" />
                             </div>
+
                         </div>
+                            <Bars3Icon height={30} width={30} strokeWidth={2} className="sm:hidden"/>
+                    </div>
                     )}
             </>
         </div>

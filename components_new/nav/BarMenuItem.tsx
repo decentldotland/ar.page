@@ -64,8 +64,8 @@ useEffect(() => {
   return (
     <section className=''  ref={container}>
         <button  onClick={() => setToggle(!toggle)} className="items-center">
-            {/* <NavUser /> */}
-            <Bars3Icon height={30} width={30} strokeWidth={2}/>
+            <NavUser />
+            {/* <Bars3Icon height={30} width={30} strokeWidth={2}/> */}
         </button>
 
         <article className={`sm:relative flex flex-row-reverse`} >
