@@ -1,4 +1,4 @@
-![photo_2022-10-20_08-49-44](https://user-images.githubusercontent.com/69069725/196877043-b7e07153-1281-48a0-a834-53d77d9c4bc7.jpg)
+![hackerhouse](https://user-images.githubusercontent.com/69069725/196931608-44cdafa1-c3a3-4292-92fa-f6dbc5510d9e.png)
 
 # Build social with Arweave data
 ## [decent.land](https://decent.land) x [Hacker House](https://twitter.com/hackerhouse_cn) mini-hackathon
@@ -30,7 +30,9 @@ The goal of this hackathon is to use ANS and Ark to display interesting insights
 
 How can we slice and transform a user's on-chain data and display it in a way that they'll want to show off?
 
-The specifics are open-ended, but **here are some ideas** we think would be awesome for the Arweave ecosystem and beyond:
+The specifics are open-ended, but **here are some ideas** we think would be awesome for the Arweave ecosystem and beyond.
+
+### Ideas to build
 
 - Add badges to show DAO and PSC membership
 - Add ERC-721 NFTs to the Collectibles tab -- this data is already present in the Ark API
