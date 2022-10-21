@@ -47,10 +47,10 @@ export const Nav = (props:any) => {
 
     // bg-base-100
     return (
-        <div className={`sticky top-0  z-30 font-inter flex justify-between sm:h-[76px] h-[66px] px-5 items-center ${isDark ? ('bg-[#131A2E]'):('bg-white ')} overflow-visible md:px-16 items-center w-full sm:px-10`}>
+        <div className={` w-screen  fixed top-0 border-b-2 border-[#FAFAFA] z-30 font-inter flex justify-between sm:h-[76px] h-[66px] px-6 items-center ${isDark ? ('bg-[#131A2E]'):('bg-[#FEFEFF] ')} overflow-visible md:px-16 items-center  sm:px-10`}>
             <div className='flex flex-rows space-x-3.5 items-center '>
                 <Link href={resolveDomain("")} >
-                    <Image src={Favicon} width={25} height={25} className='mx-auto my-auto cursor-pointer' alt="" />
+                    <Image src={Favicon} width={35} height={35} className='mx-auto my-auto cursor-pointer' alt="" />
 
                 </Link>
                 <div className='hidden sm:block'>

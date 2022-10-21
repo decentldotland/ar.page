@@ -87,10 +87,9 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
     const [isDark, setIsDark] = useRecoilState(isDarkMode);
     return (
         <section className="px-4 flex flex-row space-x-3.5 sm:shrink
-            w-full md:w-[336px] py-4 sm:py-3  border-2 border-gray-200 
-            items-center rounded-xl  
+            w-full md:w-[336px] py-3 sm:py-3  border-2 border-gray-200 
+            items-center rounded-2xl  
             sm:bg-transparent
-            bg-gray-200
             " 
             ref={container}>
             {/* <button className="w-24 h-4 bg-red-300" {...valueProps}>{snapshot.displayValue}</button> */}

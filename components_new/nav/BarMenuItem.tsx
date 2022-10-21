@@ -68,15 +68,15 @@ useEffect(() => {
             {/* <Bars3Icon height={30} width={30} strokeWidth={2}/> */}
         </button>
 
-        <article className={`sm:relative flex flex-row-reverse`} >
+        <article className={`sm:relative flex flex-row-reverse `} >
             {
                 toggle && (
                     // Controls the body of dropdown menu
                     <div hidden={!toggle}
-                        className={` ${isDark ? ('bg-[#121a2f]'):('bg-white ')}
-                        text-black absolute z-50 -right-0 rounded px-3 py-5 w-screen
+                        className={`  ${isDark ? ('bg-[#121a2f]'):('bg-white ')}
+                        text-black absolute z-50 -right-0 rounded px-3 py-5 w-screen 
                         sm:px-1 sm:right-1 shadow-xl sm:rounded-xl sm:mt-4 sm:w-[272px]`}>
-                        <ul className='h-full px-5 sm:px-1 relative left-1'>
+                        <ul className='h-full px-5 sm:px-2 relative '>
 
                             {/* Search Bar is visible only smaller screens */}
                             <article>
