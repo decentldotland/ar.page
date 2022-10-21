@@ -79,16 +79,16 @@ useEffect(() => {
                         <ul className='h-full px-5 sm:px-2 relative '>
 
                             {/* Search Bar is visible only smaller screens */}
-                            <article>
+                            <article className='relative bottom-5'>
                                 <div className='sm:hidden relative bottom-3'>
                                     <Divider />
                                 </div>
                                 <li className='w-full  relative bottom-2  sm:hidden'>
                                     <SearchBar />
                                 </li>
-                                <div className='sm:hidden '>
+                                {/* <div className='sm:hidden '>
                                     <Divider />
-                                </div>
+                                </div> */}
                             </article>
                  
 

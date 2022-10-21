@@ -64,6 +64,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
         event.stopPropagation()
         // console.log("handleChange", event.target.value)
         setVal(event.target.value)
+        // if (val) setShow(!show) 
         // if (event.key === 'Enter') {
         //     if(options.map((item: any) => item.name).includes(val))
         //     // router.push(`/p/${val}#top`)

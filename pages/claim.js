@@ -5,6 +5,9 @@ import Web3 from 'web3';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount } from 'wagmi'
 import { ArrowRightIcon } from '@heroicons/react/24/solid';
+import {ArrowLongRightIcon, EllipsisVerticalIcon} from '@heroicons/react/24/outline'
+import Image from 'next/image';
+
 
 const web3 = new Web3(Web3.givenProvider);
 
@@ -127,6 +130,7 @@ const Claim = () => {
     return (
       <ConnectButton.Custom>
         {({
+
           account,
           chain,
           openAccountModal,
@@ -158,23 +162,42 @@ const Claim = () => {
               {(() => {
                 if (!connected) {
                   return (
-                    <button 
-                      onClick={openConnectModal}
-                      style={{ width: '100%'}}
-                      className='bg-gray-300 hover:bg-gray-300/80 font-bold py-2 px-4 rounded-xl text-center'
+                    // <button 
+                    //   onClick={openConnectModal}
+                    //   style={{ width: '100%'}}
+                    //   className='bg-gray-300 hover:bg-gray-300/80 font-bold py-2 px-4 rounded-xl text-center'
+                    // >
+                    //   Connect 
+                    // </button>
+                    <button className=" bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
+                    onClick={openConnectModal}
                     >
-                      Connect Wallet
-                    </button>
+                      <div className='flex justify-center'>
+                        <p className='relative text-center '>Connect Wallet</p>
+                        {/* <ArrowLongRightIcon height={20} width={20} className="absolute right-2"/> */}
+                      </div>
+                  </button>
                   );
                 }
                 return (
-                  <button 
-                    onClick={openAccountModal}
-                    style={{ width: '100%'}}
-                    className='bg-gray-300 hover:bg-gray-300/80 font-bold py-2 px-4 rounded-xl text-center'
-                  >
-                    {account.displayName}
-                  </button>
+                  // <button 
+                  //   onClick={openAccountModal}
+                  //   style={{ width: '100%'}}
+                  //   className='bg-gray-300 hover:bg-gray-300/80 font-bold py-2 px-4 rounded-xl text-center'
+                  // >
+                  //   {account.displayName}
+                  // </button>
+                  <div>
+                    <UserAccountDetails />
+                    <button className=" bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
+                      onClick={() => setstep(3)}
+                      >
+                        <div className='flex justify-center'>
+                          <p className='relative text-center '>Get Started</p>
+                          {/* <ArrowLongRightIcon height={20} width={20} className="absolute right-2"/> */}
+                        </div>
+                    </button>
+                  </div>
                 );
               })()}
             </div>
@@ -194,65 +217,52 @@ const Claim = () => {
         <meta name="twitter:url" content="ar.page"></meta>
         <meta name="twitter:description" content="Coming soon..." />
       </Head>
-      <div className="flex h-full -mt-20 items-center justify-center">
-        <div className="flex flex-col items-center justify-center max-w-[420px] mx-auto gap-y-3 font-sans px-12 mt-20">
+      <div className="flex h-full items-start font-inter px-10">
+        <div className="flex flex-col items-center justify-center max-w-[420px] mx-auto gap-y-3 font-sans ">
           {step === 0 && (
             <>
               {invalidEVM.length === 0 && address && <button className="self-start cursor-pointer text-gray-400 decoration-gray-400 underline" onClick={() => setstep(1)}>Next</button>}
-              <div className="w-full">
-                <h1 className="text-[40px] font-bold text-center mb-6">One Identity For The Permaweb</h1>
-                <div className="text-lg text-center mb-6">Ar.page aggregates all your data in a single place, say hi to a new home.</div>
-                <div className="bg-zinc-200/90 rounded-xl">
-                  <div className="carousel mb-8 h-40">
-                    <div className="carousel-item w-full flex justify-center items-center">Never gonna give you up</div>
-                    <div className="carousel-item w-full flex justify-center items-center">Never gonna let you down</div>
-                    <div className="carousel-item w-full flex justify-center items-center">Never gonna run around and desert you</div>
-                    <div className="carousel-item w-full flex justify-center items-center">Never gonna make you cry</div>
-                    <div className="carousel-item w-full flex justify-center items-center">Never gonna say goodbye</div>
-                    <div className="carousel-item w-full flex justify-center items-center">Never gonna tell a lie and hurt you</div>
-                  </div>
-                </div>
-                <CustomConnectButton
-                  label="Connect"
-                  showBalance={false}
-                  chainStatus="icon"
-                  accountStatus="address" 
-                />
-                <p className="text-red-500 my-2 text-center h-6">{invalidEVM}</p>
+              <div className="w-full mt-20">
+                <h1 className="text-[45px] font-bold text-center mb-7 mt-10">Hello Hackers👋</h1>
+                <p className="text-sm text-center mb-6">
+                  On behalf of the whole Decent Land Team, we thank you for showing your support at ETH Lisbon
+                </p>
+                <p className="text-sm text-center mb-6">
+                  By now you should have received your early access POAP token.
+                </p>
+                <p className="text-sm text-center mb-6">
+                  The token is used to be part of our <span className='font-bold'>Airdrop</span> Event 
+                  which gives you access to setup your ANS domains and ArPages before anyone else!
+                </p>
+              
+                
+
+                <BlueButtonNext setstep={setstep} step={1} msg={"Let's go"} 
+                  sub_message={"Read to redeem the early access to your ArPage?"}/>
               </div>
               {/* <p>Make sure to use the address that will receive the appropriate event Poap!</p> */}
             </>
           )}
-          {step === 1 && (
-            <>
-              <button className="self-start cursor-pointer text-gray-400 decoration-gray-400 underline" onClick={() => setstep(0)}>Back</button>
-              <div className="text-[32px] font-bold">Reserve a username, reedem it later</div>
-              <div className="text-sm self-start mb-6">You can only reserve one username per account</div>
-              <form className="w-full mt-3" onSubmit={onSubmit}>
-                <div className="mb-6">
-                  <div className="w-full">
-                    <input
-                      className="w-full border-2 border-gray-300 bg-gray-300/90 outline-gray-400 p-2 rounded-lg"
-                      placeholder="Enter your desired label"
-                      value={arLabel}
-                      onChange={(e) => setArLabel(e.target.value)}
-                    />
-                  </div>
-                  <p className={`text-red-500 my-2 text-center h-6`}>
-                    {invalidLabel}
-                  </p>
-                  <p className="text-xs ">Labels can only have numbers from 0-9 and <span className="font-semibold">lowercase</span> English letters. 2 letters minimum, 15 max.</p>
-                </div>
-                <button
-                  className="!bg-gray-300/90 outline-gray-400 text-black font-semibold py-2 rounded-2xl px-4 cursor-pointer w-full !justify-center"
-                  type="submit"
-                  disabled={invalidEVM.length > 0 || invalidLabel.length > 0}
-                >
-                  {loadingWrite ? "Loading...": "Reserve"}
-                </button>
-              </form>
-            </>
-          )}
+          {
+            step === 1 && (
+              <>
+                <div className="w-full h-screen flex flex-col justify-center text-center ">
+                  <h1 className="text-[45px] font-bold mb-2">Register to get an ANS Airdrop</h1>
+                  <p className='font-medium text-sm mb-10 text-[#3a3a3a]'>Only applicable to DecentLand POAP holders</p>
+
+                  <CustomConnectButton
+                    label="Connect"
+                    showBalance={false}
+                    chainStatus="icon"
+                    accountStatus="address" 
+                  />
+                  <p className="text-red-500 my-2 text-center h-6">{invalidEVM}</p>
+              </div>
+              </>
+            )
+          }
+
+         
           {step === 2 && (
             <>
               <h1 className="text-3xl font-bold">Congrats!</h1>
@@ -284,3 +294,90 @@ const Claim = () => {
 }
 
 export default Claim
+
+
+export function BlueButtonNext({step, msg, sub_message, setstep}) {
+  return (
+    <div className='flex justify-center'>
+      <div className='absolute flex flex-col bottom-24 '>
+        <p className="text-sm text-center mb-6 font-medium">
+          {sub_message}
+        </p>
+        <button className=" bg-[#1273ea] w-[368px] h-14 items-center rounded-lg text-white font-bold text-lg" 
+          onClick={() => setstep(step)}>
+            <div className='flex justify-center'>
+              <p className='relative text-center '>{msg}</p>
+              <ArrowLongRightIcon height={20} width={20} className="absolute right-2"/>
+            </div>
+        </button>
+      </div>
+    </div>
+  )
+}
+
+
+export function UserAccountDetails({displayImg, chainIcon, address, walletName}) {
+  return (
+    <section>
+      <p>Your Connected Wallet</p>
+      <div>
+        <div>
+          <Image src={displayImg} height={38} width={38}/>
+          <div className='rounded-full bg-[#b2b8d0]'>
+            <Image src={chainIcon} height={16} width={16}/>
+          </div>
+        </div>
+        <div className='flex flex-col'>
+          <div className='flex flex-row space-x-1'>
+            <h1>{address}</h1>
+            <div className='h-[10px] w-[10px] rounded-full bg-[#1cc16a]'></div>
+          </div>
+          <h2 className=''>{walletName}</h2>
+        </div>
+      </div>
+      <div className='absolute right-2'>
+        <EllipsisVerticalIcon color='#6a6b6a' height={20} width={20} className="absolute right-2"/>
+      </div>
+    </section>
+  )
+}
+
+
+
+// {step === 1 && (
+//   <>
+//     <div className="text-[32px] font-bold">Reserve a username, reedem it later</div>
+//     <div className="text-sm self-start mb-6">You can only reserve one username per account</div>
+//     <form className="w-full mt-3" onSubmit={onSubmit}>
+//       <div className="mb-6">
+//         <div className="w-full">
+//           <input
+//             className="w-full border-2 border-gray-300 bg-gray-300/90 outline-gray-400 p-2 rounded-lg"
+//             placeholder="Enter your desired label"
+//             value={arLabel}
+//             onChange={(e) => setArLabel(e.target.value)}
+//           />
+//         </div>
+//         <p className={`text-red-500 my-2 text-center h-6`}>
+//           {invalidLabel}
+//         </p>
+//         <p className="text-xs ">Labels can only have numbers from 0-9 and <span className="font-semibold">lowercase</span> English letters. 2 letters minimum, 15 max.</p>
+//       </div>
+//       <button
+//         className="!bg-gray-300/90 outline-gray-400 text-black font-semibold py-2 rounded-2xl px-4 cursor-pointer w-full !justify-center"
+//         type="submit"
+//         disabled={invalidEVM.length > 0 || invalidLabel.length > 0}
+//       >
+//         {loadingWrite ? "Loading...": "Reserve"}
+//       </button>
+//     </form>
+//     <CustomConnectButton
+//         label="Connect"
+//         showBalance={false}
+//         chainStatus="icon"
+//         accountStatus="address" 
+//       />
+//       <p className="text-red-500 my-2 text-center h-6">{invalidEVM}</p>
+     
+//   </>
+// )}
