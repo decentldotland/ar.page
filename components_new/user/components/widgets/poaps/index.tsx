@@ -5,6 +5,8 @@ import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../../../atoms';
 import { Res } from '../../../../../src/types';
 import { Divider } from '../../reusables';
+import {BiChevronLeft, BiChevronRight} from 'react-icons/bi'
+
 
 export default function Poaps({ props }: { props: Res }) {
   const { POAPS } = props;
@@ -31,7 +33,7 @@ export default function Poaps({ props }: { props: Res }) {
       {/* <h1 className="text-left font-inter font-bold text-xl">POAPS</h1> */}
       <div className="group relative">
 
-          <ChevronLeftIcon height={10} color="#222" width={10} strokeWidth={2} className={`absolute top-0 
+          <BiChevronLeft height={10} color="#3A3A3A" width={10}  className={`absolute top-0 
               bottom-0 left-2 bg-gray-500/50 rounded-full 
               m-auto z-50 h-6 w-6
               cursor-pointer opacity-0 
@@ -53,6 +55,7 @@ export default function Poaps({ props }: { props: Res }) {
                     src={p.event.image_url} 
                     width={112} 
                     height={112}  
+                    quality={80}
                     className="scale-75 md:scale-100"
                   />
                 </label>
@@ -73,7 +76,7 @@ export default function Poaps({ props }: { props: Res }) {
             ))}
           </div>
         
-          <ChevronRightIcon  height={10} color="#222" width={10} strokeWidth={2}
+          <BiChevronRight  height={10} color="#3A3A3A" width={10} 
             className={`absolute top-0 
               bottom-0 right-2 bg-gray-500/50 rounded-full
               m-auto z-50 h-6 w-6
