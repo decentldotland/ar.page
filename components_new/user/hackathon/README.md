@@ -23,6 +23,7 @@ The decent.land Ark API is able to return on-chain activity on Arweave and EVM c
 2. GET and inspect [the Ark API response for that user](http://ark-api.decent.land/v1/profile/arweave/kaYP9bJtpqON8Kyy3RbqnqdtDBDUsPTQTNUCvZtKiFI)
 3. Come up with an idea based on the data that the API **does or does not** return. What's missing from the API? What's missing from the UI?
 4. Fork this repo (or the [Ark repo](https://github.com/decentldotland/ark-network)) and code your idea
+5. Go to http://localhost:3000/p/xy (or /p/any_username) to access a profile on localhost
 
 ## Goals
 
