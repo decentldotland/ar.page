@@ -53,7 +53,8 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       let anft = new NFT();
       if (n.content_type === "image/jpeg" ||
          n.content_type === "image/png" || 
-         n.content_type === "image/gif" 
+         n.content_type === "image/gif" || 
+         n.content_type === "image" 
         //  n.content_type==="video/mp4"
          ) {
         anft.add_id(n.id!)
