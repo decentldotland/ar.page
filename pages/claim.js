@@ -3,11 +3,17 @@ import React, { useEffect, useState } from 'react';
 import Head from 'next/head'
 import Web3 from 'web3';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useAccount } from 'wagmi'
+import { ChainMismatchError, useAccount } from 'wagmi'
 import { ArrowRightIcon } from '@heroicons/react/24/solid';
-import {ArrowLongRightIcon, EllipsisVerticalIcon} from '@heroicons/react/24/outline'
+import {ArrowLongRightIcon, ArrowTopRightOnSquareIcon, DocumentDuplicateIcon, EllipsisVerticalIcon} from '@heroicons/react/24/outline'
 import Image from 'next/image';
-
+import { MdLogout } from 'react-icons/md';
+import {TbCopy} from 'react-icons/tb'
+import { FiLogOut } from 'react-icons/fi';
+import { chain } from 'lodash';
+import { useDisconnect } from 'wagmi';
+import { BlueButtonNext } from '../components_new/reservation/BlueButtonNext';
+import { UserAccountDetails } from '../components_new/reservation/UserAccountDetails';
 
 const web3 = new Web3(Web3.givenProvider);
 
@@ -187,10 +193,15 @@ const Claim = () => {
                   // >
                   //   {account.displayName}
                   // </button>
-                  <div>
-                    <UserAccountDetails />
-                    <button className=" bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
-                      onClick={() => setstep(3)}
+                  <div className='items-center flex flex-col justify-center'>
+                    <UserAccountDetails 
+                      address={account.address} 
+                      chainIconUrl={chain.iconUrl}
+                      displayImg={"https://arweave.net/uAYSvOreWyfKZDblfV1IUsPyXCqCQWE4ryfia7OwjOs"}
+                      walletName={chain.name}
+                    />
+                    <button className="mt-9 bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
+                      onClick={() => setstep(2)}
                       >
                         <div className='flex justify-center'>
                           <p className='relative text-center '>Get Started</p>
@@ -219,7 +230,10 @@ const Claim = () => {
       </Head>
       <div className="flex h-full items-start font-inter px-10">
         <div className="flex flex-col items-center justify-center max-w-[420px] mx-auto gap-y-3 font-sans ">
-          {step === 0 && (
+
+          {
+// 1. WELCOME SCREEN
+          step === 0 && (
             <>
               {invalidEVM.length === 0 && address && <button className="self-start cursor-pointer text-gray-400 decoration-gray-400 underline" onClick={() => setstep(1)}>Next</button>}
               <div className="w-full mt-20">
@@ -244,10 +258,11 @@ const Claim = () => {
             </>
           )}
           {
+// 2. SECOND SCREEN
             step === 1 && (
               <>
                 <div className="w-full h-screen flex flex-col justify-center text-center ">
-                  <h1 className="text-[45px] font-bold mb-2">Register to get an ANS Airdrop</h1>
+                  <h1 className="text-[45px] font-bold mb-2">Register to get <br/>an ANS Airdrop</h1>
                   <p className='font-medium text-sm mb-10 text-[#3a3a3a]'>Only applicable to DecentLand POAP holders</p>
 
                   <CustomConnectButton
@@ -261,30 +276,37 @@ const Claim = () => {
               </>
             )
           }
-
          
-          {step === 2 && (
+          {
+// 3. 
+          step === 2 && (
             <>
-              <h1 className="text-3xl font-bold">Congrats!</h1>
-              <h1 className="text-xl font-medium break-all text-center">
-                <span>{localStorage.getItem("EthLisbonEvent2022") || "placeholder"} </span>
-                 is reserved for <br />{address}
-              </h1>
+              <div className="text-[32px] font-bold mt-20">Reserve a username, reedem it later</div>
+               <div className="text-sm self-start mb-6">You can only reserve one username per account</div>
+               <form className="w-full mt-3" onSubmit={onSubmit}>
+                 <div className="mb-6">
+                   <div className="w-full">
+                     <input
+                       className="w-full border-2 border-gray-300 bg-gray-300/90 outline-gray-400 p-2 rounded-lg"
+                       placeholder="Enter your desired label"
+                       value={arLabel}
+                       onChange={(e) => setArLabel(e.target.value)}
+                     />
+                   </div>
+                   <p className={`text-red-500 my-2 text-center h-6`}>
+                     {invalidLabel}
+                   </p>
+                   <p className="text-xs ">Labels can only have numbers from 0-9 and <span className="font-semibold">lowercase</span> English letters. 2 letters minimum, 15 max.</p>
+                 </div>
+                 <button
+                   className="!bg-gray-300/90 outline-gray-400 text-black font-semibold py-2 rounded-2xl px-4 cursor-pointer w-full !justify-center"
+                   type="submit"
+                   disabled={invalidEVM.length > 0 || invalidLabel.length > 0}
+                 >
+                   {loadingWrite ? "Loading...": "Reserve"}
+                 </button>
+               </form>
 
-              <div className="w-full h-40 rounded-xl bg-gray-300">
-                art
-              </div>
-
-              <h2 className="text-xl font-medium">
-                <span>To claim your label, go to </span>
-                <a href="https://ark.decent.land?ref=arpage" className="text-primary hover:underline decoration-primary">Ark protocol</a>
-                <span> to link your account and be eligible!</span>
-              </h2>
-              <div className="text-[60px]"></div>
-              <a href="https://ark.decent.land?ref=arpage" className="w-full h-12 rounded-xl bg-gray-300 flex justify-between items-center px-6 text-black">
-                <span className="font-semibold text-lg">Go to ark protocol</span>
-                <ArrowRightIcon className="w-6 h-6" />
-              </a>
             </>
           )}
         </div>
@@ -294,54 +316,6 @@ const Claim = () => {
 }
 
 export default Claim
-
-
-export function BlueButtonNext({step, msg, sub_message, setstep}) {
-  return (
-    <div className='flex justify-center'>
-      <div className='absolute flex flex-col bottom-24 '>
-        <p className="text-sm text-center mb-6 font-medium">
-          {sub_message}
-        </p>
-        <button className=" bg-[#1273ea] w-[368px] h-14 items-center rounded-lg text-white font-bold text-lg" 
-          onClick={() => setstep(step)}>
-            <div className='flex justify-center'>
-              <p className='relative text-center '>{msg}</p>
-              <ArrowLongRightIcon height={20} width={20} className="absolute right-2"/>
-            </div>
-        </button>
-      </div>
-    </div>
-  )
-}
-
-
-export function UserAccountDetails({displayImg, chainIcon, address, walletName}) {
-  return (
-    <section>
-      <p>Your Connected Wallet</p>
-      <div>
-        <div>
-          <Image src={displayImg} height={38} width={38}/>
-          <div className='rounded-full bg-[#b2b8d0]'>
-            <Image src={chainIcon} height={16} width={16}/>
-          </div>
-        </div>
-        <div className='flex flex-col'>
-          <div className='flex flex-row space-x-1'>
-            <h1>{address}</h1>
-            <div className='h-[10px] w-[10px] rounded-full bg-[#1cc16a]'></div>
-          </div>
-          <h2 className=''>{walletName}</h2>
-        </div>
-      </div>
-      <div className='absolute right-2'>
-        <EllipsisVerticalIcon color='#6a6b6a' height={20} width={20} className="absolute right-2"/>
-      </div>
-    </section>
-  )
-}
-
 
 
 // {step === 1 && (
