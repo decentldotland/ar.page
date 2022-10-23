@@ -5,7 +5,7 @@ import Web3 from 'web3';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { ChainMismatchError, useAccount, useConnect } from 'wagmi'
 import { ArrowRightIcon, XCircleIcon } from '@heroicons/react/24/solid';
-import {ArrowLongRightIcon, ArrowTopRightOnSquareIcon, CheckCircleIcon, CheckIcon, DocumentDuplicateIcon, EllipsisVerticalIcon} from '@heroicons/react/24/outline'
+import {ArrowLongRightIcon, ArrowTopRightOnSquareIcon, CheckCircleIcon, CheckIcon, ChevronUpIcon, DocumentDuplicateIcon, EllipsisVerticalIcon} from '@heroicons/react/24/outline'
 import Image from 'next/image';
 import { MdLogout } from 'react-icons/md';
 import {TbCopy} from 'react-icons/tb'
@@ -17,6 +17,10 @@ import { UserAccountDetails } from '../components_new/reservation/UserAccountDet
 import BackButton from '../components_new/reservation/BackButton';
 import {EyeIcon} from '@heroicons/react/24/solid'
 import { CircularProgress, Snackbar } from '@mui/material';
+import NextButton from '../components_new/reservation/NextButton';
+import LineBarTracker from '../components_new/reservation/LineBarTracker';
+import OverviewSteps from '../components_new/reservation/OverviewSteps';
+import CheckList from '../components_new/reservation/CheckList';
 
 
 const web3 = new Web3(Web3.givenProvider);
@@ -134,6 +138,9 @@ const Claim = () => {
       console.log(err);
     })
   }
+
+
+  const [lineBarSteps, setLineBarSteps] = useState(0)
 
   const CustomConnectButton = () => {
     return (
@@ -283,7 +290,7 @@ const Claim = () => {
          
           {
 // 3. STEP REGISTER A USERNAME
-          step === 5 && (
+          step === 10 && (
             <>
               <section className="mt-24 ">
                 <BackButton setstep={setstep} step={step - 1}/>
@@ -356,7 +363,7 @@ const Claim = () => {
 // STEP 3
             step === 3 && (
               <section className={loadingWrite ? 'h-screen w-screen bg-[#B3B2B3]/25  z-50' : ''}>
-                <div className='flex flex-col items-center mt-28'>
+                <div className='flex flex-col items-center mt-40'>
                     <h2 className='text-xl font-medium mb-7 text-[#3a3a3a]'>Your username</h2>
                     <h1 className='font-bold text-4xl mb-4'>@{arLabel}</h1>
                     {/* Go back to registration page  */}
@@ -405,40 +412,69 @@ const Claim = () => {
             )
           }
           {
-            step === 2 && (
-              <section className=''>
-                 <div className='mt-40 flex flex-col items-center'>
-                  <h1 className="text-3xl font-bold text-black mb-6 text-center">Congratulations🎉</h1>
-                  <h1 className='text-[#3a3a3a] text-sm mb-5 text-center'>The <span className='font-bold'>@{arLabel}</span> is now <br/> reserved under:</h1>
-                </div>
-                {/* <div className='mt-40 flex flex-col items-center'>
-                  <h1 className="text-3xl font-bold text-black mb-6 text-center">Congratulations🎉</h1>
-                  <h1 className='text-[#3a3a3a] text-sm mb-5 text-center'>The <span className='font-bold'>@{arLabel}</span> is now <br/> reserved under:</h1>
-                </div>
-                <div>
-                  <h1>Would you like to setup <br/> your ArPage now?</h1>
+            step === 5 && (
+              <section className='flex flex-col items-center justify-center'>
+                
+                <div className='mt-44 flex flex-col '>
+                  <h1 className="text-3xl font-bold text-black mb-6  text-left">
+                    Would you like to setup <br/> your ArPage now?</h1>
+                  <div className='text-[#6a6b6a] relative space-y-1'>
+                    <h2>
+                      To setup your ArPage, you will need the following:
+                    </h2>
+                    <ul className='ml-2 space-y-1'>
+                      <li>
+                          <p className="text-xs ">
+                            <span className='font-bold'>• </span> ArConnect Wallet <span className='font-bold'>(available only on Desktop)</span>
+                          </p>
+                      </li>
+                      <li>
+                          <p className="text-xs ">
+                          <span className='font-bold'>• </span> Ethereum based wallet 
+                          </p>
+                      </li>
+                    </ul> 
                   </div>
-                  <h2>
-                    To setup your ArPage, you will need the following:
-                  </h2>
-                  <ul>
-                    <li>
-                        <p className="text-xs ">
-                          <span className='font-bold'>• </span> ArConnect Wallet <span className='font-bold'>(available only on Desktop)</span>
-                        </p>
-                    </li>
-                    <li>
-                        <p className="text-xs ">
-                        <span className='font-bold'>• </span> Ethereum based wallet 
-                        </p>
-                    </li>
-                  </ul>  */}
+                </div>
+                <div className='flex flex-col justify-center items-center relative top-[390px]'>
+                    <p className="text-sm text-left mb-6  px-10">
+                      We <span className='font-bold'>recommend</span> that you <span className='font-bold'>complete</span> this stage on your 
+                      <span className='font-bold'> Desktop. </span>Your username is safe with us.
+                    </p>
+                    
+                    <button className=" bg-[#1273ea] w-[368px] h-14 items-center relative rounded-lg text-white font-bold text-lg" 
+                      onClick={() => setstep(6)}>
+                        <div className='flex justify-center items-center'>
+                          <p className='relative text-center '>Let's do it</p>
+                          <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/>
+                        </div>
+                    </button>
+                    <p onClick={() => setstep(0)} className='cursor-pointer mt-4 text-center text-sm text-[#6a6b6a] font-medium'>I will set it up later</p>
+                </div>
+              </section>
+            )
+          }
 
-
-
-                  <p>We recommend that you complete this stage on your Desktop. 
-                    Your username is safe with us.</p>
-                  <BlueButtonNext setstep={setstep} step={5} msg={"Let's do it"} />
+          {
+// CLAIMING PROCESS, is set to step 2 since the browser defaults to 2 after refresh 
+            step === 2 && (
+              <section className='mt-24 w-full'>
+                <div className='flex flex-row space-x-60 justify-between'>
+                  <BackButton setstep={setstep} step={step - 1}/>
+                  <NextButton setstep={setstep} step={step + 1}/>
+                </div>
+                <div className='mt-6 mb-5'>
+                  <LineBarTracker step={lineBarSteps}  total_step={3}/>
+                </div>
+                <h1 className='text-3xl font-bold mb-3'>Let's get you started <br/> with Arweave and ANS.</h1>
+                <p className='text-left text-[#8e8e8f]'>Claiming your first AR Page/ANS can be quite <br /> overwhelming. But don't worry! We're here to <br />
+                  to guide you along the process.</p>
+                
+                <OverviewSteps />
+                <div onClick={() => setLineBarSteps(lineBarSteps + 1)}>
+                  <CheckList step={lineBarSteps} />
+                </div>
+                
               </section>
             )
           }
