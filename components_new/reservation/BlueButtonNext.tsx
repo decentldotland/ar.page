@@ -5,7 +5,7 @@ interface Props  {
     step?: number,
     msg?: string, 
     sub_message?: string,
-    setstep: any
+    setstep: any,
 }
 
 export function BlueButtonNext({step, msg, sub_message, setstep}: Props) {
@@ -22,6 +22,7 @@ export function BlueButtonNext({step, msg, sub_message, setstep}: Props) {
                 <ArrowLongRightIcon height={20} width={20} className="absolute right-2"/>
               </div>
           </button>
+          
         </div>
       </div>
     )
