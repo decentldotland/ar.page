@@ -10,9 +10,9 @@ interface Props  {
 
 export function BlueButtonNext({step, msg, sub_message, setstep}: Props) {
     return (
-      <div className='flex justify-center'>
+      <div className='flex justify-center items-center'>
         <div className='absolute flex flex-col bottom-24 '>
-          <p className="text-sm text-center mb-6 font-medium">
+          <p className="text-sm text-center mb-6 font-medium px-10">
             {sub_message}
           </p>
           <button className=" bg-[#1273ea] w-[368px] h-14 items-center rounded-lg text-white font-bold text-lg" 

@@ -11,12 +11,12 @@ import { MdLogout } from 'react-icons/md';
 import {TbCopy} from 'react-icons/tb'
 import { FiLogOut } from 'react-icons/fi';
 import { chain } from 'lodash';
-import { useDisconnect } from 'wagmi';
+import { useDisconnect, useClient } from 'wagmi';
 import { BlueButtonNext } from '../components_new/reservation/BlueButtonNext';
 import { UserAccountDetails } from '../components_new/reservation/UserAccountDetails';
 import BackButton from '../components_new/reservation/BackButton';
 import {EyeIcon} from '@heroicons/react/24/solid'
-import { Snackbar } from '@mui/material';
+import { CircularProgress, Snackbar } from '@mui/material';
 
 
 const web3 = new Web3(Web3.givenProvider);
@@ -27,7 +27,6 @@ const Claim = () => {
   const { address, isConnected } = useAccount();
   const [loadingReservations, setLoadingReservations] = useState(true)
   const [loadingWrite, setLoadingWrite] = useState(false)
-  
   const [step, setstep] = useState(0);
 
   // For checking all existing labels
@@ -127,7 +126,8 @@ const Claim = () => {
     .then((res) => {
       localStorage.setItem('EthLisbonEvent2022', arLabel);
       setLoadingWrite(false)
-      setstep(2)
+      setstep(4)
+      console.log('SUCCESS🏗️🏗️🙏😄😄😄😄')
     })
     .catch((err) => {
       setInvalidLabel('Request failed, try again later')
@@ -198,6 +198,7 @@ const Claim = () => {
                   // </button>
                   <div className='items-center flex flex-col justify-center'>
                     <UserAccountDetails 
+                      upperMessage='Your Connected Wallet'
                       address={account.address} 
                       chainIconUrl={chain.iconUrl}
                       displayImg={"https://arweave.net/uAYSvOreWyfKZDblfV1IUsPyXCqCQWE4ryfia7OwjOs"}
@@ -282,7 +283,7 @@ const Claim = () => {
          
           {
 // 3. STEP REGISTER A USERNAME
-          step === 2 && (
+          step === 5 && (
             <>
               <section className="mt-24 ">
                 <BackButton setstep={setstep} step={step - 1}/>
@@ -350,16 +351,94 @@ const Claim = () => {
               </section>
             </>
           )}
+
           {
+// STEP 3
             step === 3 && (
-              <section className=''>
+              <section className={loadingWrite ? 'h-screen w-screen bg-[#B3B2B3]/25  z-50' : ''}>
                 <div className='flex flex-col items-center mt-28'>
                     <h2 className='text-xl font-medium mb-7 text-[#3a3a3a]'>Your username</h2>
                     <h1 className='font-bold text-4xl mb-4'>@{arLabel}</h1>
                     {/* Go back to registration page  */}
-                    <div onClick={() => setstep(2)} className='cursor-pointer font-medium text-sm text-[#1273ea] text-left hover:underline'>Change username</div>
-                  <BlueButtonNext setstep={setstep} step={4} msg={"Looks good"} />
+                    <p onClick={() => setstep(2)} className='cursor-pointer font-medium text-sm text-[#1273ea] text-left hover:underline'>Change username</p>
+                    
+                    {/* Button to register name and direct the user to the next screen */}
+                    <div className='flex justify-center'>
+                      <div className='absolute flex flex-col bottom-24 '>
+                        <button onClick={(e) => onSubmit(e)} disabled={invalidEVM.length > 0 || invalidLabel.length > 0} 
+                          className=" bg-[#1273ea] w-[368px] h-14 items-center rounded-lg text-white font-bold text-lg" >
+                            <div className='flex justify-center items-center'>
+
+                              {
+                                loadingWrite ? (
+                                  <CircularProgress color="inherit" size={23}/>
+                                ) : (
+                                 <p className='relative text-center'>Looks good</p>
+                                )
+                              }
+                              <ArrowLongRightIcon height={20} width={20} className="absolute right-2"/>
+                            </div>
+                        </button>
+                      </div>
+                  </div>
                 </div>
+              </section>
+            )
+          }
+          {
+// STEP 4
+            step === 4 && (
+              <section>
+                <div className='mt-40 flex flex-col items-center'>
+                  <h1 className="text-3xl font-bold text-black mb-6 text-center">Congratulations🎉</h1>
+                  <h1 className='text-[#3a3a3a] text-sm mb-5 text-center'>The <span className='font-bold'>@{arLabel}</span> is now <br/> reserved under:</h1>
+                </div>
+                <UserAccountDetails 
+                  upperMessage='Your Wallet'
+                  address={address} 
+                  chainIconUrl={chain.iconUrl}
+                  displayImg={"https://arweave.net/uAYSvOreWyfKZDblfV1IUsPyXCqCQWE4ryfia7OwjOs"}
+                  walletName={chain.name}
+                />
+                <BlueButtonNext setstep={setstep} step={5} msg={"Next"} />
+              </section>
+            )
+          }
+          {
+            step === 2 && (
+              <section className=''>
+                 <div className='mt-40 flex flex-col items-center'>
+                  <h1 className="text-3xl font-bold text-black mb-6 text-center">Congratulations🎉</h1>
+                  <h1 className='text-[#3a3a3a] text-sm mb-5 text-center'>The <span className='font-bold'>@{arLabel}</span> is now <br/> reserved under:</h1>
+                </div>
+                {/* <div className='mt-40 flex flex-col items-center'>
+                  <h1 className="text-3xl font-bold text-black mb-6 text-center">Congratulations🎉</h1>
+                  <h1 className='text-[#3a3a3a] text-sm mb-5 text-center'>The <span className='font-bold'>@{arLabel}</span> is now <br/> reserved under:</h1>
+                </div>
+                <div>
+                  <h1>Would you like to setup <br/> your ArPage now?</h1>
+                  </div>
+                  <h2>
+                    To setup your ArPage, you will need the following:
+                  </h2>
+                  <ul>
+                    <li>
+                        <p className="text-xs ">
+                          <span className='font-bold'>• </span> ArConnect Wallet <span className='font-bold'>(available only on Desktop)</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p className="text-xs ">
+                        <span className='font-bold'>• </span> Ethereum based wallet 
+                        </p>
+                    </li>
+                  </ul>  */}
+
+
+
+                  <p>We recommend that you complete this stage on your Desktop. 
+                    Your username is safe with us.</p>
+                  <BlueButtonNext setstep={setstep} step={5} msg={"Let's do it"} />
               </section>
             )
           }
@@ -384,6 +463,7 @@ export default Claim
 
 // {step === 1 && (
 //   <>
+
 //     <div className="text-[32px] font-bold">Reserve a username, reedem it later</div>
 //     <div className="text-sm self-start mb-6">You can only reserve one username per account</div>
 //     <form className="w-full mt-3" onSubmit={onSubmit}>

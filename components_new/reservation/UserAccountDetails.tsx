@@ -7,13 +7,14 @@ import { FiLogOut } from 'react-icons/fi';
 import { useAccount, useDisconnect } from 'wagmi';
 
 interface Props{ 
+    upperMessage: string, 
     displayImg?: string ,
     chainIconUrl?: string, 
     address?: string , 
     walletName?: string
 }
 
-export function UserAccountDetails({displayImg, chainIconUrl, address, walletName}: Props) {
+export function UserAccountDetails({displayImg, chainIconUrl, address, walletName, upperMessage}: Props) {
   const [open, setOpen] = React.useState(false);
   const copy_text = (link: string) => { 
       setOpen(true);
@@ -45,7 +46,7 @@ export function UserAccountDetails({displayImg, chainIconUrl, address, walletNam
     const {disconnect, disconnectAsync } = useDisconnect();
     return (
       <section ref={container}>
-        <p className='text-left text-2xs text-[#6a6b6a] mb-1'>Your Connected Wallet</p>
+        <p className='text-left text-2xs text-[#6a6b6a] mb-1'>{upperMessage}</p>
         <div className='bg-[#edecec] rounded-xl w-[276px] h-14 relative items-center flex px-2'>
           <div className='flex space-x-2 items-center flex-row'>
             {/* User Profile Goes Here */}
