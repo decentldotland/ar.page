@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import Head from 'next/head'
 import Web3 from 'web3';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { ChainMismatchError, useAccount } from 'wagmi'
-import { ArrowRightIcon } from '@heroicons/react/24/solid';
-import {ArrowLongRightIcon, ArrowTopRightOnSquareIcon, DocumentDuplicateIcon, EllipsisVerticalIcon} from '@heroicons/react/24/outline'
+import { ChainMismatchError, useAccount, useConnect } from 'wagmi'
+import { ArrowRightIcon, XCircleIcon } from '@heroicons/react/24/solid';
+import {ArrowLongRightIcon, ArrowTopRightOnSquareIcon, CheckCircleIcon, CheckIcon, DocumentDuplicateIcon, EllipsisVerticalIcon} from '@heroicons/react/24/outline'
 import Image from 'next/image';
 import { MdLogout } from 'react-icons/md';
 import {TbCopy} from 'react-icons/tb'
@@ -14,6 +14,9 @@ import { chain } from 'lodash';
 import { useDisconnect } from 'wagmi';
 import { BlueButtonNext } from '../components_new/reservation/BlueButtonNext';
 import { UserAccountDetails } from '../components_new/reservation/UserAccountDetails';
+import BackButton from '../components_new/reservation/BackButton';
+import {EyeIcon} from '@heroicons/react/24/solid'
+
 
 const web3 = new Web3(Web3.givenProvider);
 
@@ -21,7 +24,6 @@ const Claim = () => {
 
   // ETH address
   const { address, isConnected } = useAccount();
-
   const [loadingReservations, setLoadingReservations] = useState(true)
   const [loadingWrite, setLoadingWrite] = useState(false)
   
@@ -53,8 +55,8 @@ const Claim = () => {
   const validateLabel = () => {
     if (arLabel.length === 0) return ''
     if (arLabel.toLowerCase() === 'ar') return 'ar is reserved'
-    if (!ArLabelRegex.test(arLabel)) return 'Invalid label'
-    if (arLabelReserved() || checkOwnedLabelsList()) return 'Label taken'
+    if (!ArLabelRegex.test(arLabel)) return 'Invalid label, try another one.'
+    if (arLabelReserved() || checkOwnedLabelsList()) return 'Username is already taken, try another one.'
     return ''
   };
 
@@ -228,8 +230,8 @@ const Claim = () => {
         <meta name="twitter:url" content="ar.page"></meta>
         <meta name="twitter:description" content="Coming soon..." />
       </Head>
-      <div className="flex h-full items-start font-inter px-10">
-        <div className="flex flex-col items-center justify-center max-w-[420px] mx-auto gap-y-3 font-sans ">
+      <div className="flex h-full items-start font-sans px-10 ">
+        <div className="flex flex-col items-center justify-center max-w-[420px] mx-auto gap-y-3">
 
           {
 // 1. WELCOME SCREEN
@@ -252,7 +254,7 @@ const Claim = () => {
                 
 
                 <BlueButtonNext setstep={setstep} step={1} msg={"Let's go"} 
-                  sub_message={"Read to redeem the early access to your ArPage?"}/>
+                  sub_message={"Ready to redeem the early access to your ArPage?"}/>
               </div>
               {/* <p>Make sure to use the address that will receive the appropriate event Poap!</p> */}
             </>
@@ -278,37 +280,83 @@ const Claim = () => {
           }
          
           {
-// 3. 
+// 3. STEP REGISTER A USERNAME
           step === 2 && (
             <>
-              <div className="text-[32px] font-bold mt-20">Reserve a username, reedem it later</div>
-               <div className="text-sm self-start mb-6">You can only reserve one username per account</div>
-               <form className="w-full mt-3" onSubmit={onSubmit}>
-                 <div className="mb-6">
-                   <div className="w-full">
-                     <input
-                       className="w-full border-2 border-gray-300 bg-gray-300/90 outline-gray-400 p-2 rounded-lg"
-                       placeholder="Enter your desired label"
-                       value={arLabel}
-                       onChange={(e) => setArLabel(e.target.value)}
-                     />
-                   </div>
-                   <p className={`text-red-500 my-2 text-center h-6`}>
-                     {invalidLabel}
-                   </p>
-                   <p className="text-xs ">Labels can only have numbers from 0-9 and <span className="font-semibold">lowercase</span> English letters. 2 letters minimum, 15 max.</p>
-                 </div>
-                 <button
-                   className="!bg-gray-300/90 outline-gray-400 text-black font-semibold py-2 rounded-2xl px-4 cursor-pointer w-full !justify-center"
-                   type="submit"
-                   disabled={invalidEVM.length > 0 || invalidLabel.length > 0}
-                 >
-                   {loadingWrite ? "Loading...": "Reserve"}
-                 </button>
-               </form>
+              <section className="mt-24 ">
+                <BackButton setstep={setstep} step={step - 1}/>
+                <h1 className="text-[32px] font-bold mt-5">Register a username, and redeem it later.</h1>
+                <p className="text-sm self-start mb-6 text-[#8e8e8f]">You can only register with one username <br/>per account</p>
+                
+                <p className="text-sm text-left text-[#6a6b6a]"> 
+                  <span className='font-bold'>Remember: </span>
+                  You won't be able to change this later.
+                </p>
+                
+                <form className="w-full mt-3" onSubmit={onSubmit}>
+                  <div className="mb-6 space-y-2">
+                    <div className=" items-center flex w-full  h-12 bg-[#edecec] px-4 rounded-xl ">
+                      <input
+                        className="w-full bg-transparent focus:outline-none font-semibold text-black "
+                        placeholder="What do we call you?"
+                        value={arLabel}
+                        onChange={(e) => setArLabel(e.target.value)}
+                      />
+                      {/* If the username is valid, render a check mark else, render a clear mark */}
+                      <div hidden={arLabel.length <= 1}>
+                        {
+                          invalidLabel.length === 0 ? (
+                            <CheckIcon
+                              className='cursor-pointer relative left-1' 
+                              height={25} width={25} strokeWidth={3} color='#78ff75'  />
+                          ) : (
+                            <XCircleIcon
+                            onClick={() => {setArLabel('')}}
+                            className='cursor-pointer relative left-1' 
+                            height={20} width={20} strokeWidth={3} color='#666' />
+                          )
+                        }
+                      </div>
+                    </div>
+                    {/* Error Checks */}
+                    <p className={`text-red-500  text-center text-sm h-6`}>
+                      {invalidLabel}
+                    </p>
 
+                    <ul className='text-[#6a6b6a] ml-4 relative bottom-2'>
+                      <li>
+                        <p className="text-xs ">
+                         <span className='font-bold'>• </span> Usernames are min. 2 character length and no longer than 15 characters.
+                        </p>
+                      </li>
+                      <li>
+                        <p className="text-xs ">
+                        <span className='font-bold'>• </span> It must only contain alphanumerical values.
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </form>
+                
+                {/* Bottom Message  */}
+                <div className='flex flex-row space-x-3.5 items-center'>
+                  <EyeIcon
+                    className='cursor-pointer relative left-1' 
+                    height={20} width={20} strokeWidth={3} color='#666' />
+                    <h1 className='text-xs font-semibold text-[#3a3a3a] text-left'>This will be shown on your profile.</h1>
+                </div>
+
+                <BlueButtonNext setstep={setstep} step={3} msg={"Proceed to register name"} />
+              </section>
             </>
           )}
+          {
+            step === 3 && (
+              <div>
+                
+              </div>
+            )
+          }
         </div>
       </div>
     </>
@@ -316,6 +364,16 @@ const Claim = () => {
 }
 
 export default Claim
+
+// submit
+// <button
+// className="!bg-gray-300/90 outline-gray-400 text-black font-semibold py-2 rounded-2xl px-4 cursor-pointer w-full !justify-center"
+// type="submit"
+// disabled={invalidEVM.length > 0 || invalidLabel.length > 0}
+// >
+// {loadingWrite ? "Loading...": "Reserve"}
+// </button>
+
 
 
 // {step === 1 && (

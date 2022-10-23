@@ -17,7 +17,7 @@ export function BlueButtonNext({step, msg, sub_message, setstep}: Props) {
           </p>
           <button className=" bg-[#1273ea] w-[368px] h-14 items-center rounded-lg text-white font-bold text-lg" 
             onClick={() => setstep(step)}>
-              <div className='flex justify-center'>
+              <div className='flex justify-center items-center'>
                 <p className='relative text-center '>{msg}</p>
                 <ArrowLongRightIcon height={20} width={20} className="absolute right-2"/>
               </div>

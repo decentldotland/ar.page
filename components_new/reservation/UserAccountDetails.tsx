@@ -2,7 +2,7 @@ import { ArrowTopRightOnSquareIcon, DocumentDuplicateIcon, EllipsisVerticalIcon 
 import Image from 'next/image';
 import React, { useState } from 'react'
 import { FiLogOut } from 'react-icons/fi';
-import { useDisconnect } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 
 interface Props{ 
     displayImg?: string ,
@@ -19,8 +19,8 @@ export function UserAccountDetails({displayImg, chainIconUrl, address, walletNam
       }
       return addr
     }
-  
-    const disconnect = useDisconnect();
+
+    const {disconnect, disconnectAsync } = useDisconnect();
     return (
       <section>
         <p className='text-left text-2xs text-[#6a6b6a] mb-1'>Your Connected Wallet</p>
@@ -70,7 +70,7 @@ export function UserAccountDetails({displayImg, chainIconUrl, address, walletNam
             <div className='py-2 mt-3 px-5 h-[124px] w-[276px] bg-[#edecec] rounded-xl shadow-xl absolute z-50'>
               <ul className='space-y-4 '>
                 <li>
-                  <div onClick={() => disconnect} className="cursor-pointer flex flex-row items-center space-x-3">
+                  <div onClick={() => disconnect()} className="cursor-pointer flex flex-row items-center space-x-3">
                   <FiLogOut size={20} color={`#666`}  strokeWidth={2} className={'relative ml-1'}/>
                       <h1 className='text-[#666666] font-medium text-left text-base'>Disconnect Wallet</h1>
                   </div>
