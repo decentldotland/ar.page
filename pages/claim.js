@@ -345,16 +345,21 @@ const Claim = () => {
                     height={20} width={20} strokeWidth={3} color='#666' />
                     <h1 className='text-xs font-semibold text-[#3a3a3a] text-left'>This will be shown on your profile.</h1>
                 </div>
-
                 <BlueButtonNext setstep={setstep} step={3} msg={"Proceed to register name"} />
               </section>
             </>
           )}
           {
             step === 3 && (
-              <div>
-                
-              </div>
+              <section className=''>
+                <div className='flex flex-col items-center mt-28'>
+                    <h2 className='text-xl font-medium mb-7 text-[#3a3a3a]'>Your username</h2>
+                    <h1 className='font-bold text-4xl mb-4'>@{arLabel}</h1>
+                    {/* Go back to registration page  */}
+                    <div onClick={() => setstep(2)} className='cursor-pointer font-medium text-sm text-[#1273ea] text-left hover:underline'>Change username</div>
+                  <BlueButtonNext setstep={setstep} step={4} msg={"Looks good"} />
+                </div>
+              </section>
             )
           }
         </div>
