@@ -16,6 +16,7 @@ import { BlueButtonNext } from '../components_new/reservation/BlueButtonNext';
 import { UserAccountDetails } from '../components_new/reservation/UserAccountDetails';
 import BackButton from '../components_new/reservation/BackButton';
 import {EyeIcon} from '@heroicons/react/24/solid'
+import { Snackbar } from '@mui/material';
 
 
 const web3 = new Web3(Web3.givenProvider);
