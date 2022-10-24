@@ -88,9 +88,9 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
     const [isDark, setIsDark] = useRecoilState(isDarkMode);
     return (
         <section className="px-4 flex flex-row space-x-3.5 sm:shrink
-            w-full md:w-[336px] py-3 sm:py-3  border-2 border-gray-200 
-            items-center rounded-2xl  
-            sm:bg-transparent
+            w-full md:w-[336px] py-3 sm:py-3 border-2 border-gray-200 
+            items-center  sm:rounded-2xl focus:ring-1  rounded-md 
+             sm:bg-transparent
             " 
             ref={container}>
             {/* <button className="w-24 h-4 bg-red-300" {...valueProps}>{snapshot.displayValue}</button> */}
@@ -103,7 +103,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                 // style={{ paddingLeft: "22px" }} 
                 value={val} onChange={handleChange} onFocus={() => setShow(true)} 
                 placeholder={placeholder}
-                className=" font-inter w-full text-sm font-normal outline-none bg-transparent"
+                className=" font-inter w-full text-sm font-normal outline-none bg-transparent "
             />
             <div hidden={val.length <= 1}>
                 <XCircleIcon
@@ -115,9 +115,9 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
 
             <article className={`z-50 transition-all duration-300 ease-in-out ${show ? 'opacity-100': 'opacity-0 pointer-events-none'}`}>
                 
-                <div className={` py-4 sm:rounded-xl  rounded-none  md:h-fit  
-                    ${isDark ? ('bg-[#121a2f]'): ('bg-white')}
-                    shadow-lg sm:shadow-xl  w-screen sm:w-[336px]  md:max-w-[326px] md:w-[336px]  absolute sm:left-0 -right-7 mt-10 z-50
+                <div className={` py-4 sm:rounded-xl md:h-fit  
+                    ${isDark ? ('bg-[#121a2f]'): ('bg-white')} sm:border-none
+                    border-2 shadow-lg  mt-[22px] sm:mt-6  rounded-b-2xl w-full sm:w-[336px]  md:max-w-[326px] md:w-[336px]  absolute sm:left-0 -right-0 z-50
                     ml-16 md:ml-28 
                     `}>
                     <h2 className="text-lg font-semibold sm:px-4 px-10">Members</h2>
