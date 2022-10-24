@@ -47,7 +47,8 @@ export const Nav = (props:any) => {
 
     // bg-base-100
     return (
-        <div className={` w-screen  fixed top-0 border-b-2 border-[#FAFAFA] z-30 font-inter flex justify-between sm:h-[76px] h-[66px] px-6 items-center ${isDark ? ('bg-[#131A2E]'):('bg-[#FEFEFF] ')} overflow-visible md:px-16 items-center  sm:px-10`}>
+        <div className={` w-screen  fixed top-0 border-b-2 border-[#FAFAFA] z-30 font-inter flex justify-between sm:h-[76px] 
+        h-[66px] px-6 items-center ${isDark ? ('bg-[#131A2E]'):('bg-[#FEFEFF] ')} overflow-visible md:px-16 items-center  sm:px-10`}>
             <div className='flex flex-rows space-x-3.5 items-center '>
                 <Link href={resolveDomain("")} >
                     <Image src={Favicon} width={30} height={30} className='mx-auto my-auto cursor-pointer' alt="" />

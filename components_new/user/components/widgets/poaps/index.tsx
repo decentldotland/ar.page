@@ -33,7 +33,7 @@ export default function Poaps({ props }: { props: Res }) {
       {/* <h1 className="text-left font-inter font-bold text-xl">POAPS</h1> */}
       <div className="group relative">
 
-          <BiChevronLeft height={10} color="#3A3A3A" width={10}  className={`absolute top-0 
+          <BiChevronLeft height={10} color="#fff" width={10}  className={`absolute top-0 
               bottom-0 left-2 bg-gray-500/50 rounded-full 
               m-auto z-50 h-6 w-6
               cursor-pointer opacity-0 
@@ -76,7 +76,7 @@ export default function Poaps({ props }: { props: Res }) {
             ))}
           </div>
         
-          <BiChevronRight  height={10} color="#3A3A3A" width={10} 
+          <BiChevronRight  height={10} color="#fff" width={10} 
             className={`absolute top-0 
               bottom-0 right-2 bg-gray-500/50 rounded-full
               m-auto z-50 h-6 w-6
