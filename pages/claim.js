@@ -28,7 +28,7 @@ const web3 = new Web3(Web3.givenProvider);
 const Claim = () => {
 
   // ETH address
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, connector } = useAccount();
   const [loadingReservations, setLoadingReservations] = useState(true)
   const [loadingWrite, setLoadingWrite] = useState(false)
   const [step, setstep] = useState(0);
@@ -139,6 +139,12 @@ const Claim = () => {
     })
   }
 
+  // If the user is not connected then 
+  useEffect(() => {
+    if (!isConnected) setstep(0)
+  }, [isConnected])
+  
+
 
   const [lineBarSteps, setLineBarSteps] = useState(0)
 
@@ -209,9 +215,9 @@ const Claim = () => {
                       address={account.address} 
                       chainIconUrl={chain.iconUrl}
                       displayImg={"https://arweave.net/uAYSvOreWyfKZDblfV1IUsPyXCqCQWE4ryfia7OwjOs"}
-                      walletName={chain.name}
+                      walletName={connector.name}
                     />
-                    <button className="mt-9 bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
+                    <button className=" mt-9 bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
                       onClick={() => setstep(2)}
                       >
                         <div className='flex justify-center'>
@@ -261,9 +267,9 @@ const Claim = () => {
                 </p>
               
                 
-
-                <BlueButtonNext setstep={setstep} step={1} msg={"Let's go"} 
-                  sub_message={"Ready to redeem the early access to your ArPage?"}/>
+                  <BlueButtonNext setstep={setstep} step={1} msg={"Let's go"} 
+                    sub_message={"Ready to redeem the early access to your ArPage?"}
+                    />
               </div>
               {/* <p>Make sure to use the address that will receive the appropriate event Poap!</p> */}
             </>
@@ -287,10 +293,9 @@ const Claim = () => {
               </>
             )
           }
-         
           {
 // 3. STEP REGISTER A USERNAME
-          step === 10 && (
+          step === 2 && (
             <>
               <section className="mt-24 ">
                 <BackButton setstep={setstep} step={step - 1}/>
@@ -393,7 +398,7 @@ const Claim = () => {
             )
           }
           {
-// STEP 4
+// STEP 4 CONGRATULATONS ....
             step === 4 && (
               <section>
                 <div className='mt-40 flex flex-col items-center'>
@@ -403,9 +408,9 @@ const Claim = () => {
                 <UserAccountDetails 
                   upperMessage='Your Wallet'
                   address={address} 
-                  chainIconUrl={chain.iconUrl}
+                  // chainIconUrl={web3.}
                   displayImg={"https://arweave.net/uAYSvOreWyfKZDblfV1IUsPyXCqCQWE4ryfia7OwjOs"}
-                  walletName={chain.name}
+                  walletName={connector.name}
                 />
                 <BlueButtonNext setstep={setstep} step={5} msg={"Next"} />
               </section>
@@ -457,7 +462,7 @@ const Claim = () => {
 
           {
 // CLAIMING PROCESS, is set to step 2 since the browser defaults to 2 after refresh 
-            step === 2 && (
+            step === 6 && (
               <section className='mt-24 w-full'>
                 <div className='flex flex-row space-x-60 justify-between'>
                   <BackButton setstep={setstep} step={step - 1}/>

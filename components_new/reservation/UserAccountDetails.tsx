@@ -43,7 +43,7 @@ export function UserAccountDetails({displayImg, chainIconUrl, address, walletNam
         document.removeEventListener('click', ev);
     }, [toggle]);
 
-    const {disconnect, disconnectAsync } = useDisconnect();
+    const {disconnect } = useDisconnect();
     return (
       <section ref={container}>
         <p className='text-left text-2xs text-[#6a6b6a] mb-1'>{upperMessage}</p>
