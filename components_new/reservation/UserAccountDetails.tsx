@@ -46,7 +46,7 @@ export function UserAccountDetails({displayImg, chainIconUrl, address, walletNam
     const {disconnect } = useDisconnect();
     return (
       <section ref={container}>
-        <p className='text-left text-2xs text-[#6a6b6a] mb-1'>{upperMessage}</p>
+        <p className='text-left text-xs text-[#6a6b6a] mb-1'>{upperMessage}</p>
         <div className='bg-[#edecec] rounded-xl w-[276px] h-14 relative items-center flex px-2'>
           <div className='flex space-x-2 items-center flex-row'>
             {/* User Profile Goes Here */}
@@ -64,14 +64,12 @@ export function UserAccountDetails({displayImg, chainIconUrl, address, walletNam
                     </div>
                   </div>
               ) : (
-                <div className='relative'>
-                  <div className='rounded-full bg-[#B3B2B3] h-[38px] w-[38px]'>
+                  <div className='rounded-full bg-gradient-to-l from-[#9E00FF] to-[#1273EA]  h-[38px] w-[38px]'>
                     {/* Chain Icons Goes Here */}
-                    <div className='rounded-full relative left-4 bottom-1 
+                    <div className='rounded-full relative left-4 bottom-1 items-center flex justify-center
                       bg-[#CECECF] h-6 w-6 border-[#edecec] border-2 '>
                       <Image src={chainIconUrl!} height={16} width={16}/>
                     </div>
-                  </div>
                 </div>
               )
             }

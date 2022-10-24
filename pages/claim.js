@@ -144,8 +144,9 @@ const Claim = () => {
     if (!isConnected) setstep(0)
   }, [isConnected])
   
-
-
+  // temporary 
+  const [chainUrlId, setChainUrlId] = useState('')
+  const [ensAvatar, setEnsAvatar] = useState('')
   const [lineBarSteps, setLineBarSteps] = useState(0)
 
   const CustomConnectButton = () => {
@@ -164,6 +165,9 @@ const Claim = () => {
           // Note: If your app doesn't use authentication, you
           // can remove all 'authenticationStatus' checks
           const ready = mounted && authenticationStatus !== 'loading';
+
+          setChainUrlId(chain?.iconUrl)
+          setEnsAvatar(account?.ensAvatar)
           const connected =
             ready &&
             account &&
@@ -214,7 +218,7 @@ const Claim = () => {
                       upperMessage='Your Connected Wallet'
                       address={account.address} 
                       chainIconUrl={chain.iconUrl}
-                      displayImg={"https://arweave.net/uAYSvOreWyfKZDblfV1IUsPyXCqCQWE4ryfia7OwjOs"}
+                      displayImg={account.ensAvatar}
                       walletName={connector.name}
                     />
                     <button className=" mt-9 bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
@@ -300,7 +304,7 @@ const Claim = () => {
               <section className="mt-24 ">
                 <BackButton setstep={setstep} step={step - 1}/>
                 <h1 className="text-[32px] font-bold mt-5">Register a username, and redeem it later.</h1>
-                <p className="text-sm self-start mb-6 text-[#8e8e8f]">You can only register with one username <br/>per account</p>
+                <p className="text-sm self-start mb-6 text-[#8e8e8f]">You can only register with one username <br/>per account.</p>
                 
                 <p className="text-sm text-left text-[#6a6b6a]"> 
                   <span className='font-bold'>Remember: </span>
@@ -401,17 +405,19 @@ const Claim = () => {
 // STEP 4 CONGRATULATONS ....
             step === 4 && (
               <section>
-                <div className='mt-40 flex flex-col items-center'>
-                  <h1 className="text-3xl font-bold text-black mb-6 text-center">Congratulations🎉</h1>
-                  <h1 className='text-[#3a3a3a] text-sm mb-5 text-center'>The <span className='font-bold'>@{arLabel}</span> is now <br/> reserved under:</h1>
+                <div className='mt-40 flex flex-col items-center justify-center'>
+                  <h1 className="text-3xl font-bold text-black mb-5 text-center">Congratulations🎉</h1>
+                  <h1 className='text-[#3a3a3a] text-base mb-5 text-center'>The <span className='font-bold'>@{arLabel}</span> is now <br/> reserved under:</h1>
                 </div>
-                <UserAccountDetails 
-                  upperMessage='Your Wallet'
-                  address={address} 
-                  // chainIconUrl={web3.}
-                  displayImg={"https://arweave.net/uAYSvOreWyfKZDblfV1IUsPyXCqCQWE4ryfia7OwjOs"}
-                  walletName={connector.name}
-                />
+                <div>
+                  <UserAccountDetails 
+                    upperMessage='Your Wallet'
+                    address={address} 
+                    chainIconUrl={chainUrlId}
+                    displayImg={ensAvatar}
+                    walletName={connector?.name}
+                  />
+                </div>
                 <BlueButtonNext setstep={setstep} step={5} msg={"Next"} />
               </section>
             )
