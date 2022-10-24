@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Head from 'next/head'
 import Web3 from 'web3';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { ChainMismatchError, useAccount, useConnect } from 'wagmi'
+import { ChainMismatchError, useAccount, useConnect, useDisconnect } from 'wagmi'
 import { ArrowRightIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import {ArrowLongRightIcon, ArrowTopRightOnSquareIcon, CheckCircleIcon, CheckIcon, ChevronUpIcon, DocumentDuplicateIcon, EllipsisVerticalIcon} from '@heroicons/react/24/outline'
 // import Image from 'next/image';
@@ -11,7 +11,6 @@ import {ArrowLongRightIcon, ArrowTopRightOnSquareIcon, CheckCircleIcon, CheckIco
 // import {TbCopy} from 'react-icons/tb'
 // import { FiLogOut } from 'react-icons/fi';
 // import { chain } from 'lodash';
-// import { useDisconnect, useClient } from 'wagmi';
 import { BlueButtonNext } from '../components_new/reservation/BlueButtonNext';
 import { UserAccountDetails } from '../components_new/reservation/UserAccountDetails';
 import BackButton from '../components_new/reservation/BackButton';
@@ -21,6 +20,7 @@ import NextButton from '../components_new/reservation/NextButton';
 import LineBarTracker from '../components_new/reservation/LineBarTracker';
 import OverviewSteps from '../components_new/reservation/OverviewSteps';
 import CheckList from '../components_new/reservation/CheckList';
+import UserReservedHistory from '../components_new/reservation/UserReservedHistory';
 
 
 const web3 = new Web3(Web3.givenProvider);
@@ -58,6 +58,7 @@ const Claim = () => {
 
   const validateLabel = () => {
     if (arLabel.length === 0) return ''
+    if (arLabel.length > 15) return 'Username is too long'
     if (arLabel.toLowerCase() === 'ar') return 'ar is reserved'
     if (!ArLabelRegex.test(arLabel)) return 'Invalid label, try another one.'
     if (arLabelReserved() || checkOwnedLabelsList()) return 'Username is already taken, try another one.'
@@ -260,7 +261,7 @@ const Claim = () => {
               <div className="w-full mt-20">
                 <h1 className="text-[45px] font-bold text-center mb-7 mt-10">Hello Hackers👋</h1>
                 <p className="text-sm text-center mb-6">
-                  On behalf of the whole Decent Land Team, we thank you for showing your support at ETH Lisbon
+                  On behalf of the whole Decent Land Team, we thank you for showing your support at ETH Lisbon 2022.
                 </p>
                 <p className="text-sm text-center mb-6">
                   By now you should have received your early access POAP token.
@@ -313,6 +314,7 @@ const Claim = () => {
                 
                 <form className="w-full mt-3" onSubmit={onSubmit}>
                   <div className="mb-6 space-y-2">
+                    <p>LENGTH = {arLabel.length}</p>
                     <div className=" items-center flex w-full  h-12 bg-[#edecec] px-4 rounded-xl ">
                       <input
                         className="w-full bg-transparent focus:outline-none font-semibold text-black "
@@ -408,8 +410,6 @@ const Claim = () => {
                 <div className='mt-40 flex flex-col items-center justify-center'>
                   <h1 className="text-3xl font-bold text-black mb-5 text-center">Congratulations🎉</h1>
                   <h1 className='text-[#3a3a3a] text-base mb-5 text-center'>The <span className='font-bold'>@{arLabel}</span> is now <br/> reserved under:</h1>
-                </div>
-                <div>
                   <UserAccountDetails 
                     upperMessage='Your Wallet'
                     address={address} 
@@ -418,6 +418,14 @@ const Claim = () => {
                     walletName={connector?.name}
                   />
                 </div>
+                <div>
+                </div>
+
+                <div className='mt-12'>
+                  {/* TEST */}
+                  <UserReservedHistory label={arLabel} address={address} timestamp={1666596976000}/>
+                </div>
+
                 <BlueButtonNext setstep={setstep} step={5} msg={"Next"} />
               </section>
             )
@@ -496,53 +504,3 @@ const Claim = () => {
 }
 
 export default Claim
-
-// submit
-// <button
-// className="!bg-gray-300/90 outline-gray-400 text-black font-semibold py-2 rounded-2xl px-4 cursor-pointer w-full !justify-center"
-// type="submit"
-// disabled={invalidEVM.length > 0 || invalidLabel.length > 0}
-// >
-// {loadingWrite ? "Loading...": "Reserve"}
-// </button>
-
-
-
-// {step === 1 && (
-//   <>
-
-//     <div className="text-[32px] font-bold">Reserve a username, reedem it later</div>
-//     <div className="text-sm self-start mb-6">You can only reserve one username per account</div>
-//     <form className="w-full mt-3" onSubmit={onSubmit}>
-//       <div className="mb-6">
-//         <div className="w-full">
-//           <input
-//             className="w-full border-2 border-gray-300 bg-gray-300/90 outline-gray-400 p-2 rounded-lg"
-//             placeholder="Enter your desired label"
-//             value={arLabel}
-//             onChange={(e) => setArLabel(e.target.value)}
-//           />
-//         </div>
-//         <p className={`text-red-500 my-2 text-center h-6`}>
-//           {invalidLabel}
-//         </p>
-//         <p className="text-xs ">Labels can only have numbers from 0-9 and <span className="font-semibold">lowercase</span> English letters. 2 letters minimum, 15 max.</p>
-//       </div>
-//       <button
-//         className="!bg-gray-300/90 outline-gray-400 text-black font-semibold py-2 rounded-2xl px-4 cursor-pointer w-full !justify-center"
-//         type="submit"
-//         disabled={invalidEVM.length > 0 || invalidLabel.length > 0}
-//       >
-//         {loadingWrite ? "Loading...": "Reserve"}
-//       </button>
-//     </form>
-//     <CustomConnectButton
-//         label="Connect"
-//         showBalance={false}
-//         chainStatus="icon"
-//         accountStatus="address" 
-//       />
-//       <p className="text-red-500 my-2 text-center h-6">{invalidEVM}</p>
-     
-//   </>
-// )}

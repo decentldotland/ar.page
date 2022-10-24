@@ -56,10 +56,12 @@ export function UserAccountDetails({displayImg, chainIconUrl, address, walletNam
                     <Image 
                       width={38}
                       height={38}
-                      className='rounded-full' 
+                      className='rounded-full bg-gradient-to-l from-[#9E00FF] to-[#1273EA]' 
                       src={displayImg} />
                     <div className='rounded-full absolute bottom-6 left-4
                       bg-[#CECECF] h-6 w-6 border-[#edecec]  border-2'>
+
+                      {/*  This could be done much better, error seems to persist if the users tries to comeback to the page */}
                       <Image src={chainIconUrl!} height={16} width={16}/>
                     </div>
                   </div>
