@@ -6,12 +6,12 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { ChainMismatchError, useAccount, useConnect } from 'wagmi'
 import { ArrowRightIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import {ArrowLongRightIcon, ArrowTopRightOnSquareIcon, CheckCircleIcon, CheckIcon, ChevronUpIcon, DocumentDuplicateIcon, EllipsisVerticalIcon} from '@heroicons/react/24/outline'
-import Image from 'next/image';
-import { MdLogout } from 'react-icons/md';
-import {TbCopy} from 'react-icons/tb'
-import { FiLogOut } from 'react-icons/fi';
-import { chain } from 'lodash';
-import { useDisconnect, useClient } from 'wagmi';
+// import Image from 'next/image';
+// import { MdLogout } from 'react-icons/md';
+// import {TbCopy} from 'react-icons/tb'
+// import { FiLogOut } from 'react-icons/fi';
+// import { chain } from 'lodash';
+// import { useDisconnect, useClient } from 'wagmi';
 import { BlueButtonNext } from '../components_new/reservation/BlueButtonNext';
 import { UserAccountDetails } from '../components_new/reservation/UserAccountDetails';
 import BackButton from '../components_new/reservation/BackButton';
