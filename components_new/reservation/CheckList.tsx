@@ -61,7 +61,7 @@ function CheckList({setstep, step}: Props) {
                 })
             }
        </div>
-       <div hidden={indexCounter === 0} className={"flex flex-col text-center px-5 mb-5 space-y-3.5"}>
+       <div hidden={indexCounter === 0} className={"flex flex-col text-center px-5 mb-10 space-y-3.5"}>
             <h1 className='text-[#8e8e8f] font-medium mb-5'>Completed Steps </h1>
         {
             finishedItems.map((v, k) => { 

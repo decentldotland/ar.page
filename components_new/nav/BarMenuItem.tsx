@@ -74,7 +74,7 @@ useEffect(() => {
                     // Controls the body of dropdown menu
                     <div hidden={!toggle}
                         className={`  ${isDark ? ('bg-[#121a2f]'):('bg-[#FEFEFE] ')} 
-                        text-black absolute z-50 -right-0  px-3 py-5 w-screen h-screen sm:h-[280px] 
+                        text-black absolute z-50 -right-0  px-3 py-5 w-screen h-screen sm:h-fit
                         sm:px-1 sm:right-1 shadow-lg sm:rounded-xl sm:mt-5 sm:w-[272px]`}>
                         <ul className='h-full px-5 sm:px-2 relative '>
 

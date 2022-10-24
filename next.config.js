@@ -8,7 +8,9 @@ module.exports = {
               'cryptologos.cc', 
               'img.arweave.dev',
               'lens.xyz',
-              'raw.githubusercontent.com'
+              'raw.githubusercontent.com',
+              // THIS IS A TEMPORARY FIX
+              'w7.pngwing.com'
             ],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
