@@ -1,6 +1,7 @@
 import { ArrowTopRightOnSquareIcon, ClipboardDocumentCheckIcon
 
 } from '@heroicons/react/24/outline'
+import Link from 'next/link'
 import React from 'react'
 import { Divider } from '../user/components/reusables'
 
@@ -28,7 +29,6 @@ function UserReservedHistory({label, address, timestamp}: Props) {
     return (new Date(epoch)).toLocaleString();
   }
   return (
-    
     <section  className='w-full px-10 cursor-pointer '>
       <div>
         <h1 className='font-semibold text-xl text-left text-[#6a6b6a]'>History</h1>

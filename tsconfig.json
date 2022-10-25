@@ -70,7 +70,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/claim.js"
+    "pages/claim.js",
+    "pages/reserve.js"
   ],
   "exclude": [
     "node_modules"
