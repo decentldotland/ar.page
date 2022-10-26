@@ -70,7 +70,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/claim.js",
+    "pages/claim.ts",
     "pages/reserve.js"
   ],
   "exclude": [

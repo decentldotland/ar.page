@@ -55,38 +55,30 @@ const Claim = () => {
     reservations.find(l => l.reserved_ans === arLabel.toLowerCase())
   )
 
-  const checkOwnedLabelsList = () => existingANSNames.map(u => u.ownedLabels).flat().map(l => l.label).find(l => l === arLabel.toLowerCase());
-
-  const validateLabel = () => {
-    if (arLabel.length === 0) return ''
-    if (arLabel.length > 15) return 'Username is too long'
-    if (arLabel.toLowerCase() === 'ar') return 'ar is reserved'
-    if (!ArLabelRegex.test(arLabel)) return 'Invalid label, try another one.'
-    if (arLabelReserved() || checkOwnedLabelsList()) return 'Username is already taken, try another one.'
-    return ''
-  };
-
   const validateEVM = (suppliedAddress='') => {
     const address = suppliedAddress || evmAddress;
     if (address.length === 0) return ''
     if (!EvmAddressRegex.test(address) || !web3.utils.checkAddressChecksum(address)) return 'Invalid EVM address'
-    if (EVMAddressTaken(address)) return 'This address is already registered'
+    // Checks if the EVM address has registered ans 
+    // if (EVMAddressTaken(address) === undefined) return 'The account is not viable for any claims'
     return ''
   };
 
-  useEffect(() => {
-    setInvalidLabel(validateLabel())
-  }, [arLabel])
 
   useEffect(() => {
     setInvalidEVM(validateEVM())
-  }, [evmAddress])
+  }, [evmAddress, reservations])
+
+  useEffect(() => {
+    let userDetails = reservations.find(i => i.evm_address === address);
+    setArLabel(userDetails?.reserved_ans) 
+  }, [reservations, address])
 
   useEffect(() => {
     const g = localStorage.getItem("EthLisbonEvent2022")
     if (g) {
-      // setste[]
-      setstep(5)
+      // setste[0]
+      setstep(2)
       return
     }
     axios.get('/api/exmread').then(res => {
@@ -101,7 +93,7 @@ const Claim = () => {
     if (!address) return;
     if (!reservations || !existingANSNames) return;
     setInvalidEVM(validateEVM(address))
-    setInvalidLabel(validateLabel())
+    // setInvalidLabel(validateLabel())
   }, [reservations, existingANSNames])
 
   useEffect(() => {
@@ -116,30 +108,6 @@ const Claim = () => {
       setEvmAddress('')
     }
   }, [address, isConnected, reservations]);
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (arLabel.length === 0) setInvalidLabel('Please enter a label')
-    if (!(!validateLabel() && arLabel.length > 0)) return
-    if (address && validateEVM(address)) return
-    setEvmAddress(address)
-    setLoadingWrite(true)
-
-    axios.post(`api/exmwrite`, {
-      "function": "reserve",
-      "evm_address": evmAddress,
-      "ans": arLabel.toLowerCase()
-    })
-    .then((res) => {
-      localStorage.setItem('EthLisbonEvent2022', arLabel);
-      setLoadingWrite(false)
-      setstep(4)
-    })
-    .catch((err) => {
-      setInvalidLabel('Request failed, try again later')
-      console.log(err);
-    })
-  }
 
   // If the user is not connected then 
   useEffect(() => {
@@ -257,8 +225,8 @@ const Claim = () => {
         <meta name="twitter:url" content="ar.page"></meta>
         <meta name="twitter:description" content="Coming soon..." />
       </Head>
-      <div className="flex h-full items-start font-sans px-10 ">
-        <div className="flex flex-col items-center justify-center max-w-[420px] mx-auto gap-y-3">
+      <div className="flex h-full font-sans px-6 items-center justify-center ">
+        <div className="flex flex-col justify-center max-w-[420px] items-center relative gap-y-3">
 
           {
 // 2. SECOND SCREEN
@@ -286,47 +254,55 @@ const Claim = () => {
 
             step === 1 && (
               <>
-                <div className='mt-24 w-full h-full relative '>
-                  <div className='flex flex-row  mb-4 '>
-                    <BackButton setstep={setstep} step={step - 1}/>
-                  </div>
-                  <h1 className='text-3xl font-bold mb-3'>Welcome to Arweave <br/> Name Service!🎉</h1>
+                <section className=' relative h-screen '>
                   
-                  <div className='mt-2 rounded-sm h-[1px]  bg-[#d9d9d9]'></div>
-                  
-                  <div className="text-sm">
-                    <p className='text-left text-[#8e8e8f] mt-6'>Whether you are beginner or experienced,
-                    we will walk you through the whole process of setting your Arweave Wallet and connecting your EVM
-                    wallet to Arweave using the Ark Protocol.</p>
-                    <p className='text-left text-[#8e8e8f] mt-3'>if needed, feel free to skip some steps.</p>
-                    <p className='text-left text-[#8e8e8f] mt-3 mb-4'>If you have any question, please reach out to us on Discord 
-                      and we will guide you as much as we can. </p>
+                  <div className='items-center mt-32'>
+                    <div className='flex flex-row  mb-4 '>
+                      <BackButton setstep={setstep} step={step - 1}/>
+                    </div>
+                    <h1 className='text-3xl font-bold mb-3'>Welcome to Arweave <br/> Name Service!🎉</h1>
+                    
+                    <div className='mt-2 rounded-sm h-[1px]  bg-[#d9d9d9]'></div>
+                    
+                    <div className="text-sm">
+                      <p className='text-left text-[#8e8e8f] mt-6'>Whether you are beginner or experienced,
+                      we will walk you through the whole process of setting your Arweave Wallet and connecting your EVM
+                      wallet to Arweave using the Ark Protocol.</p>
+                      <p className='text-left text-[#8e8e8f] mt-3'>if needed, feel free to skip some steps.</p>
+                      <p className='text-left text-[#8e8e8f] mt-3 mb-4'>If you have any question, please reach out to us on Discord 
+                        and we will guide you as much as we can. </p>
+                    </div>
+
+                    <div className=''>
+                      <ul className='space-y-2 text-sm'>
+                        <li className='flex flex-row space-x-2.5 items-center text-[#6a6b6a] '>
+                          <ComputerDesktopIcon height={25} width={25} color={"#6a6b6a"} strokeWidth={2} />
+                          <p>Completed on: <span className='font-bold text-[#6a6b6a] '>Desktop</span></p>
+                        </li>
+                        <li className='flex flex-row space-x-2.5 items-center text-[#6a6b6a]'>
+                          <ClockIcon height={25} width={25} color={"#6a6b6a"} strokeWidth={2} />
+                          <p>Approx. time to complete:<span className='font-bold text-[#6a6b6a] '> ~5 min</span></p>
+                        </li>
+                      </ul>
+                    </div>
+
                   </div>
 
-                  <div className=''>
-                    <ul className='space-y-2 text-sm'>
-                      <li className='flex flex-row space-x-2.5 items-center text-[#6a6b6a] '>
-                        <ComputerDesktopIcon height={25} width={25} color={"#6a6b6a"} strokeWidth={2} />
-                        <p>Completed on: <span className='font-bold text-[#6a6b6a] '>Desktop</span></p>
-                      </li>
-                      <li className='flex flex-row space-x-2.5 items-center text-[#6a6b6a]'>
-                        <ClockIcon height={25} width={25} color={"#6a6b6a"} strokeWidth={2} />
-                        <p>Approx. time to complete:<span className='font-bold text-[#6a6b6a] '> ~5 min</span></p>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className='items-center flex flex-col absolute bottom-10 w-full px-10'>
-                    <button className=" bg-[#1273ea] w-[386px] h-14 items-center relative rounded-lg text-white font-bold text-lg" 
-                      onClick={() => setstep(2)}>
-                        <div className='flex justify-center items-center'>
-                          <p className='relative text-center '>Start</p>
-                          <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/>
-                        </div>
-                    </button>
-                    <p onClick={() => setstep(0)} 
-                      className='cursor-pointer mt-4 text-center text-sm text-[#6a6b6a] font-medium'>Maybe later</p>  
-                </div>                
+                </section>
+                  <div className='flex flex-col justify-center w-full absolute bottom-10 '>
+                      <button className=" bg-[#1273ea] h-14  items-center relative rounded-lg text-white font-bold text-lg" 
+                        onClick={() => setstep(2)}>
+                          <div className='flex justify-center items-center'>
+                            <p className='relative text-center '>Start</p>
+                            <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/>
+                          </div>
+                      </button>
+                      <p onClick={() => setstep(0)} 
+                        className='cursor-pointer mt-4 text-center text-sm text-[#6a6b6a] font-medium'>Maybe later</p>  
+                  </div>                
+
+
+
               </>
             )
           }
@@ -336,61 +312,65 @@ const Claim = () => {
 // 
             step === 2 && (
               <>
-                <section className='mt-24 w-full'>
-                  <div className='flex flex-row space-x-60 justify-between'>
-                    <BackButton setstep={setstep} step={step - 1}/>
-                    <NextButton setstep={setstep} step={step + 1}/>
-                  </div>
-                  <div className='mt-6 mb-5'>
-                    <LineBarTracker step={0}  total_step={3}/>
-                  </div>
-                  <h1 className='text-3xl font-bold mb-3'>Let's get you started <br/> with Arweave and ANS.</h1>
-                  <p className='text-left text-[#8e8e8f]'>
-                    Claiming your first AR Page/ANS can be quite <br /> 
-                    overwhelming. But don't worry! We're here to <br />to guide you along the process.
-                  </p>
-                  
-                  <OverviewSteps />
+                <section className='relative h-screen '>
 
-                  <section>
-                    <div className='space-y-3 mb-5'>
-                      <h1 className='text-xl text-left text-[#3a3a3a] font-medium'>Complete the checklist to get started:</h1>
-                      <div  className=' flex flex-row space-x-3.5 rounded-xl px-5 py-4 w-full bg-[#edecec] '>
-                        <div className='w-6 h-6 border-2 border-[#b3b2b3] bg-[#f6f6f6] rounded-md'></div>
-                        <h1 className='font-bold text-[#6a6b6a] text-center '>Download and setup Arconnect</h1>
-                      </div>
-                      <div  className=' flex flex-row space-x-3.5 rounded-xl px-5 py-4 w-full bg-[#edecec] '>
-                        <div className='w-6 h-6 border-2 border-[#b3b2b3] bg-[#f6f6f6] rounded-md'></div>
-                        <h1 className='font-bold text-[#6a6b6a] text-center '>Link my EVM wallet to my ArConnect</h1>
-                      </div>
-                      <div  className=' flex flex-row space-x-3.5 rounded-xl px-5 py-4 w-full bg-[#edecec] '>
-                        <div className='w-6 h-6 border-2 border-[#b3b2b3] bg-[#f6f6f6] rounded-md'></div>
-                        <h1 className='font-bold text-[#6a6b6a] text-center '>Claim my ArPage</h1>
-                      </div>
-                  </div>
-
-
-                  <div className='flex justify-center flex-col items-center '>
-
-
-                    <Link href={ARCONNECT_DOWNLOAD_LINK} >
-                        <a target="_blank" rel="noopener noreferrer" onClick={() => setstep(3)}
-                          className="cursor-pointer bg-[#1273ea] w-full h-14 justify-center items-center flex relative flex-row rounded-lg text-white font-bold text-lg" >
-                            <div className='flex justify-center items-center'>
-                              <p className='text-center'>Download and Setup ArConnect</p>
-                              <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/>
-                            </div>
-                        </a>
-                    </Link>
-
-                    <p onClick={() => setstep(0)} 
-                        className='cursor-pointer mt-4 text-center text-sm text-[#6a6b6a] font-medium'>
-                        I will set it up later
-                    </p>
+                    <div className='flex items-center flex-row justify-between  mt-24'>
+                      <BackButton setstep={setstep} step={step - 1}/>
+                      <NextButton setstep={setstep} step={step + 1}/>
                     </div>
 
+                  <div className="">
+                    
+                    <div className='items-center w-full'>
+                      <div className='mt-6 mb-5'>
+                        <LineBarTracker step={0}  total_step={3}/>
+                      </div>
+                      <h1 className='text-3xl font-bold mb-2'>Let's get you started <br/> with Arweave and ANS.</h1>
+                      <p className='text-left text-[#8e8e8f]'>
+                        Claiming your first AR Page/ANS can be quite <br /> 
+                        overwhelming. But don't worry! We're here to <br />to guide you along the process.
+                      </p>
+                    </div>
+                    
+                    <OverviewSteps />
 
-                  </section>
+                    <section>
+                      <div className='space-y-3 mb-5'>
+                        <h1 className='text-xl text-left text-[#3a3a3a] font-medium'>Complete the checklist to get started:</h1>
+                        <div  className=' flex flex-row space-x-3.5 rounded-xl px-5 py-3 w-full bg-[#edecec] items-center'>
+                          <div className='w-6 h-6 border-2 border-[#b3b2b3] bg-[#f6f6f6] rounded-md'></div>
+                          <h1 className='font-bold text-[#6a6b6a] text-center text-sm'>Download and setup Arconnect</h1>
+                        </div>
+                        <div  className=' flex flex-row space-x-3.5 rounded-xl px-5 py-3 w-full bg-[#edecec] items-center'>
+                          <div className='w-6 h-6 border-2 border-[#b3b2b3] bg-[#f6f6f6] rounded-md'></div>
+                          <h1 className='font-bold text-[#6a6b6a] text-center text-sm'>Link my EVM wallet to my ArConnect</h1>
+                        </div>
+                        <div  className=' flex flex-row space-x-3.5 rounded-xl px-5 py-3 w-full bg-[#edecec] items-center '>
+                          <div className='w-6 h-6 border-2 border-[#b3b2b3] bg-[#f6f6f6] rounded-md'></div>
+                          <h1 className='font-bold text-[#6a6b6a] text-center text-sm'>Claim my ArPage</h1>
+                        </div>
+                      </div>
+                    </section>
+
+
+
+                    <div className='flex justify-center flex-col items-center w-full'>
+                      <Link href={ARCONNECT_DOWNLOAD_LINK} >
+                          <a target="_blank" rel="noopener noreferrer" onClick={() => setstep(3)}
+                            className="cursor-pointer bg-[#1273ea] w-full h-14 justify-center items-center flex relative flex-row rounded-lg text-white font-bold text-lg" >
+                              <div className='flex justify-center items-center'>
+                                <p className='text-center'>Download and Setup ArConnect</p>
+                                <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/>
+                              </div>
+                          </a>
+                      </Link>
+
+                      <p onClick={() => setstep(0)} 
+                          className='cursor-pointer mt-4 text-center text-sm text-[#6a6b6a] font-medium'>
+                          I will set it up later
+                      </p>
+                      </div>
+                  </div>
                 </section>
               </>
             )

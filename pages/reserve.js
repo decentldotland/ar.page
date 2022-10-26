@@ -251,7 +251,7 @@ const Reserve = () => {
         <meta name="twitter:url" content="ar.page"></meta>
         <meta name="twitter:description" content="Coming soon..." />
       </Head>
-      <div className="flex h-full items-start font-sans px-10 ">
+      <div className="flex h-full items-start font-sans px-6 ">
         <div className="flex flex-col items-center justify-center max-w-[420px] mx-auto gap-y-3">
 
           {
