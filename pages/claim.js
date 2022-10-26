@@ -87,7 +87,7 @@ const Claim = () => {
   useEffect(() => {
     setInvalidEVM(validateEVM())
     setValidUserToClaim(checkForClaim())
-  }, [evmAddress, reservations])
+  }, [evmAddress, reservations, checkForClaim, validateEVM])
 
   useEffect(() => {
     const g = localStorage.getItem("EthLisbonEvent2022")
@@ -111,7 +111,7 @@ const Claim = () => {
       setUserDetails(details)
       console.log(details)
     }
-  }, [isConnected, reservations, validClaim]) 
+  }, [isConnected, reservations, validClaim, address]) 
 
   // Fetch Datasource 
   useEffect(() => {
@@ -127,7 +127,7 @@ const Claim = () => {
     if (!reservations || !existingANSNames) return;
     setInvalidEVM(validateEVM(address))
     // setInvalidLabel(validateLabel())
-  }, [reservations, existingANSNames])
+  }, [reservations, existingANSNames, address, validateEVM])
 
   useEffect(() => {
     if (address && isConnected && reservations.length > 0) {
@@ -140,7 +140,7 @@ const Claim = () => {
     else {
       setEvmAddress('')
     }
-  }, [address, isConnected, reservations]);
+  }, [address, isConnected, reservations, EVMAddressTaken, validateEVM]);
 
   
 

@@ -14,15 +14,7 @@ module.exports = {
             ],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
-    formats: ['image/avif', 'image/webp'],
-    headers: [
-      {
-          key: 'Cache-Control',
-          value: 'public, max-age=31536000, stale-while-revalidate',
-      },
-  ],
-
-
+    formats: ['image/avif', 'image/webp']
   },
   webpack: (config) => {
     config.module.rules.push({

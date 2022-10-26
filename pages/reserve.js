@@ -457,7 +457,7 @@ const Reserve = () => {
                         <h1 className="text-3xl font-bold text-black mb-5 text-center">Congratulations!🎉 <br/> You are the 
                         
                         {/* doing it this way due to errors amounted just from fetching this value */}
-                        <span class="text-transparent bg-clip-text text-4xl bg-gradient-to-r from-fuchsia-600 to-blue-600 mr-1"> {reservations.length + 1} 
+                        <span className="text-transparent bg-clip-text text-4xl bg-gradient-to-r from-fuchsia-600 to-blue-600 mr-1"> {reservations.length + 1} 
                         </span> of 100 who will receive an AirDrop!<br/> 
                         </h1>
                         <h1 className='text-[#3a3a3a] text-base mb-5 text-center'><span className='font-bold'>@{arLabel}</span> is now reserved under:</h1>
