@@ -1,4 +1,4 @@
-![photo_2022-10-20_08-49-44](https://user-images.githubusercontent.com/69069725/196877043-b7e07153-1281-48a0-a834-53d77d9c4bc7.jpg)
+![hackerhouse](https://user-images.githubusercontent.com/69069725/196931608-44cdafa1-c3a3-4292-92fa-f6dbc5510d9e.png)
 
 # Build social with Arweave data
 ## [decent.land](https://decent.land) x [Hacker House](https://twitter.com/hackerhouse_cn) mini-hackathon
@@ -23,6 +23,7 @@ The decent.land Ark API is able to return on-chain activity on Arweave and EVM c
 2. GET and inspect [the Ark API response for that user](http://ark-api.decent.land/v1/profile/arweave/kaYP9bJtpqON8Kyy3RbqnqdtDBDUsPTQTNUCvZtKiFI)
 3. Come up with an idea based on the data that the API **does or does not** return. What's missing from the API? What's missing from the UI?
 4. Fork this repo (or the [Ark repo](https://github.com/decentldotland/ark-network)) and code your idea
+5. Go to http://localhost:3000/p/xy (or /p/any_username) to access a profile on localhost
 
 ## Goals
 
@@ -30,8 +31,13 @@ The goal of this hackathon is to use ANS and Ark to display interesting insights
 
 How can we slice and transform a user's on-chain data and display it in a way that they'll want to show off?
 
-The specifics are open-ended, but **here are some ideas** we think would be awesome for the Arweave ecosystem and beyond:
+The specifics are open-ended, but **here are some ideas** we think would be awesome for the Arweave ecosystem and beyond.
 
+### Ideas to build
+
+- Make it possible to mint a new image into your collection without leaving the page -- use img.arweave.dev (the current way Collectibles is populated), relying on [their repo](https://github.com/twilson63/permaweb-img-app/tree/atomic-tx) for inspiration and instruction 
+- Add the option to choose an NFT you own as your profile picture instead of uploading a file; add a border to the NFT when it's the user's pfp, to show it's verified
+- Improve the design of the modal that triggers when a Collectibles item is clicked, and display more of the available metadata
 - Add badges to show DAO and PSC membership
 - Add ERC-721 NFTs to the Collectibles tab -- this data is already present in the Ark API
 - Aggregated tweets or other linked social web3 data sources like Mirror.xyz

@@ -21,7 +21,7 @@ export default function StampsTab({currentUser, stamps, loading, perPage}: {curr
   const [search, setSearch] = useState<string>('');
   const onSearch = (e: string) => {
     setSearch(e);
-    // setFilteredTransactions(stamps.filter((tx) => arweaveTransactionHandler(tx).toLowerCase().includes(e.toLowerCase())));
+    setFilteredTransactions(stamps.filter((tx) => tx.title?.toLowerCase().includes(e.toLowerCase())));
   };
   // console.log(stamps)
   useEffect(() => {
