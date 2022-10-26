@@ -106,8 +106,10 @@ const TWITTER_DL = "https://twitter.com/decentdotland"
                   <div className='flex justify-center flex-col items-center relative top-10'>
                     {/*  */}
                       <Link href={"/"}>
-                        <button onClick={() => setstep(5)}
-                          className="cursor-pointer bg-[#1273ea] w-full h-14 justify-center items-center flex relative flex-row rounded-lg text-white font-bold text-lg" >
+                        <button disabled={hasBeenLinkedWithArk === undefined} onClick={() => setstep(5)}
+                          className={`cursor-pointer bg-[#1273ea] w-full h-14 justify-center items-center 
+                            ${hasBeenLinkedWithArk === undefined ? 'opacity-50': 'opacity-100'}
+                            flex relative flex-row rounded-lg text-white font-bold text-lg `} >
                             <div className='flex justify-center items-center'>
                               <p className='text-center'>Go back to Home Page</p>
                               <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/>
