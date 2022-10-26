@@ -96,9 +96,27 @@ const Reserve = () => {
     axios.get('api/exmread').then(res => {
       const num = res.data?.reserved
       setnumOfReserved(num);
-      if (num === 100) return setInvalidEVM('Only a max of 100 users can register!')
+      if (num === 100) return setInvalidEVM('Reached maximum number of signups!')
     })
   }, [])
+
+  const [userDetails, setUserDetails] = useState([])
+  useEffect(() => {
+    if (isConnected ) { 
+      let details =  reservations.find(l => l.evm_address === address);
+      setUserDetails(details)
+      console.log(details)
+    }
+  }, [isConnected, reservations]) 
+
+  // Fetch Datasource 
+  useEffect(() => {
+    axios.get('api/exmread').then(res => {
+      const num = res.data?.requests
+      setReservations(num);
+    })
+  }, [])
+
 
   useEffect(() => {
     if (!address) return;
@@ -158,7 +176,6 @@ const Reserve = () => {
     if (!isConnected) setstep(0)
   }, [isConnected])
   
-  console.log(reservedUserDetails)
 
 
   // temporary 
@@ -214,6 +231,7 @@ const Reserve = () => {
                     // </button>
                     <button className=" bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
                     onClick={openConnectModal}
+                    disabled={invalidEVM.length !== 0}
                     >
                       <div className='flex justify-center'>
                         <p className='relative text-center '>Connect Wallet</p>
@@ -240,6 +258,8 @@ const Reserve = () => {
                     />
                     <button className=" mt-9 bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
                       onClick={() => setstep(2)}
+                      disabled={invalidEVM.length !== 0}
+                      
                       >
                         <div className='flex justify-center'>
                           <p className='relative text-center '>Get Started</p>
@@ -289,7 +309,7 @@ const Reserve = () => {
                   which gives you access to setup your ANS domains and ArPages before anyone else!
                 </p>
                 <p className="text-sm text-center mb-6">
-                 As of now, {numOfReserved} people have already signed up for our airdrop!
+                 As of now, <span className='font-bold text-lg'>{numOfReserved}</span> people have already signed up for our airdrop!
                 </p>
               
                 
@@ -438,7 +458,7 @@ const Reserve = () => {
                         <span class="text-transparent bg-clip-text text-4xl bg-gradient-to-r from-fuchsia-600 to-blue-600"> {numOfReserved} </span> of 100 who will receive an AirDrop!<br/> 
                         </h1>
                         <h1 className='text-[#3a3a3a] text-base mb-5 text-center'><span className='font-bold'>@{arLabel}</span> is now reserved under:</h1>
-                          <div className='relative left-9 '>
+                          <div className='relative left-9 sm:left-20 '>
                             <UserAccountDetails 
                               upperMessage='Your Wallet'
                               address={address} 
@@ -453,8 +473,8 @@ const Reserve = () => {
                         <div className='mt-2 rounded-sm h-[1px] w-full bg-[#d9d9d9]'></div>
                       </div>
                       <Link className='relative right-10' href={"https://api.exm.dev/read/QHJ3EeCJokrf1nbnhMgoK4P_hu9xLPK5UfJww23HFsk"} >
-                        <a target="_blank" rel="noopener noreferrer" className=''>
-                          <UserReservedHistory label={arLabel} address={address} timestamp={reservedUserDetails?.timestamp }/>
+                        <a target="_blank" rel="noopener noreferrer" className='flex flex-row justify-center'>
+                          <UserReservedHistory label={arLabel} address={address} timestamp={userDetails?.timestamp }/>
                         </a>
                       </Link>
                     </div>

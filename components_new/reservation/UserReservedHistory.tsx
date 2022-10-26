@@ -31,11 +31,11 @@ function UserReservedHistory({label, address, timestamp}: Props) {
   return (
       
 
-      <div className='mt-6 bg-[#edecec] px-3 py-1 h-[71px] rounded-xl flex w-full '>
+      <div className='mt-6 bg-[#edecec] px-3 py-1 h-[71px] rounded-xl flex w-fit sm:items-center justify-center'>
         <div className='flex flex-row items-center space-x-5'>
           
           <div className='flex flex-col'>
-            <h1 className='text-2xs text-[#656565]'>Timestamp</h1>
+            <h1 className='text-2xs text-[#656565]'>{epochToDate(timestamp)}</h1>
             <div className='flex flex-row space-x-1 text-left text-sm font-bold items-center'>
               <ClipboardDocumentCheckIcon height={24} width={24} color={`#666`} strokeWidth={2} />
               <p>Reserved</p>

@@ -59,7 +59,7 @@ function CheckList_2({step, setstep}: Props) {
                     
                     <div className='flex justify-center flex-col items-center w-full'>
                       <Link href={OPEN_ARK_CONNECT} >
-                          <a target="_blank" rel="noopener noreferrer" onClick={() => setstep(3)}
+                          <a target="_blank" rel="noopener noreferrer" onClick={() => setstep(4)}
                             className="cursor-pointer bg-[#1273ea] w-full h-14 justify-center items-center flex relative flex-row rounded-lg text-white font-bold text-lg" >
                               <div className='flex justify-center items-center'>
                                 <p className='text-center text-sm'>Link my EVM wallet to my ArConnect</p>

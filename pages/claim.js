@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Head from 'next/head'
 import Web3 from 'web3';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { ChainMismatchError, useAccount, useConnect, useDisconnect } from 'wagmi'
+import { ChainMismatchError, ContractResultDecodeError, useAccount, useConnect, useDisconnect } from 'wagmi'
 import { ArrowRightIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import {ArrowLongRightIcon, ArrowTopRightOnSquareIcon, CheckCircleIcon, CheckIcon, ChevronUpIcon, ClockIcon, DocumentDuplicateIcon, EllipsisVerticalIcon} from '@heroicons/react/24/outline'
 // import Image from 'next/image';
@@ -52,6 +52,7 @@ const Claim = () => {
   
   const EVMAddressTaken = (suppliedAddress='') => {
     const address = suppliedAddress || evmAddress;
+    // console.log(reservations)
     return reservations.find(l => l.evm_address === address);
   }
 
@@ -59,24 +60,34 @@ const Claim = () => {
     reservations.find(l => l.reserved_ans === arLabel.toLowerCase())
   )
 
+
   const validateEVM = (suppliedAddress='') => {
     const address = suppliedAddress || evmAddress;
     if (address.length === 0) return ''
     if (!EvmAddressRegex.test(address) || !web3.utils.checkAddressChecksum(address)) return 'Invalid EVM address'
     // Checks if the EVM address has registered ans 
-    // if (EVMAddressTaken(address) === undefined) return 'The account is not viable for any claims'
+    if (!EVMAddressTaken(address)) return 'Nothing to claim here.'
     return ''
   };
 
+  
+
+  const [validClaim, setvalidClaim] = useState('')
+  const [validUserToClaim, setValidUserToClaim] = useState(false)
+  const checkForClaim = (address) => { 
+    if (EVMAddressTaken(address)) {
+      setvalidClaim('You are eligible to claim your Airdrop.')
+      return true
+    } else{
+      // setInvalidEVM('Nothing to claim here.')
+      return false
+    }
+  }
 
   useEffect(() => {
     setInvalidEVM(validateEVM())
+    setValidUserToClaim(checkForClaim())
   }, [evmAddress, reservations])
-
-  useEffect(() => {
-    let userDetails = reservations.find(i => i.evm_address === address);
-    setArLabel(userDetails?.reserved_ans) 
-  }, [reservations, address])
 
   useEffect(() => {
     const g = localStorage.getItem("EthLisbonEvent2022")
@@ -93,13 +104,24 @@ const Claim = () => {
     })
   }, [])
 
-  useEffect(() =>  { 
-    if(reservations.find(l => l.evm_address === address)) {
-      return setInvalidEVM('You are eligible to claim')
-    } else {
-      return setInvalidEVM('Address has no claims')
+  const [userDetails, setUserDetails] = useState([])
+  useEffect(() => {
+    if (isConnected && validClaim ) { 
+      let details =  reservations.find(l => l.evm_address === address);
+      setUserDetails(details)
+      console.log(details)
     }
-  }, [reservations, evmAddress])
+  }, [isConnected, reservations, validClaim]) 
+
+  // Fetch Datasource 
+  useEffect(() => {
+    axios.get('api/exmread').then(res => {
+      const num = res.data?.requests
+      setReservations(num);
+    })
+  }, [])
+
+
   useEffect(() => {
     if (!address) return;
     if (!reservations || !existingANSNames) return;
@@ -122,6 +144,7 @@ const Claim = () => {
 
   
 
+
   // If the user is not connected then 
   useEffect(() => {
     if (!isConnected) setstep(0)
@@ -134,8 +157,6 @@ const Claim = () => {
   const ARCONNECT_DOWNLOAD_LINK = "https://www.arconnect.io/"
   const OPEN_ARK_CONNECT = "https://ark.decent.land/"
 
-
-  console.log(reservations)
   const CustomConnectButton = () => {
     return (
       <ConnectButton.Custom>
@@ -184,6 +205,7 @@ const Claim = () => {
                     // </button>
                     <button className=" bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
                     onClick={openConnectModal}
+                    disabled={invalidEVM.length !== 0}
                     >
                       <div className='flex justify-center'>
                         <p className='relative text-center '>Connect Wallet</p>
@@ -209,6 +231,7 @@ const Claim = () => {
                       walletName={connector?.name}
                     />
                     <button className=" mt-9 bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
+                      disabled={!validUserToClaim}
                       onClick={() => setstep(1)}
                       >
                         <div className='flex justify-center'>
@@ -256,7 +279,8 @@ const Claim = () => {
                     chainStatus="icon"
                     accountStatus="address" 
                   />
-                  <p className="text-red-500 my-2 text-center h-6">{invalidEVM}</p>
+                  {isConnected && invalidEVM && ( <p className="text-red-500 my-2 text-center h-6">{invalidEVM}</p>)}
+                 {isConnected && validClaim && ( <p hidden={invalidEVM.length != 0} className="text-green-400 font-bold my-2 text-center h-6">{validClaim}</p>)}
               </div>
               </>
             )
@@ -324,7 +348,7 @@ const Claim = () => {
             step === 4 && (<CheckList_3 step={step} setstep={setstep}/>)
           }
           {
-            step === 5 && (<CheckList_4 step={step} setstep={setstep} arLabel={arLabel}/>)
+            step === 5 && (<CheckList_4 step={step} setstep={setstep} arLabel={userDetails.reserved_ans}/>)
           }
         </div>
       </div>

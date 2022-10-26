@@ -14,7 +14,6 @@ interface Props {
 }
 
 function CheckList_4({step, setstep, arLabel}: Props) {
-const ARCONNECT_DOWNLOAD_LINK = "https://www.arconnect.io/"
 const TWITTER_DL = "https://twitter.com/decentdotland"
   const DISCORD_JOIN = "https://discord.gg/decentland"
   const GITHUB_DL = "https://github.com/decentldotland"

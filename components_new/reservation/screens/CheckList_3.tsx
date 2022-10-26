@@ -13,7 +13,6 @@ interface Props {
 }
 
 function CheckList_3({step, setstep}: Props) {
-const ARCONNECT_DOWNLOAD_LINK = "https://www.arconnect.io/"
 
   return (
     <>
@@ -57,15 +56,15 @@ const ARCONNECT_DOWNLOAD_LINK = "https://www.arconnect.io/"
                     </div>
                     
                     <div className='flex justify-center flex-col items-center w-full'>
-                      <Link href={ARCONNECT_DOWNLOAD_LINK} >
-                          <a target="_blank" rel="noopener noreferrer" onClick={() => setstep(3)}
+                      
+                          <button onClick={() => setstep(5)}
                             className="cursor-pointer bg-[#1273ea] w-full h-14 justify-center items-center flex relative flex-row rounded-lg text-white font-bold text-lg" >
                               <div className='flex justify-center items-center'>
                                 <p className='text-center'>Go the Final Step</p>
                                 <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/>
                               </div>
-                          </a>
-                      </Link>
+                          </button>
+                    
 
                       <p onClick={() => setstep(0)} className='cursor-pointer mt-4 text-center text-sm text-[#6a6b6a] font-medium'>
                           Continue later
