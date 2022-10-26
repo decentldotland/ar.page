@@ -29,7 +29,7 @@ const Reserve = () => {
   // For checking all existing labels
   const [reservations, setReservations] = useState([]);
   const [existingANSNames, setExistignANSNames] = useState([]);
-
+  const [numOfReserved, setnumOfReserved] = useState(0)
   const [evmAddress, setEvmAddress] = useState('');
   const [invalidEVM, setInvalidEVM] = useState('')
   const [arLabel, setArLabel] = useState('');
@@ -78,14 +78,25 @@ const Reserve = () => {
   useEffect(() => {
     const g = localStorage.getItem("EthLisbonEvent2022")
     if (g) {
-      setstep(5)
+      setstep(0)
       return
     }
     axios.get('/api/exmread').then(res => {
       setReservations(res.data?.requests);
+
     })
     axios.get('/api/ansusers').then(res => {
       setExistignANSNames(res.data?.res)
+    })
+
+  }, [])
+
+  // Check if theere's sufficient addresses 
+  useEffect(() => {
+    axios.get('api/exmread').then(res => {
+      const num = res.data?.reserved
+      setnumOfReserved(num);
+      if (num === 100) return setInvalidEVM('Only a max of 100 users can register!')
     })
   }, [])
 
@@ -126,6 +137,8 @@ const Reserve = () => {
       localStorage.setItem('EthLisbonEvent2022', arLabel);
       setLoadingWrite(false)
       setReservedUserDetails(res.data?.requests);
+      setnumOfReserved(res.data?.reserved)
+      console.log(res)
       setstep(4)
 
     })
@@ -275,7 +288,11 @@ const Reserve = () => {
                   The token is used to be part of our <span className='font-bold'>Airdrop</span> Event 
                   which gives you access to setup your ANS domains and ArPages before anyone else!
                 </p>
+                <p className="text-sm text-center mb-6">
+                 As of now, {numOfReserved} people have already signed up for our airdrop!
+                </p>
               
+                
                 
                   <BlueButtonNext setstep={setstep} step={1} msg={"Let's go"} 
                     sub_message={"Ready to redeem the early access to your ArPage?"}
@@ -417,9 +434,11 @@ const Reserve = () => {
                 <section className=''>
                     <div className='mt-40 flex-col flex justify-center '>
                       <div className="flex-col relative w-full justify-center items-center">
-                        <h1 className="text-3xl font-bold text-black mb-5 text-center">Congratulations🎉</h1>
-                        <h1 className='text-[#3a3a3a] text-base mb-5 text-center'>The <span className='font-bold'>@{arLabel}</span> is now <br/> reserved under:</h1>
-                          <div className='relative left-7'>
+                        <h1 className="text-3xl font-bold text-black mb-5 text-center">Congratulations!🎉 <br/> You are the 
+                        <span class="text-transparent bg-clip-text text-4xl bg-gradient-to-r from-fuchsia-600 to-blue-600"> {numOfReserved} </span> of 100 who will receive an AirDrop!<br/> 
+                        </h1>
+                        <h1 className='text-[#3a3a3a] text-base mb-5 text-center'><span className='font-bold'>@{arLabel}</span> is now reserved under:</h1>
+                          <div className='relative left-9 '>
                             <UserAccountDetails 
                               upperMessage='Your Wallet'
                               address={address} 

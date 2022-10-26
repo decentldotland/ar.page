@@ -26,6 +26,7 @@ import CheckList_4 from '../components_new/reservation/screens/CheckList_4';
 import {ComputerDesktopIcon} from '@heroicons/react/24/outline'
 import Link from 'next/link';
 import { BsCheckSquareFill, BsDiscord, BsGithub, BsTwitter } from 'react-icons/bs';
+import { emit } from 'process';
 
 const web3 = new Web3(Web3.givenProvider);
 
@@ -92,6 +93,13 @@ const Claim = () => {
     })
   }, [])
 
+  useEffect(() =>  { 
+    if(reservations.find(l => l.evm_address === address)) {
+      return setInvalidEVM('You are eligible to claim')
+    } else {
+      return setInvalidEVM('Address has no claims')
+    }
+  }, [reservations, evmAddress])
   useEffect(() => {
     if (!address) return;
     if (!reservations || !existingANSNames) return;
@@ -111,6 +119,8 @@ const Claim = () => {
       setEvmAddress('')
     }
   }, [address, isConnected, reservations]);
+
+  
 
   // If the user is not connected then 
   useEffect(() => {

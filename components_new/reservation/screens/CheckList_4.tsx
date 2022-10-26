@@ -21,7 +21,7 @@ const TWITTER_DL = "https://twitter.com/decentdotland"
   return (
     <>
         <section className='relative h-screen  '>
-                  <div className='flex flex-row justify-between sm:space-x-60  mb-4 items-center mt-28 sm:mt-32'>
+                  <div className='flex flex-row justify-between sm:space-x-60 w-[420px] mb-4 items-center mt-28 sm:mt-32'>
                     <BackButton setstep={setstep} step={step - 1}/>
                   </div>
                   <div className='mt-6 mb-20'>
