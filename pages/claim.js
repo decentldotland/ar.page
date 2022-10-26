@@ -270,7 +270,7 @@ const Claim = () => {
                   <h1 className="text-[40px] font-bold mb-2">Check & Claim <br/>your ANS Airdrop</h1>
                   <p className='font-medium text-sm mb-10 text-[#3a3a3a] '>
                     If you participated in DecentLand's Airdrop event from ETH Lisbon 2022, you are eligible to claim
-                    your ArPage and ANS Domain.
+                    your ArPage and ANS Domain using a valid Ethereum Wallet.
                   </p>
 
                   <CustomConnectButton

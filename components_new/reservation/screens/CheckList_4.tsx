@@ -1,7 +1,10 @@
 import { ArrowLongRightIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
+import { CircularProgress } from '@mui/material'
+import axios from 'axios'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsCheckSquareFill, BsDiscord, BsGithub, BsTwitter } from 'react-icons/bs'
+import { Ans } from '../../../src/types'
 import BackButton from '../BackButton'
 import LineBarTracker from '../LineBarTracker'
 import NextButton from '../NextButton'
@@ -17,6 +20,19 @@ function CheckList_4({step, setstep, arLabel}: Props) {
 const TWITTER_DL = "https://twitter.com/decentdotland"
   const DISCORD_JOIN = "https://discord.gg/decentland"
   const GITHUB_DL = "https://github.com/decentldotland"
+
+  const [existingANSNames, setExistignANSNames] = useState<Ans[]>([]);
+  let hasBeenLinkedWithArk = existingANSNames.map(u => u.ownedLabels)
+    .flat()
+    .map(l => l.label)
+    .find(l => l === arLabel?.toLowerCase());
+  // console.log(existingANSNames)
+  useEffect(() => {
+    axios.get('/api/ansusers').then(res => {
+      setExistignANSNames(res.data?.res)
+    })
+  }, [])
+
   return (
     <>
         <section className='relative h-screen  '>
@@ -27,15 +43,28 @@ const TWITTER_DL = "https://twitter.com/decentdotland"
                     <LineBarTracker step={3}  total_step={3}/>
                   </div>
 
-                  <div className="flex flex-col justify-center text-center mb-16">
-                    <h1 className='text-3xl font-bold mb-3'>You're all set 🎉</h1>
-                    <p className='text-center font-medium text-[#3a3a3a] text-sm'>
-                      You've successfully claimed your first<br /> ARpage for <span className='font-bold'>@{arLabel}</span>.
-                    </p>
-                    <p className='text-center font-medium text-[#3a3a3a] text-sm'>
-                      After the event, you will be granted<br /> access to edit your profile.
-                    </p>
-                  </div>
+                  {
+                    hasBeenLinkedWithArk === undefined ? (
+                      <div className="flex flex-col items-center justify-center mb-16">
+                        <CircularProgress color="inherit" size={30} className="mb-3"/>
+
+                        <p className=' font-medium  text-[#3a3a3a] text-sm'>
+                          Waiting for ArkProtocol to verify @{arLabel}.
+                        </p>
+                      </div>
+                    ) : (
+                    <div className="flex flex-col justify-center text-center mb-16">
+                      <h1 className='text-3xl font-bold mb-3'>You're all set 🎉</h1>
+                      <p className='text-center font-medium text-[#3a3a3a] text-sm'>
+                        You've successfully claimed your first<br /> ARpage for <span className='font-bold'>@{arLabel}</span>.
+                      </p>
+                      <p className='text-center font-medium text-[#3a3a3a] text-sm'>
+                        After the event, you will be granted<br /> access to edit your profile.
+                      </p>
+                    </div>
+
+                    )
+                  }
                   
                   <section>
                     <div className='space-y-4 mb-3'>
