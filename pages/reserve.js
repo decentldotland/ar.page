@@ -13,6 +13,7 @@ import {EyeIcon} from '@heroicons/react/24/solid'
 import { CircularProgress, Snackbar } from '@mui/material';
 import UserReservedHistory from '../components_new/reservation/UserReservedHistory';
 import Link from 'next/link';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const web3 = new Web3(Web3.givenProvider);
@@ -33,6 +34,7 @@ const Reserve = () => {
   const [invalidEVM, setInvalidEVM] = useState('')
   const [arLabel, setArLabel] = useState('');
   const [invalidLabel, setInvalidLabel] = useState('');
+  const [reservedUserDetails, setReservedUserDetails] = useState('')
 
   const EvmAddressRegex = /^0x[a-fA-F0-9]{40}$/;
   const ArLabelRegex = /^[a-z0-9]{2,15}$/;
@@ -124,18 +126,30 @@ const Reserve = () => {
       localStorage.setItem('EthLisbonEvent2022', arLabel);
       setLoadingWrite(false)
       setstep(4)
+
+      axios.get('/api/exmread').then(res => {
+        setReservedUserDetails(res.data?.requests);
+      })
+
     })
     .catch((err) => {
       setInvalidLabel('Request failed, try again later')
+      toast(`❌ Something went wrong, please try again.`, {duration: 3000})
       console.log(err);
+      // If it fails it should inform the user 
+      setstep(2)
     })
   }
+
 
   // If the user is not connected then 
   useEffect(() => {
     if (!isConnected) setstep(0)
   }, [isConnected])
   
+  console.log(reservedUserDetails)
+
+
   // temporary 
   const [chainUrlId, setChainUrlId] = useState('')
   const [ensAvatar, setEnsAvatar] = useState('')
@@ -241,6 +255,8 @@ const Reserve = () => {
         <meta name="twitter:url" content="ar.page"></meta>
         <meta name="twitter:description" content="Coming soon..." />
       </Head>
+      <Toaster position='top-center'/>
+
       <div className="flex h-full items-start font-sans px-6 ">
         <div className="flex flex-col items-center justify-center max-w-[420px] mx-auto gap-y-3">
 
@@ -417,7 +433,7 @@ const Reserve = () => {
                 <div className='mt-12'>
                   <Link href={"https://api.exm.dev/read/QHJ3EeCJokrf1nbnhMgoK4P_hu9xLPK5UfJww23HFsk"} >
                     <a target="_blank" rel="noopener noreferrer" >
-                      <UserReservedHistory label={arLabel} address={address} timestamp={1666596976000}/>
+                      <UserReservedHistory label={arLabel} address={address} timestamp={reservedUserDetails?.timestamp }/>
                     </a>
                   </Link>
                   {/* TEST */}
