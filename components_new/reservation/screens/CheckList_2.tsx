@@ -18,7 +18,7 @@ function CheckList_2({step, setstep}: Props) {
   return (
     <>
         <section className='relative h-screen  '>
-                  <div className='flex flex-row justify-between sm:space-x-60  mb-4 items-center mt-32'>
+                  <div className='flex flex-row justify-between sm:space-x-60  mb-4 items-center mt-28 sm:mt-32'>
                     <BackButton setstep={setstep} step={step - 1}/>
                     <NextButton setstep={setstep} step={step + 1}/>
                   </div>
@@ -62,7 +62,7 @@ function CheckList_2({step, setstep}: Props) {
                           <a target="_blank" rel="noopener noreferrer" onClick={() => setstep(3)}
                             className="cursor-pointer bg-[#1273ea] w-full h-14 justify-center items-center flex relative flex-row rounded-lg text-white font-bold text-lg" >
                               <div className='flex justify-center items-center'>
-                                <p className='text-center'>Link my EVM wallet to my ArConnect</p>
+                                <p className='text-center text-sm'>Link my EVM wallet to my ArConnect</p>
                                 <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/>
                               </div>
                           </a>

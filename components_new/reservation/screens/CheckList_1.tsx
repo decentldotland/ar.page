@@ -17,7 +17,7 @@ const ARCONNECT_DOWNLOAD_LINK = "https://www.arconnect.io/"
   return (
     <>
             <section className='relative h-screen  '>
-                  <div className='flex flex-row justify-between sm:space-x-60  mb-4 items-center mt-32'>
+                  <div className='flex flex-row justify-between sm:space-x-60  mb-4 items-center mt-28 sm:mt-32'>
                     <BackButton setstep={setstep} step={step - 1}/>
                     <NextButton setstep={setstep} step={step + 1}/>
                   </div>
