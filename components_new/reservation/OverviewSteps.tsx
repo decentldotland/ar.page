@@ -19,7 +19,7 @@ function OverviewSteps() {
         </div>
         {
             toggle && (
-                <div className='text-left relative left-7  text-[#6a6b6a] mb-8'>
+                <div className='text-left relative left-7 text-sm text-[#6a6b6a] mb-3'>
                     <ul className='list-decimal'>
                         <li>Download ArConnect. Create an Account.</li>
                         <li>Link your wallet with ArConnect via ArkProtocol.</li>
