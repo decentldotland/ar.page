@@ -6,20 +6,11 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { ChainMismatchError, useAccount, useConnect, useDisconnect } from 'wagmi'
 import { ArrowRightIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import {ArrowLongRightIcon, ArrowTopRightOnSquareIcon, CheckCircleIcon, CheckIcon, ChevronUpIcon, DocumentDuplicateIcon, EllipsisVerticalIcon} from '@heroicons/react/24/outline'
-// import Image from 'next/image';
-// import { MdLogout } from 'react-icons/md';
-// import {TbCopy} from 'react-icons/tb'
-// import { FiLogOut } from 'react-icons/fi';
-// import { chain } from 'lodash';
 import { BlueButtonNext } from '../components_new/reservation/BlueButtonNext';
 import { UserAccountDetails } from '../components_new/reservation/UserAccountDetails';
 import BackButton from '../components_new/reservation/BackButton';
 import {EyeIcon} from '@heroicons/react/24/solid'
 import { CircularProgress, Snackbar } from '@mui/material';
-import NextButton from '../components_new/reservation/NextButton';
-import LineBarTracker from '../components_new/reservation/LineBarTracker';
-import OverviewSteps from '../components_new/reservation/OverviewSteps';
-import CheckList from '../components_new/reservation/CheckList';
 import UserReservedHistory from '../components_new/reservation/UserReservedHistory';
 import Link from 'next/link';
 
@@ -133,7 +124,6 @@ const Reserve = () => {
       localStorage.setItem('EthLisbonEvent2022', arLabel);
       setLoadingWrite(false)
       setstep(4)
-      console.log('SUCCESS🏗️🏗️🙏😄😄😄😄')
     })
     .catch((err) => {
       setInvalidLabel('Request failed, try again later')
@@ -315,7 +305,7 @@ const Reserve = () => {
                 
                 <form className="w-full mt-3" onSubmit={onSubmit}>
                   <div className="mb-6 space-y-2">
-                    <p>LENGTH = {arLabel.length}</p>
+                    {/* <p>LENGTH = {arLabel.length}</p> */}
                     <div className=" items-center flex w-full  h-12 bg-[#edecec] px-4 rounded-xl ">
                       <input
                         className="w-full bg-transparent focus:outline-none font-semibold text-black "
@@ -366,7 +356,9 @@ const Reserve = () => {
                     height={20} width={20} strokeWidth={3} color='#666' />
                     <h1 className='text-xs font-semibold text-[#3a3a3a] text-left'>This will be shown on your profile.</h1>
                 </div>
-                <BlueButtonNext setstep={setstep} step={3} msg={"Proceed to register name"} />
+                <div hidden={invalidLabel.length > 1 || arLabel.length === 0 } >
+                  <BlueButtonNext setstep={setstep} step={3} msg={"Proceed to register name"} />
+                </div>
               </section>
             </>
           )}
