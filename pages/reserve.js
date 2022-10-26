@@ -78,7 +78,7 @@ const Reserve = () => {
   useEffect(() => {
     const g = localStorage.getItem("EthLisbonEvent2022")
     if (g) {
-      setstep(4)
+      setstep(5)
       return
     }
     axios.get('/api/exmread').then(res => {
@@ -432,36 +432,29 @@ const Reserve = () => {
                       <div className='mt-10'>
                         <h1 className='font-semibold text-xl text-left text-[#6a6b6a]'>History</h1>
                         <div className='mt-2 rounded-sm h-[1px] w-full bg-[#d9d9d9]'></div>
-                        
-                        
-                       
-
                       </div>
                       <Link className='relative right-10' href={"https://api.exm.dev/read/QHJ3EeCJokrf1nbnhMgoK4P_hu9xLPK5UfJww23HFsk"} >
                         <a target="_blank" rel="noopener noreferrer" className=''>
                           <UserReservedHistory label={arLabel} address={address} timestamp={reservedUserDetails?.timestamp }/>
                         </a>
                       </Link>
-
                     </div>
-                    
 
                     <BlueButtonNext setstep={setstep} step={5} msg={"Next"} />
                   </section>
-
-              
               </>
             )
           }
           {
             step === 5 && (
-              <section className='flex flex-col items-center justify-center'>
+              <>
+              <section className=''>
                 
-                <div className='mt-44 flex flex-col '>
+                <div className='mt-32 flex flex-col '>
                   <h1 className="text-3xl font-bold text-black mb-6  text-left">
                     Would you like to setup <br/> your ArPage now?</h1>
                   <div className='text-[#6a6b6a] relative space-y-1'>
-                    <h2>
+                    <h2 className='text-sm'>
                       To setup your ArPage, you will need the following:
                     </h2>
                     <ul className='ml-2 space-y-1'>
@@ -478,23 +471,26 @@ const Reserve = () => {
                     </ul> 
                   </div>
                 </div>
-                <div className='flex flex-col justify-center items-center relative top-[390px]'>
-                    <p className="text-sm text-left mb-6  px-10">
-                      We <span className='font-bold'>recommend</span> that you <span className='font-bold'>complete</span> this stage on your 
-                      <span className='font-bold'> Desktop. </span>Your username is safe with us.
-                    </p>
-                    <Link href={"/claim"}>
-                      <button className=" bg-[#1273ea] w-[368px] h-14 items-center relative rounded-lg text-white font-bold text-lg" 
-                        onClick={() => setstep(6)}>
-                          <div className='flex justify-center items-center'>
-                            <p className='relative text-center '>Let's do it</p>
-                            <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/>
-                          </div>
-                      </button>
-                    </Link>
-                    <p onClick={() => setstep(0)} className='cursor-pointer mt-4 text-center text-sm text-[#6a6b6a] font-medium'>I will set it up later</p>
-                </div>
+                  
               </section>
+                <div className='flex flex-col w-[420px] justify-center items-center absolute bottom-10 px-6'>
+                  <p className="text-sm text-left mb-6  ">
+                    We <span className='font-bold'>recommend</span> that you <span className='font-bold'>complete</span> this stage on your 
+                    <span className='font-bold'> Desktop. </span>Your username is safe with us.
+                  </p>
+                  <Link href={"/claim"}>
+                    <button className=" bg-[#1273ea] w-full h-14 items-center relative rounded-lg text-white font-bold text-lg" 
+                      onClick={() => setstep(6)}>
+                        <div className='flex justify-center items-center'>
+                          <p className='relative text-center '>Let's do it</p>
+                          <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/>
+                        </div>
+                    </button>
+                  </Link>
+                  <p onClick={() => setstep(0)} className='cursor-pointer mt-4 text-center text-sm text-[#6a6b6a] font-medium'>I will set it up later</p>
+                </div>
+              </>
+
             )
           }
 
