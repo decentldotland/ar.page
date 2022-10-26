@@ -78,7 +78,7 @@ const Reserve = () => {
   useEffect(() => {
     const g = localStorage.getItem("EthLisbonEvent2022")
     if (g) {
-      setstep(0)
+      setstep(4)
       return
     }
     axios.get('/api/exmread').then(res => {
@@ -125,16 +125,14 @@ const Reserve = () => {
     .then((res) => {
       localStorage.setItem('EthLisbonEvent2022', arLabel);
       setLoadingWrite(false)
+      setReservedUserDetails(res.data?.requests);
       setstep(4)
-
-      axios.get('/api/exmread').then(res => {
-        setReservedUserDetails(res.data?.requests);
-      })
 
     })
     .catch((err) => {
       setInvalidLabel('Request failed, try again later')
-      toast(`❌ Something went wrong, please try again.`, {duration: 3000})
+      toast(
+      <p className='font-sans'>❌ Something went wrong, please try again.</p>, {duration: 3000})
       console.log(err);
       // If it fails it should inform the user 
       setstep(2)
@@ -264,7 +262,7 @@ const Reserve = () => {
 // 1. WELCOME SCREEN
           step === 0 && (
             <>
-              {invalidEVM.length === 0 && address && <button className="self-start cursor-pointer text-gray-400 decoration-gray-400 underline" onClick={() => setstep(1)}>Next</button>}
+              {/* {invalidEVM.length === 0 && address && <button className="self-start cursor-pointer text-gray-400 decoration-gray-400 underline" onClick={() => setstep(1)}>Next</button>} */}
               <div className="w-full mt-20">
                 <h1 className="text-[45px] font-bold text-center mb-7 mt-10">Hello Hackers👋</h1>
                 <p className="text-sm text-center mb-6">
@@ -382,7 +380,7 @@ const Reserve = () => {
           {
 // STEP 3
             step === 3 && (
-              <section className={loadingWrite ? 'h-screen w-screen bg-[#B3B2B3]/25  z-50' : ''}>
+              <section className={loadingWrite ? 'absolute h-screen bottom-0 w-screen z-50 bg-[#B3B2B3]/25  ' : ''}>
                 <div className='flex flex-col items-center mt-40'>
                     <h2 className='text-xl font-medium mb-7 text-[#3a3a3a]'>Your username</h2>
                     <h1 className='font-bold text-4xl mb-4'>@{arLabel}</h1>
@@ -415,32 +413,44 @@ const Reserve = () => {
           {
 // STEP 4 CONGRATULATONS ....
             step === 4 && (
-              <section>
-                <div className='mt-40 flex flex-col items-center justify-center'>
-                  <h1 className="text-3xl font-bold text-black mb-5 text-center">Congratulations🎉</h1>
-                  <h1 className='text-[#3a3a3a] text-base mb-5 text-center'>The <span className='font-bold'>@{arLabel}</span> is now <br/> reserved under:</h1>
-                  <UserAccountDetails 
-                    upperMessage='Your Wallet'
-                    address={address} 
-                    chainIconUrl={chainUrlId}
-                    displayImg={ensAvatar}
-                    walletName={connector?.name}
-                  />
-                </div>
-                <div>
-                </div>
+              <>
+                <section className=''>
+                    <div className='mt-40 flex-col flex justify-center '>
+                      <div className="flex-col relative w-full justify-center items-center">
+                        <h1 className="text-3xl font-bold text-black mb-5 text-center">Congratulations🎉</h1>
+                        <h1 className='text-[#3a3a3a] text-base mb-5 text-center'>The <span className='font-bold'>@{arLabel}</span> is now <br/> reserved under:</h1>
+                          <div className='relative left-7'>
+                            <UserAccountDetails 
+                              upperMessage='Your Wallet'
+                              address={address} 
+                              chainIconUrl={chainUrlId}
+                              displayImg={ensAvatar}
+                              walletName={connector?.name}
+                            />
+                          </div>
+                      </div>
+                      <div className='mt-10'>
+                        <h1 className='font-semibold text-xl text-left text-[#6a6b6a]'>History</h1>
+                        <div className='mt-2 rounded-sm h-[1px] w-full bg-[#d9d9d9]'></div>
+                        
+                        
+                       
 
-                <div className='mt-12'>
-                  <Link href={"https://api.exm.dev/read/QHJ3EeCJokrf1nbnhMgoK4P_hu9xLPK5UfJww23HFsk"} >
-                    <a target="_blank" rel="noopener noreferrer" >
-                      <UserReservedHistory label={arLabel} address={address} timestamp={reservedUserDetails?.timestamp }/>
-                    </a>
-                  </Link>
-                  {/* TEST */}
-                </div>
+                      </div>
+                      <Link className='relative right-10' href={"https://api.exm.dev/read/QHJ3EeCJokrf1nbnhMgoK4P_hu9xLPK5UfJww23HFsk"} >
+                        <a target="_blank" rel="noopener noreferrer" className=''>
+                          <UserReservedHistory label={arLabel} address={address} timestamp={reservedUserDetails?.timestamp }/>
+                        </a>
+                      </Link>
 
-                <BlueButtonNext setstep={setstep} step={5} msg={"Next"} />
-              </section>
+                    </div>
+                    
+
+                    <BlueButtonNext setstep={setstep} step={5} msg={"Next"} />
+                  </section>
+
+              
+              </>
             )
           }
           {

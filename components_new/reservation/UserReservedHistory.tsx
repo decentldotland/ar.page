@@ -29,46 +29,37 @@ function UserReservedHistory({label, address, timestamp}: Props) {
     return (new Date(epoch)).toLocaleString();
   }
   return (
-    <section  className='w-full px-10 cursor-pointer '>
-      <div>
-        <h1 className='font-semibold text-xl text-left text-[#6a6b6a]'>History</h1>
-        <div className='mt-2 rounded-sm h-[1px] w-full bg-[#d9d9d9]'></div>
-      </div>
+      
 
-      <div className='mt-6 bg-[#edecec] px-3 py-1 h-[71px] rounded-xl'>
-      <table className="w-[386px] ">
-        <tbody className='text-2xs  font-normal items-center '>
-          <tr className='text-[#656565] '>
-            <td>{epochToDate(timestamp)}</td>
-            <td className=''>Reserved Name</td>
-            <td className='text-center'>For</td>
-          </tr>
-        </tbody>
-        <tbody className='relative top-1 text-[#3a3a3a]'>
-          <tr className='text-base font-medium  '>
-            <td className='flex flex-row space-x-1 items-center text-center'>
-              <ClipboardDocumentCheckIcon 
-              height={24} 
-                width={24} 
+      <div className='mt-6 bg-[#edecec] px-3 py-1 h-[71px] rounded-xl flex w-full '>
+        <div className='flex flex-row items-center space-x-5'>
+          
+          <div className='flex flex-col'>
+            <h1 className='text-2xs text-[#656565]'>Timestamp</h1>
+            <div className='flex flex-row space-x-1 text-left text-sm font-bold items-center'>
+              <ClipboardDocumentCheckIcon height={24} width={24} color={`#666`} strokeWidth={2} />
+              <p>Reserved</p>
+            </div>
+          </div>
+
+          <div className='flex flex-col '>
+            <h1 className='text-2xs text-[#656565] text-left'>Reserved Name</h1>
+            <p className='text-center'>{shortenName(label)}</p>
+          </div>
+
+          <div className='flex flex-col text-center'> 
+            <h1 className='text-2xs text-[#656565] '>To</h1>
+            <p className='text-center'>{shortenAddress(address)}</p>
+          </div>
+
+          <ArrowTopRightOnSquareIcon 
+                height={20} 
+                width={20} 
                 color={`#666`} 
                 strokeWidth={2} />
-                <p>Reserved</p>
-              </td>
-            <td className='relative left-3'>{shortenName(label)}</td>
-            <td className='text-center'>{shortenAddress(address)}</td>
-            <td className='relative left-3 bottom-1'>
-              <ArrowTopRightOnSquareIcon 
-                height={24} 
-                width={24} 
-                color={`#666`} 
-                strokeWidth={2} />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
+        </div>
       </div>
-    </section>
+
   )
 }
 
