@@ -93,7 +93,7 @@ const Claim = () => {
     const g = localStorage.getItem("EthLisbonEvent2022")
     if (g) {
       // setste[0]
-      setstep(0)
+      setstep(1)
       return
     }
     axios.get('/api/exmread').then(res => {
@@ -111,7 +111,7 @@ const Claim = () => {
       setUserDetails(details)
       console.log(details)
     }
-  }, [isConnected, reservations, validClaim, address]) 
+  }, [isConnected, reservations, validClaim]) 
 
   // Fetch Datasource 
   useEffect(() => {
@@ -127,7 +127,7 @@ const Claim = () => {
     if (!reservations || !existingANSNames) return;
     setInvalidEVM(validateEVM(address))
     // setInvalidLabel(validateLabel())
-  }, [reservations, existingANSNames, address, validateEVM])
+  }, [reservations, existingANSNames])
 
   useEffect(() => {
     if (address && isConnected && reservations.length > 0) {
@@ -140,7 +140,7 @@ const Claim = () => {
     else {
       setEvmAddress('')
     }
-  }, [address, isConnected, reservations, EVMAddressTaken, validateEVM]);
+  }, [address, isConnected, reservations]);
 
   
 
