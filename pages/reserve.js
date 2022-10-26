@@ -85,7 +85,7 @@ const Reserve = () => {
   useEffect(() => {
     const g = localStorage.getItem("EthLisbonEvent2022")
     if (g) {
-      setstep(1)
+      setstep(0)
       return
     }
     axios.get('/api/exmread').then(res => {
@@ -218,10 +218,10 @@ const Reserve = () => {
                   <div className='items-center flex flex-col justify-center'>
                     <UserAccountDetails 
                       upperMessage='Your Connected Wallet'
-                      address={account.address} 
-                      chainIconUrl={chain.iconUrl}
-                      displayImg={account.ensAvatar}
-                      walletName={connector.name}
+                      address={account?.address} 
+                      chainIconUrl={chain?.iconUrl}
+                      displayImg={account?.ensAvatar}
+                      walletName={connector?.name}
                     />
                     <button className=" mt-9 bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
                       onClick={() => setstep(2)}
@@ -465,14 +465,15 @@ const Reserve = () => {
                       We <span className='font-bold'>recommend</span> that you <span className='font-bold'>complete</span> this stage on your 
                       <span className='font-bold'> Desktop. </span>Your username is safe with us.
                     </p>
-                    
-                    <button className=" bg-[#1273ea] w-[368px] h-14 items-center relative rounded-lg text-white font-bold text-lg" 
-                      onClick={() => setstep(6)}>
-                        <div className='flex justify-center items-center'>
-                          <p className='relative text-center '>Let's do it</p>
-                          <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/>
-                        </div>
-                    </button>
+                    <Link href={"/claim"}>
+                      <button className=" bg-[#1273ea] w-[368px] h-14 items-center relative rounded-lg text-white font-bold text-lg" 
+                        onClick={() => setstep(6)}>
+                          <div className='flex justify-center items-center'>
+                            <p className='relative text-center '>Let's do it</p>
+                            <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/>
+                          </div>
+                      </button>
+                    </Link>
                     <p onClick={() => setstep(0)} className='cursor-pointer mt-4 text-center text-sm text-[#6a6b6a] font-medium'>I will set it up later</p>
                 </div>
               </section>
@@ -481,26 +482,7 @@ const Reserve = () => {
 
           {
 // CLAIMING PROCESS, is set to step 2 since the browser defaults to 2 after refresh 
-            step === 6 && (
-              <section className='mt-24 w-full'>
-                <div className='flex flex-row space-x-60 justify-between'>
-                  <BackButton setstep={setstep} step={step - 1}/>
-                  <NextButton setstep={setstep} step={step + 1}/>
-                </div>
-                <div className='mt-6 mb-5'>
-                  <LineBarTracker step={lineBarSteps}  total_step={3}/>
-                </div>
-                <h1 className='text-3xl font-bold mb-3'>Let's get you started <br/> with Arweave and ANS.</h1>
-                <p className='text-left text-[#8e8e8f]'>Claiming your first AR Page/ANS can be quite <br /> overwhelming. But don't worry! We're here to <br />
-                  to guide you along the process.</p>
-                
-                <OverviewSteps />
-                <div onClick={() => setLineBarSteps(lineBarSteps + 1)}>
-                  <CheckList step={lineBarSteps} />
-                </div>
-                
-              </section>
-            )
+            
           }
         </div>
       </div>

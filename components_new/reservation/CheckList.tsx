@@ -1,4 +1,5 @@
 import { ArrowLongRightIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 import React, { useState } from 'react'
 import {BsCheckCircleFill, BsCheckSquareFill} from 'react-icons/bs'
 
@@ -14,6 +15,9 @@ interface Props {
 }
 
 function CheckList({setstep, step}: Props) {
+    
+    
+    
     const unCheckList = [
       "Download and setup ArConnect", 
       "Link my wallet to my ArConnect", 
@@ -36,6 +40,9 @@ function CheckList({setstep, step}: Props) {
             link: ""
         },
     ]);
+
+
+
     const [finishedItems, setFinishedItems] = useState<Object[]>([]);
     const [indexCounter, setIndexCounter] = useState(0)
     const checkItem = () => { 
@@ -74,20 +81,42 @@ function CheckList({setstep, step}: Props) {
             })
         }
        </div>
-       <div className='flex justify-center flex-col items-center '>
-          <button className=" bg-[#1273ea] w-full h-14 items-center relative rounded-lg text-white font-bold text-lg" 
-              onClick={checkItem}
-              >
-                <div className='flex justify-center items-center'>
-                  <p className='relative text-center '>{unCheckList[0]}</p>
-                  <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/>
-                </div>
-            </button>
-            <p 
-            onClick={() => setstep(step + 1)} 
-            className='cursor-pointer mt-4 text-center text-sm text-[#6a6b6a] font-medium'>
-                {indexCounter === 1 ? "I will set it up later" : "Continue later"}
-            </p>
+       <div className='flex justify-center flex-col items-center w-full '>
+        
+        {
+            indexCounter !== 3 ? (
+                <>
+                    <Link href={CheckList[indexCounter]?.link} >
+                        <a target="_blank" rel="noopener noreferrer" 
+                        className="cursor-pointer bg-[#1273ea] w-full h-14 justify-center items-center flex relative flex-row rounded-lg text-white font-bold text-lg" 
+                        onClick={checkItem}
+                        >
+                            <div className='flex justify-center items-center'>
+                            <p className='relative text-center '>{CheckList[indexCounter]?.name}</p>
+                            <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/>
+                            </div>
+                        </a>
+                    </Link>
+
+                    <p 
+                    onClick={() => setstep(step + 1)} 
+                    className='cursor-pointer mt-4 text-center text-sm text-[#6a6b6a] font-medium'>
+                        {indexCounter === 1 ? "I will set it up later" : "Continue later"}
+                    </p>
+                </>
+            ) : (
+                <Link href={"/"}>
+                <a target="_blank" rel="noopener noreferrer" 
+                    className="cursor-pointer bg-[#1273ea] w-full h-14 justify-center items-center flex relative flex-row rounded-lg text-white font-bold text-lg" 
+                >
+                    <div className='flex justify-center items-center'>
+                    <p className='relative text-center '>Go Back to Home page</p>
+                    <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/>
+                    </div>
+                </a>
+                </Link>
+            )
+        }
         </div>
     </section>
   )
