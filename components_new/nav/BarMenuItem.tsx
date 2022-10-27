@@ -52,7 +52,7 @@ useEffect(() => {
         document.removeEventListener('click', ev);
 }, [toggle]);
 
-console.log(ansData)
+// console.log(ansData)
 
 useEffect(() => {
     // On page load or when changing themes, best to add inline in `head` to avoid FOUC
@@ -77,7 +77,7 @@ useEffect(() => {
                         rounded-xl mt-4 w-[272px]`}>
                         <ul className='h-full'>
                             {
-                                walletConnected && ansData?.currentLabel !== undefined ? (
+                                walletConnected && ansData?.currentLabel  ? (
                                   
                                     <li className={`space-x-3.5 flex flex-row items-center  px-2  py-2
                                     ${ansData.avatar ? ('bg-white') : ('bg-gray-100 py-9 items-center flex flex-row justify-center ')} 
