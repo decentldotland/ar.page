@@ -36,7 +36,7 @@ function Avatar ({ansData, options} :{ansData: ANSData, options?: AvatarOptions}
           alt="Profile" 
           quality={10}
           />
-        : 
+        :
         <div className="relative flex items-center justify-center w-full h-full">
           <div className="absolute z-10 uppercase select-none bg-inherit text-white font-medium text-4xl font-inter">{ansData.currentLabel?.[0] || "?"}</div>
           <div className="absolute bg-gradient-to-l from-[#9E00FF] to-[#1273EA] rotate-45 origin-center w-full h-full"></div>
