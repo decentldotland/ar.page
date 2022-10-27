@@ -78,7 +78,7 @@ export const lensLabel = (lens:string[] |undefined) => {
 
   if (!lens || lens?.length == 0) return null;
 
-  const lensLabel = lens[0].replace("@", "")
+  const lensLabel = lens[0]?.replace("@", "")
   return {
     username: lensLabel,
     classes: lenProps,
