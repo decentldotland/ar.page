@@ -11,7 +11,7 @@ interface Props  {
 export function BlueButtonNext({step, msg, sub_message, setstep}: Props) {
     return (
       <div className='flex justify-center items-center px-10 '>
-        <div className='absolute flex flex-col bottom-24 '>
+        <div className='absolute flex flex-col bottom-10 sm:bottom-24 '>
           <p className="text-sm text-center mb-6 font-medium ">
             {sub_message}
           </p>
