@@ -277,7 +277,7 @@ const Reserve = () => {
                       walletName={connector?.name}
                     />
                     <button className={` mt-9  w-[276px] h-14 items-center 
-                      ${invalidEVM.length !== 0 ? ('bg-gray-400') : ('bg-[#1273ea]')}
+                      ${invalidEVM.length !== 0 || invalidPOAP.length !== 0 ? ('bg-gray-400') : ('bg-[#1273ea]')}
                         rounded-lg text-white font-bold text-lg `}
                       onClick={() => setstep(2)}
                       disabled={invalidEVM.length !== 0 || invalidPOAP.length !== 0}
