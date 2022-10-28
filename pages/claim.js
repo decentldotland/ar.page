@@ -203,9 +203,11 @@ const Claim = () => {
                     // >
                     //   Connect 
                     // </button>
-                    <button className=" bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
-                    onClick={openConnectModal}
-                    disabled={invalidEVM.length !== 0}
+                    <button className= {` w-[276px] h-14 
+                      ${invalidEVM.length !== 0 ? ('bg-gray-400') : ('bg-[#1273ea]')}
+                      items-center rounded-lg text-white font-bold text-lg`}
+                      onClick={openConnectModal}
+                      disabled={invalidEVM.length !== 0}
                     >
                       <div className='flex justify-center'>
                         <p className='relative text-center '>Connect Wallet</p>
@@ -230,9 +232,11 @@ const Claim = () => {
                       displayImg={account?.ensAvatar}
                       walletName={connector?.name}
                     />
-                    <button className=" mt-9 bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
-                      disabled={!validUserToClaim}
-                      onClick={() => setstep(1)}
+                     <button className={` mt-9  w-[276px] h-14 items-center 
+                      ${invalidEVM.length !== 0 ? ('bg-gray-400') : ('bg-[#1273ea]')}
+                        rounded-lg text-white font-bold text-lg `}
+                        disabled={!validUserToClaim}
+                        onClick={() => setstep(1)}
                       >
                         <div className='flex justify-center'>
                           <p className='relative text-center '>Get Started</p>

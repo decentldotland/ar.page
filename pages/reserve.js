@@ -229,7 +229,9 @@ const Reserve = () => {
                     // >
                     //   Connect 
                     // </button>
-                    <button className=" bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
+                    <button className= {` w-[276px] h-14 
+                    ${invalidEVM.length !== 0 ? ('bg-gray-400') : ('bg-[#1273ea]')}
+                    items-center rounded-lg text-white font-bold text-lg`}
                     onClick={openConnectModal}
                     disabled={invalidEVM.length !== 0}
                     >
@@ -256,7 +258,9 @@ const Reserve = () => {
                       displayImg={account?.ensAvatar}
                       walletName={connector?.name}
                     />
-                    <button className=" mt-9 bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
+                    <button className={` mt-9  w-[276px] h-14 items-center 
+                      ${invalidEVM.length !== 0 ? ('bg-gray-400') : ('bg-[#1273ea]')}
+                        rounded-lg text-white font-bold text-lg `}
                       onClick={() => setstep(2)}
                       disabled={invalidEVM.length !== 0}
                       
@@ -296,28 +300,29 @@ const Reserve = () => {
           step === 0 && (
             <>
               {/* {invalidEVM.length === 0 && address && <button className="self-start cursor-pointer text-gray-400 decoration-gray-400 underline" onClick={() => setstep(1)}>Next</button>} */}
-              <div className="w-full mt-20">
-                <h1 className="text-[45px] font-bold text-center mb-7 mt-10">Hello Hackers👋</h1>
-                <p className="text-sm text-center mb-6">
-                  On behalf of the whole Decent Land Team, we thank you for showing your support at ETH Lisbon 2022.
-                </p>
-                <p className="text-sm text-center mb-6">
-                  By now you should have received your early access POAP token.
-                </p>
-                <p className="text-sm text-center mb-6">
-                  The token is used to be part of our <span className='font-bold'>Airdrop</span> Event 
-                  which gives you access to setup your ANS domains and ArPages before anyone else!
-                </p>
-                <p className="text-sm text-center mb-6">
-                 As of now, <span className='font-bold text-lg'>{numOfReserved}</span> people have already signed up for our airdrop!
-                </p>
-              
+              <section>
+                <div className="w-full mt-20 relative ">
+                  <h1 className="text-[45px] font-bold text-center mb-7 mt-10">Hello Hackers👋</h1>
+                  <p className="text-sm text-center mb-6">
+                    On behalf of the whole Decent Land Team, we thank you for showing your support at ETH Lisbon 2022.
+                  </p>
+                  <p className="text-sm text-center mb-6">
+                    By now you should have received your early access POAP token.
+                  </p>
+                  <p className="text-sm text-center mb-6">
+                    The token is used to be part of our <span className='font-bold'>Airdrop</span> Event 
+                    which gives you access to setup your ANS domains and ArPages before anyone else!
+                  </p>
+                  <p className="text-sm text-center mb-6">
+                  As of now, <span className='font-bold text-lg'>{numOfReserved}</span> people have already signed up for our airdrop!
+                  </p>
                 
-                
-                  <BlueButtonNext setstep={setstep} step={1} msg={"Let's go"} 
-                    sub_message={"Ready to redeem the early access to your ArPage?"}
-                    />
-              </div>
+                </div>
+              </section>
+                  <div className=''>
+                    <BlueButtonNext setstep={setstep} step={1} msg={"Let's go"} 
+                      sub_message={"Ready to redeem the early access to your ArPage?"}/>
+                  </div>
               {/* <p>Make sure to use the address that will receive the appropriate event Poap!</p> */}
             </>
           )}
