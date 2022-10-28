@@ -36,6 +36,7 @@ const Reserve = () => {
   const [arLabel, setArLabel] = useState('');
   const [invalidLabel, setInvalidLabel] = useState('');
   const [invalidPOAP, setInvalidPOAP] = useState('')
+  const [validPoap, setValidPoap] = useState(false)
   const [reservedUserDetails, setReservedUserDetails] = useState('')
   const EvmAddressRegex = /^0x[a-fA-F0-9]{40}$/;
   const ArLabelRegex = /^[a-z0-9]{2,15}$/;
@@ -67,13 +68,6 @@ const Reserve = () => {
     return ''
   };
 
-  const validatePoap = () => { 
-    // if not in userpoaps
-    if (!userPoaps?.find(i => i.tokenId === "5809751")) 
-      return 'Unable to find valid "ANS Early Adopter: ETH Lisbon 2022 POAP"'
-    return ''
-  }
-
   useEffect(() => {
     setInvalidLabel(validateLabel())
   }, [arLabel])
@@ -83,11 +77,27 @@ const Reserve = () => {
   }, [evmAddress])
 
   useEffect(() => {
-    setInvalidPOAP(validatePoap())
-  }, [])
+
+    if (userPoaps == undefined) {
+      setValidPoap(false)
+      return setInvalidPOAP('Unable to find valid "ANS Early Adopter: ETH Lisbon 2022 POAP"')
+    }
+    if (userPoaps.length > 0) {
+      for (let i = 0; i < userPoaps.length; i +=1) {
+        if(userPoaps[i].tokenId === "5809751") {
+          console.log(i.tokenId)
+          setValidPoap(true)
+          return setInvalidPOAP('You are eligible to our AirDrop Event!')
+        } else {
+          setValidPoap(false)
+          return setInvalidPOAP('Unable to find valid "ANS Early Adopter: ETH Lisbon 2022 POAP"')
+        }
+      }
+    }
+  }, [userPoaps])
   // Check if the user owns the valid POAP
   // POAP id = "5809751"
-  // "0x2a01d339d3ab41b2d8b145b5df8586032d9961c6"
+  // test accont = "0x2a01d339d3ab41b2d8b145b5df8586032d9961c6"
   useEffect(() => { 
     if (isConnected) {
       getAllPoaps(evmAddress).then(res => { 
@@ -249,9 +259,11 @@ const Reserve = () => {
                     //   Connect 
                     // </button>
                     <button className= {` w-[276px] h-14 
-                   bg-[#1273ea]
+                    ${invalidEVM.length === 0 ? ('bg-[#1273ea]') : (' bg-gray-400')}
+
                     items-center rounded-lg text-white font-bold text-lg`}
                     onClick={openConnectModal}
+                    disabled={invalidEVM.length !== 0}
                     >
                       <div className='flex justify-center'>
                         <p className='relative text-center '>Connect Wallet</p>
@@ -277,11 +289,11 @@ const Reserve = () => {
                       walletName={connector?.name}
                     />
                     <button className={` mt-9  w-[276px] h-14 items-center 
-                      ${invalidEVM.length !== 0 || invalidPOAP.length !== 0 ? ('bg-gray-400') : ('bg-[#1273ea]')}
+                      ${invalidEVM.length === 0 && validPoap ? ('bg-[#1273ea]') : (' bg-gray-400')}
                         rounded-lg text-white font-bold text-lg `}
                       onClick={() => setstep(2)}
-                      disabled={invalidEVM.length !== 0 || invalidPOAP.length !== 0}
-                      
+                      disabled={invalidEVM.length !== 0 || !validPoap}
+                    
                       >
                         <div className='flex justify-center'>
                           <p className='relative text-center '>Get Started</p>
@@ -359,7 +371,15 @@ const Reserve = () => {
                     accountStatus="address" 
                   />
                   <p className="text-red-500 my-2 text-center h-6">{invalidEVM}</p>
-                  <p hidden={!isConnected} className="text-red-500 my-2 text-center h-6">{invalidPOAP}</p>
+                  {
+                    validPoap ? (
+                      <p hidden={!isConnected} className="text-green-400 my-2 text-center h-6">{invalidPOAP}</p>
+
+                    ) : (
+                      <p hidden={!isConnected} className="text-red-500 my-2 text-center h-6">{invalidPOAP}</p>
+
+                    )
+                  }
               </div>
               </>
             )
