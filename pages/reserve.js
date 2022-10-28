@@ -249,10 +249,9 @@ const Reserve = () => {
                     //   Connect 
                     // </button>
                     <button className= {` w-[276px] h-14 
-                    ${invalidEVM.length !== 0 ? ('bg-gray-400') : ('bg-[#1273ea]')}
+                   bg-[#1273ea]
                     items-center rounded-lg text-white font-bold text-lg`}
                     onClick={openConnectModal}
-                    disabled={invalidEVM.length !== 0}
                     >
                       <div className='flex justify-center'>
                         <p className='relative text-center '>Connect Wallet</p>
