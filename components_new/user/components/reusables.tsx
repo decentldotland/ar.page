@@ -70,7 +70,7 @@ interface GenericFrameType {
 export function GenericFrame (props: GenericFrameType) {
   return (
     <>
-      <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {props.children}
       </div>
     </>

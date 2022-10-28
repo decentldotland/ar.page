@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SelectSearch, { useSelect } from 'react-select-search';
 import { useRouter } from 'next/router'
 
@@ -14,6 +14,7 @@ import { isDarkMode } from '../../atoms';
 import Image from 'next/image';
 import { Divider } from '../user/components/reusables';
 import { resolveDomain } from '../../src/utils';
+import {XCircleIcon} from '@heroicons/react/24/solid'
 
 
 const CustomSelect = ({ options, multiple, disabled, placeholder }: 
@@ -63,6 +64,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
         event.stopPropagation()
         // console.log("handleChange", event.target.value)
         setVal(event.target.value)
+        // if (val) setShow(!show) 
         // if (event.key === 'Enter') {
         //     if(options.map((item: any) => item.name).includes(val))
         //     // router.push(`/p/${val}#top`)
@@ -86,8 +88,10 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
     const [isDark, setIsDark] = useRecoilState(isDarkMode);
     return (
         <section className="px-4 flex flex-row space-x-3.5 sm:shrink
-            w-full md:w-[336px] py-2 border-2 border-gray-200 
-            items-center rounded-2xl  " 
+            w-full md:w-[336px] py-3 sm:py-3 border-2 border-gray-200 
+            items-center  sm:rounded-2xl focus:ring-1  rounded-md 
+             sm:bg-transparent
+            " 
             ref={container}>
             {/* <button className="w-24 h-4 bg-red-300" {...valueProps}>{snapshot.displayValue}</button> */}
             {/* <FontAwesomeIcon icon={faMagnifyingGlass} className="absolute mt-2 left-4 ml-1" width="15" height="15" /> */}
@@ -99,75 +103,83 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                 // style={{ paddingLeft: "22px" }} 
                 value={val} onChange={handleChange} onFocus={() => setShow(true)} 
                 placeholder={placeholder}
-                className=" font-inter w-full text-sm font-normal outline-none bg-transparent"
+                className=" font-inter w-full text-sm font-normal outline-none bg-transparent "
             />
-            <article className={`z-50 transition-all duration-300 ease-in-out ${show ? 'opacity-100': 'opacity-0 pointer-events-none'}`}>
-            <div className={` py-4 rounded-xl   md:h-fit
-                ${isDark ? ('bg-[#121a2f]'): ('bg-white')}
-                shadow-xl max-w-[220px] md:max-w-[326px] md:w-full absolute left-0 mt-10 z-50
-                ml-16 md:ml-28
-                `}>
-                <h2 className="text-lg font-semibold px-7">Members</h2>
-                <ul className="h-full    ">
-
-                    {/* If nothing is found in our database, print out the text that user is typing instead */}
-                    {val  && (
-                        <>
-                            <div className=" space-x-1 px-7 text-2xs overflow-x-hidden text-left
-                                text-gray-400">
-                                <p className=''>
-                                    <span className='mr-1 font-semibold'>
-                                        Searching for:
-                                    </span> 
-                                    "{val}"</p>
-                            <Divider />
-                            </div>
-                        
-                        </>
-                    )}
-
-                    {snapshot.options
-                        .filter((i: any) => i.name?.toLowerCase()?.includes(val?.toLowerCase()))
-                        .slice(0, 5)
-                        .map((option) => (
-                            <div key={option.name} className={`${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')}
-                                w-full px-7 py-2 cursor-pointer `}>
-                                <li key={option.name} className="w-full mt-1 rounded-md " onClick={
-                                    (event) => {
-                                        window.location.href = resolveDomain(option.name);
-                                    }
-                                }>
-                                    <a href={resolveDomain(option.name)} className='flex flex-row space-x-2 items-center '>
-                                        {
-                                            option.photo ? (
-                                                <div className='bg-gray-400 w-[34px] h-[34px] rounded-full'>
-                                                    <Image src={`https://arweave.net/${option.photo}`} 
-                                                        height={34}
-                                                        width={34}
-                                                        quality={1}
-                                                        alt={option.name}
-                                                        className="w-[34px] h-[34px] rounded-full "/>
-                                                </div>
-                                            ) : (
-                                                <div className='w-[34px] h-[34px] rounded-full 
-                                                    bg-gradient-to-l from-[#9E00FF] to-[#1273EA] 
-                                                     origin-center items-center flex justify-center'>
-                                                        <p className='text-white font-medium '>
-                                                            {option.name[0]}
-                                                        </p>
-                                                </div>
-                                            )
-                                        }
-                                        {/* @ts-ignore */}
-                                        <button {...optionProps} className=" text-sm font-semibold" value={option.value} >{option.name}</button>
-                                        <ArrowUpRightIcon height={14} width={14} color={"#666"} strokeWidth={1} />
-
-                                    </a>
-                                </li>
-                            </div>
-                        ))}
-                </ul>
+            <div hidden={val.length <= 1}>
+                <XCircleIcon
+                    
+                    onClick={() => {setVal('')}}
+                    className='cursor-pointer relative left-1' 
+                    height={20} width={20} strokeWidth={3} color={`${isDark? ('white') : ('#666') }`} />
             </div>
+
+            <article className={`z-50 transition-all duration-300 ease-in-out ${show ? 'opacity-100': 'opacity-0 pointer-events-none'}`}>
+                
+                <div className={` py-4 sm:rounded-xl md:h-fit  
+                    ${isDark ? ('bg-[#121a2f]'): ('bg-white')} sm:border-none
+                    border-2 shadow-lg  mt-[22px] sm:mt-6  rounded-b-2xl w-full sm:w-[336px]  md:max-w-[326px] md:w-[336px]  absolute sm:left-0 -right-0 z-50
+                    ml-16 md:ml-28 
+                    `}>
+                    <h2 className="text-lg font-semibold sm:px-4 px-10">Members</h2>
+                    <ul className="h-full">
+                        {/* If nothing is found in our database, print out the text that user is typing instead */}
+                        {val  && (
+                            <>
+                                <div className=" hidden md:block space-x-1 px-7 text-2xs overflow-x-hidden text-left
+                                    text-gray-400">
+                                    <p className=''>
+                                        <span className='mr-1 font-semibold'>
+                                            Searching for:
+                                        </span> 
+                                        "{val}"</p>
+                                <Divider />
+                                </div>
+                            
+                            </>
+                        )}
+
+                        {snapshot.options
+                            .filter((i: any) => i.name?.toLowerCase()?.includes(val?.toLowerCase()))
+                            .slice(0, 4)
+                            .map((option) =>  (
+                                <div key={option.name} className={`${isDark ? ('hover:bg-[#1a2745] '): ('hover:bg-gray-200 ')}
+                                    w-full sm:px-4 py-2 px-14 cursor-pointer `}>
+                                    <li key={option.name} className="w-full mt-1 rounded-md " onClick={
+                                        (event) => {
+                                            window.location.href = resolveDomain(option.name);
+                                        }
+                                    }>
+                                        <a href={resolveDomain(option.name)} className='flex flex-row space-x-2 items-center '>
+                                            {
+                                                option.photo ? (
+                                                    <div className='bg-gray-400 w-[34px] h-[34px] rounded-full'>
+                                                        <Image src={`https://arweave.net/${option.photo}`} 
+                                                            height={34}
+                                                            width={34}
+                                                            quality={1}
+                                                            alt={option.name}
+                                                            className="w-[34px] h-[34px] rounded-full "/>
+                                                    </div>
+                                                ) : (
+                                                    <div className='w-[34px] h-[34px] rounded-full 
+                                                        bg-gradient-to-l from-[#9E00FF] to-[#1273EA] 
+                                                        origin-center items-center flex justify-center'>
+                                                            <p className='text-white font-medium '>
+                                                                {option.name[0]}
+                                                            </p>
+                                                    </div>
+                                                )
+                                            }
+                                            {/* @ts-ignore */}
+                                            <button {...optionProps} className=" text-sm font-semibold" value={option.value} >{option.name}</button>
+                                            <ArrowUpRightIcon height={14} width={14} color={"#666"} strokeWidth={1} />
+
+                                        </a>
+                                    </li>
+                                </div>
+                            ))}
+                    </ul>
+                </div>
             </article>
             {/* <SelectSearch search={true} autoComplete="on" options={options} value="sv" placeholder="Choose your language" /> */}
         </section>

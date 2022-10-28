@@ -34,7 +34,7 @@ export const Layout = (props: Props) => {
     return (
         <>
             {loaded && 
-                <div className="flex flex-col flex-wrap font-mono w-full h-screen" data-theme={isDark ? "ardark" : "arlight"}>
+                <div className="flex flex-col flex-wrap font-mono w-full h-full" data-theme={isDark ? "ardark" : "arlight"}>
                     <Nav toggleDark={toggleDark} />
                     {/* for detecting OS theme on browser load */}
                     <Script strategy="beforeInteractive">
@@ -46,7 +46,7 @@ export const Layout = (props: Props) => {
                             }
                         `}
                     </Script>
-                    <div className="h-body grow md:overflow-y-auto overflow-y-scroll">
+                    <div className="h-body items-center">
                     <div id="top"className="h-0 w-0"></div>
                         {props.children}
                     </div>

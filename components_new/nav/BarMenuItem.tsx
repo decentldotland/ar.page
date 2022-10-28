@@ -14,6 +14,8 @@ import { NavUser } from './NavUser';
 import {SunIcon} from '@heroicons/react/24/outline'
 import { CircularProgress } from '@mui/material';
 import { resolveDomain } from '../../src/utils';
+import SearchBar from './SearchBar';
+import {Bars3Icon}  from '@heroicons/react/24/solid'
 
 
 function BarMenuItem() {
@@ -61,23 +63,41 @@ useEffect(() => {
 }, [isDark]);
   return (
     <section className=''  ref={container}>
-        <button  onClick={() => setToggle(!toggle)}>
+        <button  onClick={() => setToggle(!toggle)} className="items-center">
             <NavUser />
+            {/* <Bars3Icon height={30} width={30} strokeWidth={2}/> */}
         </button>
 
-        <article className={`relative`} >
+        <article className={`sm:relative flex flex-row-reverse `} >
             {
                 toggle && (
-                    <div 
-                        hidden={!toggle}
-                        className={` ${isDark ? ('bg-[#121a2f]'):('bg-white ')} text-black absolute z-50 py-5 px-2 right-1 shadow-xl 
-                        rounded-xl mt-4 w-[272px]`}>
-                        <ul className='h-full'>
+                    // Controls the body of dropdown menu
+                    <div hidden={!toggle}
+                        className={`  ${isDark ? ('bg-[#121a2f]'):('bg-[#FEFEFE] ')} 
+                        text-black absolute z-50 -right-0  px-3 py-5 w-screen h-screen sm:h-fit
+                        sm:px-1 sm:right-1 shadow-lg sm:rounded-xl sm:mt-5 sm:w-[272px]`}>
+                        <ul className='h-full px-5 sm:px-2 relative '>
+
+                            {/* Search Bar is visible only smaller screens */}
+                            <article className='relative bottom-5'>
+                                <div className='sm:hidden relative bottom-3'>
+                                    <Divider />
+                                </div>
+                                <li className='w-full  relative bottom-2  sm:hidden'>
+                                    <SearchBar />
+                                </li>
+                                {/* <div className='sm:hidden '>
+                                    <Divider />
+                                </div> */}
+                            </article>
+                 
+                            
+                            {/* Checks if the user is signed -> to show the user avatar or not */}
                             {
                                 !walletConnected ? (
                                     <li className={`py-2 px-2 w-full 
                                     ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')} 
-                                    h-full rounded-lg`}>
+                                     rounded-lg`}>
                                         <Link href={"https://www.decent.land/"}  className="flex flex-row items-center ">
                                             <a target="_blank" rel="noopener noreferrer" className=' flex flex-row items-center space-x-3.5'>
                                                 <Image src={Favicon} width={27} height={27} className='' alt="" />
@@ -89,7 +109,7 @@ useEffect(() => {
                                     </li>
                                 ) : (
                                     <li className={`space-x-3.5 flex flex-row items-center  px-2  py-2
-                                    ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')} h-full rounded-lg`}>
+                                    ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')}  rounded-lg`}>
                                         <Avatar ansData={ansData} options={{height:"56px", width:"56px"}}/>
                                         {/* nickname and label */}
                                         <div className="flex flex-col relative top-[0.5] ">
@@ -117,7 +137,7 @@ useEffect(() => {
                             <li hidden={!walletConnected} 
                                 className={`py-2 px-2 w-full cursor-pointer
                                 ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')} 
-                                h-full rounded-lg`}
+                                 rounded-lg`}
                             >
                                 <a href={resolveDomain(!!ansData?.currentLabel ? ansData.currentLabel: "")}  className=" flex flex-row items-center ">
                                     <div className=' flex flex-row items-center space-x-3.5'>
@@ -128,7 +148,7 @@ useEffect(() => {
                             </li>
                             <li className={`py-2 px-2 w-full 
                                 ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')} 
-                                h-full rounded-lg`}>
+                                 rounded-lg`}>
                                 <Link href={"https://docs.decent.land/"}  className="flex flex-row items-center ">
                                     <a target="_blank" rel="noopener noreferrer" className=' flex flex-row items-center space-x-3.5'>
                                     <BookOpenIcon height={20} width={20} color={`${isDark? ('white') : ('black') }`}/>
@@ -136,7 +156,7 @@ useEffect(() => {
                                     </a>
                                 </Link>
                             </li>
-                            <li className={`py-2 px-2 w-full ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')}  h-full rounded-lg`}>
+                            <li className={`py-2 px-2 w-full ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')}   rounded-lg`}>
                                 {/* This is needs to be configured --> Temporarily disabled */}
                                 <div onClick={toggleDark} className='cursor-pointer flex flex-row items-center'>{ 
                                     !isDark ? (
@@ -161,7 +181,7 @@ useEffect(() => {
                                     <div onClick={() => (arconnectDisconnect as Function)()} 
                                         className={`cursor-pointer py-2 px-2 w-full 
                                         ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')}
-                                        h-full rounded-lg`}
+                                         rounded-lg`}
                                     >
                                         <div className="flex flex-row items-center space-x-3.5">
                                         <FiLogOut height={20} width={20} color={`${isDark? ('white') : ('black') }`}/>
@@ -172,7 +192,7 @@ useEffect(() => {
                                     <li 
                                     className={`cursor-pointer py-2 px-2 w-full 
                                     ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')}
-                                    h-full rounded-lg`}
+                                   rounded-lg`}
                                     >
                                         <div onClick={() => (arconnectConnect as Function)()} className="flex flex-row items-center space-x-3.5">
                                             <FiLogIn height={20} width={20} color={`${isDark? ('white') : ('black') }`}/>

@@ -3,19 +3,39 @@ import React, { useEffect, useState } from 'react';
 import Head from 'next/head'
 import Web3 from 'web3';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useAccount } from 'wagmi'
-import { ArrowRightIcon } from '@heroicons/react/24/solid';
+import { ChainMismatchError, ContractResultDecodeError, useAccount, useConnect, useDisconnect } from 'wagmi'
+import { ArrowRightIcon, XCircleIcon } from '@heroicons/react/24/solid';
+import {ArrowLongRightIcon, ArrowTopRightOnSquareIcon, CheckCircleIcon, CheckIcon, ChevronUpIcon, ClockIcon, DocumentDuplicateIcon, EllipsisVerticalIcon} from '@heroicons/react/24/outline'
+// import Image from 'next/image';
+// import { MdLogout } from 'react-icons/md';
+// import {TbCopy} from 'react-icons/tb'
+// import { FiLogOut } from 'react-icons/fi';
+// import { chain } from 'lodash';
+import { BlueButtonNext } from '../components_new/reservation/BlueButtonNext';
+import { UserAccountDetails } from '../components_new/reservation/UserAccountDetails';
+import BackButton from '../components_new/reservation/BackButton';
+import {EyeIcon} from '@heroicons/react/24/solid'
+import { CircularProgress, Snackbar } from '@mui/material';
+import NextButton from '../components_new/reservation/NextButton';
+import LineBarTracker from '../components_new/reservation/LineBarTracker';
+import OverviewSteps from '../components_new/reservation/OverviewSteps';
+import CheckList_1 from '../components_new/reservation/screens/CheckList_1';
+import CheckList_2 from '../components_new/reservation/screens/CheckList_2';
+import CheckList_3 from '../components_new/reservation/screens/CheckList_3';
+import CheckList_4 from '../components_new/reservation/screens/CheckList_4';
+import {ComputerDesktopIcon} from '@heroicons/react/24/outline'
+import Link from 'next/link';
+import { BsCheckSquareFill, BsDiscord, BsGithub, BsTwitter } from 'react-icons/bs';
+import { emit } from 'process';
 
 const web3 = new Web3(Web3.givenProvider);
 
 const Claim = () => {
 
   // ETH address
-  const { address, isConnected } = useAccount();
-
+  const { address, isConnected, connector } = useAccount();
   const [loadingReservations, setLoadingReservations] = useState(true)
   const [loadingWrite, setLoadingWrite] = useState(false)
-  
   const [step, setstep] = useState(0);
 
   // For checking all existing labels
@@ -32,6 +52,7 @@ const Claim = () => {
   
   const EVMAddressTaken = (suppliedAddress='') => {
     const address = suppliedAddress || evmAddress;
+    // console.log(reservations)
     return reservations.find(l => l.evm_address === address);
   }
 
@@ -39,36 +60,40 @@ const Claim = () => {
     reservations.find(l => l.reserved_ans === arLabel.toLowerCase())
   )
 
-  const checkOwnedLabelsList = () => existingANSNames.map(u => u.ownedLabels).flat().map(l => l.label).find(l => l === arLabel.toLowerCase());
-
-  const validateLabel = () => {
-    if (arLabel.length === 0) return ''
-    if (arLabel.toLowerCase() === 'ar') return 'ar is reserved'
-    if (!ArLabelRegex.test(arLabel)) return 'Invalid label'
-    if (arLabelReserved() || checkOwnedLabelsList()) return 'Label taken'
-    return ''
-  };
 
   const validateEVM = (suppliedAddress='') => {
     const address = suppliedAddress || evmAddress;
     if (address.length === 0) return ''
     if (!EvmAddressRegex.test(address) || !web3.utils.checkAddressChecksum(address)) return 'Invalid EVM address'
-    if (EVMAddressTaken(address)) return 'This address is already registered'
+    // Checks if the EVM address has registered ans 
+    if (!EVMAddressTaken(address)) return 'Nothing to claim here.'
     return ''
   };
 
-  useEffect(() => {
-    setInvalidLabel(validateLabel())
-  }, [arLabel])
+  
+
+  const [validClaim, setvalidClaim] = useState('')
+  const [validUserToClaim, setValidUserToClaim] = useState(false)
+  const checkForClaim = (address) => { 
+    if (EVMAddressTaken(address)) {
+      setvalidClaim('You are eligible to claim your Airdrop.')
+      return true
+    } else{
+      // setInvalidEVM('Nothing to claim here.')
+      return false
+    }
+  }
 
   useEffect(() => {
     setInvalidEVM(validateEVM())
-  }, [evmAddress])
+    setValidUserToClaim(checkForClaim())
+  }, [evmAddress, reservations, checkForClaim, validateEVM])
 
   useEffect(() => {
     const g = localStorage.getItem("EthLisbonEvent2022")
     if (g) {
-      setstep(2)
+      // setste[0]
+      setstep(1)
       return
     }
     axios.get('/api/exmread').then(res => {
@@ -79,11 +104,29 @@ const Claim = () => {
     })
   }, [])
 
+  const [userDetails, setUserDetails] = useState([])
+  useEffect(() => {
+    if (isConnected && validClaim ) { 
+      let details =  reservations.find(l => l.evm_address === address);
+      setUserDetails(details)
+      console.log(details)
+    }
+  }, [isConnected, reservations, validClaim]) 
+
+  // Fetch Datasource 
+  useEffect(() => {
+    axios.get('api/exmread').then(res => {
+      const num = res.data?.requests
+      setReservations(num);
+    })
+  }, [])
+
+
   useEffect(() => {
     if (!address) return;
     if (!reservations || !existingANSNames) return;
     setInvalidEVM(validateEVM(address))
-    setInvalidLabel(validateLabel())
+    // setInvalidLabel(validateLabel())
   }, [reservations, existingANSNames])
 
   useEffect(() => {
@@ -99,34 +142,26 @@ const Claim = () => {
     }
   }, [address, isConnected, reservations]);
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (arLabel.length === 0) setInvalidLabel('Please enter a label')
-    if (!(!validateLabel() && arLabel.length > 0)) return
-    if (address && validateEVM(address)) return
-    setEvmAddress(address)
-    setLoadingWrite(true)
+  
 
-    axios.post(`api/exmwrite`, {
-      "function": "reserve",
-      "evm_address": evmAddress,
-      "ans": arLabel.toLowerCase()
-    })
-    .then((res) => {
-      localStorage.setItem('EthLisbonEvent2022', arLabel);
-      setLoadingWrite(false)
-      setstep(2)
-    })
-    .catch((err) => {
-      setInvalidLabel('Request failed, try again later')
-      console.log(err);
-    })
-  }
+
+  // If the user is not connected then 
+  useEffect(() => {
+    if (!isConnected) setstep(0)
+  }, [isConnected])
+  
+  // temporary 
+  const [chainUrlId, setChainUrlId] = useState('')
+  const [ensAvatar, setEnsAvatar] = useState('')
+  const [lineBarSteps, setLineBarSteps] = useState(0)
+  const ARCONNECT_DOWNLOAD_LINK = "https://www.arconnect.io/"
+  const OPEN_ARK_CONNECT = "https://ark.decent.land/"
 
   const CustomConnectButton = () => {
     return (
       <ConnectButton.Custom>
         {({
+
           account,
           chain,
           openAccountModal,
@@ -138,6 +173,9 @@ const Claim = () => {
           // Note: If your app doesn't use authentication, you
           // can remove all 'authenticationStatus' checks
           const ready = mounted && authenticationStatus !== 'loading';
+
+          setChainUrlId(chain?.iconUrl)
+          setEnsAvatar(account?.ensAvatar)
           const connected =
             ready &&
             account &&
@@ -158,23 +196,50 @@ const Claim = () => {
               {(() => {
                 if (!connected) {
                   return (
-                    <button 
-                      onClick={openConnectModal}
-                      style={{ width: '100%'}}
-                      className='bg-gray-300 hover:bg-gray-300/80 font-bold py-2 px-4 rounded-xl text-center'
+                    // <button 
+                    //   onClick={openConnectModal}
+                    //   style={{ width: '100%'}}
+                    //   className='bg-gray-300 hover:bg-gray-300/80 font-bold py-2 px-4 rounded-xl text-center'
+                    // >
+                    //   Connect 
+                    // </button>
+                    <button className=" bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
+                    onClick={openConnectModal}
+                    disabled={invalidEVM.length !== 0}
                     >
-                      Connect Wallet
-                    </button>
+                      <div className='flex justify-center'>
+                        <p className='relative text-center '>Connect Wallet</p>
+                        {/* <ArrowLongRightIcon height={20} width={20} className="absolute right-2"/> */}
+                      </div>
+                  </button>
                   );
                 }
                 return (
-                  <button 
-                    onClick={openAccountModal}
-                    style={{ width: '100%'}}
-                    className='bg-gray-300 hover:bg-gray-300/80 font-bold py-2 px-4 rounded-xl text-center'
-                  >
-                    {account.displayName}
-                  </button>
+                  // <button 
+                  //   onClick={openAccountModal}
+                  //   style={{ width: '100%'}}
+                  //   className='bg-gray-300 hover:bg-gray-300/80 font-bold py-2 px-4 rounded-xl text-center'
+                  // >
+                  //   {account.displayName}
+                  // </button>
+                  <div className='items-center flex flex-col justify-center'>
+                    <UserAccountDetails 
+                      upperMessage='Your Connected Wallet'
+                      address={account?.address} 
+                      chainIconUrl={chain?.iconUrl}
+                      displayImg={account?.ensAvatar}
+                      walletName={connector?.name}
+                    />
+                    <button className=" mt-9 bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
+                      disabled={!validUserToClaim}
+                      onClick={() => setstep(1)}
+                      >
+                        <div className='flex justify-center'>
+                          <p className='relative text-center '>Get Started</p>
+                          {/* <ArrowLongRightIcon height={20} width={20} className="absolute right-2"/> */}
+                        </div>
+                    </button>
+                  </div>
                 );
               })()}
             </div>
@@ -194,89 +259,97 @@ const Claim = () => {
         <meta name="twitter:url" content="ar.page"></meta>
         <meta name="twitter:description" content="Coming soon..." />
       </Head>
-      <div className="flex h-full -mt-20 items-center justify-center">
-        <div className="flex flex-col items-center justify-center max-w-[420px] mx-auto gap-y-3 font-sans px-12 mt-20">
-          {step === 0 && (
-            <>
-              {invalidEVM.length === 0 && address && <button className="self-start cursor-pointer text-gray-400 decoration-gray-400 underline" onClick={() => setstep(1)}>Next</button>}
-              <div className="w-full">
-                <h1 className="text-[40px] font-bold text-center mb-6">One Identity For The Permaweb</h1>
-                <div className="text-lg text-center mb-6">Ar.page aggregates all your data in a single place, say hi to a new home.</div>
-                <div className="bg-zinc-200/90 rounded-xl">
-                  <div className="carousel mb-8 h-40">
-                    <div className="carousel-item w-full flex justify-center items-center">Never gonna give you up</div>
-                    <div className="carousel-item w-full flex justify-center items-center">Never gonna let you down</div>
-                    <div className="carousel-item w-full flex justify-center items-center">Never gonna run around and desert you</div>
-                    <div className="carousel-item w-full flex justify-center items-center">Never gonna make you cry</div>
-                    <div className="carousel-item w-full flex justify-center items-center">Never gonna say goodbye</div>
-                    <div className="carousel-item w-full flex justify-center items-center">Never gonna tell a lie and hurt you</div>
-                  </div>
-                </div>
-                <CustomConnectButton
-                  label="Connect"
-                  showBalance={false}
-                  chainStatus="icon"
-                  accountStatus="address" 
-                />
-                <p className="text-red-500 my-2 text-center h-6">{invalidEVM}</p>
-              </div>
-              {/* <p>Make sure to use the address that will receive the appropriate event Poap!</p> */}
-            </>
-          )}
-          {step === 1 && (
-            <>
-              <button className="self-start cursor-pointer text-gray-400 decoration-gray-400 underline" onClick={() => setstep(0)}>Back</button>
-              <div className="text-[32px] font-bold">Reserve a username, reedem it later</div>
-              <div className="text-sm self-start mb-6">You can only reserve one username per account</div>
-              <form className="w-full mt-3" onSubmit={onSubmit}>
-                <div className="mb-6">
-                  <div className="w-full">
-                    <input
-                      className="w-full border-2 border-gray-300 bg-gray-300/90 outline-gray-400 p-2 rounded-lg"
-                      placeholder="Enter your desired label"
-                      value={arLabel}
-                      onChange={(e) => setArLabel(e.target.value)}
-                    />
-                  </div>
-                  <p className={`text-red-500 my-2 text-center h-6`}>
-                    {invalidLabel}
+      <div className="flex h-full font-sans px-6 items-center justify-center ">
+        <div className="flex flex-col justify-center max-w-[420px] items-center relative ">
+
+          {
+// 2. SECOND SCREEN
+            step === 0 && (
+              <>
+                <div className="w-full h-screen flex flex-col justify-center text-center ">
+                  <h1 className="text-[40px] font-bold mb-2">Check & Claim <br/>your ANS Airdrop</h1>
+                  <p className='font-medium text-sm mb-10 text-[#3a3a3a] '>
+                    If you participated in DecentLand's Airdrop event from ETH Lisbon 2022, you are eligible to claim
+                    your ArPage and ANS Domain using a valid Ethereum Wallet.
                   </p>
-                  <p className="text-xs ">Labels can only have numbers from 0-9 and <span className="font-semibold">lowercase</span> English letters. 2 letters minimum, 15 max.</p>
-                </div>
-                <button
-                  className="!bg-gray-300/90 outline-gray-400 text-black font-semibold py-2 rounded-2xl px-4 cursor-pointer w-full !justify-center"
-                  type="submit"
-                  disabled={invalidEVM.length > 0 || invalidLabel.length > 0}
-                >
-                  {loadingWrite ? "Loading...": "Reserve"}
-                </button>
-              </form>
-            </>
-          )}
-          {step === 2 && (
-            <>
-              <h1 className="text-3xl font-bold">Congrats!</h1>
-              <h1 className="text-xl font-medium break-all text-center">
-                <span>{localStorage.getItem("EthLisbonEvent2022") || "placeholder"} </span>
-                 is reserved for <br />{address}
-              </h1>
 
-              <div className="w-full h-40 rounded-xl bg-gray-300">
-                art
+                  <CustomConnectButton
+                    label="Connect"
+                    showBalance={false}
+                    chainStatus="icon"
+                    accountStatus="address" 
+                  />
+                  {isConnected && invalidEVM && ( <p className="text-red-500 my-2 text-center h-6">{invalidEVM}</p>)}
+                 {isConnected && validClaim && ( <p hidden={invalidEVM.length != 0} className="text-green-400 font-bold my-2 text-center h-6">{validClaim}</p>)}
               </div>
+              </>
+            )
+          }
+          {
 
-              <h2 className="text-xl font-medium">
-                <span>To claim your label, go to </span>
-                <a href="https://ark.decent.land?ref=arpage" className="text-primary hover:underline decoration-primary">Ark protocol</a>
-                <span> to link your account and be eligible!</span>
-              </h2>
-              <div className="text-[60px]"></div>
-              <a href="https://ark.decent.land?ref=arpage" className="w-full h-12 rounded-xl bg-gray-300 flex justify-between items-center px-6 text-black">
-                <span className="font-semibold text-lg">Go to ark protocol</span>
-                <ArrowRightIcon className="w-6 h-6" />
-              </a>
-            </>
-          )}
+            step === 1 && (
+              <>
+                <section className=' relative h-screen '>
+                  
+                  <div className='items-center mt-32'>
+                    <div className='flex flex-row  mb-4 '>
+                      <BackButton setstep={setstep} step={step - 1}/>
+                    </div>
+                    <h1 className='text-3xl font-bold mb-3'>Welcome to Arweave <br/> Name Service!🎉</h1>
+                    
+                    <div className='mt-2 rounded-sm h-[1px]  bg-[#d9d9d9]'></div>
+                    
+                    <div className="text-sm">
+                      <p className='text-left text-[#8e8e8f] mt-6'>Whether you are beginner or experienced,
+                      we will walk you through the whole process of setting your Arweave Wallet and connecting your EVM
+                      wallet to Arweave using the Ark Protocol.</p>
+                      <p className='text-left text-[#8e8e8f] mt-3'>if needed, feel free to skip some steps.</p>
+                      <p className='text-left text-[#8e8e8f] mt-3 mb-4'>If you have any question, please reach out to us on Discord 
+                        and we will guide you as much as we can. </p>
+                    </div>
+
+                    <div className=''>
+                      <ul className='space-y-2 text-sm'>
+                        <li className='flex flex-row space-x-2.5 items-center text-[#6a6b6a] '>
+                          <ComputerDesktopIcon height={25} width={25} color={"#6a6b6a"} strokeWidth={2} />
+                          <p>Completed on: <span className='font-bold text-[#6a6b6a] '>Desktop</span></p>
+                        </li>
+                        <li className='flex flex-row space-x-2.5 items-center text-[#6a6b6a]'>
+                          <ClockIcon height={25} width={25} color={"#6a6b6a"} strokeWidth={2} />
+                          <p>Approx. time to complete:<span className='font-bold text-[#6a6b6a] '> ~5 min</span></p>
+                        </li>
+                      </ul>
+                    </div>
+
+                  </div>
+
+                </section>
+                  <div className='flex flex-col justify-center w-full absolute bottom-10 '>
+                      <button className=" bg-[#1273ea] h-14  items-center relative rounded-lg text-white font-bold text-lg" 
+                        onClick={() => setstep(2)}>
+                          <div className='flex justify-center items-center'>
+                            <p className='relative text-center '>Start</p>
+                            <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/>
+                          </div>
+                      </button>
+                      <p onClick={() => setstep(0)} 
+                        className='cursor-pointer mt-4 text-center text-sm text-[#6a6b6a] font-medium'>Maybe later</p>  
+                  </div>                
+              </>
+            )
+          }
+          {
+            step === 2 && (<CheckList_1 step={step} setstep={setstep}  />)
+          }
+          {
+            step === 3 && (<CheckList_2 step={step} setstep={setstep}/>)
+          }
+          {
+            step === 4 && (<CheckList_3 step={step} setstep={setstep}/>)
+          }
+          {
+            step === 5 && (<CheckList_4 step={step} setstep={setstep} arLabel={userDetails.reserved_ans}/>)
+          }
         </div>
       </div>
     </>

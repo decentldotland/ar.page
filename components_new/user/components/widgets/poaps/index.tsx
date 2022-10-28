@@ -5,6 +5,8 @@ import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../../../atoms';
 import { Res } from '../../../../../src/types';
 import { Divider } from '../../reusables';
+import {BiChevronLeft, BiChevronRight} from 'react-icons/bi'
+
 
 export default function Poaps({ props }: { props: Res }) {
   const { POAPS } = props;
@@ -31,7 +33,7 @@ export default function Poaps({ props }: { props: Res }) {
       {/* <h1 className="text-left font-inter font-bold text-xl">POAPS</h1> */}
       <div className="group relative">
 
-          <ChevronLeftIcon height={10} color="#222" width={10} strokeWidth={2} className={`absolute top-0 
+          <BiChevronLeft height={10} color="#fff" width={10}  className={`absolute top-0 
               bottom-0 left-2 bg-gray-500/50 rounded-full 
               m-auto z-50 h-6 w-6
               cursor-pointer opacity-0 
@@ -41,11 +43,21 @@ export default function Poaps({ props }: { props: Res }) {
             onClick={() => handleClick("left")}
             />
 
-          <div ref={rowRef} className="gap-x-5    flex md:gap-x-12 md:p-2 carousel mb-5 md:ml-1 group relative">
+          <div ref={rowRef} className="md:gap-x-10 -space-x-3.5 flex  md:p-2 carousel mb-5 md:ml-1 group relative">
             {POAPS.map((p, idx) => (
               <div  key={idx} className="carousel-item">
-                <label className="flex items-center cursor-pointer modal-button" htmlFor={"poap-modal-" + idx}>
-                  <Image loader={() => p.event.image_url} src={p.event.image_url}  width={112} height={112} />
+                <label className="flex 
+                  items-center 
+                  cursor-pointer 
+                  modal-button " 
+                  htmlFor={"poap-modal-" + idx}>
+                  <Image loader={() => p.event.image_url} 
+                    src={p.event.image_url} 
+                    width={112} 
+                    height={112}  
+                    quality={80}
+                    className="scale-75 md:scale-100"
+                  />
                 </label>
                 <input type="checkbox" id={"poap-modal-" + idx} className="modal-toggle" />
                 <label htmlFor={"poap-modal-" + idx} className="modal cursor-pointer backdrop-blur-md">
@@ -64,7 +76,7 @@ export default function Poaps({ props }: { props: Res }) {
             ))}
           </div>
         
-          <ChevronRightIcon  height={10} color="#222" width={10} strokeWidth={2}
+          <BiChevronRight  height={10} color="#fff" width={10} 
             className={`absolute top-0 
               bottom-0 right-2 bg-gray-500/50 rounded-full
               m-auto z-50 h-6 w-6

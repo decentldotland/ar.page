@@ -42,12 +42,12 @@ function PageContent(props: userInfo) {
   }, [])
 
   return (
-    <div className="h-9 w-full font-inter ">
+    <div className=" w-full font-inter h-screen">
     <Toaster position='top-center'/>
 
       <CoverPage userInfo={props.userInfo} />
       <div className="flex xl:justify-center ">
-        <div className="flex flex-col px-4 md:px-16 sm:px-10  max-w-[100vw] xl:max-w-[1145px] w-full">
+        <div className="flex flex-col px-6 md:px-16 sm:px-10  max-w-[100vw] xl:max-w-[1145px] w-full">
           <UserInfo user={{userInfo: info}} profile={arkProfile} />
           <EditModal userColor={info.address_color} wallet={info.user} userInfo={props} /> 
           {/* @ts-ignore  sorry about this */}
@@ -64,7 +64,7 @@ export default function UserPage (props: userInfo) {
       {/* <div className="h-full max-h-full overflow-clip w-[250px] md:block hidden bg-base-100">
         <Sidebar />
       </div> */}
-      <div className="w-full h-body overflow-y-scroll bg-base-200/25">
+      <div className="w-full h-body ">
         <PageContent userInfo={props.userInfo} />
       </div>
     </div>

@@ -32,7 +32,7 @@ function Avatar ({ansData, options} :{ansData: ANSData, options?: AvatarOptions}
         <Image src={url!}  
           height={9999999}
           width={9999999}
-          className="w-full h-full" 
+          className="" 
           alt="Profile" 
           quality={10}
           />

@@ -23,7 +23,7 @@ export default function StampsTab({currentUser, stamps, loading, perPage}: {curr
     setSearch(e);
     setFilteredTransactions(stamps.filter((tx) => tx.title?.toLowerCase().includes(e.toLowerCase())));
   };
-  console.log(stamps)
+  // console.log(stamps)
   useEffect(() => {
     setOnLoad(true);
   }, [])
@@ -65,7 +65,7 @@ export default function StampsTab({currentUser, stamps, loading, perPage}: {curr
                 <div className="grow flex justify-between items-start">
                   <div className="flex flex-col mb-5">
                     <div className='font-semibold '><span className="text-[#777]">{currentUser.ANS.nickname} stamped</span> {stamp.title}</div>
-                    {console.log(stamp)}
+                    {/* {console.log(stamp)} */}
                     <div className='text-sm'>{epochToDate(stamp.timestamp)}</div>
                   </div>
                   <div className="flex mr-4">

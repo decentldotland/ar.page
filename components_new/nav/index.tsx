@@ -7,6 +7,10 @@ import NavBarButtons from './NavBarButtons';
 import SearchBar from './SearchBar';
 import SearchBox from './select-search';
 import { resolveDomain } from '../../src/utils';
+import { useRecoilState } from 'recoil';
+import { isDarkMode } from '../../atoms';
+import Image from 'next/image';
+import Favicon from '../../public/favicon.ico';
 
 export const Nav = (props:any) => {
 
@@ -38,29 +42,39 @@ export const Nav = (props:any) => {
 
     // console.log(userInfo)
     const toggleDark = props.toggleDark;
+    const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
 
     // bg-base-100
     return (
-        <div className="z-30 font-inter flex justify-between h-[56px] overflow-visible px-2 md:px-16 items-center w-full sm:px-10 ">
+        <div className={` w-screen  fixed top-0 border-b-2 border-[#FAFAFA] z-30 font-inter flex justify-between sm:h-[76px] 
+        h-[66px] px-6 items-center ${isDark ? ('bg-[#131A2E]'):('bg-[#FEFEFF] ')} overflow-visible md:px-16 items-center  sm:px-10`}>
             <div className='flex flex-rows space-x-3.5 items-center '>
                 <Link href={resolveDomain("")} >
-                    <h1 className='text-xl font-bold text-gray-600 cursor-pointer'>📃</h1>
+                    <Image src={Favicon} width={30} height={30} className='mx-auto my-auto cursor-pointer' alt="" />
+
                 </Link>
-                <SearchBox
-                    multiple={false}
-                    disabled={false}
-                    placeholder="Search for name or address"
-                    // items={["test", "test0", "test1", "test2", "test3", "test4"]} />
-                    // items={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} /> 
-                    options={userInfo.res.map(
-                            (member: { 
-                                currentLabel: string, 
-                                nickname: string
-                                avatar: string | undefined
-                                }) => ({name: member.currentLabel, value: member.nickname, photo: member.avatar}))} /> 
+                <div className='hidden sm:block'>
+                    <SearchBox
+                        multiple={false}
+                        disabled={false}
+                        placeholder="Search for name or address"
+                        // items={["test", "test0", "test1", "test2", "test3", "test4"]} />
+                        // items={userInfo.res.map((member: { currentLabel: string, nickname: string }) => ({name: member.currentLabel, value: member.nickname}))} /> 
+                        options={userInfo.res.map(
+                                (member: { 
+                                    currentLabel: string, 
+                                    nickname: string
+                                    avatar: string | undefined
+                                    }) => ({name: member.currentLabel, value: member.nickname, photo: member.avatar}))} /> 
+
+                </div>
             </div>
-            <div className="ml-2">
+            
+            {/* <Link href={resolveDomain("")} >
+                <h1 className='text-4xl font-bold relative top-3 left-10 text-gray-600 cursor-pointer sm:hidden'>📃</h1>
+            </Link> */}
+            <div className="ml-2 mt-4">
                 <NavBarButtons />
             </div>
         </div>
