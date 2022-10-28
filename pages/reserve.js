@@ -96,7 +96,7 @@ const Reserve = () => {
     axios.get('api/exmread').then(res => {
       const num = res.data?.reserved
       setnumOfReserved(num);
-      if (num === 100) return setInvalidEVM('Reached maximum number of signups!')
+      if (num === 200) return setInvalidEVM('Reached maximum number of signups!')
     })
   }, [])
 
@@ -458,7 +458,7 @@ const Reserve = () => {
                         
                         {/* doing it this way due to errors amounted just from fetching this value */}
                         <span className="text-transparent bg-clip-text text-4xl bg-gradient-to-r from-fuchsia-600 to-blue-600 mr-1"> {reservations.length + 1} 
-                        </span> of 100 who will receive an AirDrop!<br/> 
+                        </span> of 200 who will receive an AirDrop!<br/> 
                         </h1>
                         <h1 className='text-[#3a3a3a] text-base mb-5 text-center'><span className='font-bold'>@{arLabel}</span> is now reserved under:</h1>
                           <div className='relative left-9 sm:left-20 '>

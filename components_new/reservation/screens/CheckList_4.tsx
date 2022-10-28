@@ -44,7 +44,7 @@ const TWITTER_DL = "https://twitter.com/decentdotland"
                   </div>
 
                   {
-                    hasBeenLinkedWithArk === undefined ? (
+                    hasBeenLinkedWithArk !== undefined ? (
                       <div className="flex flex-col items-center justify-center mb-16">
                         <CircularProgress color="inherit" size={30} className="mb-3"/>
 
@@ -61,6 +61,20 @@ const TWITTER_DL = "https://twitter.com/decentdotland"
                       <p className='text-center font-medium text-[#3a3a3a] text-sm'>
                         After the event, you will be granted<br /> access to edit your profile.
                       </p>
+                      <div className='items-center text-center'>
+                        <h1 className="text-lg font-bold items-center text-center mt-10">Dont't miss out and Get Notified!</h1>
+                        <p>We'll send you an email or sms notifications</p>
+                        {/* <Notifications 
+                          api_key={api_key} 
+                          collection_name={collection_name} 
+                          userAddress={userAddress} 
+                          sms_text={sms_text}
+                          email_subject={email_subject}
+                          email_body={email_body}
+                          onDisabled={onDisabled}
+                          onEnabled={onEnabled}
+                        /> */}
+                      </div>
                     </div>
 
                     )
