@@ -47,10 +47,10 @@ const Reserve = () => {
   }
 
   const arLabelReserved = () => (
-    reservations.find(l => l.reserved_ans === arLabel.toLowerCase())
+    reservations.find(l => l.reserved_ans === arLabel)
   )
 
-  const checkOwnedLabelsList = () => existingANSNames.map(u => u.ownedLabels).flat().map(l => l.label).find(l => l === arLabel.toLowerCase());
+  const checkOwnedLabelsList = () => existingANSNames.map(u => u.ownedLabels).flat().map(l => l.label).find(l => l === arLabel);
   const validateLabel = () => {
     if (arLabel.length === 0) return ''
     if (arLabel.length > 15) return 'Username is too long'
@@ -180,7 +180,7 @@ const Reserve = () => {
     axios.post(`api/exmwrite`, {
       "function": "reserve",
       "evm_address": evmAddress,
-      "ans": arLabel.toLowerCase()
+      "ans": arLabel
     })
     .then((res) => {
       localStorage.setItem('EthLisbonEvent2022', arLabel);
