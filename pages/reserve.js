@@ -39,7 +39,7 @@ const Reserve = () => {
   const [validPoap, setValidPoap] = useState(false)
   const [reservedUserDetails, setReservedUserDetails] = useState('')
   const EvmAddressRegex = /^0x[a-fA-F0-9]{40}$/;
-  const ArLabelRegex = /^[a-z0-9]{2,15}$/;
+  const ArLabelRegex = /^[A-Za-z0-9]{2,15}$/;
   const [userPoaps, setUserPoaps] = useState([])
   const EVMAddressTaken = (suppliedAddress='') => {
     const address = suppliedAddress || evmAddress;
