@@ -64,7 +64,7 @@ const Reserve = () => {
     const address = suppliedAddress || evmAddress;
     if (address.length === 0) return ''
     if (!EvmAddressRegex.test(address) || !web3.utils.checkAddressChecksum(address)) return 'Invalid EVM address'
-    if (EVMAddressTaken(address)) return 'This address is already registered'
+    if (EVMAddressTaken(evmAddress)) return 'This address is already registered'
     return ''
   };
 
@@ -373,7 +373,7 @@ const Reserve = () => {
                   <p className="text-red-500 my-2 text-center h-6">{invalidEVM}</p>
                   {
                     validPoap ? (
-                      <p hidden={!isConnected} className="text-green-400 my-2 text-center h-6">{invalidPOAP}</p>
+                      <p hidden={!isConnected || invalidEVM.length !== 0} className="text-green-400 my-2 text-center h-6">{invalidPOAP}</p>
 
                     ) : (
                       <p hidden={!isConnected} className="text-red-500 my-2 text-center h-6">{invalidPOAP}</p>
