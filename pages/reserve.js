@@ -100,11 +100,11 @@ const Reserve = () => {
   // test accont = "0x2a01d339d3ab41b2d8b145b5df8586032d9961c6"
   useEffect(() => { 
     if (isConnected) {
-      getAllPoaps(evmAddress).then(res => { 
+      getAllPoaps(address).then(res => { 
         setUserPoaps(res)
       })
     }
-  }, [evmAddress, isConnected])
+  }, [address, isConnected])
 // console.log(userPoaps)
   useEffect(() => {
     const g = localStorage.getItem("EthLisbonEvent2022")
