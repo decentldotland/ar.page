@@ -100,11 +100,11 @@ const Reserve = () => {
   // test accont = "0x2a01d339d3ab41b2d8b145b5df8586032d9961c6"
   useEffect(() => { 
     if (isConnected) {
-      getAllPoaps(address).then(res => { 
+      getAllPoaps(evmAddress).then(res => { 
         setUserPoaps(res)
       })
     }
-  }, [address, isConnected])
+  }, [evmAddress, isConnected])
 // console.log(userPoaps)
   useEffect(() => {
     const g = localStorage.getItem("EthLisbonEvent2022")
@@ -157,7 +157,7 @@ const Reserve = () => {
   }, [reservations, existingANSNames])
 
   useEffect(() => {
-    if (address && isConnected && reservations.length > 0) {
+    if (address && isConnected && reservations.length !== 200) {
       const result = validateEVM(address);
       setInvalidEVM(result)
       setEvmAddress(address)
