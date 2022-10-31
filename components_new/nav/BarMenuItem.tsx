@@ -2,23 +2,28 @@ import { BookOpenIcon, CheckBadgeIcon, FaceSmileIcon, MoonIcon } from '@heroicon
 import { useAns } from 'ans-for-all';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { FiLogIn, FiLogOut } from 'react-icons/fi';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../atoms';
 import Favicon from '../../public/favicon.ico';
 import Avatar from '../avatar';
 import { Divider } from '../user/components/reusables';
-import { User } from '../user/sidebar/user';
 import { NavUser } from './NavUser';
 import {SunIcon} from '@heroicons/react/24/outline'
 import { CircularProgress } from '@mui/material';
 import { resolveDomain } from '../../src/utils';
-import { Ans } from '../../src/types';
+import { Ans, ANSData } from '../../src/types';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/router';
+
 
 
 function BarMenuItem() {
   const [toggle, setToggle] = useState(false);
+  const [user, setUser] = useState<ANSData | null>()
+  const [error , seterror ] = useState( null)
+  const router = useRouter();
   const {
     walletConnected,
     ansData,
@@ -35,6 +40,45 @@ function BarMenuItem() {
         localStorage.theme = 'ardark';
     }
     setIsDark(!isDark);
+}
+const [loading, setLoading] = useState(false)
+useEffect(
+    () =>  {
+        if (ansData?.currentLabel) {
+            setUser(ansData)
+            setLoading(false)
+        } else { 
+            setLoading(true)
+        }
+    }, [ansData, loading])
+
+// if after 10 s remidn the user that he doesnt have an ans account -> create a link to onboaring
+const [tryAgainLater, TryAgainLater] = useState(false)
+
+setTimeout(() => {
+    if (walletConnected && loading && ansData) {
+        TryAgainLater(true)
+    }
+}, 10000, ansData, loading);
+
+
+const connectAccount = async () => {
+    setLoading(true);
+    await arconnectConnect?.().catch((e) => {
+        alert(e.message)
+        setLoading(false);
+        seterror(e)
+    }).finally(() => setLoading(false))
+}
+const logout = async () => { 
+    setLoading(true);
+    await arconnectDisconnect?.().then(() => { 
+        setUser(null)
+    }).catch((e) => {
+        alert(e.message)
+        seterror(e)
+    }).finally(() => setLoading(false))
+
 }
 
 const container: any = React.useRef();
@@ -62,40 +106,55 @@ useEffect(() => {
       setIsDark(false)
     }
 }, [isDark]);
+
   return (
     <section className=''  ref={container}>
         <button  onClick={() => setToggle(!toggle)}>
             <NavUser />
         </button>
-
         <article className={`relative`} >
             {
                 toggle && (
                     <div 
                         hidden={!toggle}
-                        className={` ${isDark ? ('bg-[#121a2f]'):('bg-white ')} text-black absolute z-50 py-5 px-2 right-1 shadow-xl 
+                        className={`
+                        ${isDark ? ('bg-[#121a2f]'):('bg-white ')} text-black absolute z-50 py-5 px-2 right-1 shadow-xl 
                         rounded-xl mt-4 w-[272px]`}>
                         <ul className='h-full'>
                             {
-                                walletConnected && ansData?.currentLabel  ? (
-                                  
+                                walletConnected ? (
+                                    
                                     <li className={`space-x-3.5 flex flex-row items-center  px-2  py-2
-                                    ${ansData.avatar ? ('bg-white') : ('bg-gray-100 py-9 items-center flex flex-row justify-center ')} 
-                                    ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-')} h-full rounded-lg  `}>
+                                        ${loading ? (' bg-gray-100 py-9 items-center flex flex-row justify-center' ) : ('bg-white')} 
+                                        ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-')} h-full rounded-lg 
+                                     `}>
+
+                                        {/* Check if they are a holder of */}
                                         {/* nickname and label */}
                                         <div className="flex flex-col relative top-[0.5] ">
                                             {
-                                                ansData.avatar ? (
+                                                loading ? (
+                                                    <div>
+                                                        {
+                                                            tryAgainLater ? (
+                                                                <div className='text-xs font-regular text-[#6a6b6a]'>
+                                                                    Unable to load user's details.
+                                                                </div>
+                                                            ) : (
+                                                                <div>
+                                                                    <CircularProgress size={20} color={"inherit"} />
+                                                                </div>
+                                                            )
+                                                        }
+
+                                                    </div>
+                                                ) : (
                                                     <div className="flex flex-row space-x-3 items-center">
                                                         <Avatar ansData={ansData} options={{height:"56px", width:"56px"}}/>
                                                         <p className={`text-lg ${isDark ? ('text-white'): ('text-black')} font-semibold text-left`}>
                                                             {ansData?.currentLabel}
                                                         </p>
                                                     </div> 
-                                                ) : (
-                                                    <div>
-                                                        <CircularProgress size={20} color={"inherit"} />
-                                                    </div>
                                                 )
                                             }
                                  
@@ -160,8 +219,8 @@ useEffect(() => {
                             </li>
                             <Divider />
                             {
-                                walletConnected ? (
-                                    <div onClick={() => (arconnectDisconnect as Function)()} 
+                                walletConnected && ansData?.currentLabel ? (
+                                    <div onClick={logout} 
                                         className={`cursor-pointer py-2 px-2 w-full 
                                         ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')}
                                         h-full rounded-lg`}
@@ -177,7 +236,7 @@ useEffect(() => {
                                     ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')}
                                     h-full rounded-lg`}
                                     >
-                                        <div onClick={() => (arconnectConnect as Function)()} className="flex flex-row items-center space-x-3.5">
+                                        <div onClick={connectAccount} className="flex flex-row items-center space-x-3.5">
                                             <FiLogIn height={20} width={20} color={`${isDark? ('white') : ('black') }`}/>
                                             <h1>Connect Wallet</h1>
                                         </div>
