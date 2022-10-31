@@ -14,6 +14,7 @@ import { CircularProgress, Snackbar } from '@mui/material';
 import UserReservedHistory from '../components_new/reservation/UserReservedHistory';
 import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast';
+import { getAllPoaps } from '../src/utils';
 
 
 const web3 = new Web3(Web3.givenProvider);
@@ -34,22 +35,22 @@ const Reserve = () => {
   const [invalidEVM, setInvalidEVM] = useState('')
   const [arLabel, setArLabel] = useState('');
   const [invalidLabel, setInvalidLabel] = useState('');
+  const [invalidPOAP, setInvalidPOAP] = useState('')
+  const [validPoap, setValidPoap] = useState(false)
   const [reservedUserDetails, setReservedUserDetails] = useState('')
-
   const EvmAddressRegex = /^0x[a-fA-F0-9]{40}$/;
-  const ArLabelRegex = /^[a-z0-9]{2,15}$/;
-  
+  const ArLabelRegex = /^[A-Za-z0-9]{2,15}$/;
+  const [userPoaps, setUserPoaps] = useState([])
   const EVMAddressTaken = (suppliedAddress='') => {
     const address = suppliedAddress || evmAddress;
     return reservations.find(l => l.evm_address === address);
   }
 
   const arLabelReserved = () => (
-    reservations.find(l => l.reserved_ans === arLabel.toLowerCase())
+    reservations.find(l => l.reserved_ans === arLabel)
   )
 
-  const checkOwnedLabelsList = () => existingANSNames.map(u => u.ownedLabels).flat().map(l => l.label).find(l => l === arLabel.toLowerCase());
-
+  const checkOwnedLabelsList = () => existingANSNames.map(u => u.ownedLabels).flat().map(l => l.label).find(l => l === arLabel);
   const validateLabel = () => {
     if (arLabel.length === 0) return ''
     if (arLabel.length > 15) return 'Username is too long'
@@ -63,7 +64,7 @@ const Reserve = () => {
     const address = suppliedAddress || evmAddress;
     if (address.length === 0) return ''
     if (!EvmAddressRegex.test(address) || !web3.utils.checkAddressChecksum(address)) return 'Invalid EVM address'
-    if (EVMAddressTaken(address)) return 'This address is already registered'
+    if (EVMAddressTaken(evmAddress)) return 'This address is already registered'
     return ''
   };
 
@@ -75,6 +76,36 @@ const Reserve = () => {
     setInvalidEVM(validateEVM())
   }, [evmAddress])
 
+  useEffect(() => {
+
+    if (userPoaps == undefined) {
+      setValidPoap(false)
+      return setInvalidPOAP('Unable to find valid "ANS Early Adopter: ETH Lisbon 2022 POAP"')
+    }
+    if (userPoaps.length > 0) {
+      for (let i = 0; i < userPoaps.length; i +=1) {
+        if(userPoaps[i].tokenId === "5809751") {
+          console.log(i.tokenId)
+          setValidPoap(true)
+          return setInvalidPOAP('You are eligible to our AirDrop Event!')
+        } else {
+          setValidPoap(false)
+          return setInvalidPOAP('Unable to find valid "ANS Early Adopter: ETH Lisbon 2022 POAP"')
+        }
+      }
+    }
+  }, [userPoaps])
+  // Check if the user owns the valid POAP
+  // POAP id = "5809751"
+  // test accont = "0x2a01d339d3ab41b2d8b145b5df8586032d9961c6"
+  useEffect(() => { 
+    if (isConnected) {
+      getAllPoaps(evmAddress).then(res => { 
+        setUserPoaps(res)
+      })
+    }
+  }, [evmAddress, isConnected])
+// console.log(userPoaps)
   useEffect(() => {
     const g = localStorage.getItem("EthLisbonEvent2022")
     if (g) {
@@ -94,7 +125,7 @@ const Reserve = () => {
   // Check if theere's sufficient addresses 
   useEffect(() => {
     axios.get('api/exmread').then(res => {
-      const num = res.data?.reserved
+      const num = res.reserved
       setnumOfReserved(num);
       if (num === 200) return setInvalidEVM('Reached maximum number of signups!')
     })
@@ -126,7 +157,7 @@ const Reserve = () => {
   }, [reservations, existingANSNames])
 
   useEffect(() => {
-    if (address && isConnected && reservations.length > 0) {
+    if (address && isConnected && reservations.length !== 200) {
       const result = validateEVM(address);
       setInvalidEVM(result)
       setEvmAddress(address)
@@ -149,7 +180,7 @@ const Reserve = () => {
     axios.post(`api/exmwrite`, {
       "function": "reserve",
       "evm_address": evmAddress,
-      "ans": arLabel.toLowerCase()
+      "ans": arLabel
     })
     .then((res) => {
       localStorage.setItem('EthLisbonEvent2022', arLabel);
@@ -177,11 +208,9 @@ const Reserve = () => {
   }, [isConnected])
   
 
-
   // temporary 
   const [chainUrlId, setChainUrlId] = useState('')
   const [ensAvatar, setEnsAvatar] = useState('')
-  const [lineBarSteps, setLineBarSteps] = useState(0)
 
   const CustomConnectButton = () => {
     return (
@@ -229,7 +258,10 @@ const Reserve = () => {
                     // >
                     //   Connect 
                     // </button>
-                    <button className=" bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
+                    <button className= {` w-[276px] h-14 
+                    ${invalidEVM.length === 0 ? ('bg-[#1273ea]') : (' bg-gray-400')}
+
+                    items-center rounded-lg text-white font-bold text-lg`}
                     onClick={openConnectModal}
                     disabled={invalidEVM.length !== 0}
                     >
@@ -256,10 +288,12 @@ const Reserve = () => {
                       displayImg={account?.ensAvatar}
                       walletName={connector?.name}
                     />
-                    <button className=" mt-9 bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
+                    <button className={` mt-9  w-[276px] h-14 items-center 
+                      ${invalidEVM.length === 0 && validPoap ? ('bg-[#1273ea]') : (' bg-gray-400')}
+                        rounded-lg text-white font-bold text-lg `}
                       onClick={() => setstep(2)}
-                      disabled={invalidEVM.length !== 0}
-                      
+                      disabled={invalidEVM.length !== 0 || !validPoap}
+                    
                       >
                         <div className='flex justify-center'>
                           <p className='relative text-center '>Get Started</p>
@@ -296,28 +330,29 @@ const Reserve = () => {
           step === 0 && (
             <>
               {/* {invalidEVM.length === 0 && address && <button className="self-start cursor-pointer text-gray-400 decoration-gray-400 underline" onClick={() => setstep(1)}>Next</button>} */}
-              <div className="w-full mt-20">
-                <h1 className="text-[45px] font-bold text-center mb-7 mt-10">Hello Hackers👋</h1>
-                <p className="text-sm text-center mb-6">
-                  On behalf of the whole Decent Land Team, we thank you for showing your support at ETH Lisbon 2022.
-                </p>
-                <p className="text-sm text-center mb-6">
-                  By now you should have received your early access POAP token.
-                </p>
-                <p className="text-sm text-center mb-6">
-                  The token is used to be part of our <span className='font-bold'>Airdrop</span> Event 
-                  which gives you access to setup your ANS domains and ArPages before anyone else!
-                </p>
-                <p className="text-sm text-center mb-6">
-                 As of now, <span className='font-bold text-lg'>{numOfReserved}</span> people have already signed up for our airdrop!
-                </p>
-              
+              <section>
+                <div className="w-full mt-20 relative ">
+                  <h1 className="text-[45px] font-bold text-center mb-7 mt-10">Hello Hackers👋</h1>
+                  <p className="text-sm text-center mb-6">
+                    On behalf of the whole Decent Land Team, we thank you for showing your support at ETH Lisbon 2022.
+                  </p>
+                  <p className="text-sm text-center mb-6">
+                    By now you should have received your early access POAP token.
+                  </p>
+                  <p className="text-sm text-center mb-6">
+                    The token is used to be part of our <span className='font-bold'>Airdrop</span> Event 
+                    which gives you access to setup your ANS domains and ArPages before anyone else!
+                  </p>
+                  <p className="text-sm text-center mb-6">
+                  As of now, <span className='font-bold text-lg'>{numOfReserved}</span> people have already signed up for our airdrop!
+                  </p>
                 
-                
-                  <BlueButtonNext setstep={setstep} step={1} msg={"Let's go"} 
-                    sub_message={"Ready to redeem the early access to your ArPage?"}
-                    />
-              </div>
+                </div>
+              </section>
+                  <div className=''>
+                    <BlueButtonNext setstep={setstep} step={1} msg={"Let's go"} 
+                      sub_message={"Ready to redeem the early access to your ArPage?"}/>
+                  </div>
               {/* <p>Make sure to use the address that will receive the appropriate event Poap!</p> */}
             </>
           )}
@@ -336,6 +371,15 @@ const Reserve = () => {
                     accountStatus="address" 
                   />
                   <p className="text-red-500 my-2 text-center h-6">{invalidEVM}</p>
+                  {
+                    validPoap ? (
+                      <p hidden={!isConnected || invalidEVM.length !== 0} className="text-green-400 my-2 text-center h-6">{invalidPOAP}</p>
+
+                    ) : (
+                      <p hidden={!isConnected} className="text-red-500 my-2 text-center h-6">{invalidPOAP}</p>
+
+                    )
+                  }
               </div>
               </>
             )

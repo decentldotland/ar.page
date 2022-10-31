@@ -61,10 +61,11 @@ const TWITTER_DL = "https://twitter.com/decentdotland"
                       <p className='text-center font-medium text-[#3a3a3a] text-sm'>
                         After the event, you will be granted<br /> access to edit your profile.
                       </p>
+                        {/* 
                       <div className='items-center text-center'>
                         <h1 className="text-lg font-bold items-center text-center mt-10">Dont't miss out and Get Notified!</h1>
                         <p>We'll send you an email or sms notifications</p>
-                        {/* <Notifications 
+                        <Notifications 
                           api_key={api_key} 
                           collection_name={collection_name} 
                           userAddress={userAddress} 
@@ -73,8 +74,9 @@ const TWITTER_DL = "https://twitter.com/decentdotland"
                           email_body={email_body}
                           onDisabled={onDisabled}
                           onEnabled={onEnabled}
-                        /> */}
+                        /> 
                       </div>
+                        */}
                     </div>
 
                     )

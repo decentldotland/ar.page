@@ -79,7 +79,7 @@ const Claim = () => {
       setvalidClaim('You are eligible to claim your Airdrop.')
       return true
     } else{
-      // setInvalidEVM('Nothing to claim here.')
+      setInvalidEVM('Nothing to claim here.')
       return false
     }
   }
@@ -93,7 +93,7 @@ const Claim = () => {
     const g = localStorage.getItem("EthLisbonEvent2022")
     if (g) {
       // setste[0]
-      setstep(1)
+      setstep(0)
       return
     }
     axios.get('/api/exmread').then(res => {
@@ -203,10 +203,10 @@ const Claim = () => {
                     // >
                     //   Connect 
                     // </button>
-                    <button className=" bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
-                    onClick={openConnectModal}
-                    disabled={invalidEVM.length !== 0}
-                    >
+                    <button className= {` w-[276px] h-14 
+                     bg-[#1273ea]
+                      items-center rounded-lg text-white font-bold text-lg`}
+                      onClick={openConnectModal} >
                       <div className='flex justify-center'>
                         <p className='relative text-center '>Connect Wallet</p>
                         {/* <ArrowLongRightIcon height={20} width={20} className="absolute right-2"/> */}
@@ -230,8 +230,10 @@ const Claim = () => {
                       displayImg={account?.ensAvatar}
                       walletName={connector?.name}
                     />
-                    <button className=" mt-9 bg-[#1273ea] w-[276px] h-14 items-center rounded-lg text-white font-bold text-lg" 
-                      disabled={!validUserToClaim}
+                    <button className={` mt-9  w-[276px] h-14 items-center 
+                      ${invalidEVM.length !== 0 ? ('bg-gray-400') : ('bg-[#1273ea]')}
+                        rounded-lg text-white font-bold text-lg `}
+                        disabled={!validUserToClaim}
                       onClick={() => setstep(1)}
                       >
                         <div className='flex justify-center'>

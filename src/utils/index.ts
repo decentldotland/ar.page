@@ -1,3 +1,4 @@
+import axios from "axios";
 import { ArweaveTransaction } from "../types";
 
 
@@ -50,4 +51,19 @@ export function removeHttp(url: string) {
   }
 
   return url;
+}
+
+export async function getAllPoaps(evm_address: string) {
+  try {
+    const API_KEY = process.env.POAP_API_KEY;
+    const res = await axios.get(
+      `https://api.poap.tech/actions/scan/${evm_address}`,
+      {
+        headers: { "Content-Type": "application/json", "X-API-Key": API_KEY! },
+      }
+    );
+    return res?.data;
+  } catch (error) {
+    return null;
+  }
 }
