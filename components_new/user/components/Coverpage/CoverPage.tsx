@@ -47,14 +47,7 @@ function CoverPage(props: userInfo) {
             {
               address == props.userInfo.user && walletConnected ? (
                 <>
-                  <MetaforoTipping  attributes={{
-                    siteName: `${props.userInfo.currentLabel}`,
-                    pageId: "1",
-                    receiverAddress: `${props.userInfo?.user}`,
-                    receiverUsername: `${props.userInfo.currentLabel}`,
-                    receiverChainId: "AR",
-                    theme: `${isDark ? 'dark' : 'light'}`
-                }}/>
+                  
                   <EditProfile user={props}/>
 
                   {/* <ChangeCover /> */}
@@ -65,7 +58,7 @@ function CoverPage(props: userInfo) {
                     pageId: "1",
                     receiverAddress: `${props.userInfo?.user}`,
                     receiverUsername: `${props.userInfo.currentLabel}`,
-                    receiverChainId: "AR",
+                    receiverChainId: "",
                     theme: `${isDark ? 'dark' : 'light'}`
                 }}/>
                 )
