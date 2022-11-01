@@ -15,7 +15,9 @@ import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../atoms';
 import { HackathonLabels } from '../hackathon/api/labels';
 import ProfileBadge from './modals/ProfileBadge';
-import EditProfile from './EditProfile';
+import EditProfile from './Coverpage/EditProfile';
+import MetaforoTipping from './Coverpage/tip/MetaforoTipping';
+
 
 
 interface UserProps { 
@@ -99,7 +101,6 @@ export const UserInfo = ({user, profile}: UserProps) => {
                         </div>
 
                     </article>
-                   
 
                     {/* nickname and label */}
                     <div className={`ml-5 relative  ${epoch === 0 ? ('bottom-12') : ('bottom-6')} `}>
@@ -168,6 +169,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                         
                     </div>
                 </div>
+
                 {/* User Bio and Available Labels */}
                 <div className='space-y-8 -mt-20 mb-5'>
                     <Bio text={bio} />

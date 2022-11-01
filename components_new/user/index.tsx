@@ -8,9 +8,10 @@ import Collectibles from './components/widgets/tabcontent/tabs.tsx/collectibles'
 import ArweaveActivity from './components/widgets/tabcontent/tabs.tsx/activity';
 import Widgets from './components/widgets';
 import { Divider, LoadingOrNotFound } from './components/reusables';
-import CoverPage from './components/CoverPage';
+
 import { Koii, ArweaveTransaction } from '../../src/types';
 import { Toaster } from 'react-hot-toast';
+import CoverPage from './components/Coverpage/CoverPage';
 
 function PageContent(props: userInfo) {
   const bio = typeof props.userInfo.bio === 'string' ? 
