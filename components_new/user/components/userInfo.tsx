@@ -16,7 +16,9 @@ import { isDarkMode } from '../../../atoms';
 import { HackathonLabels } from '../hackathon/api/labels';
 import ProfileBadge from './modals/ProfileBadge';
 import EditProfile from './Coverpage/EditProfile';
-import MetaforoTipping from './Coverpage/tip/MetaforoTipping';
+import MetaforoTipping from './tip/MetaforoTipping';
+import MemberSince from './MemberSince';
+import CopyAddress from './CopyAddress';
 
 
 
@@ -118,25 +120,6 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                     isDark={isDark}
                                 />
                             </div>
-                            <div className={`px-2 py-2 sm:scale-90 md:scale-100 
-                                ${isDark ? ('bg-[#2c467e] text-white'): ('bg-gray-200 text-[#666]')} rounded-lg cursor-pointer`}
-                                onClick={() =>{ copy_text(user.userInfo.user); }} >
-                                <div className="flex flex-row font-inter font-semibold text-sm">
-                                    <h3 className='mr-1 hidden md:block'>
-                                        {(shortenAddress as Function)(user.userInfo.user)}
-                                    </h3>
-                                    <DocumentDuplicateIcon height={20} width={20} color={`${isDark? ('white') : ('#666') }`}
-                                        strokeWidth={2} />
-                                </div>
-                               
-                                <Snackbar
-                                    message="Copied to clipboard"
-                                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                                    autoHideDuration={2000}
-                                    onClose={() => setOpen(false)}
-                                    open={open}
-                                />
-                            </div>
                             
                         </div>
                         
@@ -147,26 +130,15 @@ export const UserInfo = ({user, profile}: UserProps) => {
                             text-center sm:text-center md:text-left lg:text-left`} >
                                 {user.userInfo.nickname}
                             </h3>
-                            <div>
-                                {
-                                    epoch > 0 && (
-                                        <div className='flex flex-row items-center justify-center md:justify-start space-x-2 '>
-                                            <div className={`flex flex-row  
-                                                items-center space-x-1  
-                                                py-1 px-2 w-fit ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')}  
-                                                rounded-lg 
-                                                font-inter  text-xs font-bold`}>
-                                                    <CalendarDaysIcon height={14} width={14} 
-                                                    color={`${isDark? ('white') : ('#666') }`}
-                                                    strokeWidth={2}/>
-                                                    <p>Since {month} {year}</p>
-                                            </div>
-                                        </div>
-                                    )
-                                }
-                            </div>
+                            <MetaforoTipping  attributes={{
+                                siteName: `${user.userInfo.currentLabel}`,
+                                pageId: "1",
+                                receiverAddress: `${user.userInfo?.user}`,
+                                receiverUsername: `${user.userInfo.currentLabel}`,
+                                receiverChainId: "",
+                                theme: `${isDark ? 'dark' : 'light'}`
+                            }}/>
                         </div>
-                        
                     </div>
                 </div>
 
