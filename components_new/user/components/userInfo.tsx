@@ -19,6 +19,7 @@ import EditProfile from './Coverpage/EditProfile';
 import MetaforoTipping from './tip/MetaforoTipping';
 import MemberSince from './MemberSince';
 import CopyAddress from './CopyAddress';
+import FollowButton from './FollowButton';
 
 
 
@@ -106,7 +107,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
 
                     {/* nickname and label */}
                     <div className={`ml-5 relative  ${epoch === 0 ? ('bottom-12') : ('bottom-6')} `}>
-                        <div className="sm:mt-7  flex flex-row items-center space-x-3 justify-center mt-5">
+                        <div className="sm:mt-7  flex flex-row items-center space-x-3 justify-center md:justify-start mt-5">
                             <div className="flex items-center ">
                                 <div className={`md:text-2xl text-[28px] 
                                 ${isDark ? (' text-white'): (' text-[#000]')}
@@ -120,7 +121,6 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                     isDark={isDark}
                                 />
                             </div>
-                            
                         </div>
                         
                         <div className='sm:flex sm:flex-col sm:space-y-1 '>
@@ -130,14 +130,17 @@ export const UserInfo = ({user, profile}: UserProps) => {
                             text-center sm:text-center md:text-left lg:text-left`} >
                                 {user.userInfo.nickname}
                             </h3>
-                            <MetaforoTipping  attributes={{
-                                siteName: `${user.userInfo.currentLabel}`,
-                                pageId: "1",
-                                receiverAddress: `${user.userInfo?.user}`,
-                                receiverUsername: `${user.userInfo.currentLabel}`,
-                                receiverChainId: "",
-                                theme: `${isDark ? 'dark' : 'light'}`
-                            }}/>
+                            <div className='flex flex-row space-x-4'>
+                                <FollowButton />
+                                <MetaforoTipping  attributes={{
+                                    siteName: `${user.userInfo.currentLabel}`,
+                                    pageId: "1",
+                                    receiverAddress: `${user.userInfo?.user}`,
+                                    receiverUsername: `${user.userInfo.currentLabel}`,
+                                    receiverChainId: "",
+                                    theme: `${isDark ? 'dark' : 'light'}`
+                                }}/>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -27,10 +27,11 @@ function MetaforoTipping({attributes}: Props) {
   return (
     <>
         <Script aria-disabled={!toggle} aria-defer="defer" src="https://cdn.jsdelivr.net/gh/metaforo/comment3/dist/metaforo-sdk.min.js" strategy='lazyOnload' />
-        <button onClick={() => setToggle(!toggle)} {...attributes} className=' font-semibold  metaforo-tip cursor-pointer active:scale-95  
-         font-inter flex flex-row items-center 
-         px-2 h-[36px] justify-start
-        space-x-1   rounded-lg bg-[#eaeaea] text-[#666]'>
+        <button onClick={() => setToggle(!toggle)} {...attributes} className=' font-semibold  
+            metaforo-tip cursor-pointer active:scale-95  
+            font-inter flex flex-row items-center 
+            px-2 h-[36px] justify-start
+            space-x-1 rounded-lg bg-[#eaeaea] text-[#666]'>
             <RiCoinsLine size={26}
             color={`${isDark? ('white') : ('#666') }`}        />
             <h1 className='text-sm hidden md:block'>

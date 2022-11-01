@@ -18,10 +18,6 @@ export const Bio = (props: Props) => {
                 ${isDark ? (' text-white'): (' text-[#666]')} 
              `}>
                 {props.text}
-
-
-
-                
             </div>
         </div>
     );
