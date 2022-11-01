@@ -20,6 +20,7 @@ import MetaforoTipping from './tip/MetaforoTipping';
 import MemberSince from './MemberSince';
 import CopyAddress from './CopyAddress';
 import FollowButton from './FollowButton';
+import UserCountInfo from './UserCountInfo';
 
 
 
@@ -121,17 +122,19 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                     isDark={isDark}
                                 />
                             </div>
+
                         </div>
                         
                         <div className='sm:flex sm:flex-col sm:space-y-1 '>
                             <h3 className={`font-inter 
                             ${isDark ? (' text-white/60'): (' text-[#666]')}
-                            text-base mt-1 sm:mb-2 mb-1 
+                            text-base mt-2 sm:mb-2 mb-10 md:mb-2
                             text-center sm:text-center md:text-left lg:text-left`} >
                                 {user.userInfo.nickname}
                             </h3>
-                            <div className='flex flex-row space-x-4'>
-                                <FollowButton />
+                            
+                            <div className='flex flex-row space-x-3'>
+                                {/* <FollowButton /> */}
                                 <MetaforoTipping  attributes={{
                                     siteName: `${user.userInfo.currentLabel}`,
                                     pageId: "1",
@@ -148,7 +151,8 @@ export const UserInfo = ({user, profile}: UserProps) => {
                 {/* User Bio and Available Labels */}
                 <div className='space-y-8 -mt-20 mb-5'>
                     <Bio text={bio} />
-                    <div className='space-y-2 !mt-0 md:!mt-4'>
+                    {/* <UserCountInfo followers={1} followings={1} posts={1} /> */}
+                    <div className='space-y-2 !mt-5 md:mt-4 '>
                         <Labels items={labels} />
                         <Divider />
                     </div>
