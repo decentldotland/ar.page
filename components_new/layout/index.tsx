@@ -35,7 +35,7 @@ export const Layout = (props: Props) => {
         <>
             {loaded && 
                 <div className="flex flex-col flex-wrap font-mono w-full h-full" data-theme={isDark ? "ardark" : "arlight"}>
-                    <Nav toggleDark={toggleDark} />
+                    {/* <Nav toggleDark={toggleDark} /> */}
                     {/* for detecting OS theme on browser load */}
                     <Script strategy="beforeInteractive">
                         {`

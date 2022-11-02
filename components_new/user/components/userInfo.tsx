@@ -128,7 +128,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                         <div className='sm:flex sm:flex-col sm:space-y-1 '>
                             <h3 className={`font-inter 
                             ${isDark ? (' text-white/60'): (' text-[#666]')}
-                            text-base mt-2 sm:mb-2 mb-10 md:mb-2
+                            text-base mt-1 sm:mb-2 mb-10 md:mb-2
                             text-center sm:text-center md:text-left lg:text-left`} >
                                 {user.userInfo.nickname}
                             </h3>

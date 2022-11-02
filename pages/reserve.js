@@ -329,7 +329,7 @@ const Reserve = () => {
                   <h1 className="text-[45px] font-bold mb-2">Register to get <br/>an ANS Airdrop</h1>
                   <p className='font-medium text-sm mb-10 text-[#3a3a3a]'>Only applicable to DecentLand POAP holders</p>
 
-                  <CustomConnectButton
+                  <CustomConnectButton 
                     label="Connect"
                     showBalance={false}
                     chainStatus="icon"
