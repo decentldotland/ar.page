@@ -16,7 +16,7 @@ function Onboarding() {
 
 
   return (
-    <div className='font-sans px-10  '>
+    <div className='font-sans px-10 '>
       {
         currentStep === 0 && (<SignUpPage setCurrentStep={setCurrentStep}/>)
       }
