@@ -7,7 +7,7 @@ interface Props {
 
 function SignUpPage({setCurrentStep}: Props) {
   return (
-    <div className='font-inter px-10'>
+    <div className=''>
         <div className="items-center flex flex-col justify-center h-screen space-y-4">
           <h1 className='font-bold text-4xl text-center'>
             Sign Up for ANS 

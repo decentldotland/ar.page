@@ -1,7 +1,13 @@
 import { CheckIcon, EyeIcon, XCircleIcon } from '@heroicons/react/24/outline'
-import React, { useState } from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useAccount } from 'wagmi'
+import Web3 from 'web3'
+import { Ans } from '../../src/types'
+import useValidateLabel from '../../src/useValidateLabel'
 import BackButton from '../reservation/BackButton'
 import { BlueButtonNext } from '../reservation/BlueButtonNext'
+import NextButton from '../reservation/NextButton'
 
 interface Props  { 
     setCurrentStep: any
@@ -11,12 +17,34 @@ interface Props  {
 function RegisterNamePage({setCurrentStep, currentStep}: Props) {
 
     const [arLabel, setArLabel] = useState('');
-    const [invalidLabel, setInvalidLabel] = useState('')
-    
-  
+    let validateLabel = useValidateLabel(arLabel)
+    // const onSubmit = (e: any) => {
+    //   e.preventDefault();
+    //   if (arLabel.length === 0) return 
+    //   if (!(validateLabel.length == 0  && arLabel.length > 0)) return
+    //   setLoadingWrite(true)
+    //   // axios.post(`api/exmwrite`, {
+    //   //   "function": "reserve",
+    //   //   "evm_address": evmAddress,
+    //   //   "ans": arLabel.toLowerCase()
+    //   // })
+    //   // .then((res) => {
+    //   //   setLoadingWrite(false)
+    //   //   console.log(res)
+    //   //   setstep(4)
+    //   // })
+    //   // .catch((err) => {
+    //   //   setInvalidLabel('Request failed, try again later')
+    //   //   toast(
+    //   //   <p className='font-sans'>❌ Something went wrong, please try again.</p>, {duration: 3000})
+    //   //   console.log(err);
+    //   //   // If it fails it should inform the user 
+    //   //   setCurrentStep(2)
+    //   // })
+    // }
   
     return (
-    <section className="mt-24 ">
+        <section className=" mt-10">
             <BackButton setstep={setCurrentStep} step={currentStep - 1}/>
             <h1 className="text-[32px] font-bold mt-5">What do we call you?</h1>
             <p className="text-sm self-start mb-6 text-[#8e8e8f]">You can only register with one username <br/>per account.</p>
@@ -39,7 +67,7 @@ function RegisterNamePage({setCurrentStep, currentStep}: Props) {
                     {/* If the username is valid, render a check mark else, render a clear mark */}
                     <div hidden={arLabel.length <= 1}>
                         {
-                            invalidLabel.length === 0 ? (
+                            validateLabel.length === 0 ? (
                                 <CheckIcon
                                 className='cursor-pointer relative left-1' 
                                 height={25} width={25} strokeWidth={3} color='#78ff75'  />
@@ -54,7 +82,7 @@ function RegisterNamePage({setCurrentStep, currentStep}: Props) {
                 </div>
                 {/* Error Checks */}
                 <p className={`text-red-500  text-center text-sm h-6`}>
-                {invalidLabel}
+                {validateLabel}
                 </p>
                 <ul className='text-[#6a6b6a] ml-4 relative bottom-2'>
                 <li>
@@ -78,8 +106,11 @@ function RegisterNamePage({setCurrentStep, currentStep}: Props) {
                 height={20} width={20} strokeWidth={3} color='#666' />
                 <h1 className='text-xs font-semibold text-[#3a3a3a] text-left'>This will be shown on your profile.</h1>
             </div>
-            <div hidden={invalidLabel.length > 1 || arLabel.length === 0 } >
-            <BlueButtonNext setstep={currentStep} step={3} msg={"Proceed to register name"} />
+            <div hidden={validateLabel.length > 1 || arLabel.length === 0 } >
+                
+                <BlueButtonNext setCurrentStep={setCurrentStep} 
+                    currentStep={2} 
+                    msg={"Proceed to register name"} />
             </div>
         </section>
   )
