@@ -45,16 +45,9 @@ function PageContent(props: userInfo) {
     };
   }, [])
 
-  const [isDark, setIsDark] = useRecoilState(isDarkMode);
-
-  const toggleDark = () => {
-    localStorage.setItem('theme', isDark ? 'ardark': 'arlight');
-    setIsDark(!isDark);
-  }
-
   return (
     <div className=" w-full font-inter h-screen">
-    <Nav toggleDark={toggleDark} />
+    <Nav />
 
     <Toaster position='top-center'/>
 
