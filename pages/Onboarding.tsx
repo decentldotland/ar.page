@@ -8,15 +8,8 @@ function Onboarding() {
 
   const [currentStep, setCurrentStep] = useState(0)
   
-
-  useEffect(() => {
-    setCurrentStep(3)
-  }, [currentStep])
-  
-
-
   return (
-    <div className='font-sans px-10 '>
+    <div className='font-sans px-10 w-screen items-center flex flex-row  justify-center '>
       {
         currentStep === 0 && (<SignUpPage setCurrentStep={setCurrentStep}/>)
       }
@@ -29,7 +22,7 @@ function Onboarding() {
       {
         currentStep == 3 && ( <AvatarSelectionPage setCurrentStep={setCurrentStep}  currentStep={currentStep} /> )
       }
-      
+
     </div>  
   )
 }

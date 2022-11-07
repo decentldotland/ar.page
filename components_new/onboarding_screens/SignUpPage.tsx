@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import CustomConnectButton from '../buttons/ConnectAccount'
 
@@ -16,6 +17,11 @@ function SignUpPage({setCurrentStep}: Props) {
             Create a profile, follow other accounts, join DAO communities and more. 
           </h2>
           <CustomConnectButton setCurrentStep={setCurrentStep}/>
+          <Link href={"/"} >
+            <h1 className='cursor-pointer text-base text-[#8e8e8f] text-center font-medium'>
+              Back to Home Page
+            </h1>
+          </Link>
         </div>
       </div>
   )
