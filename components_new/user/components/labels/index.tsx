@@ -13,7 +13,7 @@ const colorProps = `bg-primary/10 text-primary `
 const avaxColor = "bg-[#E84040]/80 text-white"
 const ethColor = `bg-[#8a92b2]/20 text-[#454a75]`
 const arColor = "bg-black text-white"
-const iconProps = {width: 100, height: 100, color: "#1273ea"}
+const iconProps = {size: 19, color: "#1273ea"}
 const lenProps = "bg-[#abfe2c] text-[#05501F] bg-[#aafe2ccb]"
 
 export const arLabels = (arweave_address: string, ownedLabels: OwnedLabel[]) => ownedLabels.map((owned: OwnedLabel) => {
@@ -23,8 +23,8 @@ export const arLabels = (arweave_address: string, ownedLabels: OwnedLabel[]) => 
     canCopy: false,
     link_to: 'https://v2.viewblock.io/arweave/address/' + arweave_address,
     icon: <Image
-      width={20}
-      height={20}
+      width={19}
+      height={19}
       className="bg-white rounded-full"
       src="https://cryptologos.cc/logos/arweave-ar-logo.svg?v=023"
       alt=""
@@ -42,8 +42,8 @@ export const avaxLabel = (AVVY:string|undefined) => {
     link_to: "https://app.avvy.domains/domains/" + AVVY,
     canCopy: false,
     icon: <Image
-      width={20}
-      height={20}
+      width={19}
+      height={19}
       src="https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=023"
       alt=""
       quality={50}
@@ -63,11 +63,11 @@ export const ethLabel = (ENS:string|undefined) => {
     link_to: "https://etherscan.io/enslookup-search?search=" + ENS,
     canCopy: false,
     icon: <Image
-      height={13}
-      width={13}
+      height={19}
+      width={19}
       src="https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=002"
       alt=""
-      quality={50}
+      quality={100}
     />
   }
 }
@@ -151,7 +151,7 @@ export function GenericLabel ({username, classes, icon, link_to, canCopy}: Gener
     onClick: canCopy ? () => copy_text(username || '') : undefined
   }
 
-  const classnames = `${classes} px-2.5 py-2 font-bold text-sm rounded-2xl relative transition-opacity duration-300 hover:opacity-60 `;
+  const classnames = `${classes} px-2.5 py-1 text-center font-bold text-xs rounded-xl relative transition-opacity duration-300 hover:opacity-60 `;
 
   if (!username) return <></>
   return (
