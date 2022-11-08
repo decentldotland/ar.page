@@ -217,7 +217,7 @@ useEffect(() => {
                                 // )
                             }
                             <Divider />
-                            <li hidden={!walletConnected} 
+                            <li hidden={tryAgainLater} 
                                 className={`py-2 px-2 w-full cursor-pointer
                                 ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')} 
                                  rounded-lg`}
@@ -260,7 +260,7 @@ useEffect(() => {
                             </li>
                             <Divider />
                             {
-                                walletConnected && ansData?.currentLabel ? (
+                                walletConnected && ansData?.currentLabel !== "" && tryAgainLater ? (
                                     <div onClick={logout} 
                                         className={`cursor-pointer py-2 px-2 w-full 
                                         ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')}

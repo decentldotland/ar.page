@@ -120,7 +120,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                     border-2 shadow-lg  mt-[22px] sm:mt-6  rounded-b-2xl w-full sm:w-[336px]  md:max-w-[326px] md:w-[336px]  absolute sm:left-0 -right-0 z-50
                     ml-16 md:ml-28 
                     `}>
-                    <h2 className="text-lg font-semibold sm:px-4 px-10">Members</h2>
+                    <h2 className="text-lg font-semibold sm:px-4 px-6">Members</h2>
                     <ul className="h-full">
                         {/* If nothing is found in our database, print out the text that user is typing instead */}
                         {val  && (
@@ -143,7 +143,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                             .slice(0, 4)
                             .map((option) =>  (
                                 <div key={option.name} className={`${isDark ? ('hover:bg-[#1a2745] '): ('hover:bg-gray-200 ')}
-                                    w-full sm:px-4 py-2 px-14 cursor-pointer `}>
+                                    w-full sm:px-4 py-2 px-6 cursor-pointer `}>
                                     <li key={option.name} className="w-full mt-1 rounded-md " onClick={
                                         (event) => {
                                             window.location.href = resolveDomain(option.name);
