@@ -17,7 +17,7 @@ function CoverPage(props: userInfo) {
   const user_cover = props.userInfo.address_color;
   const coverStyle = { 
     backgroundColor: `${user_cover}`,
-    height: 200
+    height: 288
   }
   // console.log(user_cover)
   // Ensure the edit feature is only available to the current users page not anyone elses!

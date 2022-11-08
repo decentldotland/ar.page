@@ -145,7 +145,7 @@ useEffect(() => {
                                     
                                     <li className={`space-x-3.5 flex flex-row items-center  px-2  py-2
                                         ${loading ? (' bg-gray-100 py-9 items-center flex flex-row justify-center' ) : ('bg-white')} 
-                                        ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-')} h-full rounded-lg 
+                                        ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-')} h-[88px] rounded-lg 
                                      `}>
 
                                         {/* Check if they are a holder of */}
@@ -192,31 +192,29 @@ useEffect(() => {
                                             </a>
                                         </Link>
                                     </li>
-                                ) : (
-                                    <li className={`space-x-3.5 flex flex-row items-center  px-2  py-2
-                                    ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')}  rounded-lg`}>
-                                        <Avatar ansData={ansData} options={{height:"56px", width:"56px"}}/>
-                                        {/* nickname and label */}
-                                        <div className="flex flex-col relative top-[0.5] ">
-                                            {
-                                                ansData ? (
-                                                    <p className={`text-lg
-                                            
-                                                    ${isDark ? ('text-white'): ('text-black')} 
-        
-                                                    font-semibold text-left`}>
-                                                        {ansData?.currentLabel}
-                                                    </p>
-                                                ): (
-                                                    <div className='ml-2'> 
-                                                        <CircularProgress color={`${isDark ? ('primary'):('inherit')}`} size={40}/>
-                                                    </div>
-                                                )
-                                            }
-                                 
-                                        </div>
-                                    </li>
                                 )
+                                //  : (
+                                //     <li className={`space-x-3.5 flex flex-row items-center  px-2  py-2
+                                //     ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-200')}  rounded-lg`}>
+                                //         <Avatar ansData={ansData} options={{height:"56px", width:"56px"}}/>
+                                //         {/* nickname and label */}
+                                //         <div className="flex flex-col relative top-[0.5] ">
+                                //             {
+                                //                 ansData ? (
+                                //                     <p className={`text-lg
+                                //                     ${isDark ? ('text-white'): ('text-black')} 
+                                //                     font-semibold text-left`}>
+                                //                         {ansData?.currentLabel}
+                                //                     </p>
+                                //                 ): (
+                                //                     <div className='ml-2'> 
+                                //                         <CircularProgress color={`${isDark ? ('primary'):('inherit')}`} size={40}/>
+                                //                     </div>
+                                //                 )
+                                //             }
+                                //         </div>
+                                //     </li>
+                                // )
                             }
                             <Divider />
                             <li hidden={!walletConnected} 
