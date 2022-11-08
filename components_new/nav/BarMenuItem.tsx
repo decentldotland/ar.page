@@ -2,24 +2,29 @@ import { BookOpenIcon, CheckBadgeIcon, FaceSmileIcon, MoonIcon } from '@heroicon
 import { useAns } from 'ans-for-all';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { FiLogIn, FiLogOut } from 'react-icons/fi';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../atoms';
 import Favicon from '../../public/favicon.ico';
 import Avatar from '../avatar';
 import { Divider } from '../user/components/reusables';
-import { User } from '../user/sidebar/user';
 import { NavUser } from './NavUser';
 import {SunIcon} from '@heroicons/react/24/outline'
 import { CircularProgress } from '@mui/material';
 import { resolveDomain } from '../../src/utils';
+import { Ans, ANSData } from '../../src/types';
+import toast from 'react-hot-toast';  
+import { useRouter } from 'next/router';
 import SearchBar from './SearchBar';
 import {Bars3Icon}  from '@heroicons/react/24/solid'
 
 
 function BarMenuItem() {
   const [toggle, setToggle] = useState(false);
+  const [user, setUser] = useState<ANSData | null>()
+  const [error , seterror ] = useState( null)
+  const router = useRouter();
   const {
     walletConnected,
     ansData,
@@ -27,7 +32,7 @@ function BarMenuItem() {
     arconnectDisconnect,
     shortenAddress,
   } = useAns();
-  
+
   const [isDark, setIsDark] = useRecoilState(isDarkMode);
   const toggleDark = () => {
     if (isDark) {
@@ -36,6 +41,45 @@ function BarMenuItem() {
         localStorage.theme = 'ardark';
     }
     setIsDark(!isDark);
+}
+const [loading, setLoading] = useState(false)
+useEffect(
+    () =>  {
+        if (ansData?.currentLabel) {
+            setUser(ansData)
+            setLoading(false)
+        } else { 
+            setLoading(true)
+        }
+    }, [ansData, loading])
+
+// if after 10 s remidn the user that he doesnt have an ans account -> create a link to onboaring
+const [tryAgainLater, TryAgainLater] = useState(false)
+
+setTimeout(() => {
+    if (walletConnected && loading && ansData) {
+        TryAgainLater(true)
+    }
+}, 10000, ansData, loading);
+
+
+const connectAccount = async () => {
+    setLoading(true);
+    await arconnectConnect?.().catch((e) => {
+        alert(e.message)
+        setLoading(false);
+        seterror(e)
+    }).finally(() => setLoading(false))
+}
+const logout = async () => { 
+    setLoading(true);
+    await arconnectDisconnect?.().then(() => { 
+        setUser(null)
+    }).catch((e) => {
+        alert(e.message)
+        seterror(e)
+    }).finally(() => setLoading(false))
+
 }
 
 const container: any = React.useRef();
@@ -53,6 +97,8 @@ useEffect(() => {
         document.removeEventListener('click', ev);
 }, [toggle]);
 
+// console.log(ansData)
+
 useEffect(() => {
     // On page load or when changing themes, best to add inline in `head` to avoid FOUC
     if (localStorage.theme === 'ardark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -61,19 +107,20 @@ useEffect(() => {
       setIsDark(false)
     }
 }, [isDark]);
+
   return (
     <section className=''  ref={container}>
         <button  onClick={() => setToggle(!toggle)} className="items-center">
             <NavUser />
             {/* <Bars3Icon height={30} width={30} strokeWidth={2}/> */}
         </button>
-
         <article className={`sm:relative flex flex-row-reverse `} >
             {
                 toggle && (
                     // Controls the body of dropdown menu
                     <div hidden={!toggle}
-                        className={`  ${isDark ? ('bg-[#121a2f]'):('bg-[#FEFEFE] ')} 
+                        className={`
+                         ${isDark ? ('bg-[#121a2f]'):('bg-[#FEFEFE] ')} 
                         text-black absolute z-50 -right-0  px-3 py-5 w-screen h-screen sm:h-fit
                         sm:px-1 sm:right-1 shadow-lg sm:rounded-xl sm:mt-5 sm:w-[272px]`}>
                         <ul className='h-full px-5 sm:px-2 relative '>
@@ -94,7 +141,45 @@ useEffect(() => {
                             
                             {/* Checks if the user is signed -> to show the user avatar or not */}
                             {
-                                !walletConnected ? (
+                                walletConnected ? (
+                                    
+                                    <li className={`space-x-3.5 flex flex-row items-center  px-2  py-2
+                                        ${loading ? (' bg-gray-100 py-9 items-center flex flex-row justify-center' ) : ('bg-white')} 
+                                        ${isDark ? ('hover:bg-[#1a2745]'): ('hover:bg-gray-')} h-full rounded-lg 
+                                     `}>
+
+                                        {/* Check if they are a holder of */}
+                                        {/* nickname and label */}
+                                        <div className="flex flex-col relative top-[0.5] ">
+                                            {
+                                                loading ? (
+                                                    <div>
+                                                        {
+                                                            tryAgainLater ? (
+                                                                <div className='text-xs font-regular text-[#6a6b6a]'>
+                                                                    Unable to load user's details.
+                                                                </div>
+                                                            ) : (
+                                                                <div>
+                                                                    <CircularProgress size={20} color={"inherit"} />
+                                                                </div>
+                                                            )
+                                                        }
+
+                                                    </div>
+                                                ) : (
+                                                    <div className="flex flex-row space-x-3 items-center">
+                                                        <Avatar ansData={ansData} options={{height:"56px", width:"56px"}}/>
+                                                        <p className={`text-lg ${isDark ? ('text-white'): ('text-black')} font-semibold text-left`}>
+                                                            {ansData?.currentLabel}
+                                                        </p>
+                                                    </div> 
+                                                )
+                                            }
+                                 
+                                        </div>
+                                    </li>
+                                ) : (
                                     <li className={`py-2 px-2 w-full 
                                     ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')} 
                                      rounded-lg`}>
@@ -177,8 +262,8 @@ useEffect(() => {
                             </li>
                             <Divider />
                             {
-                                walletConnected ? (
-                                    <div onClick={() => (arconnectDisconnect as Function)()} 
+                                walletConnected && ansData?.currentLabel ? (
+                                    <div onClick={logout} 
                                         className={`cursor-pointer py-2 px-2 w-full 
                                         ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')}
                                          rounded-lg`}
@@ -194,7 +279,7 @@ useEffect(() => {
                                     ${isDark ? ('hover:bg-[#1a2745] text-white'): ('hover:bg-gray-200')}
                                    rounded-lg`}
                                     >
-                                        <div onClick={() => (arconnectConnect as Function)()} className="flex flex-row items-center space-x-3.5">
+                                        <div onClick={connectAccount} className="flex flex-row items-center space-x-3.5">
                                             <FiLogIn height={20} width={20} color={`${isDark? ('white') : ('black') }`}/>
                                             <h1>Connect Wallet</h1>
                                         </div>
