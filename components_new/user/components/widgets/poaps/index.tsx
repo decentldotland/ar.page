@@ -62,8 +62,8 @@ export default function Poaps({ props }: { props: Res }) {
                 <input type="checkbox" id={"poap-modal-" + idx} className="modal-toggle" />
                 <label htmlFor={"poap-modal-" + idx} className="modal cursor-pointer backdrop-blur-md">
                   <label className="modal-box relative" htmlFor="">
-                    <div className="flex flex-col items-center">
-                      <Image loader={() => p.event.image_url} src={p.event.image_url} width={112} height={112} className="mt-4 mb-8 shadow-sm" />
+                    <div className="flex flex-col items-center mt-4 mb-6">
+                      <Image loader={() => p.event.image_url} src={p.event.image_url} width={250} height={250} className="shadow-sm" />
                     </div>
                     <div className="flex flex-col gap-y-2 text-center">
                       <div className="font-semibold">{p.event.name}</div>
