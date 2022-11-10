@@ -10,11 +10,13 @@ import { Ans } from '../../src/types';
 interface Props { 
     setCurrentStep: any,
     currentStep: number
+    arLabel: string
 }
 
 function ConfirmUsername({
     setCurrentStep, 
-    currentStep
+    currentStep,
+    arLabel
 }: Props) {
     const { address, isConnected, connector } = useAccount();
 
@@ -47,7 +49,6 @@ function ConfirmUsername({
       return ''
     };
 
-    const [arLabel, setArLabel] = useState('');
 
     const onSubmit = (e: any) => {
         e.preventDefault();
@@ -56,9 +57,9 @@ function ConfirmUsername({
         if (address && validateEVM(address)) return
         setEvmAddress(address!)
         setLoadingWrite(true)
-        
+
         // temporary 
-        setCurrentStep(3)
+        setCurrentStep(6)
         // axios.post(`api/exmwrite`, {
         //   "function": "reserve",
         //   "evm_address": evmAddress,
@@ -81,12 +82,12 @@ function ConfirmUsername({
      
 
     return (
-        <section className={loadingWrite ? 'absolute h-screen bottom-0 w-screen z-50 bg-[#B3B2B3]/25  ' : ''}>
+        <section className={loadingWrite ? 'absolute h-screen bottom-0 w-screen z-50 bg-[#B3B2B3]/25 cursor-not-allowed  ' : ''}>
             <div className='flex flex-col items-center mt-40'>
                 <h2 className='text-xl font-medium mb-7 text-[#3a3a3a]'>Your username</h2>
                 <h1 className='font-bold text-4xl mb-4'>@{arLabel}</h1>
                 {/* Go back to registration page  */}
-                <p onClick={() => setCurrentStep(1)} className='cursor-pointer font-medium text-sm text-[#1273ea] text-left hover:underline'>Change username</p>
+                <p onClick={() => setCurrentStep(4)} className='cursor-pointer font-medium text-sm text-[#1273ea] text-left hover:underline'>Change username</p>
                 
                 {/* Button to register name and direct the user to the next screen */}
                 <div className='flex justify-center'>

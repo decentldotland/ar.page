@@ -11,11 +11,12 @@ import BackButton from '../reservation/BackButton'
 interface Props  { 
     setCurrentStep: any
     currentStep: number,
+    setArLabel: any,
+    arLabel: string
 }
 
-function RegisterNamePage({setCurrentStep, currentStep}: Props) {
+function RegisterNamePage({setCurrentStep, currentStep, setArLabel, arLabel}: Props) {
 
-    const [arLabel, setArLabel] = useState('');
     let validateLabel = useValidateLabel(arLabel)
     // const onSubmit = (e: any) => {
     //   e.preventDefault();
