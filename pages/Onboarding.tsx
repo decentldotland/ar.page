@@ -13,7 +13,7 @@ function Onboarding() {
   const [currentStep, setCurrentStep] = useState(0)
   const [arLabel, setArLabel] = useState('')
   return (
-    <div className='font-sans px-10 max-w-full. items-center w-screen '>
+    <div className='font-sans px-10  items-center flex justify-center '>
       {
         currentStep === 0 && (<SignUpPage setCurrentStep={setCurrentStep} />)
       }
