@@ -36,7 +36,7 @@ function SignUpArConnect({setCurrentStep, currentStep}: Props) {
   
   
   return (
-    <div className='relative h-screen flex flex-col justify-between '>
+    <div className='relative h-screen flex flex-col justify-between w-[440px]'>
       <div className='mt-10'>
         <BackButton setstep={setCurrentStep} step={currentStep - 1}/>
         <div className='mt-6 mb-5 '>
@@ -45,12 +45,23 @@ function SignUpArConnect({setCurrentStep, currentStep}: Props) {
         <div>
           <h1 className='text-3xl font-bold mb-2'>Connect to Arweave Network</h1>
           <p className='text-left text-[#8e8e8f] text-sm'>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. <br/>  
+            The contracts live in the Arweave network. <br/>  
             Tenetur qui ducimus, ipsam nesciunt dolorem nisi sunt esse quod, 
             in deleniti blanditiis sequi laudantium. Nesciunt blanditiis voluptatem voluptate sequi ut minima. 
           </p>
         </div>
       </div>
+      
+      {/* <div className='items-center justify-center flex relative bottom-40'>
+        <UserAccountDetails 
+          upperMessage='Your Connected Wallet'   
+          displayImg=''
+          chainIconUrl=''
+          address=''
+          walletName=''
+        />
+
+      </div> */}
         
         {/* Button to connect or download arweave  */}
         <div className='mb-[113px] flex justify-center flex-col items-center w-full'>

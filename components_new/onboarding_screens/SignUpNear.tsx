@@ -6,6 +6,7 @@ import LineBarTracker from '../reservation/LineBarTracker'
 import { useWalletSelector } from '../../src/contexts/WalletSelectorContext'
 import '@near-wallet-selector/modal-ui/styles.css';
 import type { AccountView } from "near-api-js/lib/providers/provider";
+import { CircularProgress } from '@mui/material'
 
 
 
@@ -23,24 +24,26 @@ interface Props {
  */
 function SignUpNear({setCurrentStep, currentStep}: Props) {
 
-  const [loading, setLoading] = useState(false)
+  const [connected, setConnected] = useState(false)
   const { selector, modal, accounts, accountId } = useWalletSelector();
 
   const connectButton = () => { 
+    setConnected(true)
     modal.show();
   }
 
+  const nextButton = () => { 
+    setCurrentStep(3)
+  }
+
   useEffect(() => {
+    if (accountId !== null) setConnected(false)
 
-    if (accountId === null) {
-      setCurrentStep(3)
-    }
-
-  }, [accountId])
+  }, [accountId, modal])
   
 
   return (
-    <div className='relative h-screen flex flex-col justify-between '>
+    <div className='relative h-screen flex flex-col justify-between w-[440px]'>
       <div className='mt-10'>
         <BackButton setstep={setCurrentStep} step={currentStep - 1}/>
         <div className='mt-6 mb-5 '>
@@ -57,10 +60,17 @@ function SignUpNear({setCurrentStep, currentStep}: Props) {
         
         {/* Button to connect or download arweave  */}
         <div className='mb-[113px] flex justify-center flex-col items-center w-full'>
-          <button onClick={connectButton}
+          <button onClick={connected ? nextButton : connectButton}
             className="cursor-pointer bg-[#1273ea] w-[386px] h-14 justify-center items-center flex relative flex-row rounded-full text-white font-bold text-lg" >
               <div className='flex justify-center items-center'>
-                <p className='text-center'>Connect</p>
+                {
+                  connected ? (
+                    <p className='text-center'>Next</p>
+
+                  ) : (
+                    <p className='text-center'>Connect</p>
+                  )
+                }
                 {/* <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/> */}
               </div>
           </button>

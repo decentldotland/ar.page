@@ -102,11 +102,11 @@ function VerifyWithArk({setCurrentStep, currentStep}: Props) {
         <div className='relative bottom-6'>
             <NextButton btnName='Next' setCurrentStep={setCurrentStep} currentStep={4} />
             <div className='space-y-2 mt-6 text-[#6a6b6a] font-medium text-center'>
-              <Link href={"/"} >
+              <button onClick={() => setCurrentStep(2)} >
                 <h1 className='underline cursor-pointer'>
                   Cancel
                 </h1>
-              </Link>
+              </button>
             </div>
           </div>
 
