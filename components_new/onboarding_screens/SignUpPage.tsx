@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import CustomConnectButton from '../buttons/ConnectAccount'
+import NextButton from '../buttons/NextButton'
 
 interface Props { 
     setCurrentStep: any
@@ -9,28 +10,27 @@ interface Props {
 function SignUpPage({setCurrentStep}: Props) {
   return (
     <div className='items-center flex flex-row  justify-center'>
-        <div className="items-center flex flex-col justify-center h-screen space-y-3">
-          <h1 className='font-bold text-4xl text-center'>
+        <div className="items-center flex flex-col mt-[293px] h-full space-y-3">
+          <h1 className='font-bold text-3xl text-center'>
             Sign Up for ArPage 
           </h1>
-          <h2 className='text-sm text-[#8e8e8f] text-center '>
+          <h2 className='text-sm text-[#8e8e8f] text-center font-medium'>
             Create a profile, follow other accounts, join DAO communities and more. 
           </h2>
-          <div  className='items-center flex flex-col justify-center'>
-          
-          <button onClick={() => setCurrentStep(1)} className=" mt-9 bg-[#1273ea] w-[276px] h-14 items-center rounded-full text-white font-bold text-lg" >
-                <div className='flex justify-center'>
-                  <p className='relative text-center '>Create New Profile</p>
-                </div>
-            </button>
-          </div>
 
-          <Link href={"/"} >
-            <h1 className='cursor-pointer text-base text-[#8e8e8f] text-center font-medium'>
-              Back to Home Page
-            </h1>
-          </Link>
+
         </div>
+          <div className='absolute bottom-[114px]'>
+            <NextButton btnName='Create new profile' setCurrentStep={setCurrentStep} currentStep={1} />
+            <div className='space-y-2 mt-6 text-[#6a6b6a] font-medium text-center'>
+              <h1 className="text-sm">Already have profile?</h1>
+              <Link href={"/"} >
+                <h1 className='underline cursor-pointer'>
+                  Sign in
+                </h1>
+              </Link>
+            </div>
+          </div>
       </div>
   )
 }

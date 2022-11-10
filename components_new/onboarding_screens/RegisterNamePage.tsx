@@ -5,9 +5,8 @@ import { useAccount } from 'wagmi'
 import Web3 from 'web3'
 import { Ans } from '../../src/types'
 import useValidateLabel from '../../src/useValidateLabel'
+import NextButton from '../buttons/NextButton'
 import BackButton from '../reservation/BackButton'
-import { BlueButtonNext } from '../reservation/BlueButtonNext'
-import NextButton from '../reservation/NextButton'
 
 interface Props  { 
     setCurrentStep: any
@@ -108,9 +107,7 @@ function RegisterNamePage({setCurrentStep, currentStep}: Props) {
             </div>
             <div hidden={validateLabel.length > 1 || arLabel.length === 0 } >
                 
-                <BlueButtonNext setCurrentStep={setCurrentStep} 
-                    currentStep={2} 
-                    msg={"Proceed to register name"} />
+                <NextButton btnName='Next' setCurrentStep={setCurrentStep} currentStep={5} />
             </div>
         </section>
   )

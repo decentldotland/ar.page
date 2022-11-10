@@ -40,7 +40,7 @@ function SignUpArConnect({setCurrentStep, currentStep}: Props) {
       <div className='mt-10'>
         <BackButton setstep={setCurrentStep} step={currentStep - 1}/>
         <div className='mt-6 mb-5 '>
-          <LineBarTracker step={1}  total_step={3}/>
+          <LineBarTracker step={0}  total_step={3}/>
         </div>
         <div>
           <h1 className='text-3xl font-bold mb-2'>Connect to Arweave Network</h1>
@@ -53,17 +53,16 @@ function SignUpArConnect({setCurrentStep, currentStep}: Props) {
       </div>
         
         {/* Button to connect or download arweave  */}
-        <div className='mb-14 flex justify-center flex-col items-center w-full'>
+        <div className='mb-[113px] flex justify-center flex-col items-center w-full'>
           <button  onClick={connectbutton}
-            className="cursor-pointer bg-[#1273ea] w-full h-14 justify-center items-center flex relative flex-row rounded-full text-white font-bold text-lg" >
+            className="cursor-pointer bg-[#1273ea] w-[386px] h-14 justify-center items-center 
+              flex relative flex-row rounded-full text-white font-bold text-lg" >
               <div className='flex justify-center items-center'>
                 <p className='text-center'>Connect</p>
                 {/* <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/> */}
               </div>
           </button>
-          <p onClick={() => setCurrentStep(0)} className='cursor-pointer mt-4 text-center text-sm text-[#6a6b6a] font-medium'>
-              Already have a profile
-          </p>
+        
         </div>
     </div>
   )

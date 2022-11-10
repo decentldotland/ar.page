@@ -92,7 +92,7 @@ function ConfirmUsername({
                 <div className='flex justify-center'>
                   <div className='absolute flex flex-col bottom-24 '>
                     <button onClick={(e) => onSubmit(e)} disabled={invalidEVM.length > 0 || invalidLabel.length > 0} 
-                      className=" bg-[#1273ea] w-[368px] h-14 items-center rounded-lg text-white font-bold text-lg" >
+                      className=" bg-[#1273ea] w-[386px] h-14 items-center rounded-full text-white font-bold text-lg" >
                         <div className='flex justify-center items-center'>
                           {
                             loadingWrite ? (
@@ -101,7 +101,6 @@ function ConfirmUsername({
                              <p className='relative text-center'>Looks good</p>
                             )
                           }
-                          <ArrowLongRightIcon height={20} width={20} className="absolute right-2"/>
                         </div>
                     </button>
                   </div>

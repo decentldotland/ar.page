@@ -11,3 +11,6 @@ export const MESON_URL = 'https://pz-prepnb.meson.network/';
 
 // img.arweave.dev
 export const ARWEAVE_IMG = "https://img.arweave.dev/"
+
+//Based off https://github.com/decentldotland/ark-protocol/blob/84c850604ea6623407df6a781afb7812371273f4/README.md
+export const NEAR_CONTRACT = "ark_station_1.near"

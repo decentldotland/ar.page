@@ -10,6 +10,8 @@ import { AnimatePresence } from "framer-motion";
 import { AnsProvider } from 'ans-for-all';
 // import { useUpdateChecker } from '../src/useUpdateChecker';
 import '@rainbow-me/rainbowkit/styles.css';
+import {WalletSelectorContextProvider } from '../src/contexts/WalletSelectorContext'
+
 
 import {
   getDefaultWallets,
@@ -62,9 +64,11 @@ function MyApp({ Component, pageProps }) {
           </Head>
           <WagmiConfig client={wagmiClient}>
             <RainbowKitProvider chains={chains}>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              <WalletSelectorContextProvider>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </WalletSelectorContextProvider>
             </RainbowKitProvider>
           </WagmiConfig>
         </AnsProvider>
