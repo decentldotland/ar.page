@@ -107,7 +107,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                     </article>
 
                     {/* nickname and label */}
-                    <div className={`ml-5 relative  ${epoch === 0 ? ('bottom-12') : ('bottom-6')} `}>
+                    <div className={`ml-5 relative  ${epoch === 0 ? ('bottom-8') : ('bottom-8')} `}>
                         <div className="sm:mt-7  flex flex-row items-center space-x-3 justify-center md:justify-start mt-5">
                             <div className="flex items-center ">
                                 <div className={`md:text-2xl text-[28px] 
@@ -128,13 +128,13 @@ export const UserInfo = ({user, profile}: UserProps) => {
                         <div className='sm:flex sm:flex-col sm:space-y-1 '>
                             <h3 className={`font-inter 
                             ${isDark ? (' text-white/60'): (' text-[#666]')}
-                            text-base mt-1 sm:mb-2 mb-10 md:mb-2
+                            text-base sm:mb-2 mb-10 md:mb-2
                             text-center sm:text-center md:text-left lg:text-left`} >
                                 {user.userInfo.nickname}
                             </h3>
                             
                             <div className='flex flex-row space-x-3'>
-                                {/* <FollowButton /> */}
+                                <FollowButton />
                                 <MetaforoTipping  attributes={{
                                     siteName: `${user.userInfo.currentLabel}`,
                                     pageId: "1",
