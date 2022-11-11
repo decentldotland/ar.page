@@ -8,6 +8,7 @@ import type { WalletSelectorModal } from "@near-wallet-selector/modal-ui";
 import { setupNearWallet } from "@near-wallet-selector/near-wallet";
 import { setupWalletConnect } from "@near-wallet-selector/wallet-connect";
 import { NEAR_CONTRACT } from "../constants";
+import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
 
 declare global {
   interface Window {
@@ -40,12 +41,12 @@ export const WalletSelectorContextProvider: React.FC = ({ children }) => {
       modules: [
         ...(await setupDefaultWallets()),
         setupNearWallet(),
-     
+        setupMeteorWallet(),
         setupWalletConnect({
           projectId: "c4f79cc...",
           metadata: {
             name: "NEAR Wallet Selector",
-            description: "Example dApp used by NEAR Wallet Selector",
+            description: "Near Wallet Selector for ArPage",
             url: "https://github.com/near/wallet-selector",
             icons: ["https://avatars.githubusercontent.com/u/37784886"],
           },
