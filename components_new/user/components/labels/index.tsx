@@ -7,7 +7,8 @@ import { removeHttp } from '../../../../src/utils';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../../atoms';
 import Image from 'next/image';
-
+import { ARWEAVE_EXPLORER_TX } from '../../../../src/constants';
+// import ARWEAVE from  '../../../../public/icons/ARWEAVE.svg'
 
 const colorProps = `bg-primary/10 text-primary `
 const avaxColor = "bg-[#E84040]/80 text-white"
@@ -26,7 +27,7 @@ export const arLabels = (arweave_address: string, ownedLabels: OwnedLabel[]) => 
       width={19}
       height={19}
       className="bg-white rounded-full"
-      src="https://cryptologos.cc/logos/arweave-ar-logo.svg?v=023"
+      src={"/icons/ARWEAVE.svg"}
       alt=""
       quality={50} />,
     hovertext: `Scarcity: ${owned.scarcity}`
@@ -44,7 +45,7 @@ export const avaxLabel = (AVVY:string|undefined) => {
     icon: <Image
       width={19}
       height={19}
-      src="https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=023"
+      src="/icons/AVALANCHE.svg"
       alt=""
       quality={50}
     />
@@ -65,7 +66,7 @@ export const ethLabel = (ENS:string|undefined) => {
     icon: <Image
       height={19}
       width={19}
-      src="https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=002"
+      src="/icons/ETHEREUM.svg"
       alt=""
       quality={100}
     />
@@ -87,7 +88,7 @@ export const lensLabel = (lens:string[] |undefined) => {
     icon: <Image
       height={20}
       width={20}
-      src="https://raw.githubusercontent.com/lens-protocol/brand-kit/main/Logo/SVG/LENS%20LOGO_%20copy_Icon%20Only.svg"
+      src="/icons/LENS.svg"
       alt=""
       quality={50}
     />
