@@ -82,19 +82,27 @@ function ConfirmUsername({
      
 
     return (
-        <section className={loadingWrite ? 'absolute h-screen bottom-0 w-screen z-50 bg-[#B3B2B3]/25 cursor-not-allowed  ' : ''}>
-            <div className='flex flex-col items-center mt-40  w-full px-5'>
+        <section aria-disabled={loadingWrite} 
+          className={loadingWrite ? 'absolute h-screen bottom-0 w-screen z-50 bg-[#B3B2B3]/25 cursor-not-allowed  ' : 
+            'relative h-screen flex flex-col sm:w-[440px] w-full px-5 justify-between'}>
+              
+              <div className='flex flex-col items-center mt-40  w-full sm:w-[440px] '>
                 <h2 className='text-xl font-medium mb-7 text-[#3a3a3a]'>Your username</h2>
                 <h1 className='font-bold text-4xl mb-4'>@{arLabel}</h1>
+
                 {/* Go back to registration page  */}
-                <p onClick={() => setCurrentStep(5)} className='cursor-pointer font-medium text-sm text-[#1273ea] text-left hover:underline'>Change username</p>
+                <p onClick={() => setCurrentStep(5)} 
+                  className='cursor-pointer font-medium text-sm text-[#1273ea] text-left hover:underline'>
+                    Change username
+                </p>
+              </div>
                 
                 {/* Button to register name and direct the user to the next screen */}
-                <div className='flex justify-center'>
-                  <div className='absolute flex flex-col bottom-24 '>
+                  <div className='items-center flex flex-col justify-center  relative bottom-28'>
                     <button onClick={(e) => onSubmit(e)} disabled={invalidEVM.length > 0 || invalidLabel.length > 0} 
-                      className=" bg-[#1273ea] w-full px-32 h-14 items-center rounded-full text-white font-bold text-lg" >
+                      className=" bg-[#1273ea] w-full px-24 h-14 items-center rounded-full text-white font-bold text-lg" >
                         <div className='flex justify-center items-center'>
+
                           {
                             loadingWrite ? (
                               <CircularProgress color="inherit" size={23}/>
@@ -105,8 +113,6 @@ function ConfirmUsername({
                         </div>
                     </button>
                   </div>
-              </div>
-            </div>
         </section>
   )
 }

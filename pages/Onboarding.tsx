@@ -15,7 +15,7 @@ function Onboarding() {
   const [arLabel, setArLabel] = useState('')
 
   useEffect(() => {
-    setCurrentStep(1)
+    setCurrentStep(7)
   
   }, [])
   
@@ -44,7 +44,10 @@ function Onboarding() {
         currentStep === 6 && ( <ConfirmUsername setCurrentStep={setCurrentStep}  currentStep={currentStep} arLabel={arLabel}/> ) 
       }
       {
-        currentStep === 7 && (<SettingUpAccount /> )
+        currentStep === 7 && (<AvatarSelectionPage setCurrentStep={setCurrentStep}  currentStep={currentStep} />)
+      }
+      {
+        currentStep === 8 && (<SettingUpAccount /> )
       }
 
     </div>  
