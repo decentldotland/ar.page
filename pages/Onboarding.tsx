@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import ArkSuccessPage from '../components_new/onboarding_screens/ArkSuccessPage'
 import AvatarSelectionPage from '../components_new/onboarding_screens/AvatarSelectionPage'
 import ConfirmUsername from '../components_new/onboarding_screens/ConfirmUsername'
 import RegisterNamePage from '../components_new/onboarding_screens/RegisterNamePage'
@@ -12,8 +13,15 @@ function Onboarding() {
 
   const [currentStep, setCurrentStep] = useState(0)
   const [arLabel, setArLabel] = useState('')
+
+  useEffect(() => {
+    setCurrentStep(1)
+  
+  }, [])
+  
+
   return (
-    <div className='font-sans px-10  items-center flex justify-center '>
+    <div className='font-sans items-center flex justify-center  '>
       {
         currentStep === 0 && (<SignUpPage setCurrentStep={setCurrentStep} />)
       }
@@ -24,22 +32,19 @@ function Onboarding() {
         currentStep === 2 && (<SignUpNear setCurrentStep={setCurrentStep} currentStep={currentStep}/>)
       }
       {
-        currentStep == 3 && (<VerifyWithArk setCurrentStep={setCurrentStep} currentStep={currentStep}/>)
+        currentStep === 3 && (<VerifyWithArk setCurrentStep={setCurrentStep} currentStep={currentStep}/>)
       }
       {
-        currentStep === 4 && ( <RegisterNamePage  setCurrentStep={setCurrentStep} currentStep={currentStep} setArLabel={setArLabel} arLabel={arLabel} /> ) 
+        currentStep === 4 && (<ArkSuccessPage setCurrentStep={setCurrentStep} currentStep={currentStep} /> ) 
       }
       {
-        currentStep === 5 && ( <ConfirmUsername setCurrentStep={setCurrentStep}  currentStep={currentStep} arLabel={arLabel}/> ) 
+        currentStep === 5 && ( <RegisterNamePage  setCurrentStep={setCurrentStep} currentStep={currentStep} setArLabel={setArLabel} arLabel={arLabel} /> ) 
       }
-
-      {/* Add Avatar */}
-      {/* {
-        currentStep == 6 && ( <AvatarSelectionPage setCurrentStep={setCurrentStep}  currentStep={currentStep} /> )
-      } */}
-
       {
-        currentStep === 6 && (<SettingUpAccount /> )
+        currentStep === 6 && ( <ConfirmUsername setCurrentStep={setCurrentStep}  currentStep={currentStep} arLabel={arLabel}/> ) 
+      }
+      {
+        currentStep === 7 && (<SettingUpAccount /> )
       }
 
     </div>  

@@ -14,13 +14,13 @@ interface Props {
 
 function VerifyWithArk({setCurrentStep, currentStep}: Props) {
   return (
-    <div className='mt-[60px] f-full'>
+    <div className='mt-[60px] w-full px-5 sm:w-[440px]'>
         <div className='items-center flex flex-col justify-center'>
             
             {/* TITLEs */}
             <div className='text-center items-center space-y-4'>
                 <h1 className="text-sm text-[#8e8e8f] font-medium">Verify with Ark Protocol</h1>
-                <h1 className="font-bold text-xl">Ark Protocol wants to connect your <br /> Near Wallet Account on Arweave</h1>
+                <h1 className="font-bold text-lg sm:text-xl">Ark Protocol wants to connect your <br /> Near Wallet Account on Arweave</h1>
             </div>
             {/* CRYPTO NETWORKS */}
             <div className='flex flex-row items-center  space-x-6 mt-[48px]'>
@@ -46,8 +46,8 @@ function VerifyWithArk({setCurrentStep, currentStep}: Props) {
             </h1>
 
             {/* Permitted list */}
-            <div className='mt-5 w-full px-5'>
-                <ul className='space-y-6'>
+            <div className='mt-5 w-full'>
+                <ul className='sm:space-y-6 space-y-3.5'>
                     <li className={listStyle}>
                         <div className="rounded-full h-[37px] w-[37px] items-center flex justify-center bg-[#78FF75]/30 opacity-100 rotate-6">
                             <CheckIcon height={16} width={16} strokeWidth={3} color={'#1CC16A'} />
@@ -83,7 +83,7 @@ function VerifyWithArk({setCurrentStep, currentStep}: Props) {
                 </ul>
             </div>
 
-            <div className='w-full mt-[71px] space-y-3'>
+            <div className='w-full sm:mt-[71px] mt-8 space-y-3 text-sm'>
                 <div className='justify-between flex flex-row'>
                     <h1 className='font-semibold text-left text-[#6a6b6a]'>Ark Protocol Contract</h1>
                     <div className=' flex flex-row items-center space-x-2'>
@@ -117,6 +117,6 @@ function VerifyWithArk({setCurrentStep, currentStep}: Props) {
 export default VerifyWithArk
 
 
-const listStyle = 'items-center flex flex-row  space-x-5 text-left font-medium text-[#6a6b6a] '
+const listStyle = 'items-center text-sm flex flex-row  space-x-5 text-left font-medium text-[#6a6b6a] '
 
 

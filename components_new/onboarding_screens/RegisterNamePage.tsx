@@ -44,8 +44,8 @@ function RegisterNamePage({setCurrentStep, currentStep, setArLabel, arLabel}: Pr
     // }
   
     return (
-        <section className=" mt-10">
-            <BackButton setstep={setCurrentStep} step={currentStep - 1}/>
+        <section className=" mt-10 w-full px-5 sm:w-[440px]">
+            {/* <BackButton setstep={setCurrentStep} step={currentStep - 1}/> */}
             <h1 className="text-[32px] font-bold mt-5">What do we call you?</h1>
             <p className="text-sm self-start mb-6 text-[#8e8e8f]">You can only register with one username <br/>per account.</p>
             
@@ -106,9 +106,13 @@ function RegisterNamePage({setCurrentStep, currentStep, setArLabel, arLabel}: Pr
                 height={20} width={20} strokeWidth={3} color='#666' />
                 <h1 className='text-xs font-semibold text-[#3a3a3a] text-left'>This will be shown on your profile.</h1>
             </div>
-            <div hidden={validateLabel.length > 1 || arLabel.length === 0 } >
+            <div >
                 
-                <NextButton btnName='Next' setCurrentStep={setCurrentStep} currentStep={5} />
+                <NextButton btnName='Next' 
+                    setCurrentStep={setCurrentStep} 
+                    currentStep={5} 
+                    disabled={validateLabel.length > 1 || arLabel.length === 0 }
+                />
             </div>
         </section>
   )

@@ -43,25 +43,26 @@ function SignUpNear({setCurrentStep, currentStep}: Props) {
   
 
   return (
-    <div className='relative h-screen flex flex-col justify-between w-[440px]'>
+    <div className='relative h-screen flex flex-col sm:w-[440px] w-full px-5'>
       <div className='mt-10'>
         <BackButton setstep={setCurrentStep} step={currentStep - 1}/>
-        <div className='mt-6 mb-5 '>
+        {/* <div className='mt-6 mb-5 '>
           <LineBarTracker step={1}  total_step={3}/>
-        </div>
-        <div>
-          <h1 className='text-3xl font-bold mb-2'>Connect with Near Network</h1>
-          <p className='text-left text-[#8e8e8f] text-sm'>
-           Application requires connection to Near Network<br/>  
-            as part of Arweave Name Service upgrade.
+        </div> */}
+        <div className='mt-32'>
+          <h1 className='sm:text-4xl text-3xl font-bold mb-2'>Add your Near Wallet <br /> to your ArPage to get <br /> started</h1>
+          <p className='text-left text-[#8e8e8f] text-sm mt-7'>
+           Due to the recent network upgrade, a Near
+           Wallet connection is required to take advantage  
+           of ArPage's features.
           </p>
         </div>
       </div>
         
         {/* Button to connect or download arweave  */}
-        <div className='mb-[113px] flex justify-center flex-col items-center w-full'>
+        <div className='mt-[102px] flex justify-center flex-col items-center w-full'>
           <button onClick={connected ? nextButton : connectButton}
-            className="cursor-pointer bg-[#1273ea] w-[386px] h-14 justify-center items-center flex relative flex-row rounded-full text-white font-bold text-lg" >
+            className="cursor-pointer bg-[#1273ea] w-full px-28 sm:w-[386px] h-14 justify-center items-center flex relative flex-row rounded-full text-white font-bold text-lg" >
               <div className='flex justify-center items-center'>
                 {
                   connected ? (
