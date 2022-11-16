@@ -3,16 +3,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { HiOutlineSwitchHorizontal, HiSwitchHorizontal } from 'react-icons/hi'
-import NextButton from '../buttons/NextButton'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { userOnboardingState } from '../../atoms'
+import MainNextButton from '../buttons/MainNextButton'
 import { Divider } from '../user/components/reusables'
 
-interface Props { 
-    setCurrentStep: any,
-    currentStep: number
-  }
 
 
-function VerifyWithArk({setCurrentStep, currentStep}: Props) {
+function VerifyWithArk() {
+    const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
+    const userCurrentStep = useRecoilValue(userOnboardingState)
   return (
     <div className='mt-[60px] w-full px-5 sm:w-[440px]'>
         <div className='items-center flex flex-col justify-center'>
@@ -100,9 +100,9 @@ function VerifyWithArk({setCurrentStep, currentStep}: Props) {
         </div>
         <Divider />
         <div className='relative bottom-6'>
-            <NextButton btnName='Next' setCurrentStep={setCurrentStep} currentStep={4} />
+            <MainNextButton btnName='Next'  />
             <div className='space-y-2 mt-6 text-[#6a6b6a] font-medium text-center'>
-              <button onClick={() => setCurrentStep(2)} >
+              <button onClick={() => setUserOnboarding(userOnboardingStep - 1)} >
                 <h1 className='underline cursor-pointer'>
                   Cancel
                 </h1>

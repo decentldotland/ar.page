@@ -3,19 +3,17 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { confirmModalState } from '../../atoms'
+import { useArconnect } from '../../hooks/useArconnect'
 import { Ans } from '../../src/types'
 import CustomConnectButton from '../buttons/ConnectAccount'
+import UserBackButton from '../buttons/UserBackButton'
 import BackButton from '../reservation/BackButton'
 import LineBarTracker from '../reservation/LineBarTracker'
 import { AccountWidget } from './AccountWidget'
 import ModalConfirm from './ModalConfirm'
 
-interface Props { 
-    setCurrentStep: any,
-    currentStep: number
-  }
 
-function SignUpArConnect({setCurrentStep, currentStep}: Props) {
+function SignUpArConnect() {
   const [login, setLogin] = useState(false)
   // Show confirmation modal 
   const showModalValue = useRecoilValue(confirmModalState)
@@ -26,7 +24,7 @@ function SignUpArConnect({setCurrentStep, currentStep}: Props) {
     ansData,
     arconnectConnect,
     arconnectDisconnect,
-    shortenAddress,
+
     address
   } = useAns();
 
@@ -47,7 +45,6 @@ function SignUpArConnect({setCurrentStep, currentStep}: Props) {
 
   }
 
-
   useEffect(() => {
     if (walletConnected) { 
       setConnected(true)
@@ -59,14 +56,13 @@ function SignUpArConnect({setCurrentStep, currentStep}: Props) {
   
 
 
-  console.log(walletConnected)
-  console.log(ansData)  
+  console.log(address)  
   
   return (
     <>
       <div className='relative h-full flex flex-col w-full sm:w-[440px] px-5'>
         <div className='mt-10'>
-          <BackButton setstep={setCurrentStep} step={currentStep - 1}/>
+          <UserBackButton/>
           {/* <div className='mt-6 mb-5 '>
             <LineBarTracker step={1}  total_step={3}/>
           </div> */}
@@ -98,7 +94,7 @@ function SignUpArConnect({setCurrentStep, currentStep}: Props) {
           </div>
       </div>
       {/* show confirmation  */}
-      {showModalValue && (<ModalConfirm  address='' disconnectFunction={''} />) }
+      {showModalValue && (<ModalConfirm  address={address} disconnectFunction={() => (arconnectDisconnect as Function)()} />) }
     </>
   )
 }

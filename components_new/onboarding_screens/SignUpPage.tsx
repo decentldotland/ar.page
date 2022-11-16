@@ -1,13 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
 import CustomConnectButton from '../buttons/ConnectAccount'
-import NextButton from '../buttons/NextButton'
+import MainNextButton from '../buttons/MainNextButton'
 
-interface Props { 
-    setCurrentStep: any
-  }
 
-function SignUpPage({setCurrentStep}: Props) {
+function SignUpPage() {
   return (
     <div className='items-center flex flex-col mt-[216px] w-full sm:w-[440px] px-5'>
         <div className="items-center flex flex-col  h-full space-y-7">
@@ -19,7 +16,7 @@ function SignUpPage({setCurrentStep}: Props) {
           </h2>
         </div>
           <div className='mt-[118px] w-full'>
-            <NextButton btnName='Claim your ArPage' setCurrentStep={setCurrentStep} currentStep={1} />
+            <MainNextButton btnName='Claim your ArPage' />
             <div className='space-y-2 mt-6 text-[#6a6b6a] font-medium text-center flex flex-row space-x-1 items-end justify-center'>
               <h1 className="text-sm ">Already have profile?</h1>
               <a href={"/"} >

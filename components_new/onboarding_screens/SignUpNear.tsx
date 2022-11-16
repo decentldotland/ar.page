@@ -7,13 +7,11 @@ import { useWalletSelector } from '../../src/contexts/WalletSelectorContext'
 import '@near-wallet-selector/modal-ui/styles.css';
 import type { AccountView } from "near-api-js/lib/providers/provider";
 import { CircularProgress } from '@mui/material'
+import UserBackButton from '../buttons/UserBackButton'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { userOnboardingState } from '../../atoms'
 
 
-
-interface Props { 
-    setCurrentStep: any,
-    currentStep: number
-  }
 
 /**
  * Page to connect to user's near wallets, supports currently:
@@ -22,10 +20,12 @@ interface Props {
  * @param param0 
  * @returns 
  */
-function SignUpNear({setCurrentStep, currentStep}: Props) {
+function SignUpNear() {
 
   const [connected, setConnected] = useState(false)
   const { selector, modal, accounts, accountId } = useWalletSelector();
+  const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
+  const userCurrentStep = useRecoilValue(userOnboardingState)
 
   const connectButton = () => { 
     setConnected(true)
@@ -33,7 +33,7 @@ function SignUpNear({setCurrentStep, currentStep}: Props) {
   }
 
   const nextButton = () => { 
-    setCurrentStep(3)
+    setUserOnboarding(userCurrentStep+1)
   }
 
   useEffect(() => {
@@ -45,7 +45,7 @@ function SignUpNear({setCurrentStep, currentStep}: Props) {
   return (
     <div className='relative h-screen flex flex-col sm:w-[440px] w-full px-5'>
       <div className='mt-10'>
-        <BackButton setstep={setCurrentStep} step={currentStep - 1}/>
+        <UserBackButton />
         {/* <div className='mt-6 mb-5 '>
           <LineBarTracker step={1}  total_step={3}/>
         </div> */}

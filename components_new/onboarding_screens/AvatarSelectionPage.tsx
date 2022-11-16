@@ -1,25 +1,21 @@
 import { ArrowLongRightIcon, PlusIcon } from '@heroicons/react/24/outline'
 import React from 'react'
+import { useRecoilState } from 'recoil';
+import { userOnboardingState } from '../../atoms';
+import UserBackButton from '../buttons/UserBackButton'
 import BackButton from '../reservation/BackButton'
 
 
-interface Props { 
-    setCurrentStep: any,
-    currentStep: number
-}
-function AvatarSelectionPage({
-    setCurrentStep, 
-    currentStep
-}: Props) {
 
+function AvatarSelectionPage() {
 
-    
+    const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
 
 
   return (
     <section className="relative h-full flex flex-col w-full sm:w-[440px] px-5">
         <div className='mt-10'>
-            <BackButton setstep={setCurrentStep} step={currentStep - 1}/>
+            <UserBackButton />
             <h1 className="text-[32px] font-bold mt-5">Now the fun part, 
                 <br/> choose your avatar!
             </h1>

@@ -1,16 +1,18 @@
 import React from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { userOnboardingState } from '../../atoms';
 
 interface Props  { 
-    setCurrentStep: any,
-    currentStep: number,
     btnName: string
     disabled?: boolean
 }
 //w-[386px] 
-function NextButton({setCurrentStep, currentStep, btnName, disabled}: Props) {
+function MainNextButton({btnName, disabled}: Props) {
+  const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
+
   return (
     <div  className='items-center flex flex-col justify-center'>
-      <button disabled={disabled} onClick={() => setCurrentStep(currentStep)} className={`
+      <button disabled={disabled} onClick={() => setUserOnboarding(userOnboardingStep + 1)} className={`
       
       ${disabled ? 'bg-[#e6e6e6] text-[#8e8e8f] cursor-not-allowed' : 'bg-[#1273ea] text-white'}
       
@@ -25,4 +27,4 @@ function NextButton({setCurrentStep, currentStep, btnName, disabled}: Props) {
   )
 }
 
-export default NextButton
+export default MainNextButton

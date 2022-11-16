@@ -3,21 +3,23 @@ import { CircularProgress } from '@mui/material'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useAccount } from 'wagmi';
 import Web3 from 'web3';
+import { userOnboardingState } from '../../atoms';
 import { Ans } from '../../src/types';
 
 interface Props { 
-    setCurrentStep: any,
-    currentStep: number
     arLabel: string
 }
 
 function ConfirmUsername({
-    setCurrentStep, 
-    currentStep,
     arLabel
 }: Props) {
+  const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
+  const userCurrentStep = useRecoilValue(userOnboardingState)
+
+
     const { address, isConnected, connector } = useAccount();
 
 
@@ -59,7 +61,7 @@ function ConfirmUsername({
         setLoadingWrite(true)
 
         // temporary 
-        setCurrentStep(7)
+        setUserOnboarding(userOnboardingStep + 1)
         // axios.post(`api/exmwrite`, {
         //   "function": "reserve",
         //   "evm_address": evmAddress,
@@ -91,7 +93,7 @@ function ConfirmUsername({
                 <h1 className='font-bold text-4xl mb-4'>@{arLabel}</h1>
 
                 {/* Go back to registration page  */}
-                <p onClick={() => setCurrentStep(5)} 
+                <p onClick={() => setUserOnboarding(userOnboardingStep - 1)} 
                   className='cursor-pointer font-medium text-sm text-[#1273ea] text-left hover:underline'>
                     Change username
                 </p>

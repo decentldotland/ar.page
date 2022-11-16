@@ -1,9 +1,10 @@
 import React from 'react'
 import { useRecoilState } from 'recoil';
-import { confirmModalState } from '../../atoms';
+import { confirmModalState, userOnboardingState } from '../../atoms';
 import MuiModal from '@mui/material/Modal'
 import Image from 'next/image';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { shortenAddress, shortenName } from '../../src/utils';
 
 interface Props {   
     address?: string,
@@ -14,7 +15,7 @@ interface Props {
 function ModalConfirm({address, disconnectFunction}: Props) {
     const [showModal, setShowModal] = useRecoilState(confirmModalState);
     const handleClose = () => {  setShowModal(false )}
-  
+    const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
     return (
 
     <MuiModal
@@ -42,8 +43,8 @@ function ModalConfirm({address, disconnectFunction}: Props) {
                                 alt=""
                                 quality={100} />
                         </div>
-                        <h1 className='font-bold text-left text-sm text-[#3a3a3a]'>lkdfjakld...dasdas</h1>
-                        <ChevronDownIcon height={15} width={20} strokeWidth={4} className="relative left-2"  />
+                        <h1 className='font-bold text-left text-base text-[#3a3a3a]'>{shortenAddress(address!)}</h1>
+                        <ChevronDownIcon height={15} width={20} strokeWidth={4} className="relative left-6"  />
                     </div>  
                 </div>
                 <div>
@@ -52,8 +53,11 @@ function ModalConfirm({address, disconnectFunction}: Props) {
                     </h2>
                 </div>
                 <div className="flex flex-row space-x-2.5 justify-center  mt-[44px]">
-                    <div className='text-lg bg-[#e84040]/20 rounded-full px-[19px] py-3 font-bold text-[#e84040]   '>Disconnect</div>
-                    <div className='text-lg bg-[#1273ea] rounded-full px-[52px] py-3 font-bold text-white   '>Confirm</div>
+                    <div onClick={() => {
+                        disconnectFunction()
+                        handleClose()
+                    }} className='cursor-pointer text-lg bg-[#e84040]/20 rounded-full px-[19px] py-3 font-bold text-[#e84040]   '>Disconnect</div>
+                    <div onClick={() => setUserOnboarding(userOnboardingStep + 1)} className='text-lg bg-[#1273ea] rounded-full px-[52px] py-3 font-bold text-white   '>Confirm</div>
                 </div>
             </section>
         </>

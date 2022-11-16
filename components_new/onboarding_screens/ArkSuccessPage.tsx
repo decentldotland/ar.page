@@ -1,10 +1,10 @@
 import React from 'react'
-import NextButton from '../buttons/NextButton'
-interface Props { 
-    setCurrentStep: any,
-    currentStep: number
-  }
-function ArkSuccessPage({setCurrentStep, currentStep}: Props) {
+import MainNextButton from '../buttons/MainNextButton'
+import NextButton from '../buttons/MainNextButton'
+
+
+
+function ArkSuccessPage() {
   return (
     <div className='flex px-5 flex-col h-screen relative justify-center
        w-full sm:w-[440px] bottom-16  space-y-5 '>
@@ -12,7 +12,7 @@ function ArkSuccessPage({setCurrentStep, currentStep}: Props) {
         has been added 
         your ArPage! 🥳
         </h1>
-        <NextButton btnName='Register Name' setCurrentStep={setCurrentStep} currentStep={5} />
+        <MainNextButton btnName='Register Name' />
     </div>
   )
 }

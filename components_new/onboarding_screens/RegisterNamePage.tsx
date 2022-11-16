@@ -5,17 +5,16 @@ import { useAccount } from 'wagmi'
 import Web3 from 'web3'
 import { Ans } from '../../src/types'
 import useValidateLabel from '../../src/useValidateLabel'
-import NextButton from '../buttons/NextButton'
+import MainNextButton from '../buttons/MainNextButton'
+import NextButton from '../buttons/MainNextButton'
 import BackButton from '../reservation/BackButton'
 
 interface Props  { 
-    setCurrentStep: any
-    currentStep: number,
     setArLabel: any,
     arLabel: string
 }
 
-function RegisterNamePage({setCurrentStep, currentStep, setArLabel, arLabel}: Props) {
+function RegisterNamePage({setArLabel, arLabel}: Props) {
 
     let validateLabel = useValidateLabel(arLabel)
     // const onSubmit = (e: any) => {
@@ -108,9 +107,9 @@ function RegisterNamePage({setCurrentStep, currentStep, setArLabel, arLabel}: Pr
             </div>
             <div >
                 
-                <NextButton btnName='Next' 
-                    setCurrentStep={setCurrentStep} 
-                    currentStep={5} 
+                <MainNextButton btnName='Next' 
+                    // setCurrentStep={setCurrentStep} 
+                    // currentStep={5} 
                     disabled={validateLabel.length > 1 || arLabel.length === 0 }
                 />
             </div>
