@@ -14,10 +14,10 @@ function Onboarding() {
   const [currentStep, setCurrentStep] = useState(0)
   const [arLabel, setArLabel] = useState('')
 
-  useEffect(() => {
-    setCurrentStep(7)
+  // useEffect(() => {
+  //   setCurrentStep(7)
   
-  }, [])
+  // }, [])
   
 
   return (
