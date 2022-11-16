@@ -51,3 +51,10 @@ export const confirmModalState = atom({
     key: 'confirmModalState',
     default: false
 })
+
+// The onboarding step the current user is in, making it easier 
+// to access the current without having to pass on props 
+export const userOnboardingState =  atom({
+    key: 'userOnboardingState',
+    default: 0
+})
