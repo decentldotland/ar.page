@@ -29,7 +29,7 @@ export const arLabels = (arweave_address: string, ownedLabels: OwnedLabel[]) => 
       className="bg-white rounded-full"
       src={"/icons/ARWEAVE.svg"}
       alt=""
-      quality={50} />,
+      quality={100} />,
     hovertext: `Scarcity: ${owned.scarcity}`
   }
 }) || [];

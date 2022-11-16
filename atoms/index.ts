@@ -46,3 +46,8 @@ export const userInfoState = atom<userInfo | null>({
     key: 'userInfoState',
     default: null,
 })
+
+export const confirmModalState = atom({
+    key: 'confirmModalState',
+    default: false
+})
