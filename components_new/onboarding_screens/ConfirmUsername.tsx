@@ -86,11 +86,11 @@ function ConfirmUsername({
     return (
         <section aria-disabled={loadingWrite} 
           className={loadingWrite ? 'absolute h-screen bottom-0 w-screen z-50 bg-[#B3B2B3]/25 cursor-not-allowed  ' : 
-            'relative h-screen flex flex-col sm:w-[440px] w-full px-5 justify-between'}>
+            'relative h-screen flex flex-col items-center sm:w-[440px] w-full px-5 justify-between'}>
               
               <div className='flex flex-col items-center mt-40  w-full sm:w-[440px] '>
-                <h2 className='text-xl font-medium mb-7 text-[#3a3a3a]'>Your username</h2>
-                <h1 className='font-bold text-4xl mb-4'>@{arLabel}</h1>
+                <h2 className='text-xl  font-medium mb-7 text-[#3a3a3a]'>Your username</h2>
+                <h1 className='font-bold text-center text-4xl mb-4'>@{arLabel}</h1>
 
                 {/* Go back to registration page  */}
                 <p onClick={() => setUserOnboarding(userOnboardingStep - 1)} 
@@ -100,7 +100,7 @@ function ConfirmUsername({
               </div>
                 
                 {/* Button to register name and direct the user to the next screen */}
-                  <div className='items-center flex flex-col justify-center  relative bottom-28'>
+                  <div className='w-full items-center flex flex-col justify-center  relative bottom-28'>
                     <button onClick={(e) => onSubmit(e)} disabled={invalidEVM.length > 0 || invalidLabel.length > 0} 
                       className=" bg-[#1273ea] w-full px-24 h-14 items-center rounded-full text-white font-bold text-lg" >
                         <div className='flex justify-center items-center'>

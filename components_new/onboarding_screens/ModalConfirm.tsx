@@ -33,18 +33,21 @@ function ModalConfirm({address, disconnectFunction}: Props) {
                     <h1 className='text-center font-semibold text-4xl'>Hello</h1>
 
 
-                    <div className='items-center w-[201px] px-2 mt-[22px] mb-[13px] py-2 space-x-2 flex rounded-full bg-[#f2f3f5] border-0'>
-                        <div className="rounded-full p-1  bg-black items-center flex justif0">
-                            <Image
-                                width={19}
-                                height={19}
-                                className="bg-white rounded-full p-2 border-4 border-black"
-                                src={"/icons/ARWEAVE.svg"}
-                                alt=""
-                                quality={100} />
+                    <div className='items-center w-[201px] px-2 mt-[22px] mb-[13px] py-2 justify-between flex rounded-full bg-[#f2f3f5] border-0'>
+                        <div className='space-x-2 flex flex-row '>
+                            <div className="rounded-full p-1  bg-black items-center flex justif0">
+                                <Image
+                                    width={19}
+                                    height={19}
+                                    className="bg-white rounded-full p-2 border-4 border-black"
+                                    src={"/icons/ARWEAVE.svg"}
+                                    alt=""
+                                    quality={100} />
+                            </div>
+                            <h1 className='font-bold text-left text-base text-[#3a3a3a]'>{shortenAddress(address!)}</h1>
                         </div>
-                        <h1 className='font-bold text-left text-base text-[#3a3a3a]'>{shortenAddress(address!)}</h1>
-                        <ChevronDownIcon height={15} width={20} strokeWidth={4} className="relative left-6"  />
+                        
+                        <ChevronDownIcon height={15} width={20} strokeWidth={4} className=""  />
                     </div>  
                 </div>
                 <div>
@@ -57,7 +60,7 @@ function ModalConfirm({address, disconnectFunction}: Props) {
                         disconnectFunction()
                         handleClose()
                     }} className='cursor-pointer text-lg bg-[#e84040]/20 rounded-full px-[19px] py-3 font-bold text-[#e84040]   '>Disconnect</div>
-                    <div onClick={() => setUserOnboarding(userOnboardingStep + 1)} className='text-lg bg-[#1273ea] rounded-full px-[52px] py-3 font-bold text-white   '>Confirm</div>
+                    <div onClick={() => setUserOnboarding(userOnboardingStep + 1)} className='cursor-pointer text-lg bg-[#1273ea] rounded-full px-[52px] py-3 font-bold text-white   '>Confirm</div>
                 </div>
             </section>
         </>
