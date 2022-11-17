@@ -89,8 +89,8 @@ function ConfirmUsername({
             'relative h-screen flex flex-col items-center sm:w-[440px] w-full px-5 justify-between'}>
               
               <div className='flex flex-col items-center mt-40  w-full sm:w-[440px] '>
-                <h2 className='text-xl  font-medium mb-7 text-[#3a3a3a]'>Your username</h2>
-                <h1 className='font-bold text-center text-4xl mb-4'>@{arLabel}</h1>
+                <h2 className='text-xl text-center font-medium mb-7 text-[#3a3a3a]'>Your username</h2>
+                <h1 className='font-bold text-4xl mb-4'>@{arLabel}</h1>
 
                 {/* Go back to registration page  */}
                 <p onClick={() => setUserOnboarding(userOnboardingStep - 1)} 
