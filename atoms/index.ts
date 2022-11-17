@@ -58,3 +58,8 @@ export const userOnboardingState =  atom({
     key: 'userOnboardingState',
     default: 0
 })
+
+export const avatarModalState = atom({
+    key: 'avatarModalState',
+    default: false
+})
