@@ -23,14 +23,13 @@ function ModalConfirm({address, disconnectFunction}: Props) {
           z-50 mx-auto w-full max-w-5xl 
           overflow-hidden overflow-y-scroll 
           rounded-md scrollbar-hide items-center flex flex-col justify-center
-
           "
         open={showModal}
         onClose={handleClose}>
         <>
             <section className='py-[39px] relative bottom-10 bg-white w-[388px] h-[335px] rounded-[20px]  '>
                 <div className="flex flex-col justify-center items-center">
-                    <h1 className='text-center font-semibold text-4xl'>Hello</h1>
+                    <h1 className='text-center font-semibold text-3xl'>Hello</h1>
 
 
                     <div className='items-center w-[201px] px-2 mt-[22px] mb-[13px] py-2 justify-between flex rounded-full bg-[#f2f3f5] border-0'>
