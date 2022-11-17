@@ -52,7 +52,7 @@ function AvatarSelectionPage() {
             */}
             <div className='relative bottom-[71px]'>
                 <MainNextButton btnName='Next' disabled={true}/>
-                <h1 className='font-bold text-center mt-6 text-sm text-[#8e8e8f] cursor-pointer'>Skip</h1>
+                <h1 onClick={() => setUserOnboarding(userOnboardingStep + 1)} className='font-bold text-center mt-6 text-sm text-[#8e8e8f] cursor-pointer'>Skip</h1>
             </div>
         </section>
 

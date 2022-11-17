@@ -4,6 +4,8 @@ import { userOnboardingState } from '../atoms'
 import ArkSuccessPage from '../components_new/onboarding_screens/ArkSuccessPage'
 import AvatarSelectionPage from '../components_new/onboarding_screens/AvatarSelectionPage'
 import ConfirmUsername from '../components_new/onboarding_screens/ConfirmUsername'
+import EditProfilePage from '../components_new/onboarding_screens/EditProfilePage'
+import OptionEditProfile from '../components_new/onboarding_screens/OptionEditProfile'
 import RegisterNamePage from '../components_new/onboarding_screens/RegisterNamePage'
 import SettingUpAccount from '../components_new/onboarding_screens/SettingUpAccount'
 import SignUpArConnect from '../components_new/onboarding_screens/SignUpArConnect'
@@ -26,7 +28,7 @@ function Onboarding() {
   
 
   return (
-    <div className='font-sans items-center flex justify-center  '>
+    <div className='font-sans items-center flex justify-center'>
       {
         userCurrentStep === 0 && (<SignUpPage  />)
       }
@@ -52,7 +54,13 @@ function Onboarding() {
         userCurrentStep === 7 && (<AvatarSelectionPage  />)
       }
       {
-        userCurrentStep === 8 && (<SettingUpAccount /> )
+        userCurrentStep === 8 && (<OptionEditProfile /> )
+      }
+      {
+        userCurrentStep === 9 && (<EditProfilePage /> )
+      }
+      {
+        userCurrentStep === 10 && (<SettingUpAccount /> )
       }
 
     </div>  

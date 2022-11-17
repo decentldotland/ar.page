@@ -8,7 +8,7 @@ function OptionEditProfile() {
     const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
   return (
     <section className=" h-screen relative w-full flex flex-col px-5 sm:w-[440px]">
-            <div className='mt-10'>
+            <div className='mt-10 z-10'>
               <UserBackButton />
             </div>
             <div className="flex flex-col justify-center h-screen relative bottom-20">
