@@ -57,7 +57,7 @@ function MyApp({ Component, pageProps }) {
             <meta name="twitter:image" content="https://ar.page/favicon.png" />
             <meta name="twitter:site" content="@decentdotland" />
             <meta name="twitter:title" content="ar.page | Home" />
-            <meta name="twitter:description" content="The web3 social layer" />
+            <meta name="twitter:description" content="All your Web3 content, finally stored in one place." />
             <meta name="twitter:url" content="https://ar.page"></meta>
           </Head>
           <WagmiConfig client={wagmiClient}>
