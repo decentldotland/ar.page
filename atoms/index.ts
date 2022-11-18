@@ -63,3 +63,8 @@ export const avatarModalState = atom({
     key: 'avatarModalState',
     default: false
 })
+
+export const nearWalletConnected = atom({
+    key: 'nearWalletConnected',
+    default: false
+})
