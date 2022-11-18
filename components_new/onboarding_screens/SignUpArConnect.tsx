@@ -1,4 +1,5 @@
 import { useAns } from 'ans-for-all'
+import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
@@ -61,37 +62,34 @@ function SignUpArConnect() {
   return (
     <>
       <div className='relative h-full flex flex-col w-full sm:w-[440px] px-5'>
-        <div className='mt-10'>
-          <UserBackButton/>
-          {/* <div className='mt-6 mb-5 '>
-            <LineBarTracker step={1}  total_step={3}/>
-          </div> */}
-          <div className='mt-32 '>
-            <h1 className='sm:text-4xl text-4xl font-semibold mb-2 text-[#3a3a3a]'>Sign in through your <br /> <span className="font-bold text-black">Arweave Wallet</span> <br /> to get started.</h1>
-            <p className='text-left text-[#8e8e8f] text-sm font-medium mt-4'>
-            You'll be prompted to setup the wallet<br/>  
-            automatically if no wallet is found. 
-            </p>
-          </div>
+        <div className="mt-[216px] items-center flex flex-col  h-full space-y-7">
+          <h1 className='font-bold text-4xl text-center'>
+            Create an account <br /> for ArPage
+          </h1>
+          <h2 className='text-sm text-[#8e8e8f] text-center font-normal'>
+            Create a shareable handle, follow other users, <br /> connect to DAO communities using ArPage.
+          </h2>
         </div>
           
           {/* Button to connect or download arweave  */}
-          <div className='mt-[102px] flex justify-center flex-col items-center w-full'>
+          <div className='mt-[99px] flex justify-center flex-col items-center w-full'>
             <button onClick={connected ? nextButton : connectButton}
-              className="cursor-pointer bg-[#1273ea] w-full px-28 sm:w-[386px] h-14 justify-center items-center flex relative flex-row rounded-full text-white font-bold text-lg" >
-                <div className='flex justify-center items-center'>
-                  {
-                    connected ? (
-                      <p className='text-center'>Next</p>
-
-                    ) : (
-                      <p className='text-center'>Connect</p>
-                    )
-                  }
+              className="cursor-pointer  bg-black text-white w-full  sm:w-[386px] h-[68px] justify-center items-center flex relative flex-row rounded-full font-bold text-lg" >
+                <div className='flex justify-center items-center space-x-3'>
+                      <Image src={'/icons/ARWEAVE_WHITE.svg'} height={26.2} width={26.2}/>
+                      <p className='text-center'>Continue with ArConnect</p>
                   {/* <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/> */}
                 </div>
             </button>
           </div>
+          <div className='space-y-2 mt-8 text-[#6a6b6a] font-medium text-center flex flex-row space-x-1 items-end justify-center'>
+              <h1 className="text-sm ">Already have profile?</h1>
+              <a href={"/"} >
+                <h1 className='underline  font-bold cursor-pointer text-[#6a6b6a]'>
+                  Sign in
+                </h1>
+              </a>
+            </div>
       </div>
       {/* show confirmation  */}
       {showModalValue && (<ModalConfirm  address={address} disconnectFunction={() => (arconnectDisconnect as Function)()} />) }
