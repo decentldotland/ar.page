@@ -9,7 +9,8 @@ import type { AccountView } from "near-api-js/lib/providers/provider";
 import { CircularProgress } from '@mui/material'
 import UserBackButton from '../buttons/UserBackButton'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { userOnboardingState } from '../../atoms'
+import { confirmModalState, nearWalletConnected, userOnboardingState } from '../../atoms'
+import ModalConfirm from './ModalConfirm'
 
 
 
@@ -24,25 +25,58 @@ function SignUpNear() {
 
   const [connected, setConnected] = useState(false)
   const { selector, modal, accounts, accountId } = useWalletSelector();
+  const [account, setAccount] = useState()
+  // user step 
   const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
   const userCurrentStep = useRecoilValue(userOnboardingState)
 
+  // Confirmation modal
+  const showModalValue = useRecoilValue(confirmModalState)
+  const [showModal, setShowModal] = useRecoilState(confirmModalState);
+
+  const [nearWalletConnection, setNearWalletConnected] = useRecoilState(nearWalletConnected);
+
+
+  /**
+   * 1. Check if the Near wallet is not null, setConnected to false
+   * 2  User is signed in using their Near wallet
+   * 3. Save {@code currentStep} to localstorage and set {@code triggered} to false
+   */
+  useEffect(() => {
+    if (!accountId) {
+      setNearWalletConnected(false)
+      return setConnected(false);
+    }
+    setNearWalletConnected(true)
+
+    // Save on localstorage currenste
+    localStorage.setItem('currentStep', `${userOnboardingStep}`)
+    localStorage.setItem('triggered', 'false')
+    
+    return setConnected(true)
+  }, [accountId, nearWalletConnection])
+
+
   const connectButton = () => { 
-    setConnected(true)
     modal.show();
   }
+  const handleSignOut = async () => {
+    const wallet = await selector.wallet();
+
+    wallet.signOut().catch((err) => {
+      console.log("Failed to sign out");
+      console.error(err);
+    });
+  };
 
   const nextButton = () => { 
-    setUserOnboarding(userCurrentStep+1)
+    // If account is null, trigger connectButton again regardless
+    setShowModal(true)
+
   }
 
-  useEffect(() => {
-    if (accountId !== null) setConnected(false)
-
-  }, [accountId, modal])
-  
-
   return (
+    <>
     <div className='relative h-screen flex flex-col sm:w-[440px] w-full px-5'>
       <div className='mt-10'>
         <UserBackButton />
@@ -61,11 +95,11 @@ function SignUpNear() {
         
         {/* Button to connect or download arweave  */}
         <div className='mt-[102px] flex justify-center flex-col items-center w-full'>
-          <button onClick={connected ? nextButton : connectButton}
+          <button onClick={connected && accountId ? nextButton : connectButton}
             className="cursor-pointer bg-[#1273ea] w-full px-28 sm:w-[386px] h-14 justify-center items-center flex relative flex-row rounded-full text-white font-bold text-lg" >
               <div className='flex justify-center items-center'>
                 {
-                  connected ? (
+                  connected && accountId ? (
                     <p className='text-center'>Next</p>
 
                   ) : (
@@ -77,6 +111,10 @@ function SignUpNear() {
           </button>
         </div>
     </div>
+    {showModalValue && (<ModalConfirm  address={accountId!} disconnectFunction={handleSignOut} />) }
+
+    </>
+
   )
 }
 
