@@ -5,14 +5,17 @@ import ArkSuccessPage from '../components_new/onboarding_screens/ArkSuccessPage'
 import AvatarSelectionPage from '../components_new/onboarding_screens/AvatarSelectionPage'
 import ConfirmUsername from '../components_new/onboarding_screens/ConfirmUsername'
 import ConnectAccounts from '../components_new/onboarding_screens/ConnectAccounts'
+import ConnectAdditionalAccounts from '../components_new/onboarding_screens/ConnectAdditionalAccounts'
 import EditProfilePage from '../components_new/onboarding_screens/EditProfilePage'
 import OptionEditProfile from '../components_new/onboarding_screens/OptionEditProfile'
 import RegisterNamePage from '../components_new/onboarding_screens/RegisterNamePage'
-import SettingUpAccount from '../components_new/onboarding_screens/SettingUpAccount'
+import SettingUpAccount from '../components_new/onboarding_screens/LoadingScreen'
 import SignUpArConnect from '../components_new/onboarding_screens/SignUpArConnect'
 import SignUpNear from '../components_new/onboarding_screens/SignUpNear'
 import VerifyWithArk from '../components_new/onboarding_screens/VerifyWithArk'
 import { useWalletSelector } from '../src/contexts/WalletSelectorContext'
+import LoadingScreen from '../components_new/onboarding_screens/LoadingScreen'
+import DIDList from '../components_new/onboarding_screens/DIDList'
 
 function Onboarding() {
 
@@ -55,7 +58,7 @@ function Onboarding() {
   }, [isNearWalletConnected, userCurrentStep])
   
   useEffect(() => {
-    setUserOnboarding(5)
+    setUserOnboarding(7)
 
   }, [])
   
@@ -70,7 +73,6 @@ function Onboarding() {
       }
       {
         userCurrentStep === 1 && (<ConnectAccounts />)
-
       }
       {
         userCurrentStep === 2 && (<SignUpNear />)
@@ -81,14 +83,27 @@ function Onboarding() {
       {
         userCurrentStep === 4 && (<ArkSuccessPage  /> ) 
       }
+
       {
-        userCurrentStep === 5 && ( <RegisterNamePage setArLabel={setArLabel} arLabel={arLabel} /> ) 
+        userCurrentStep === 5 && ( <ConnectAdditionalAccounts /> )
+      }
+      
+      {
+        userCurrentStep === 6 && (<LoadingScreen msg={'Cross checking user data'}/> )
+      }
+
+      {
+        userCurrentStep === 7 && ( <DIDList /> )
+      }
+
+      {/* {
+        userCurrentStep === 6123 && ( <RegisterNamePage setArLabel={setArLabel} arLabel={arLabel} /> ) 
+      } */}
+      {
+        userCurrentStep === 632 && ( <ConfirmUsername  arLabel={arLabel}/> ) 
       }
       {
-        userCurrentStep === 6 && ( <ConfirmUsername  arLabel={arLabel}/> ) 
-      }
-      {
-        userCurrentStep === 7 && (<AvatarSelectionPage  />)
+        userCurrentStep === 723 && (<AvatarSelectionPage  />)
       }
       {
         userCurrentStep === 8 && (<OptionEditProfile /> )
@@ -97,7 +112,7 @@ function Onboarding() {
         userCurrentStep === 9 && (<EditProfilePage /> )
       }
       {
-        userCurrentStep === 10 && (<SettingUpAccount /> )
+        userCurrentStep === 10 && (<LoadingScreen msg={'Creating your profile'}/> )
       }
 
     </div>  

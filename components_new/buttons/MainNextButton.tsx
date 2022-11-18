@@ -17,7 +17,7 @@ function MainNextButton({btnName, disabled}: Props) {
       ${disabled ? 'bg-[#e6e6e6] text-[#8e8e8f] cursor-not-allowed' : 'bg-[#1273ea] text-white'}
       
       mt-9  w-full px-24
-        h-16 items-center rounded-full  font-bold text-lg`}>
+      h-[68px] items-center rounded-full  font-bold text-lg`}>
           <div className='flex justify-center'>
             <p className='relative text-center '>{btnName}</p>
           </div>

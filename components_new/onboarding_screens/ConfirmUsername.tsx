@@ -102,7 +102,7 @@ function ConfirmUsername({
                 {/* Button to register name and direct the user to the next screen */}
                   <div className='w-full items-center flex flex-col justify-center  relative bottom-28'>
                     <button onClick={(e) => onSubmit(e)} disabled={invalidEVM.length > 0 || invalidLabel.length > 0} 
-                      className=" bg-[#1273ea] w-full px-24 h-14 items-center rounded-full text-white font-bold text-lg" >
+                      className=" bg-[#1273ea] w-full px-24 h-[68px] items-center rounded-full text-white font-bold text-lg" >
                         <div className='flex justify-center items-center'>
 
                           {

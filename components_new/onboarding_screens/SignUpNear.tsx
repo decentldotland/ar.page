@@ -96,7 +96,7 @@ function SignUpNear() {
         {/* Button to connect or download arweave  */}
         <div className='mt-[102px] flex justify-center flex-col items-center w-full'>
           <button onClick={connected && accountId ? nextButton : connectButton}
-            className="cursor-pointer bg-[#1273ea] w-full px-28 sm:w-[386px] h-14 justify-center items-center flex relative flex-row rounded-full text-white font-bold text-lg" >
+            className="cursor-pointer bg-[#1273ea] w-full px-28 sm:w-[386px] h-[68px] justify-center items-center flex relative flex-row rounded-full text-white font-bold text-lg" >
               <div className='flex justify-center items-center'>
                 {
                   connected && accountId ? (
