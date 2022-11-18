@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil';
 import { confirmModalState, userOnboardingState } from '../../atoms';
 import MuiModal from '@mui/material/Modal'
@@ -16,6 +16,13 @@ function ModalConfirm({address, disconnectFunction}: Props) {
     const [showModal, setShowModal] = useRecoilState(confirmModalState);
     const handleClose = () => {  setShowModal(false )}
     const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
+
+    useEffect(() => {
+      if (!address) handleClose()
+
+    }, [address])
+    
+
     return (
 
     <MuiModal
@@ -27,7 +34,7 @@ function ModalConfirm({address, disconnectFunction}: Props) {
         open={showModal}
         onClose={handleClose}>
         <>
-            <section className='py-[39px] relative bottom-10 bg-white w-[388px] h-[335px] rounded-[20px]  '>
+            <section className='py-[40px] relative bottom-10 bg-white w-[388px] h-[335px] rounded-[20px]  '>
                 <div className="flex flex-col justify-center items-center">
                     <h1 className='text-center font-semibold text-3xl'>Hello</h1>
 
