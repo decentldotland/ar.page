@@ -21,6 +21,7 @@ import { GetStaticProps } from 'next'
 import axios from 'axios'
 import { Res } from '../src/types'
 import { GenericLabel, getDefaultLabels } from '../components_new/onboarding_screens/DIDLabels'
+import { RiContactsBookLine } from 'react-icons/ri'
 
 
 function Onboarding() {
@@ -93,13 +94,26 @@ function Onboarding() {
   }, [address])
   
 
-  const defaultLabels = getDefaultLabels({
+//   const defaultLabels = getDefaultLabels({
+//     // ar: ownedLabels || [], 
+//     ENS: arkProfile?.ENS, 
+//     AVVY: arkProfile?.AVVY, 
+//     LENS: arkProfile?.LENS_HANDLES || []
+// });
+
+  let ens = "asdasdsdasd.TEXT"
+  let avvvy = "sdasdasdasd.TEXT"
+  let lens = ["sasdasdasdasdd.TEXT"]
+  const defaultLabelsTest = getDefaultLabels({
     // ar: ownedLabels || [], 
-    ENS: arkProfile?.ENS, 
-    AVVY: arkProfile?.AVVY, 
-    LENS: arkProfile?.LENS_HANDLES || []
+    ENS: ens, 
+    AVVY: avvvy, 
+    LENS: lens
 });
-const labels = [...defaultLabels.map((label: any) => <GenericLabel {...label} />)]
+
+console.log(arkProfile?.ENS)
+const labels = [...defaultLabelsTest]
+const [selectedName, setSelectedName] = useState<string | null>(null)
 
   return (
     <div className='font-sans items-center flex justify-center'>
@@ -137,26 +151,26 @@ const labels = [...defaultLabels.map((label: any) => <GenericLabel {...label} />
       }
 
       {
-        userCurrentStep === 7 && ( <DIDList labels={labels}/> )
+        userCurrentStep === 7 && ( <DIDList labels={labels} selectedName={selectedName} setSelectedName={setSelectedName}/> )
       }
 
       {/* {
         userCurrentStep === 6123 && ( <RegisterNamePage setArLabel={setArLabel} arLabel={arLabel} /> ) 
       } */}
       {
-        userCurrentStep === 632 && ( <ConfirmUsername  arLabel={arLabel}/> ) 
+        userCurrentStep === 8 && ( <ConfirmUsername  arLabel={selectedName!}/> ) 
       }
       {
-        userCurrentStep === 723 && (<AvatarSelectionPage  />)
+        userCurrentStep === 9 && (<AvatarSelectionPage  />)
       }
       {
-        userCurrentStep === 8 && (<OptionEditProfile /> )
+        userCurrentStep === 10 && (<OptionEditProfile /> )
       }
       {
-        userCurrentStep === 9 && (<EditProfilePage /> )
+        userCurrentStep === 11 && (<EditProfilePage /> )
       }
       {
-        userCurrentStep === 10 && (<LoadingScreen msg={'Creating your profile'}/> )
+        userCurrentStep === 12 && (<LoadingScreen msg={'Creating your profile'}/> )
       }
 
     </div>  
