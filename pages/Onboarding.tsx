@@ -16,6 +16,12 @@ import VerifyWithArk from '../components_new/onboarding_screens/VerifyWithArk'
 import { useWalletSelector } from '../src/contexts/WalletSelectorContext'
 import LoadingScreen from '../components_new/onboarding_screens/LoadingScreen'
 import DIDList from '../components_new/onboarding_screens/DIDList'
+import { useAns } from 'ans-for-all'
+import { GetStaticProps } from 'next'
+import axios from 'axios'
+import { Res } from '../src/types'
+import { GenericLabel, getDefaultLabels } from '../components_new/onboarding_screens/DIDLabels'
+
 
 function Onboarding() {
 
@@ -25,7 +31,7 @@ function Onboarding() {
   const userCurrentStep = useRecoilValue(userOnboardingState);
   
   const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
-  
+  const {walletConnected} = useAns()
 
   
   /**
@@ -42,11 +48,11 @@ function Onboarding() {
     let num =  localStorage.getItem('currentStep')
     let state = localStorage.getItem('triggered')
     console.log(num)
-    if (state === 'false' && accountId && +num! === 2 ) {
+    if (state === 'false' && accountId && num! === '2' ) {
       setUserOnboarding(+num!)
       localStorage.setItem('triggered', 'true')
     } 
-    
+    localStorage.setItem('triggered', 'true')
     /**
      * A small fix to when the user disconnects their Near wallet 
      * and they try to reconnect a new wallet, it redirectsthem to step 0 
@@ -54,14 +60,46 @@ function Onboarding() {
      * ie if (currStep(0) != localStorage(2) and nearWallet is reconnected ) 
      *        => transfer the user to the near sign up page
      */
-    if(userOnboardingStep !== +num! && !accountId) setUserOnboarding(+num!)   
+    // if(userCurrentStep.toString() !== num && accountId && isNearWalletConnected) setUserOnboarding(+num!)   
   }, [isNearWalletConnected, userCurrentStep])
   
   useEffect(() => {
     setUserOnboarding(7)
 
   }, [])
+
+
+
+  const [loading, setLoading] = useState<boolean>(true);
+  const [arkProfile, setArkProfile] = useState<Res | undefined>();
+  // const {address} = useAns()
+  const address = "zpqhX9CmXzqTlDaG8cY3qLyGdFGpAqZp8sSrjV9OWkE"
+  const fetchData = async (address: string) => {
+    setLoading(true)
+    const result = await axios(`https://ark-api.decent.land/v1/profile/arweave/${address}/true`);
+
+    if (result.data) {
+      const parsed = JSON.parse(result.data);
+      const resobject: Res = parsed?.res;
+      setArkProfile(resobject);
+    }
+    setLoading(false)
+  };
+
+  useEffect(() => {
+    if (address) {
+      fetchData(address)
+    };
+  }, [address])
   
+
+  const defaultLabels = getDefaultLabels({
+    // ar: ownedLabels || [], 
+    ENS: arkProfile?.ENS, 
+    AVVY: arkProfile?.AVVY, 
+    LENS: arkProfile?.LENS_HANDLES || []
+});
+const labels = [...defaultLabels.map((label: any) => <GenericLabel {...label} />)]
 
   return (
     <div className='font-sans items-center flex justify-center'>
@@ -88,12 +126,18 @@ function Onboarding() {
         userCurrentStep === 5 && ( <ConnectAdditionalAccounts /> )
       }
       
+      {/* the loading screen can be mergein with the list 
+
+        if names is not empty : DidList 
+        else: 
+          loadingscreen
+      */}
       {
         userCurrentStep === 6 && (<LoadingScreen msg={'Cross checking user data'}/> )
       }
 
       {
-        userCurrentStep === 7 && ( <DIDList /> )
+        userCurrentStep === 7 && ( <DIDList labels={labels}/> )
       }
 
       {/* {

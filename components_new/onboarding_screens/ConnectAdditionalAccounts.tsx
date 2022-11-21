@@ -25,7 +25,7 @@ function ConnectAdditionalAccounts() {
             </div>
             <div className='mt-[18px]'>
                 <h1 className='text-4xl text-left font-bold '>
-                    Connect Accounts
+                    Connect More Accounts
                 </h1>
                 <p className="text-sm text-[#888] mt-3">
                     Connect at least one account to get started.
