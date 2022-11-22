@@ -1,4 +1,4 @@
-import { PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { CheckIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useAns } from 'ans-for-all'
 import axios from 'axios'
 import { GetStaticProps } from 'next'
@@ -22,29 +22,34 @@ function DIDList({labels, selectedName, setSelectedName}: Props) {
     <>
       <section className="w-full px-5 sm:w-[440px] flex flex-col justify-between h-screen">
         <div className=' mt-10 '>
-              <UserBackButton />
-              <h1 className="text-[32px] font-bold mt-5">What will be your username?</h1>
-              <p className="text-sm self-start mb-6 text-[#8e8e8f]">
-                  To give you a headstart, we loaded your existing handles from other chains. You may also 
-                  choose to mint an <span className="font-bold">Arweave Domain Name.</span>
-              </p>
-              <div className="mt-11">
+          <UserBackButton />
+          <h1 className="text-[32px] font-bold mt-5">What will be your username?</h1>
+          <p className="text-sm self-start mb-6 text-[#8e8e8f]">
+              To give you a headstart, we loaded your existing handles from other chains. You may also 
+              choose to mint an <span className="font-bold">Arweave Domain Name.</span>
+          </p>
+            <div className="mt-11">
               <div className="grid grid-flow-row grid-cols-2 sm:grid-cols-2 grid-rows-4 gap-5">
                   {labels.map((item:any, index:number) => (
                     <div key={index}  className={`${selectedName === item.username ? tableClass + item.classes + 'border-black border-2': item.classes + tableClass} `}>
-                      <button onClick={() => setSelectedName(item.username)} >
-                        <div className='flex flex-row items-center space-x-1 cursor-pointer'>
+                      <button onClick={() => setSelectedName(item.username)}>
+                        <div className='flex flex-row items-center space-x-1'>
                           {item.icon}
-                          <h3 className="font-inter">
-                            {item.username}
-                          </h3>
+                          <h3 className="font-inter">{item.username}</h3>
                         </div>
                       </button>
+                      {
+                        selectedName === item.username && (
+                          <div className='absolute -right-1 bottom-10 bg-[#1cc16a] justify-center w-[19px] h-[19px] p-1 items-center flex rounded-full'>
+                            <CheckIcon height={15} width={15}  color='#fff' strokeWidth={4}/>
+                          </div>
+                        )
+                      }
+                      
                     </div>
                   ))}
                 </div>
-              </div>
-
+            </div>
         </div>
         
         <div className='relative bottom-[90px]'>

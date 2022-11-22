@@ -10,11 +10,11 @@ import { isDarkMode } from '../../atoms';
 // import ARWEAVE from  '../../../../public/icons/ARWEAVE.svg'
 
 const colorProps = `bg-primary/10 text-primary `
-const avaxColor = "bg-[#E84040]/20 text-[#E84040]"
-const ethColor = `bg-[#b3b2b3]/40 text-[#454a75] font-bold`
-const arColor = "bg-black text-white"
+const avaxColor = "bg-[#E84040]/20 text-[#E84040] "
+const ethColor = `bg-[#b3b2b3]/40 text-[#454a75] font-bold `
+const arColor = "bg-black text-white "
 const iconProps = {size: 19, color: "#1273ea"}
-const lenProps = "bg-[#abfe2c] text-[#05501F] bg-[#aafe2ccb]"
+const lenProps = "bg-[#abfe2c] text-[#05501F] bg-[#aafe2ccb] "
 
 export const arLabels = (arweave_address: string, ownedLabels: OwnedLabel[]) => ownedLabels.map((owned: OwnedLabel) => {
   return {
