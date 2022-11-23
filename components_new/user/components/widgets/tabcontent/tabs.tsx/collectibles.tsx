@@ -10,7 +10,7 @@ export default function Collectibles({NFTs, loading, perPage}: {NFTs: NFT[], loa
   const [filteredNFTs, setFilteredNFTs] = useState<NFT[]>(NFTs);
   const [onLoad, setOnLoad] = useState<boolean>(false);
   const [ascending, setAscending] = useState<boolean>(true);
-  const [network, setNetwork] = useState<string>("ethereum");
+  const [network, setNetwork] = useState<string>("arweave");
   const [search, setSearch] = useState<string>('');
 
   const filterTime = () => filteredNFTs.sort((a, b) => ascending ? a.timestamp! - b.timestamp!: b.timestamp! - a.timestamp!)

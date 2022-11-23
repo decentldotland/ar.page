@@ -53,10 +53,12 @@ export const ChainFilter = (props: ChainProps) => {
     const evmos: ChainOptions = "evmos";
     //List of Supported Chains
     const supportedChains = [
+        /*
         {
             "name": ethereum,
             "src": "/chains/ethereum_outline.svg"
         },
+        */
         {
             "name": arweave,
             "src": "/chains/arweave_outline.svg"
@@ -94,6 +96,7 @@ export const ChainFilter = (props: ChainProps) => {
  * To Work:
  *   a. Place within Chainfilter & provide onClick capability
  * @params NetworkButtonProps - {
+    name: string
     onClick?: () => void;
     src: string;
     className?: string;
@@ -103,9 +106,10 @@ export const ChainFilter = (props: ChainProps) => {
 export const NetworkButton = (props: NetworkButtonProps) => {
     return (
         <button 
-            className={"bg-black rounded-full "+props.className}
+            className={"tooltip bg-black rounded-full "+props.className}
             onClick={props.onClick}
             value={props.name}
+            data-tip={props.name.charAt(0).toUpperCase() + props.name.slice(1)}
         >
             <img 
                 src={props.src} 
