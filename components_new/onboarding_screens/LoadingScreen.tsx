@@ -1,7 +1,7 @@
 import { CircularProgress } from '@mui/material'
 import Router, { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { userOnboardingState } from '../../atoms';
 
 
@@ -11,6 +11,7 @@ interface Props {
 
 function LoadingScreen({msg}: Props) {
   const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
+  const userCurrentStep = useRecoilValue(userOnboardingState);
 
     // after a timer, redirectr the user to the home page 
     const route = useRouter();
@@ -23,9 +24,11 @@ function LoadingScreen({msg}: Props) {
     }, []);
 
 
+    // if time out and the user is in the last step 
     useEffect(() => {
-        if (time) setUserOnboarding(userOnboardingStep + 1)
-    }, [time])
+        if (time && userCurrentStep !== 12) setUserOnboarding(userOnboardingStep + 1)
+        route.push('/')
+    }, [time, userCurrentStep])
     
 
     

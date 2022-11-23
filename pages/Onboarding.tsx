@@ -69,10 +69,10 @@ function Onboarding() {
     // if(userCurrentStep.toString() !== num && accountId && isNearWalletConnected) setUserOnboarding(+num!)   
   }, [isNearWalletConnected, userCurrentStep])
   
-  useEffect(() => {
-    setUserOnboarding(11)
+  // useEffect(() => {
+  //   setUserOnboarding(0)
 
-  }, [])
+  // }, [])
   const [loading, setLoading] = useState<boolean>(true);
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
   // const {address} = useAns()
@@ -183,7 +183,7 @@ const [selectedName, setSelectedName] = useState<string | null>(null)
         userCurrentStep === 10 && (<OptionEditProfile /> )
       }
       {
-        userCurrentStep === 11 && (<EditProfilePage /> )
+        userCurrentStep === 11 && (<EditProfilePage loading={loading}/> )
       }
       {
         userCurrentStep === 12 && (<LoadingScreen msg={'Creating your profile'}/> )
