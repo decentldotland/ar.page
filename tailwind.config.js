@@ -1,5 +1,5 @@
 const plugin = require('tailwindcss/plugin')
-
+const colors = require('tailwindcss/colors');
 module.exports = {
   mode: 'jit',
   darkMode: 'class',
@@ -8,6 +8,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
     "./components_new/**/*.{js,ts,jsx,tsx}",
     "./styles/templates/**/*.{js,ts,jsx,tsx}",
+    './src/**/*.{js,jsx,ts,tsx}'
   ],
   theme: {
     extend: {
@@ -21,7 +22,21 @@ module.exports = {
         prim2: 'rgb(149, 239, 174)',
         nftbg: 'rgba(255, 255, 255, 0.10)',
         buttonSelected: 'rgba(18, 115, 234, 0.2)',
-        back: 'rgb(29, 30, 44)'
+        back: 'rgb(29, 30, 44)',
+        pri: {
+          900: '#CBFB01',
+          100: '#C4E49E',
+        },
+        sec: colors.indigo,
+        ter: colors.slate,
+        pinksheet: {
+          900: '#E154C2',
+          100: '#CBB0DA',
+        },
+        bluechip: {
+          900: '#2F2F86',
+          100: '#ADC1E5',
+        },
       },
       height: {
         'body': 'calc(100vh - 56px)',

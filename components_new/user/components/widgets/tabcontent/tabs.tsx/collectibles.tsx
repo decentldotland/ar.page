@@ -3,6 +3,7 @@ import { LoadingOrNotFound, SearchBar, NFTGallery } from '../../../reusables';
 import { NFT } from '../../../../../../src/types';
 import { ChainFilter } from '../../../../../buttons';
 import { SortChronButton } from '../../../../../buttons';
+import { Button } from '../../../../../../src/stories/Button';
  
 export default function Collectibles({NFTs, loading, perPage}: {NFTs: NFT[], loading: boolean, perPage: number}) {
 
@@ -40,12 +41,14 @@ export default function Collectibles({NFTs, loading, perPage}: {NFTs: NFT[], loa
       {/*Render Filter Capabilities*/}
 
       <div className={`flex flex-col items-center justify-center md:flex-row md:items-end md:justify-between mb-8 sm:flex-row sm:space-x-2 `}>
+        {/*Search Collectables*/}
         <SearchBar 
           value={search} 
           onChange={(e) => onSearch(e)} 
           placeholder={"Search collectables"} 
           slideOutable={true} 
         />
+        {/*Filter Chain Buttons*/}
         <ChainFilter
           activeChain={network}
           onClick={(e: any) => {
@@ -53,13 +56,17 @@ export default function Collectibles({NFTs, loading, perPage}: {NFTs: NFT[], loa
             setNetwork(e.currentTarget.value);
           }}
         />
-        <SortChronButton 
+        {/*Sort Chronology Button*/}
+        <Button
+          variant='secondary'
+          className={"text-black border-2 border-slate-300 rounded-xl"}
           onClick={() => setAscending(() => {
             filterTime();
             return !ascending;
           })}
-          text={ascending ? "Newest" : "Oldest"}
-        />
+        >
+          {ascending ? "Newest" : "Oldest"}
+        </Button>
       </div>
 
       {/*Render Gallery*/}
