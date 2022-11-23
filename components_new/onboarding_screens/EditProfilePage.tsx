@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md'
+import MainNextButton from '../buttons/MainNextButton'
 import UserBackButton from '../buttons/UserBackButton'
 import UserNextButton from '../buttons/UserNextButton'
 import { Divider } from '../user/components/reusables'
@@ -8,7 +9,17 @@ import { Divider } from '../user/components/reusables'
 const inputContainer = 'w-[115px] text-[#8E8E8F] bg-transparent border border-b border-x-0 border-t-0  outline-none'
 const subheaderInput = 'text-[15px] font-semibold text-left text-[#8e8e8f]'
 
-function EditProfilePage() {
+
+interface Props { 
+  loading: boolean
+}
+
+function EditProfilePage({loading}: Props) {
+
+
+  const [newChanges, setNewChanges] = useState(false)
+
+
   return (
     <section className='relative h-screen flex flex-col sm:w-[440px] w-full px-5'>
         <div className='flex items-center justify-between mt-10 '>
@@ -79,6 +90,12 @@ function EditProfilePage() {
             </li>
           </ul>
         </section>
+        <div className='relative bottom-[20px]'>
+          {/* onclick save this  */}
+          <div>
+            <MainNextButton btnName='Save' disabled={!newChanges || loading}/>
+          </div>
+        </div>
     </section>
   )
 }
