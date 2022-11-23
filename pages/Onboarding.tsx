@@ -34,7 +34,12 @@ function Onboarding() {
   const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
   const {walletConnected} = useAns()
 
-  
+  // Network Selector 
+  const [selectedNetwork, setSelectedNetwork] = useState(null)
+
+
+
+
   /**
    * 1. Checks if the user has signed in with their NEAR wallet 
    * 2. save currentStep and triggered state in local storage
@@ -49,11 +54,11 @@ function Onboarding() {
     let num =  localStorage.getItem('currentStep')
     let state = localStorage.getItem('triggered')
     console.log(num)
-    if (state === 'false' && accountId && num! === '2' ) {
+    if (state === 'false' && accountId && +num! === 2 ) {
       setUserOnboarding(+num!)
       localStorage.setItem('triggered', 'true')
     } 
-    localStorage.setItem('triggered', 'true')
+    // localStorage.setItem('triggered', 'true')
     /**
      * A small fix to when the user disconnects their Near wallet 
      * and they try to reconnect a new wallet, it redirectsthem to step 0 
@@ -65,12 +70,9 @@ function Onboarding() {
   }, [isNearWalletConnected, userCurrentStep])
   
   useEffect(() => {
-    setUserOnboarding(7)
+    setUserOnboarding(11)
 
   }, [])
-
-
-
   const [loading, setLoading] = useState<boolean>(true);
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
   // const {address} = useAns()
@@ -100,7 +102,6 @@ function Onboarding() {
 //     AVVY: arkProfile?.AVVY, 
 //     LENS: arkProfile?.LENS_HANDLES || []
 // });
-
   let ens = "asdasdsdasd.TEXT"
   let avvvy = "sdasdasdasd.TEXT"
   let lens = ["sasdasdasdasdd.TEXT"]
@@ -111,9 +112,24 @@ function Onboarding() {
     LENS: lens
 });
 
+// DID SELECTOR 
 console.log(arkProfile?.ENS)
 const labels = [...defaultLabelsTest]
 const [selectedName, setSelectedName] = useState<string | null>(null)
+
+
+  // // Retrieve the user info for editing profile functionalities 
+  // const [userInfo, setUserInfo] = useState(null)
+  // useEffect(() => {
+  //   if (!address) return 
+    
+  //   async function fetchUserData() { 
+  //     const data = await fetch('')
+  //   }
+
+  // }, [selectedName])
+  
+
 
   return (
     <div className='font-sans items-center flex justify-center'>

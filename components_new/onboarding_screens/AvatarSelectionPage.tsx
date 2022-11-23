@@ -9,6 +9,10 @@ import MainNextButton from '../buttons/MainNextButton';
 import ModalAvatarSelection from './ModalAvatarSelection';
 
 
+interface Props { 
+
+}
+
 function AvatarSelectionPage() {
     // Modal State for avatar selection 
     const showModalValue = useRecoilValue(avatarModalState)
@@ -17,6 +21,7 @@ function AvatarSelectionPage() {
     // user onboarding step 
     const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
 
+    
 
   return (
     <>

@@ -2,6 +2,7 @@ import React from 'react'
 import MuiModal from '@mui/material/Modal'
 import { avatarModalState, userOnboardingState } from '../../atoms';
 import { useRecoilState } from 'recoil';
+import { Avatar } from '../../components/editor/inputs/avatar';
 
 
 
