@@ -1,3 +1,4 @@
+import axios from "axios";
 import { ArweaveTransaction } from "../types";
 
 
@@ -52,6 +53,7 @@ export function removeHttp(url: string) {
   return url;
 }
 
+
 export const shortenName = (addr: string) => {
   if (addr.length > 5) {
     return addr.substring(0, 4) + '...'
@@ -63,4 +65,18 @@ export const shortenAddress = (addr: string) => {
     return addr.substring(0, 6) + '...' + addr.substring(addr.length - 4)
   }
   return addr
+export async function getAllPoaps(evm_address: string) {
+  try {
+    const API_KEY = process.env.POAP_API_KEY;
+    const res = await axios.get(
+      `https://api.poap.tech/actions/scan/${evm_address}`,
+      {
+        headers: { "Content-Type": "application/json", "X-API-Key": API_KEY! },
+      }
+    );
+    return res?.data;
+  } catch (error) {
+    return null;
+  }
+
 }
