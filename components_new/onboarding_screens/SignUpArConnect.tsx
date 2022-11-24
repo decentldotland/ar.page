@@ -10,7 +10,6 @@ import CustomConnectButton from '../buttons/ConnectAccount'
 import UserBackButton from '../buttons/UserBackButton'
 import BackButton from '../reservation/BackButton'
 import LineBarTracker from '../reservation/LineBarTracker'
-import { AccountWidget } from './AccountWidget'
 import ModalConfirm from './ModalConfirm'
 
 
