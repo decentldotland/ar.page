@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { LoadingOrNotFound, SearchBar, NFTGallery } from '../../../reusables';
 import { NFT } from '../../../../../../src/types';
 import { ChainFilter } from '../../../../../buttons';
-import { SortChronButton } from '../../../../../buttons';
-import { Button } from '../../../../../../src/stories/Button';
+import { Button } from '../../../../../../src/stories/Buttons';
  
 export default function Collectibles({NFTs, loading, perPage}: {NFTs: NFT[], loading: boolean, perPage: number}) {
 
@@ -34,7 +33,7 @@ export default function Collectibles({NFTs, loading, perPage}: {NFTs: NFT[], loa
     setAscending(true); //resets prior ascending filters
   }, [network]);
 
-
+  console.log("Filtered: ", filteredNFTs);
   return (
     <div className={`transition-opacity duration-400 pb-3  opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
 
@@ -59,7 +58,8 @@ export default function Collectibles({NFTs, loading, perPage}: {NFTs: NFT[], loa
         {/*Sort Chronology Button*/}
         <Button
           variant='secondary'
-          className={"text-black border-2 border-slate-300 rounded-xl"}
+          className={"text-black border-2 border-slate-300 rounded-xl "
+                     +(filteredNFTs.length > 0 ? "" : "invisible")}
           onClick={() => setAscending(() => {
             filterTime();
             return !ascending;

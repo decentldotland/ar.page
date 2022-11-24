@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { ButtonHTMLAttributes, ReactElement, forwardRef } from 'react';
 
-import { Spinner } from './Spinner';
+import { Spinner } from '../Spinner';
 
 const variants = {
   primary: ['bg-pri-900', 'text-ter-900 font-semibold', 'border-pri-900', 'hover:bg-pri-100'],
