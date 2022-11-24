@@ -24,7 +24,6 @@ export default function Collectibles({NFTs, loading, perPage}: {NFTs: NFT[], loa
   useEffect(() => {
     setFilteredNFTs(filterNetwork());
     setOnLoad(true);
-    console.log(NFTs);
   }, [NFTs]);
 
   //Hooks change in network state
@@ -33,7 +32,6 @@ export default function Collectibles({NFTs, loading, perPage}: {NFTs: NFT[], loa
     setAscending(true); //resets prior ascending filters
   }, [network]);
 
-  console.log("Filtered: ", filteredNFTs);
   return (
     <div className={`transition-opacity duration-400 pb-3  opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
 

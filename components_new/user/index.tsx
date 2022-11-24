@@ -19,25 +19,25 @@ function PageContent(props: userInfo) {
 
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState<boolean>(true);
-
+  const [fetchStatus, setFetchStatus] = useState<boolean>(true);
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
 
   // fetches user info by arweave wallet address
   const fetchData = async (address: string) => {
-    setLoading(true)
-    const result = await axios(`https://ark-api.decent.land/v1/profile/arweave/${address}/true`);
 
-    if (result.data) {
-      const parsed = JSON.parse(result.data);
-      const resobject: Res = parsed?.res;
-      setArkProfile(resobject);
+    setLoading(true);
+    const result = await axios(`https://ark-api.decent.land/v1/profile/arweave/${address}/true`);
+    const parsed = JSON.parse(result.data);
+    if (parsed.res) {
+      const resObj: Res = parsed?.res;
+      setArkProfile(resObj);
     }
-    setLoading(false)
+    setLoading(false);
   };
 
   useEffect(() => {
     if (props.userInfo.user) {
-      fetchData(props.userInfo.user)
+      fetchData(props.userInfo.user);
     };
   }, [])
 
@@ -51,7 +51,11 @@ function PageContent(props: userInfo) {
           <UserInfo user={{userInfo: info}} profile={arkProfile} />
           <EditModal userColor={info.address_color} wallet={info.user} userInfo={props} /> 
           {/* @ts-ignore  sorry about this */}
-          <Widgets arkProfile={arkProfile}/>
+          <Widgets 
+            fetchStatus={fetchStatus}
+            arkProfile={arkProfile} 
+            loading={loading} 
+          />
         </div>
       </div>
     </div>
