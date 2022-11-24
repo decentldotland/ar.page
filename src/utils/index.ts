@@ -65,6 +65,7 @@ export const shortenAddress = (addr: string) => {
     return addr.substring(0, 6) + '...' + addr.substring(addr.length - 4)
   }
   return addr
+}
 export async function getAllPoaps(evm_address: string) {
   try {
     const API_KEY = process.env.POAP_API_KEY;
@@ -78,5 +79,4 @@ export async function getAllPoaps(evm_address: string) {
   } catch (error) {
     return null;
   }
-
 }
