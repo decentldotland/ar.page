@@ -3,7 +3,6 @@ import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import Modal from '../../../components/portal/modal';
 import ModelContent from './modelContent';
-import { ARWEAVE_URL } from '../../../src/constants';
 import { NFT } from '../../../src/types';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../atoms';
@@ -45,7 +44,7 @@ export function SearchBar(props: SearchType) {
   const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
   return (
-    <div className={`px-4 flex border-gray-200 border-2 flex-row space-x-3.5 max-w-[50vw] py-3 items-center 
+    <div className={`px-4 flex border-2 border-slate-300 flex-row space-x-3.5 max-w-[50vw] py-3 items-center 
     ${isDark ? ('bg-[#121a2f]'): ('')}
     rounded-2xl`}>
       <MagnifyingGlassIcon height={20} width={20} strokeWidth={3} color={`${isDark? ('white') : ('#666') }`} />
@@ -104,7 +103,7 @@ export function NFTGallery ({NFTs, perPage}: {NFTs: NFT[], perPage: number}) {
             cursor-pointer transition duration-500 ease-out
             md:focus:opacity-60
           ">
-            <Image src={ARWEAVE_URL + nft.id} // TODO: make this URL dynamic
+            <Image src={String(nft.id)} // TODO: make this URL dynamic
               alt={nft.title}
               width={99999999}
               height={99999999}

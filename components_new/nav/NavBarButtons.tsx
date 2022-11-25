@@ -29,9 +29,9 @@ function NavBarButtons() {
                 <div onClick={() => (arconnectConnect as Function)()} 
                   className="flex flex-row items-center space-x-3.5">
                     {/* <FiLogIn height={20} width={20} color="black"/> */}
-                    <h1 className={`
+                    <p className={`
                       ${isDark ? (' text-white font-semibold') : (' text-[#1273EA] font-semibold')}
-                    `}>Connect</h1>
+                    `}>Connect</p>
                 </div>
             </li>
             <li>

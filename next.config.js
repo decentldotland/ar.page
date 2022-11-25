@@ -10,7 +10,20 @@ module.exports = {
               'lens.xyz',
               'raw.githubusercontent.com',
               // THIS IS A TEMPORARY FIX
-              'w7.pngwing.com'
+              //Possible Solution see proxy variable in index.tsx of tabcontent
+              'w7.pngwing.com',
+              'nftipfs.link',
+              'azimuth.network',
+              'metadata.ens.domains',
+              'pfp-pl.us',
+              'miladyaura.mypinata.cloud',
+              'lh3.googleusercontent.com',
+              'gateway.pinata.cloud',
+              'miladymaker.net',
+              'www.miladymaker.net',
+              'i.seadn.io',
+              'api.tiles.art',
+              'image-proxy.svc.prod.covalenthq.com'
             ],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,

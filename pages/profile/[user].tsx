@@ -15,7 +15,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
 
   const userInfo = React.useRef((uInfo) ? uInfo : pathFullInfo).current;
   const showModel = useRecoilValue(editModalState);
-
+  //this is where the bug is at.
   return !!userInfo && Object?.keys(userInfo)?.length > 0 ?
     <>
       <Head>
@@ -42,6 +42,7 @@ User.getInitialProps = async ({ query }: { query: { user: string; } }) => {
     if (!query.user) return
     const res = await axios.get(`http://ans-stats.decent.land/profile/${query.user}`);
     const userInfo = res.data; // <-- Access one more data object here
+    console.log("USER INFO: ", userInfo);
     return { pathFullInfo: userInfo };
   } catch (error) {
     console.log("attempting to use domain routing...")

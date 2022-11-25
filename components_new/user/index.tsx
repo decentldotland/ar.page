@@ -11,6 +11,8 @@ import { Divider, LoadingOrNotFound } from './components/reusables';
 import CoverPage from './components/CoverPage';
 import { Koii, ArweaveTransaction } from '../../src/types';
 import { Toaster } from 'react-hot-toast';
+import { useRecoilState } from 'recoil';
+import { isDarkMode } from '../../atoms';
 
 function PageContent(props: userInfo) {
   const bio = typeof props.userInfo.bio === 'string' ? 
@@ -19,39 +21,53 @@ function PageContent(props: userInfo) {
 
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState<boolean>(true);
-
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
 
   // fetches user info by arweave wallet address
   const fetchData = async (address: string) => {
-    setLoading(true)
-    const result = await axios(`https://ark-api.decent.land/v1/profile/arweave/${address}/true`);
 
-    if (result.data) {
-      const parsed = JSON.parse(result.data);
-      const resobject: Res = parsed?.res;
-      setArkProfile(resobject);
+    setLoading(true);
+    const result = await axios(`https://ark-api.decent.land/v1/profile/arweave/${address}/true`);
+    const parsed = JSON.parse(result.data);
+    if (parsed.res) {
+      const resObj: Res = parsed?.res;
+      setArkProfile(resObj);
     }
-    setLoading(false)
+    setLoading(false);
   };
 
   useEffect(() => {
     if (props.userInfo.user) {
-      fetchData(props.userInfo.user)
+      fetchData(props.userInfo.user);
     };
-  }, [])
+  }, []);
+
+  const [isDark, setIsDark] = useRecoilState(isDarkMode);
+  useEffect(() => {
+      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+      if (localStorage.theme === 'ardark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        localStorage.setItem('theme', 'ardark');
+        setIsDark(true)
+      } else {
+        localStorage.setItem('theme', 'arlight');
+        setIsDark(false)
+      }
+  }, [isDark]);
 
   return (
-    <div className=" w-full font-inter h-screen">
+    <div className=" w-full font-inter h-screen" data-theme={isDark ? "ardark" : "arlight"}>
     <Toaster position='top-center'/>
 
       <CoverPage userInfo={props.userInfo} />
-      <div className="flex xl:justify-center ">
+      <div className="flex xl:justify-center" data-theme={isDark ? "ardark" : "arlight"}>
         <div className="flex flex-col px-6 md:px-16 sm:px-10  max-w-[100vw] xl:max-w-[1145px] w-full">
           <UserInfo user={{userInfo: info}} profile={arkProfile} />
           <EditModal userColor={info.address_color} wallet={info.user} userInfo={props} /> 
           {/* @ts-ignore  sorry about this */}
-          <Widgets arkProfile={arkProfile}/>
+          <Widgets 
+            arkProfile={arkProfile} 
+            loading={loading} 
+          />
         </div>
       </div>
     </div>
