@@ -7,7 +7,6 @@ import { isDarkMode } from '../../atoms';
 
 type Props = {
     children: JSX.Element;
-
 };
 export const Layout = (props: Props) => {
 

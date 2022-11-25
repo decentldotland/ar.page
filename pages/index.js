@@ -25,7 +25,11 @@ export async function getServerSideProps(context) {
       try {
           const res = await axios.get(`https://ans-stats.decent.land/users`);
           const userInfo = res.data?.res?.find((user) => user.currentLabel === wildcard);
+          //
+          //
+          //
           if (userInfo) return { props: {wildcard, userInfo} };
+            //Conduct the changes to the tag
           else return { props: {wildcard} };
       } catch (error) {
         console.log("Failed to use domain routing...")

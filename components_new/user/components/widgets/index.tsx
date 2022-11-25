@@ -36,7 +36,7 @@ export const DEFAULT_COMPONENT_LIST: WidgetType[] = [
 ]
 
 
-export default function Widgets({arkProfile, loading, fetchStatus}: {arkProfile: Res | undefined, loading: boolean, fetchStatus: boolean}) {
+export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefined, loading: boolean}) {
   
   if (!arkProfile) return (
     <>

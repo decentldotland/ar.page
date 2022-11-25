@@ -19,7 +19,6 @@ function PageContent(props: userInfo) {
 
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState<boolean>(true);
-  const [fetchStatus, setFetchStatus] = useState<boolean>(true);
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
 
   // fetches user info by arweave wallet address
@@ -52,7 +51,6 @@ function PageContent(props: userInfo) {
           <EditModal userColor={info.address_color} wallet={info.user} userInfo={props} /> 
           {/* @ts-ignore  sorry about this */}
           <Widgets 
-            fetchStatus={fetchStatus}
             arkProfile={arkProfile} 
             loading={loading} 
           />

@@ -18,7 +18,9 @@ export interface TabContentTabs {
 export default function Content({ arkProfile, loading }: { arkProfile: Res; loading: boolean }) {
   const [selected, setSelected] = useState<number>(0);
   const [activity, setActivity] = useState<ArweaveTransaction[]>(arkProfile.ARWEAVE_TRANSACTIONS);
-  
+  const [collectableVisibility, setCollectableVisibility] = useState<boolean>(true);
+
+  const handleCollectableVisibility = (res: boolean) => setCollectableVisibility(res);
   
   // ------------------------------NFT, Stamps Section-----------------------------------
   const [stamp, setStamp] = useState<Stamp[]>(arkProfile.STAMPS);
@@ -147,7 +149,30 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   
 // ---------------------------------- Stamp S-----------------------------------------------
 
-
+  const CollectableTab = ({nftVisible}: {nftVisible: boolean}) => {
+    if(nftVisible && (NFTs.length - CollectiblePerPage  > 0)) {
+      return (
+        <article className='flex justify-center mt-12'>
+          <button  onClick={() => showMoreCollection()} className='py-2 px-6 btn-primary  text-lg
+            text-white font-semibold flex flex-row 
+              justify-center rounded-lg'>
+            <p>Show More</p>
+          </button>
+        </article>
+      );
+    } else if(!nftVisible) {
+      return (
+        <>
+        </>
+      )
+    } else {
+      return (
+        <article className='flex justify-center mt-12'>
+          <p>You have reached the end result!</p>
+        </article>
+      );
+    }
+  }
 
   const tabs = [
     {
@@ -155,23 +180,16 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       total: NFTs.length,
       component: 
       <>
-        <Collectibles NFTs={NFTs} loading={loading} perPage={CollectiblePerPage}/>
-        {
-          // TODO: 
-          NFTs.length - CollectiblePerPage  > 0 ? (
-            <article className='flex justify-center mt-12'>
-              <button  onClick={() => showMoreCollection()} className='py-2 px-6 btn-primary  text-lg
-                text-white font-semibold flex flex-row 
-                  justify-center rounded-lg'>
-                <h1>Show More</h1>
-              </button>
-            </article>
-          ) : (
-            <article className='flex justify-center mt-12'>
-              <h1>You have reached the end result!</h1>
-            </article>
-          )
-        }
+        <Collectibles 
+          NFTs={NFTs} 
+          loading={loading} 
+          perPage={CollectiblePerPage} 
+          handleVisibility={handleCollectableVisibility}
+        />
+        <CollectableTab 
+          nftVisible={collectableVisibility}
+        />
+
       </>
       
     },
@@ -188,12 +206,12 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
                 <button  onClick={() => showMore()} className='py-2 px-6 btn-primary  text-lg
                   text-white font-semibold flex flex-row 
                     justify-center rounded-lg'>
-                  <h1>Show More</h1>
+                  <p>Show More</p>
                 </button>
               </article>
             ) : (
               <article className='flex justify-center mt-12'>
-                <h1>You have reached the end result!</h1>
+                <p>You have reached the end result!</p>
               </article>
             )
           }
@@ -213,12 +231,12 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
                 <button  onClick={() => showMore()} className='py-2 px-6 btn-primary  text-lg
                   text-white font-semibold flex flex-row 
                     justify-center rounded-lg'>
-                  <h1>Show More</h1>
+                  <p>Show More</p>
                 </button>
               </article>
             ) : (
               <article className='flex justify-center mt-12'>
-                <h1>You have reached the end result!</h1>
+                <p>You have reached the end result!</p>
               </article>
             )
           }
@@ -236,10 +254,35 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
 
       {/* limit the size to 44.65vw instead of 94vw to not have weird scroll logic due to content not fitting on the page*/}
       {/* <div className="mt-4 mb-20 max-h-[44.65vw] scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-base-100 overflow-y-scroll "> */}
-
       <div className="pb-20">
         {tabs[selected].component}
       </div>
     </>
   )
 }
+
+
+/**
+
+        {
+          // TODO: 
+          //collectableVisibility Now we have to strategically place this somewhere. 
+          NFTs.length - CollectiblePerPage  > 0 ? (
+            <article className='flex justify-center mt-12'>
+              <button  onClick={() => showMoreCollection()} className='py-2 px-6 btn-primary  text-lg
+                text-white font-semibold flex flex-row 
+                  justify-center rounded-lg'>
+                <p>Show More</p>
+              </button>
+            </article>
+          ) : (
+            <article className='flex justify-center mt-12'>
+              <p>You have reached the end result! B</p>
+            </article>
+          )
+        }
+
+
+
+
+ */
