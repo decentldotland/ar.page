@@ -12,7 +12,7 @@ import CoverPage from './components/CoverPage';
 import { Koii, ArweaveTransaction } from '../../src/types';
 import { Toaster } from 'react-hot-toast';
 import { useRecoilState } from 'recoil';
-import { isDarkMode } from '../../../ar.page/atoms';
+import { isDarkMode } from '../../atoms';
 
 function PageContent(props: userInfo) {
   const bio = typeof props.userInfo.bio === 'string' ? 
