@@ -53,15 +53,15 @@ function ConfirmUsername({
 
 
     const onSubmit = (e: any) => {
-        e.preventDefault();
-        if (arLabel.length === 0) setInvalidLabel('Please enter a label')
-        if (!(!validateLabel() && arLabel.length > 0)) return
-        if (address && validateEVM(address)) return
-        setEvmAddress(address!)
-        setLoadingWrite(true)
+        // e.preventDefault();
+        // if (arLabel.length === 0) setInvalidLabel('Please enter a label')
+        // if (!(!validateLabel() && arLabel.length > 0)) return
+        // if (address && validateEVM(address)) return
+        // setEvmAddress(address!)
+        // setLoadingWrite(true)
 
         // temporary 
-        setUserOnboarding(userOnboardingStep + 1)
+        setUserOnboarding(9)
         // axios.post(`api/exmwrite`, {
         //   "function": "reserve",
         //   "evm_address": evmAddress,

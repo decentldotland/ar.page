@@ -1,4 +1,5 @@
 import { CircularProgress } from '@mui/material'
+import { runInContext } from 'lodash';
 import Router, { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -6,10 +7,11 @@ import { userOnboardingState } from '../../atoms';
 
 
 interface Props { 
-  msg: string
+  msg: string, 
+  end?: boolean
 }
 
-function LoadingScreen({msg}: Props) {
+function LoadingScreen({msg, end}: Props) {
   const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
   const userCurrentStep = useRecoilValue(userOnboardingState);
 
@@ -26,8 +28,13 @@ function LoadingScreen({msg}: Props) {
 
     // if time out and the user is in the last step 
     useEffect(() => {
-        if (time && userCurrentStep !== 12) setUserOnboarding(userOnboardingStep + 1)
-        route.push('/')
+      if (time) { 
+        if (end) {
+          route.push('/')
+        } else { 
+          setUserOnboarding(userOnboardingStep + 1)
+        }    
+      }
     }, [time, userCurrentStep])
     
 

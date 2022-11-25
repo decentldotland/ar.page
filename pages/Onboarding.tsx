@@ -70,7 +70,7 @@ function Onboarding() {
   }, [isNearWalletConnected, userCurrentStep])
   
   // useEffect(() => {
-  //   setUserOnboarding(0)
+  //   setUserOnboarding(11)
 
   // }, [])
   const [loading, setLoading] = useState<boolean>(true);
@@ -186,7 +186,7 @@ const [selectedName, setSelectedName] = useState<string | null>(null)
         userCurrentStep === 11 && (<EditProfilePage loading={loading}/> )
       }
       {
-        userCurrentStep === 12 && (<LoadingScreen msg={'Creating your profile'}/> )
+        userCurrentStep === 12 && (<LoadingScreen msg={'Creating your profile'} end={true}/> )
       }
 
     </div>  

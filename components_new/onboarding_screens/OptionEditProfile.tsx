@@ -24,7 +24,7 @@ function OptionEditProfile() {
             <div className='w-full relative bottom-[71px]'>
                 <MainNextButton btnName='Take me there' />
                 <div className='space-y-2 mt-6 text-[#6a6b6a] font-medium text-center'>
-                    <button onClick={() => setUserOnboarding(userOnboardingStep - 1)} >
+                    <button onClick={() => setUserOnboarding(12)} >
                         <h1 className='cursor-pointer font-bold'>
                             Maybe later.
                         </h1>
