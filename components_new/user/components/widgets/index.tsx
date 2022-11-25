@@ -43,7 +43,7 @@ export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefi
       {loading ?
       (
         <div className='flex flex-col items-center justify-center space-y-2 mt-5
-        text-content-100/80 '>
+        text-content-100/80'>
           <CircularProgress color="inherit" size={40}/>
           <p className='text-xl text-gray-400'>Retrieving user's assets</p>
         </div>
@@ -51,7 +51,7 @@ export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefi
       :
       (
         <div className='flex items-center justify-center mt-5  flex-col space-y-2
-          text-lg text-content-100/80 '>
+          text-lg text-content-100/80'>
             <p className='text-xl font-bold'>No User Information</p>
             <p className='text-sm text-gray-400'>This user has no collection, activity, poaps...</p>
         </div>

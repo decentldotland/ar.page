@@ -13,6 +13,16 @@ const variants = {
   custom: [],
 }
 
+const darkVariants = {
+  primary: ['bg-pri-900', 'text-ter-900 font-semibold', 'border-pri-900', 'hover:bg-pri-100'],
+  secondary: ['bg-indigo-300', 'text-white', 'border-gainsboro', 'hover:bg-indigo-600'],
+  pinksheet: ['bg-pinksheet-900', 'text-white', 'border-pinksheet-900', 'hover:bg-pinksheet-100'],
+  textPinksheet: ['bg-none', 'text-pinksheet-900 font-semibold', 'border-transparent', 'hover:border-pinksheet-900'],
+  bluechip: ['bg-bluechip-900', 'text-white', 'border-bluechip-900', 'hover:bg-bluechip-100'],
+  textBluechip: ['bg-none', 'text-white font-semibold', 'border-transparent', 'hover:border-white'],
+  custom: [],
+}
+
 type IconProps =
   | { startIcon: ReactElement | undefined; endIcon?: never }
   | { endIcon: ReactElement | undefined; startIcon?: never }
@@ -22,6 +32,7 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: keyof typeof variants;
   fitContentWidth?: boolean;
   isLoading?: boolean;
+  isDark?: boolean;
 } & IconProps;
 
 export const Button = forwardRef<HTMLButtonElement, Props>(
@@ -35,12 +46,14 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
       disabled,
       startIcon,
       endIcon,
+      isDark,
       ...props
     },
     ref
   ) => {
     const isDisabled = disabled || isLoading;
-    const [background, text, border, hover] = variants[variant];
+    // Select between light or dark mode 
+    const [background, text, border, hover] = isDark ? darkVariants[variant] : variants[variant];
     const variantClasses = `h-[40px] lg:h-[50px] text-sm lg:text-lg px-4 lg:px-8 ${background} ${text} border ${border} hover:text-white hover:shadow-md ${hover} active:shadow-none active:scale-[0.98] disabled:active:scale-1 disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-200 disabled:hover:shadow-none`
     const isCustomVariant = variant === 'custom';
 

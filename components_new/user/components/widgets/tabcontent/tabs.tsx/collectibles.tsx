@@ -3,6 +3,8 @@ import { LoadingOrNotFound, SearchBar, NFTGallery } from '../../../reusables';
 import { NFT } from '../../../../../../src/types';
 import { ChainFilter } from '../../../../../buttons';
 import { Button } from '../../../../../../src/stories/Buttons';
+import { useRecoilState } from 'recoil';
+import { isDarkMode } from '../../../../../../ar.page/atoms';
  
 export default function Collectibles({NFTs, loading, perPage, handleVisibility}: 
 {NFTs: NFT[], loading: boolean, perPage: number, handleVisibility: (res: boolean) => void}) {
@@ -12,6 +14,7 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
   const [ascending, setAscending] = useState<boolean>(true);
   const [network, setNetwork] = useState<string>("arweave");
   const [search, setSearch] = useState<string>('');
+  const [isDark, setIsDark] = useRecoilState(isDarkMode); 
 
   const filterTime = () => filteredNFTs.sort((a, b) => ascending ? a.timestamp! - b.timestamp!: b.timestamp! - a.timestamp!)
   const filterNetwork = () => NFTs.filter((nft) => nft.chain === network);
@@ -37,6 +40,18 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
   useEffect(() => {
     handleVisibility(filteredNFTs.length > 0 ? true : false);
   }, [filteredNFTs]);
+
+  // Hook to grab light theme
+  useEffect(() => {
+      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+      if (localStorage.theme === 'ardark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        localStorage.setItem('theme', 'ardark');
+        setIsDark(true)
+      } else {
+        localStorage.setItem('theme', 'arlight');
+        setIsDark(false)
+      }
+  }, [isDark]);
 
   return (
     <div className={`transition-opacity duration-400 pb-3  opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
@@ -68,6 +83,7 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
               filterTime();
               return !ascending;
             })}
+            isDark={isDark}
           >
             {ascending ? "Newest" : "Oldest"}
           </Button>
