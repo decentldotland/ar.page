@@ -4,7 +4,7 @@ import { NFT } from '../../../../../../src/types';
 import { ChainFilter } from '../../../../../buttons';
 import { Button } from '../../../../../../src/stories/Buttons';
 import { useRecoilState } from 'recoil';
-import { isDarkMode } from '../../../../../../ar.page/atoms';
+import { isDarkMode } from '../../../../../../atoms';
  
 export default function Collectibles({NFTs, loading, perPage, handleVisibility}: 
 {NFTs: NFT[], loading: boolean, perPage: number, handleVisibility: (res: boolean) => void}) {
