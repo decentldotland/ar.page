@@ -23,11 +23,13 @@ const User = ({ uInfo, pathFullInfo }: any) => {
         <title>{`${userInfo.currentLabel} | ar.page`}</title>
         <link rel="icon" href={`https://pz-prepnb.meson.network/${userInfo.avatar}`} /> {/* TODO: potential source of vulnerabilities if users somehow upload malicious text or images */}
         <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1" />
-        <meta name="description" content={`${userInfo.bio} | ar.page`} />
+        {/*<meta name="description" content={`${userInfo.bio} | ar.page`} />*/}
+        <meta name="description" content="test 3 | ar.page" />
         <meta name="twitter:image" content={(userInfo.avatar !== "") ? `https://pz-prepnb.meson.network/${userInfo.avatar}` : "https://ar.page/favicon.png"} />
         <meta name="twitter:title" content={`${userInfo.currentLabel} | ar.page`} />
         <meta name="twitter:url" content={`https://${userInfo.currentLabel}.ar.page`}></meta>
-        <meta name="twitter:description" content={userInfo.bio} />
+        {/*<meta name="twitter:description" content={userInfo.bio} />*/}
+        <meta name="twitter:description" content="test 4 | ar.page" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@decentdotland" />
       </Head>
