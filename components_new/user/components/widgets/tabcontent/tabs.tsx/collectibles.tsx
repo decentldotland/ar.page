@@ -21,7 +21,13 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
 
   const onSearch = (e: string) => {
     setSearch(e);
-    setFilteredNFTs(NFTs.filter((nft) => nft.title!.toLowerCase().includes(e.toLowerCase())));
+    setFilteredNFTs(NFTs.filter((nft) =>  {
+        if(nft.chain === network) {
+          return nft.title!.toLowerCase().includes(e.toLowerCase());
+        }
+    }));
+    //May have to add a chain check here
+    console.log(NFTs);
   };
 
   // Hook setting filteredNFTs state

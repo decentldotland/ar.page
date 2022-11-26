@@ -6,6 +6,7 @@ import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
 import { AnimatePresence } from "framer-motion";
 import { AnsProvider } from 'ans-for-all';
+import axios from 'axios';
 import '@rainbow-me/rainbowkit/styles.css';
 
 import {
@@ -38,7 +39,7 @@ const wagmiClient = createClient({
 
 function MyApp({ Component, pageProps }) {
   // useUpdateChecker();
-  const testLogic = true;
+
   return (
     <RecoilRoot>
         <AnimatePresence exitBeforeEnter>
@@ -51,7 +52,7 @@ function MyApp({ Component, pageProps }) {
               <meta name="twitter:card" content="summary" />
               <meta name="twitter:image" content="https://ar.page/favicon.png" /> {/*titling part where user name goes*/}
               <meta name="twitter:site" content="@decentdotland" />
-              <meta name="twitter:title" content={testLogic ? "test true | Home" : "test false | Home"} /> {/*titling part where user name goes*/}
+              <meta name="twitter:title" content="ar.page | Home" /> {/*titling part where user name goes*/}
               <meta name="twitter:description" content="All your Web3 content, finally stored in one place." /> {/*Discord description*/}
               <meta name="twitter:url" content="https://ar.page"></meta>
             </Head>

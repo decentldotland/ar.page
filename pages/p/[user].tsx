@@ -6,7 +6,6 @@ import Image from 'next/image'
 import Index from '../../components_new/home'
 import UserPage from '../../components_new/user';
 import { useRecoilValue } from 'recoil';
-import { Helmet } from 'react-helmet';
 
 // THESE ARE NEW UI Componetns for editing the profile
 import { editModalState, userInfoState } from '../../atoms';
@@ -35,15 +34,9 @@ const User = ({ uInfo, pathFullInfo }: any) => {
     return (<>
         {userInfo !== false && Object.keys(userInfo).length > 0 ?
             <>
-                <Helmet>
-                    <title>New Title</title>
-                    <meta name="twitter:title" content="test 44 | Home" /> 
-                    <meta name="og:title" content="test 44 | Home" /> 
-                </Helmet>
                 <Head>
                     <title>{`${userInfo.currentLabel} | ar.page`}</title>
                     <meta name="description" content={`${userInfo.currentLabel} | ar.page`} />
-
                     <meta name="twitter:image" content={(userInfo.avatar !== "") ? `https://pz-prepnb.meson.network/${userInfo.avatar}` : "https://ar.page/favicon.png"} />
                     <meta name="twitter:title" content={`${userInfo.currentLabel} | ar.page`} />
                     <meta name="twitter:url" content={`https://${userInfo.currentLabel}.ar.page`}></meta>

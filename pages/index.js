@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import { FAQ } from '../components/FAQ'
 import Index from '../components_new/home'; 
 
 import User from './profile/[user]';
