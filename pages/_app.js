@@ -47,9 +47,10 @@ function MyApp({ Component, pageProps }) {
   // useUpdateChecker();
   return (
     <RecoilRoot>
-      <HelmetProvider>
+      
         <AnimatePresence exitBeforeEnter>
           <AnsProvider>
+          <HelmetProvider>
             <Head>
               <title>ar.page</title>
               <meta name="description" content="ar.page | Home" />
@@ -69,9 +70,9 @@ function MyApp({ Component, pageProps }) {
                 </Layout>
               </RainbowKitProvider>
             </WagmiConfig>
+            </HelmetProvider>
           </AnsProvider>
         </AnimatePresence>
-      </HelmetProvider>
     </RecoilRoot>
   )
 }

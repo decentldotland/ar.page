@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Index from '../../components_new/home'
 import UserPage from '../../components_new/user';
 import { useRecoilValue } from 'recoil';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 // THESE ARE NEW UI Componetns for editing the profile
 import { editModalState, userInfoState } from '../../atoms';
