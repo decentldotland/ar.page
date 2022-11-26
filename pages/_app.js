@@ -50,14 +50,14 @@ function MyApp({ Component, pageProps }) {
         <AnsProvider>
           <Head>
             <title>ar.page</title>
-            <meta name="description" content="ar.page | Home" />
+            <meta name="description" content="test 1 | Home" /> {/*titling part where user name goes*/}
             <link rel="icon" href="/favicon.png" />
             <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1"  />
             <meta name="twitter:card" content="summary" />
-            <meta name="twitter:image" content="https://ar.page/favicon.png" />
+            <meta name="twitter:image" content="https://ar.page/favicon.png" /> {/*titling part where user name goes*/}
             <meta name="twitter:site" content="@decentdotland" />
-            <meta name="twitter:title" content="ar.page | Home" />
-            <meta name="twitter:description" content="All your Web3 content, finally stored in one place." />
+            <meta name="twitter:title" content="test 2 | Home" /> {/*titling part where user name goes*/}
+            <meta name="twitter:description" content="All your Web3 content, finally stored in one place." /> {/*Discord description*/}
             <meta name="twitter:url" content="https://ar.page"></meta>
           </Head>
           <WagmiConfig client={wagmiClient}>
