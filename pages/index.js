@@ -3,11 +3,15 @@ import axios from 'axios';
 import Index from '../components_new/home'; 
 
 import User from './profile/[user]';
-
+import { HelmetProvider } from 'react-helmet-async';
 export default function Home({wildcard, userInfo}) {
   return ((wildcard === "404") ? 
-    <Index /> : 
+  <HelmetProvider>
+    <Index />
+  </HelmetProvider> : 
+  <HelmetProvider>
     <User uInfo={userInfo} />
+  </HelmetProvider>
   )
 }
 
