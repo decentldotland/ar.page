@@ -35,7 +35,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
         <meta content="Embed Title" property="og:title" />
         <meta content={`${userInfo.bio}`} property="og:description" />
         <meta content={`https://${userInfo.currentLabel}.ar.page`} property="og:url" />
-        <meta content={(userInfo.avatar !== "") ? `https://pz-prepnb.meson.network/${userInfo.avatar}` : "https://ar.page/favicon.png"} /> property="og:image" />
+        <meta content={(userInfo.avatar !== "") ? `https://pz-prepnb.meson.network/${userInfo.avatar}` : "https://ar.page/favicon.png"} property="og:image" />
         {/*<meta content="#43B581" data-react-helmet="true" name="theme-color" />*/}
       </Head>
       <UserPage userInfo={userInfo} />
