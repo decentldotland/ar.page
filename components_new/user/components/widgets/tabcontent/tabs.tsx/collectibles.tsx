@@ -5,6 +5,7 @@ import { ChainFilter } from '../../../../../buttons';
 import { Button } from '../../../../../../src/stories/Buttons';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../../../../atoms';
+import ReactHelmet from  'react-helmet';
  
 export default function Collectibles({NFTs, loading, perPage, handleVisibility}: 
 {NFTs: NFT[], loading: boolean, perPage: number, handleVisibility: (res: boolean) => void}) {
@@ -52,8 +53,13 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
         setIsDark(false)
       }
   }, [isDark]);
+  {/*<meta name="twitter:title" content="test 2 | Home" />*/}
 
   return (
+    <>
+    <ReactHelmet>
+      <meta name="twitter:title" content="test 44 | Home" /> 
+    </ReactHelmet>
     <div className={`transition-opacity duration-400 pb-3  opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
 
       {/*Render Filter Capabilities*/}
@@ -107,5 +113,6 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
         />
       )}
     </div>
+    </>
   )
 };
