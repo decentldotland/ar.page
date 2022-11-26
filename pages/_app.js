@@ -50,7 +50,7 @@ function MyApp({ Component, pageProps }) {
         <AnsProvider>
           <Head>
             <title>ar.page</title>
-            <meta name="description" content="test 1 | Home" /> {/*titling part where user name goes*/}
+            <meta name="description" content="ar.page | Home" />
             <link rel="icon" href="/favicon.png" />
             <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1"  />
             <meta name="twitter:card" content="summary" />
