@@ -19,8 +19,8 @@ function ConnectAdditionalAccounts() {
 
   return (
     <div className='relative h-screen flex flex-col w-full sm:w-[440px] px-5 justify-between'>
-        <div>
-            <div className=' mt-[60px]'>
+        <div className='md:relative md:top-32'>
+            <div className='mt-[60px]'>
                 <ConnectedArweaveWallet /> 
             </div>
             <div className='mt-[18px]'>
@@ -38,7 +38,6 @@ function ConnectAdditionalAccounts() {
                         <Image src={'/icons/NEAR_WHITE.svg'} height={50} width={50} className={'shadow-2xl bg-black rounded-xl '}/>
                         <h1 className='text-sm font-semibold text-left '>{accountId}</h1>
                     </div>
-
                     {
                         accountId ? (
                             <XMarkIcon height={26} width={26} color='#6a6b6a' strokeWidth={2} className=' '/>

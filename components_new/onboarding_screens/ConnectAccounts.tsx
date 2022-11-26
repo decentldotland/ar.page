@@ -9,18 +9,21 @@ function ConnectAccounts() {
     const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
 
   return (
-    <div className='relative h-full flex flex-col w-full sm:w-[440px] px-5'>
-        <div className=' mt-[60px]'>
-            <ConnectedArweaveWallet /> 
+    <div className='md:relative md:top-32 relative h-screen flex flex-col w-full sm:w-[440px] px-5'>
+        <div className=''>
+            <div className=' mt-[60px]'>
+                <ConnectedArweaveWallet /> 
+            </div>
+            <div className='mt-[18px]'>
+                <h1 className='text-4xl text-left font-bold '>
+                    Connect Accounts
+                </h1>
+                <p className="text-sm text-[#888] mt-3">
+                    Connect at least one account to get started.
+                </p>
+            </div>
         </div>
-        <div className='mt-[18px]'>
-            <h1 className='text-4xl text-left font-bold '>
-                Connect Accounts
-            </h1>
-            <p className="text-sm text-[#888] mt-3">
-                Connect at least one account to get started.
-            </p>
-        </div>
+        
 
 
         <div onClick={() => setUserOnboarding(2)} className='cursor-pointer bg-[#f5f5f5] justify-between mt-[40px] py-2 flex items-center  px-3 rounded-2xl'>

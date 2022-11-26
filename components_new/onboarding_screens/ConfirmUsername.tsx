@@ -86,7 +86,7 @@ function ConfirmUsername({
     return (
         <section aria-disabled={loadingWrite} 
           className={loadingWrite ? 'absolute h-screen bottom-0 w-screen z-50 bg-[#B3B2B3]/25 cursor-not-allowed  ' : 
-            'relative h-screen flex flex-col items-center sm:w-[440px] w-full px-5 justify-between'}>
+            'relative h-screen flex flex-col items-center sm:w-[440px] w-full px-5 justify-between md:relative md:top-32'}>
               
               <div className='flex flex-col items-center mt-40  w-full sm:w-[440px] '>
                 <h2 className='text-xl text-center font-medium mb-7 text-[#3a3a3a]'>Your username</h2>

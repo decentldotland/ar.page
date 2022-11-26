@@ -22,6 +22,7 @@ import axios from 'axios'
 import { Res } from '../src/types'
 import { GenericLabel, getDefaultLabels } from '../components_new/onboarding_screens/DIDLabels'
 import { RiContactsBookLine } from 'react-icons/ri'
+import Image from 'next/image'
 
 
 function Onboarding() {
@@ -130,66 +131,73 @@ const [selectedName, setSelectedName] = useState<string | null>(null)
   // }, [selectedName])
   
 
-
+// items-center flex justify-center
   return (
-    <div className='font-sans items-center flex justify-center'>
-      {/* {
-        userCurrentStep === 0 && (<SignUpPage  />)
-      } */}
-      {
-        userCurrentStep === 0 && (<SignUpArConnect />)
-      }
-      {
-        userCurrentStep === 1 && (<ConnectAccounts />)
-      }
-      {
-        userCurrentStep === 2 && (<SignUpNear />)
-      }
-      {
-        userCurrentStep === 3 && (<VerifyWithArk />)
-      }
-      {
-        userCurrentStep === 4 && (<ArkSuccessPage  /> ) 
-      }
+    <div className='md:h-screen font-sans flex flex-row sm:justify-between justify-center items-center'>
+      <div className='items-center md:relative md:bottom-[120px] z-10
+         bg-white w-screen sm:w-[50%] flex justify-center'>
+        {/* {
+          userCurrentStep === 0 && (<SignUpPage  />)
+        } */}
+        {
+          userCurrentStep === 0 && (<SignUpArConnect />)
+        }
+        {
+          userCurrentStep === 1 && (<ConnectAccounts />)
+        }
+        {
+          userCurrentStep === 2 && (<SignUpNear />)
+        }
+        {
+          userCurrentStep === 3 && (<VerifyWithArk />)
+        }
+        {
+          userCurrentStep === 4 && (<ArkSuccessPage  /> ) 
+        }
 
-      {
-        userCurrentStep === 5 && ( <ConnectAdditionalAccounts /> )
-      }
-      
-      {/* the loading screen can be mergein with the list 
+        {
+          userCurrentStep === 5 && ( <ConnectAdditionalAccounts /> )
+        }
+        
+        {/* the loading screen can be mergein with the list 
 
-        if names is not empty : DidList 
-        else: 
-          loadingscreen
-      */}
-      {
-        userCurrentStep === 6 && (<LoadingScreen msg={'Cross checking user data'}/> )
-      }
+          if names is not empty : DidList 
+          else: 
+            loadingscreen
+        */}
+        {
+          userCurrentStep === 6 && (<LoadingScreen msg={'Cross checking user data'}/> )
+        }
 
-      {
-        userCurrentStep === 7 && ( <DIDList labels={labels} selectedName={selectedName} setSelectedName={setSelectedName}/> )
-      }
+        {
+          userCurrentStep === 7 && ( <DIDList labels={labels} selectedName={selectedName} setSelectedName={setSelectedName}/> )
+        }
 
-      {/* {
-        userCurrentStep === 6123 && ( <RegisterNamePage setArLabel={setArLabel} arLabel={arLabel} /> ) 
-      } */}
-      {
-        userCurrentStep === 8 && ( <ConfirmUsername  arLabel={selectedName!}/> ) 
-      }
-      {
-        userCurrentStep === 9 && (<AvatarSelectionPage  />)
-      }
-      {
-        userCurrentStep === 10 && (<OptionEditProfile /> )
-      }
-      {
-        userCurrentStep === 11 && (<EditProfilePage loading={loading}/> )
-      }
-      {
-        userCurrentStep === 12 && (<LoadingScreen msg={'Creating your profile'} end={true}/> )
-      }
+        {/* {
+          userCurrentStep === 6123 && ( <RegisterNamePage setArLabel={setArLabel} arLabel={arLabel} /> ) 
+        } */}
+        {
+          userCurrentStep === 8 && ( <ConfirmUsername  arLabel={selectedName!}/> ) 
+        }
+        {
+          userCurrentStep === 9 && (<AvatarSelectionPage  />)
+        }
+        {
+          userCurrentStep === 10 && (<OptionEditProfile /> )
+        }
+        {
+          userCurrentStep === 11 && (<EditProfilePage loading={loading}/> )
+        }
+        {
+          userCurrentStep === 12 && (<LoadingScreen msg={'Creating your profile'} end={true}/> )
+        }
 
-    </div>  
+      </div>  
+      <div className='bg-[#EDECEC] w-[50%] h-screen hidden sm:block '>
+        {/* <Image src={'/ONBOARDING_IMG.png'} layout="fill"  objectFit="fill" className='absolute left-0'/> */}
+      </div>
+
+    </div>
   )
 }
 

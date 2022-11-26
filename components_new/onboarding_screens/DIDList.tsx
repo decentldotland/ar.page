@@ -20,7 +20,7 @@ function DIDList({labels, selectedName, setSelectedName}: Props) {
   const [loading, setLoading] = useState(false)
   return (
     <>
-      <section className="w-full px-5 sm:w-[440px] flex flex-col justify-between h-screen">
+      <section className="md:relative md:top-32 w-full px-5 sm:w-[440px] flex flex-col justify-between h-screen">
         <div className=' mt-10 '>
           <UserBackButton />
           <h1 className="text-[32px] font-bold mt-5">What will be your username?</h1>

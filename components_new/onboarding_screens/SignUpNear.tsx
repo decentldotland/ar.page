@@ -78,7 +78,7 @@ function SignUpNear() {
 
   return (
     <>
-    <div className='relative h-screen flex flex-col sm:w-[440px] w-full px-5'>
+    <div className='md:h-full relative h-screen flex flex-col sm:w-[440px] w-full px-5'>
       <div className='mt-10'>
         <UserBackButton />
         {/* <div className='mt-6 mb-5 '>

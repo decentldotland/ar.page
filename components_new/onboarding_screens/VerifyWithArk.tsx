@@ -14,7 +14,7 @@ function VerifyWithArk() {
     const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
     const userCurrentStep = useRecoilValue(userOnboardingState)
   return (
-    <div className='mt-[60px] w-full px-5 sm:w-[440px]'>
+    <div className='md:h-full md:items-center md:relative md:top-32 mt-[60px] w-full px-5 sm:w-[440px]'>
         <div className='items-center flex flex-col justify-center'>
             
             {/* TITLEs */}

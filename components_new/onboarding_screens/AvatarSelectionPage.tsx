@@ -25,7 +25,7 @@ function AvatarSelectionPage() {
 
   return (
     <>
-        <section className=" relative h-screen flex flex-col w-full sm:w-[440px] px-5 justify-between  ">
+        <section className="md:relative md:top-32 relative h-screen flex flex-col w-full sm:w-[440px] px-5 justify-between  ">
             <div className='mt-[77px]'>
                 <div className=''>
                     {/* <UserBackButton /> */}
