@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Collectibles from './tabs.tsx/collectibles';
 import ArweaveActivity from './tabs.tsx/activity';
 import Selector from './selector';
-import { ArweaveTransaction, NFT, Permapage, Res, Stamp } from '../../../../../src/types';
+import { ArweaveTransaction, NFT, Res, Stamp } from '../../../../../src/types';
 import { TABS } from '../../../hackathon/';
-import { Nfts } from '../../../../../components/Nfts';
 import StampsTab from './tabs.tsx/StampsTab'; 
 import { ARWEAVE_URL } from '../../../../../src/constants';
 

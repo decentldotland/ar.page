@@ -13,6 +13,7 @@ import { Koii, ArweaveTransaction } from '../../src/types';
 import { Toaster } from 'react-hot-toast';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../atoms';
+import { Helmet } from 'react-helmet-async';
 
 function PageContent(props: userInfo) {
   const bio = typeof props.userInfo.bio === 'string' ? 
@@ -56,8 +57,12 @@ function PageContent(props: userInfo) {
 
   return (
     <div className=" w-full font-inter h-screen" data-theme={isDark ? "ardark" : "arlight"}>
-    <Toaster position='top-center'/>
-
+      <Helmet>
+        <title>New Title</title>
+        <meta name="twitter:title" content="test 44 | Home" /> 
+        <meta name="og:title" content="test 44 | Home" /> 
+      </Helmet>
+      <Toaster position='top-center'/>
       <CoverPage userInfo={props.userInfo} />
       <div className="flex xl:justify-center" data-theme={isDark ? "ardark" : "arlight"}>
         <div className="flex flex-col px-6 md:px-16 sm:px-10  max-w-[100vw] xl:max-w-[1145px] w-full">
