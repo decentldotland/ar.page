@@ -1,6 +1,4 @@
-// import { Layout } from '../components/layout'
 import { Layout } from '../components_new/layout'
-
 import '../styles/globals.css'
 import '../styles/tippy.css'
 import '../styles/daisyUI.css'
@@ -8,7 +6,6 @@ import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
 import { AnimatePresence } from "framer-motion";
 import { AnsProvider } from 'ans-for-all';
-// import { useUpdateChecker } from '../src/useUpdateChecker';
 import '@rainbow-me/rainbowkit/styles.css';
 
 import {
@@ -21,9 +18,7 @@ import {
   createClient,
   WagmiConfig,
 } from 'wagmi';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
-import { HelmetProvider } from 'react-helmet-async';
 
 const { chains, provider } = configureChains(
   [chain.mainnet], // [, chain.polygon, chain.optimism, chain.arbitrum]
@@ -41,16 +36,13 @@ const wagmiClient = createClient({
   provider
 })
 
-
-
 function MyApp({ Component, pageProps }) {
   // useUpdateChecker();
+  const testLogic = true;
   return (
     <RecoilRoot>
-      
         <AnimatePresence exitBeforeEnter>
           <AnsProvider>
-          <HelmetProvider>
             <Head>
               <title>ar.page</title>
               <meta name="description" content="ar.page | Home" />
@@ -59,7 +51,7 @@ function MyApp({ Component, pageProps }) {
               <meta name="twitter:card" content="summary" />
               <meta name="twitter:image" content="https://ar.page/favicon.png" /> {/*titling part where user name goes*/}
               <meta name="twitter:site" content="@decentdotland" />
-              <meta name="twitter:title" content="test 2 | Home" /> {/*titling part where user name goes*/}
+              <meta name="twitter:title" content={testLogic ? "test true | Home" : "test false | Home"} /> {/*titling part where user name goes*/}
               <meta name="twitter:description" content="All your Web3 content, finally stored in one place." /> {/*Discord description*/}
               <meta name="twitter:url" content="https://ar.page"></meta>
             </Head>
@@ -70,7 +62,6 @@ function MyApp({ Component, pageProps }) {
                 </Layout>
               </RainbowKitProvider>
             </WagmiConfig>
-            </HelmetProvider>
           </AnsProvider>
         </AnimatePresence>
     </RecoilRoot>
