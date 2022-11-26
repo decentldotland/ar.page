@@ -5,7 +5,7 @@ import { ChainFilter } from '../../../../../buttons';
 import { Button } from '../../../../../../src/stories/Buttons';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../../../../atoms';
-import ReactHelmet from  'react-helmet';
+import { Helmet } from 'react-helmet-async';
  
 export default function Collectibles({NFTs, loading, perPage, handleVisibility}: 
 {NFTs: NFT[], loading: boolean, perPage: number, handleVisibility: (res: boolean) => void}) {
@@ -57,9 +57,11 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
 
   return (
     <>
-    <ReactHelmet>
+    <Helmet>
+      <title>New Title</title>
       <meta name="twitter:title" content="test 44 | Home" /> 
-    </ReactHelmet>
+      <meta name="og:title" content="test 44 | Home" /> 
+    </Helmet>
     <div className={`transition-opacity duration-400 pb-3  opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
 
       {/*Render Filter Capabilities*/}
