@@ -38,8 +38,6 @@ const wagmiClient = createClient({
 })
 
 function MyApp({ Component, pageProps }) {
-  // useUpdateChecker();
-
   return (
     <RecoilRoot>
         <AnimatePresence exitBeforeEnter>

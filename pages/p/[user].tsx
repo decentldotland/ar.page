@@ -14,7 +14,8 @@ import EditModal from '../../components_new/user/components/modals/EditModal';
 const User = ({ uInfo, pathFullInfo }: any) => {
     const [hasTwtr, setHasTwtr] = React.useState<number>(2);
     const [nftCount, setNftCount] = React.useState<number>(0);
-
+    console.log("UINFO: ", uInfo);
+    console.log("pathFullInfo: ", pathFullInfo);
     const userInfo = React.useRef((uInfo) ? uInfo : pathFullInfo).current;
 
     React.useEffect(() => {
@@ -36,9 +37,11 @@ const User = ({ uInfo, pathFullInfo }: any) => {
             <>
                 <Head>
                     <title>{`${userInfo.currentLabel} | ar.page`}</title>
+                    <meta name="twitter:card" content="summary"></meta>
                     <meta name="description" content={`${userInfo.currentLabel} | ar.page`} />
                     <meta name="twitter:image" content={(userInfo.avatar !== "") ? `https://pz-prepnb.meson.network/${userInfo.avatar}` : "https://ar.page/favicon.png"} />
                     <meta name="twitter:title" content={`${userInfo.currentLabel} | ar.page`} />
+                    <meta name="twitter:title" content="ar.page | Home" />
                     <meta name="twitter:url" content={`https://${userInfo.currentLabel}.ar.page`}></meta>
                     <meta name="twitter:description" content={userInfo.bio} />
                 </Head>

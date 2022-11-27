@@ -26,8 +26,6 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
           return nft.title!.toLowerCase().includes(e.toLowerCase());
         }
     }));
-    //May have to add a chain check here
-    console.log(NFTs);
   };
 
   // Hook setting filteredNFTs state

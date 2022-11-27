@@ -13,13 +13,7 @@ export default function Home({wildcard, userInfo}) {
 export async function getServerSideProps(context) {
 
   let wildcard = context.req.headers.host.split(".")[0];
-  wildcard =
-    (wildcard != "ans-ui")
-      // ? (wildcard != "localhost:3000")
-      ? (wildcard)
-      // : process.env.TEST_WILDCARD
-    : "404";
-
+  wildcard = (wildcard != "ans-ui") ? (wildcard) : "404";
     if(wildcard !== "404")
       try {
           const res = await axios.get(`https://ans-stats.decent.land/users`);
