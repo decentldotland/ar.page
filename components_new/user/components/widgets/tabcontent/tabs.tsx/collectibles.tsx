@@ -5,6 +5,7 @@ import { ChainFilter } from '../../../../../buttons';
 import { Button } from '../../../../../../src/stories/Buttons';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../../../../atoms';
+import { SortChronButton } from '../../../../../buttons';
  
 export default function Collectibles({NFTs, loading, perPage, handleVisibility}: 
 {NFTs: NFT[], loading: boolean, perPage: number, handleVisibility: (res: boolean) => void}) {
@@ -80,6 +81,8 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
           }}
         />
         {/*Sort Chronology Button*/}
+        <SortChronButton onClick={() => ""} text="Test" />
+
         {filteredNFTs.length > 0 && (
           <Button
             variant='secondary'
