@@ -24,6 +24,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
     <>
       <Head>
         <title>{`${userInfo.currentLabel} | ar.page`}</title>
+        <meta name="twitter:card" content="summary" />
         <link rel="icon" href={`https://pz-prepnb.meson.network/${userInfo.avatar}`} /> {/* TODO: potential source of vulnerabilities if users somehow upload malicious text or images */}
         <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1" />
         <meta name="description" content={`${userInfo.bio} | ar.page`} />
@@ -31,8 +32,15 @@ const User = ({ uInfo, pathFullInfo }: any) => {
         <meta name="twitter:title" content={`${userInfo.currentLabel} | ar.page`} />
         <meta name="twitter:url" content={`https://${userInfo.currentLabel}.ar.page`}></meta>
         <meta name="twitter:description" content={userInfo.bio} />
-        <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@decentdotland" />
+
+        <meta name="og:card" content="summary"></meta>
+        <meta name="description" content={`${userInfo.currentLabel} | ar.page`}></meta>
+        <meta name="og:image" content={(userInfo.avatar !== "") ? `https://pz-prepnb.meson.network/${userInfo.avatar}` : "https://ar.page/favicon.png"} ></meta>
+        <meta name="og:title" content={`${userInfo.currentLabel} | ar.page`}></meta>
+        <meta name="og:title" content="ar.page | Home"></meta>
+        <meta name="og:url" content={`https://${userInfo.currentLabel}.ar.page`}></meta>
+        <meta name="og:description" content={userInfo.bio}></meta>
       </Head>
       <UserPage userInfo={userInfo} />
       {showModel && <EditModal />}
