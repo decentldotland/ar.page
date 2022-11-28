@@ -15,7 +15,13 @@ import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../atoms';
 import { HackathonLabels } from '../hackathon/api/labels';
 import ProfileBadge from './modals/ProfileBadge';
-import EditProfile from './EditProfile';
+import EditProfile from './Coverpage/EditProfile';
+import MetaforoTipping from './tip/MetaforoTipping';
+import MemberSince from './MemberSince';
+import CopyAddress from './CopyAddress';
+import FollowButton from './FollowButton';
+import UserCountInfo from './UserCountInfo';
+
 
 
 interface UserProps { 
@@ -97,11 +103,10 @@ export const UserInfo = ({user, profile}: UserProps) => {
                             }
                         </div>
                     </article>
-                   
 
                     {/* nickname and label */}
-                    <div className={`ml-5 relative  ${epoch === 0 ? ('bottom-12') : ('bottom-6')} `}>
-                        <div className="sm:mt-7  flex flex-row items-center space-x-3 justify-center mt-5">
+                    <div className={`ml-5 relative  ${epoch === 0 ? ('bottom-8') : ('bottom-8')} `}>
+                        <div className="sm:mt-7  flex flex-row items-center space-x-3 justify-center md:justify-start mt-5">
                             <div className="flex items-center ">
                                 <div className={`md:text-2xl text-[28px] 
                                 ${isDark ? (' text-white'): (' text-[#000]')}
@@ -115,61 +120,37 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                     isDark={isDark}
                                 />
                             </div>
-                            <div className={`px-2 py-2 sm:scale-90 md:scale-100 
-                                ${isDark ? ('bg-[#2c467e] text-white'): ('bg-gray-200 text-[#666]')} rounded-lg cursor-pointer`}
-                                onClick={() =>{ copy_text(user.userInfo.user); }} >
-                                <div className="flex flex-row font-inter font-semibold text-sm">
-                                    <h3 className='mr-1 hidden md:block'>
-                                        {(shortenAddress as Function)(user.userInfo.user)}
-                                    </h3>
-                                    <DocumentDuplicateIcon height={20} width={20} color={`${isDark? ('white') : ('#666') }`}
-                                        strokeWidth={2} />
-                                </div>
-                               
-                                <Snackbar
-                                    message="Copied to clipboard"
-                                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                                    autoHideDuration={2000}
-                                    onClose={() => setOpen(false)}
-                                    open={open}
-                                />
-                            </div>
-                            
+
                         </div>
                         
                         <div className='sm:flex sm:flex-col sm:space-y-1 '>
                             <h3 className={`font-inter 
                             ${isDark ? (' text-white/60'): (' text-[#666]')}
-                            text-base mt-1 sm:mb-2 mb-1 
+                            text-base sm:mb-2 mb-10 md:mb-2
                             text-center sm:text-center md:text-left lg:text-left`} >
                                 {user.userInfo.nickname}
                             </h3>
-                            <div>
-                                {
-                                    epoch > 0 && (
-                                        <div className='flex flex-row items-center justify-center md:justify-start space-x-2 '>
-                                            <div className={`flex flex-row  
-                                                items-center space-x-1  
-                                                py-1 px-2 w-fit ${isDark ? ('bg-[#1a2745] text-white'): ('bg-gray-200 text-[#666]')}  
-                                                rounded-lg 
-                                                font-inter  text-xs font-bold`}>
-                                                    <CalendarDaysIcon height={14} width={14} 
-                                                    color={`${isDark? ('white') : ('#666') }`}
-                                                    strokeWidth={2}/>
-                                                    <p>Since {month} {year}</p>
-                                            </div>
-                                        </div>
-                                    )
-                                }
+                            
+                            <div className='flex flex-row space-x-3'>
+                                <FollowButton />
+                                <MetaforoTipping  attributes={{
+                                    siteName: `${user.userInfo.currentLabel}`,
+                                    pageId: "1",
+                                    receiverAddress: `${user.userInfo?.user}`,
+                                    receiverUsername: `${user.userInfo.currentLabel}`,
+                                    receiverChainId: "",
+                                    theme: `${isDark ? 'dark' : 'light'}`
+                                }}/>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
+
                 {/* User Bio and Available Labels */}
                 <div className='space-y-8 -mt-20 mb-5'>
                     <Bio text={bio} />
-                    <div className='space-y-2 !mt-0 md:!mt-4'>
+                    {/* <UserCountInfo followers={1} followings={1} posts={1} /> */}
+                    <div className='space-y-2 !mt-5 md:mt-4 '>
                         <Labels items={labels} />
                         <Divider />
                     </div>

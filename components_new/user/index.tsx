@@ -8,9 +8,11 @@ import Collectibles from './components/widgets/tabcontent/tabs.tsx/collectibles'
 import ArweaveActivity from './components/widgets/tabcontent/tabs.tsx/activity';
 import Widgets from './components/widgets';
 import { Divider, LoadingOrNotFound } from './components/reusables';
-import CoverPage from './components/CoverPage';
+import { Nav } from '../../components_new/nav';
+
 import { Koii, ArweaveTransaction } from '../../src/types';
 import { Toaster } from 'react-hot-toast';
+import CoverPage from './components/Coverpage/CoverPage';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../atoms';
 
@@ -56,6 +58,7 @@ function PageContent(props: userInfo) {
 
   return (
     <div className=" w-full font-inter h-screen" data-theme={isDark ? "ardark" : "arlight"}>
+    <Nav />
     <Toaster position='top-center'/>
 
       <CoverPage userInfo={props.userInfo} />
