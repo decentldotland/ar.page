@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import Poaps from './poaps';
 import TabContent from './tabcontent';
-import { TOP_WIDGETS, BOTTOM_WIDGETS } from '../../hackathon';
+import { TOP_WIDGETS } from '../../hackathon';
 import { Res } from '../../../../src/types';
 import { Divider } from '../reusables';
-import {HiOutlineSearchCircle} from 'react-icons/hi'
-import { CircularProgress, LinearProgress } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 export interface WidgetType {
   children: any; // pass default component here
   canRender: boolean; // pass conditionals here
@@ -38,40 +37,42 @@ export const DEFAULT_COMPONENT_LIST: WidgetType[] = [
 
 
 export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefined, loading: boolean}) {
-    
-  const [time, setTimeOut] = useState(false)
-  React.useEffect(() => {
-    setTimeout(function () {
-      setTimeOut(true); 
-    }, 5000);
-  }, []);
   
   if (!arkProfile) return (
     <>
-      {loading || time ? (
-        <div className='flex items-center justify-center mt-5  flex-col space-y-2
-          text-lg text-content-100/80 '>
-            {/* <HiOutlineSearchCircle size={60} color="#D9D9D9"/> */}
-            <h1 className='text-xl font-bold'>
-              No User Information
-            </h1>
-            <p className='text-sm  text-gray-400'>This user has no collection, activity, poaps...</p>
-        </div>
-      ):(
+      {loading ?
+      (
         <div className='flex flex-col items-center justify-center space-y-2 mt-5
-        text-content-100/80 '>
+        text-content-100/80'>
           <CircularProgress color="inherit" size={40}/>
-          <h1 className='text-xl text-gray-400'>Retrieving user's assets</h1>
+          <p className='text-xl text-gray-400'>Retrieving user's assets</p>
+        </div>
+      )
+      :
+      (
+        <div className='flex items-center justify-center mt-5  flex-col space-y-2
+          text-lg text-content-100/80'>
+            <p className='text-xl font-bold'>No User Information</p>
+            <p className='text-sm text-gray-400'>This user has no collection, activity, poaps...</p>
         </div>
       )}
     </>
   )
   const defaultWidgets = [
-    <Widget canRender={arkProfile?.POAPS?.length > 0} loading={loading} divider={true}>
+    <Widget
+      canRender={arkProfile?.POAPS?.length > 0}
+      loading={loading} 
+      divider={true}
+      key={0}
+    >
       <Poaps props={arkProfile}/>
     </Widget>,
     ...TOP_WIDGETS(arkProfile),
-    <Widget canRender={!loading} divider={false}>
+    <Widget 
+      canRender={!loading} 
+      divider={false} 
+      key={0}
+    >
       <TabContent arkProfile={arkProfile} loading={loading} />
     </Widget>,
   ]

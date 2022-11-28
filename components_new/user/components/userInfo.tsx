@@ -101,9 +101,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                     </>
                                     )
                             }
-
                         </div>
-
                     </article>
 
                     {/* nickname and label */}
