@@ -14,7 +14,7 @@ const avaxColor = "bg-[#E84040]/20 text-[#E84040] "
 const ethColor = `bg-[#b3b2b3]/40 text-[#454a75] font-bold `
 const arColor = "bg-black text-white "
 const iconProps = {size: 19, color: "#1273ea"}
-const lenProps = "bg-[#abfe2c] text-[#05501F] bg-[#aafe2ccb] "
+const lenProps = "bg-[#abfe2c] text-[#05501F] "
 
 export const arLabels = (arweave_address: string, ownedLabels: OwnedLabel[]) => ownedLabels.map((owned: OwnedLabel) => {
   return {
@@ -91,12 +91,17 @@ export const lensLabel = (lens:string[] |undefined) => {
     classes: lenProps,
     link_to: `https://lenster.xyz/u/${lensLabel}` ,
     selected: false,
-    icon: <Image
-      height={28}
-      width={28}
-      src="/icons/LENS.svg"
-      alt=""
-    />
+    icon: 
+    <div className='shadow-2xl flex items-center bg-[#abfe2c] rounded-lg  p-1'>
+      <Image
+        height={28}
+        width={28}
+        src="/icons/LENS.svg"
+        alt=""
+        quality={100}
+
+      />
+    </div>
   }
 }
 

@@ -72,10 +72,10 @@ function Onboarding() {
     // if(userCurrentStep.toString() !== num && accountId && isNearWalletConnected) setUserOnboarding(+num!)   
   }, [isNearWalletConnected, userCurrentStep])
   
-  useEffect(() => {
-    setUserOnboarding(8)
-
-  }, [])
+  // useEffect(() => {
+  //   setUserOnboarding(8)
+  // }, [])
+  
   const [loading, setLoading] = useState<boolean>(true);
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
   // const {address} = useAns()
@@ -199,7 +199,7 @@ const [selectedAvatar, setSelectedAvatar] = useState<NFT | null>(null)
           userCurrentStep === 12 && (<WelcomePage/> )
         }
         {
-          userCurrentStep === 14 && (<LoadingScreen msg={'Creating your profile'} end={true}/> )
+          userCurrentStep === 13 && (<LoadingScreen msg={'Creating your profile'} end={true}/> )
         }
   
 

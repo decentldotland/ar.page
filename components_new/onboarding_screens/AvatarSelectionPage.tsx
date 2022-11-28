@@ -10,7 +10,6 @@ import ModalAvatarSelection from './ModalAvatarSelection';
 
 
 interface Props { 
-
 }
 
 function AvatarSelectionPage() {

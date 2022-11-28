@@ -42,7 +42,7 @@ function ConnectAdditionalAccounts() {
                         accountId ? (
                             <XMarkIcon height={26} width={26} color='#6a6b6a' strokeWidth={2} className=' '/>
                         ) : (
-                            <PlusIcon height={22} width={22} color='#6a6b6a' strokeWidth={2} className='relative left-4 rounded-full p-1 bg-[#d9d9d9] w-[30px] h-[30px] '/>
+                            <PlusIcon height={22} width={22} color='#6a6b6a' strokeWidth={2} className='relative  rounded-full p-1 bg-[#d9d9d9] w-[30px] h-[30px] '/>
                         )
                     }
                 </div>

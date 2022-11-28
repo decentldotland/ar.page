@@ -31,7 +31,7 @@ function DIDList({labels, selectedName, setSelectedName}: Props) {
             <div className="mt-11">
               <div className="grid grid-flow-row grid-cols-2 sm:grid-cols-2 grid-rows-4 gap-5">
                   {labels.map((item:any, index:number) => (
-                    <div key={index}  className={`${selectedName === item.username ? tableClass + item.classes + 'border-black border-2': item.classes + tableClass} `}>
+                    <div key={index}  className={`${selectedName === item.username ? tableClass + item.classes + ' outline-2 outline': item.classes + tableClass} `}>
                       <button onClick={() => setSelectedName(item.username)}>
                         <div className='flex flex-row items-center space-x-1'>
                           {item.icon}
@@ -40,7 +40,7 @@ function DIDList({labels, selectedName, setSelectedName}: Props) {
                       </button>
                       {
                         selectedName === item.username && (
-                          <div className='absolute -right-1 bottom-10 bg-[#1cc16a] justify-center w-[19px] h-[19px] p-1 items-center flex rounded-full'>
+                          <div className='absolute -right-1 bottom-11 bg-[#1cc16a] justify-center w-[19px] h-[19px] p-1 items-center flex rounded-full'>
                             <CheckIcon height={15} width={15}  color='#fff' strokeWidth={4}/>
                           </div>
                         )

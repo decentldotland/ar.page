@@ -31,7 +31,7 @@ function ConnectAccounts() {
                 <Image src={'/icons/NEAR_WHITE.svg'} height={50} width={50} className={'shadow-2xl bg-black rounded-xl '}/>
                 <h1 className='text-sm font-semibold text-left '>Near</h1>
             </div>
-            <PlusIcon height={22} width={22} color='#6a6b6a' strokeWidth={2} className='relative left-4 rounded-full p-1 bg-[#d9d9d9] w-[30px] h-[30px] '/>
+            <PlusIcon height={22} width={22} color='#6a6b6a' strokeWidth={2} className='relative  rounded-full p-1 bg-[#d9d9d9] w-[30px] h-[30px] '/>
         </div>
         <h2 className='relative left-3 mt-3 text-[13px] font-medium text-[#8e8e8f] leading-[22px] '>
             <span className='font-bold'>NOTE: </span>
