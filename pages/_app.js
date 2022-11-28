@@ -1,6 +1,8 @@
 // import { Layout } from '../components/layout'
 import { Layout } from '../components_new/layout'
 
+//Comment test
+
 import '../styles/globals.css'
 import '../styles/tippy.css'
 import '../styles/daisyUI.css'
