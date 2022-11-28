@@ -21,7 +21,7 @@ function EditProfilePage({loading}: Props) {
 
 
   return (
-    <section className='md:relative md:top-32 relative h-screen flex flex-col sm:w-[440px]  md:w-[600px] px-5'>
+    <section className='md:relative md:top-32 relative h-screen flex flex-col sm:w-[440px] w-full  md:w-[600px] px-5'>
         <div className='flex items-center justify-between mt-10 '>
             <UserBackButton />
             <h1 className='text-sm text-center font-bold '>Edit your profile</h1>

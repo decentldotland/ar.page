@@ -8,9 +8,16 @@ import { userOnboardingState } from '../../atoms';
 
 interface Props { 
   msg: string, 
+
   end?: boolean
 }
 
+/**
+ * @description The loading screen for the onboarding flow 
+ * @param msg Message to show under the loading screen 
+ * @param end: OPTIONAL. Set to {@link 'True'}   if its the end of the flow. If true, the user will be automatically redirected to the home page 
+ * @returns React.Component  
+ */
 function LoadingScreen({msg, end}: Props) {
   const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
   const userCurrentStep = useRecoilValue(userOnboardingState);
