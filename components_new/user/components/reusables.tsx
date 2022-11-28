@@ -45,7 +45,7 @@ export function SearchBar(props: SearchType) {
   const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
   return (
-    <div className={`px-4 flex border-gray-200 border-2 flex-row space-x-3.5 max-w-[50vw] py-3 items-center 
+    <div className={`px-4 flex border-gray-200 border-2 flex-row space-x-3.5  py-3 items-center 
     ${isDark ? ('bg-[#121a2f]'): ('')}
     rounded-2xl`}>
       <MagnifyingGlassIcon height={20} width={20} strokeWidth={3} color={`${isDark? ('white') : ('#666') }`} />

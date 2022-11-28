@@ -19,10 +19,12 @@ import DIDList from '../components_new/onboarding_screens/DIDList'
 import { useAns } from 'ans-for-all'
 import { GetStaticProps } from 'next'
 import axios from 'axios'
-import { Res } from '../src/types'
+import { NFT, Res } from '../src/types'
 import { GenericLabel, getDefaultLabels } from '../components_new/onboarding_screens/DIDLabels'
 import { RiContactsBookLine } from 'react-icons/ri'
 import Image from 'next/image'
+import WelcomePage from '../components_new/onboarding_screens/WelcomePage'
+import NftCollections from '../components_new/onboarding_screens/UserCollections/NftCollections'
 
 
 function Onboarding() {
@@ -70,14 +72,14 @@ function Onboarding() {
     // if(userCurrentStep.toString() !== num && accountId && isNearWalletConnected) setUserOnboarding(+num!)   
   }, [isNearWalletConnected, userCurrentStep])
   
-  // useEffect(() => {
-  //   setUserOnboarding(11)
+  useEffect(() => {
+    setUserOnboarding(8)
 
-  // }, [])
+  }, [])
   const [loading, setLoading] = useState<boolean>(true);
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
   // const {address} = useAns()
-  const address = "zpqhX9CmXzqTlDaG8cY3qLyGdFGpAqZp8sSrjV9OWkE"
+  const address = "kaYP9bJtpqON8Kyy3RbqnqdtDBDUsPTQTNUCvZtKiFI"
   const fetchData = async (address: string) => {
     setLoading(true)
     const result = await axios(`https://ark-api.decent.land/v1/profile/arweave/${address}/true`);
@@ -96,6 +98,7 @@ function Onboarding() {
     };
   }, [address])
   
+  console.log(arkProfile)
 
 //   const defaultLabels = getDefaultLabels({
 //     // ar: ownedLabels || [], 
@@ -117,7 +120,7 @@ function Onboarding() {
 console.log(arkProfile?.ENS)
 const labels = [...defaultLabelsTest]
 const [selectedName, setSelectedName] = useState<string | null>(null)
-
+const [selectedAvatar, setSelectedAvatar] = useState<NFT | null>(null)
 
   // // Retrieve the user info for editing profile functionalities 
   // const [userInfo, setUserInfo] = useState(null)
@@ -182,6 +185,10 @@ const [selectedName, setSelectedName] = useState<string | null>(null)
         {
           userCurrentStep === 9 && (<AvatarSelectionPage  />)
         }
+        
+            {
+              userCurrentStep === 50 && (<NftCollections selectedAvatar={selectedAvatar} setSelectedAvatar={setSelectedAvatar} arkProfile={arkProfile ? arkProfile : null}/> )
+            }
         {
           userCurrentStep === 10 && (<OptionEditProfile /> )
         }
@@ -189,8 +196,12 @@ const [selectedName, setSelectedName] = useState<string | null>(null)
           userCurrentStep === 11 && (<EditProfilePage loading={loading}/> )
         }
         {
-          userCurrentStep === 12 && (<LoadingScreen msg={'Creating your profile'} end={true}/> )
+          userCurrentStep === 12 && (<WelcomePage/> )
         }
+        {
+          userCurrentStep === 14 && (<LoadingScreen msg={'Creating your profile'} end={true}/> )
+        }
+  
 
       </div>  
       <div className='bg-[#EDECEC] w-[50%] h-screen hidden sm:block '>

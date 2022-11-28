@@ -25,7 +25,7 @@ function ModalAvatarSelection() {
                     <h1 className='text-center font-semibold text-3xl'>Select an Avatar</h1>
 
                     <div className='space-y-3 relative top-[48px]'>
-                        <div className={buttonClass}>Add from NFT collections</div>
+                        <div className={buttonClass} onClick={() => setUserOnboarding(50)}>Add from NFT collections</div>
                         <div className={buttonClass}>Choose from computer</div>
                     </div>
 
