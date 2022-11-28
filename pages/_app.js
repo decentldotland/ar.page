@@ -1,7 +1,7 @@
 // import { Layout } from '../components/layout'
 import { Layout } from '../components_new/layout'
 
-//Comment test
+//Comment test loaded
 
 import '../styles/globals.css'
 import '../styles/tippy.css'
