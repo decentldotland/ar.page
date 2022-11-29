@@ -1,6 +1,6 @@
 # API
 
-We use a mix of [ans-testnet](https://github.com/decentldotland/ANS) and [ARK API](https://github.com/decentldotland/ark-network), which provides all the user data that you can find on the frontend. To get familiar with the data, check out the TypeScript interfaces like [Res](/src/types/index.ts) or [userInfo](/src/types/index.ts).
+We use a mix of [ans-stats](https://github.com/decentldotland/ANS) and [ARK API](https://github.com/decentldotland/ark-protocol), which provides all the user data that you can find on the frontend. To get familiar with the data, check out the TypeScript interfaces like [Res](/src/types/index.ts) or [userInfo](/src/types/index.ts).
 We've integrated most of the items from both APIs, but check out the ones we haven't:
 
 ```typescript

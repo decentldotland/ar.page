@@ -74,6 +74,7 @@ export interface Res {
   GITPOAPS:                     Gitpoap[];
   POAPS:                        Poap[];
   ERC_NFTS:                     any |  { [key: string]: null | string }[];
+  EVMOS_NFTS:                   any |  { [key: string]: null | string }[];
   URBIT_IDS:                    any |  { [key: string]: null | string }[];
   LENS_PROTOCOLS_ACTV:          LensProtocolsActv[];
   RSS3:                         Rss3[];
@@ -98,8 +99,10 @@ export interface Anfts {
 //   description:   string;
 //   ticker?:       string;
 //   content_type?: string;
+//   chain?: ChainOptions;
 // }
 
+export type ChainOptions = "arweave" | "ethereum" | "evmos";
 export class NFT  {
   id?:            string;
   poster?:        string;
@@ -108,6 +111,7 @@ export class NFT  {
   description?:   string;
   ticker?:       string;
   content_type?: string;
+  chain?: ChainOptions;
   
   constructor() {}
 
@@ -118,6 +122,7 @@ export class NFT  {
   add_description(description: string) {this.description  = description; return this;}
   add_ticker(ticker: string) {this.ticker  = ticker; return this;}
   add_content_type(content_type: string) {this.content_type  = content_type; return this;}
+  add_chain(chain: ChainOptions) {this.chain  = chain; return this;}
 } 
 
 export class Koii extends NFT {
@@ -127,6 +132,7 @@ export class Koii extends NFT {
   // title:         string;
   // description:   string;
   // ticker:        string;
+  // chain:         ChainOptions;
 }
 
 export class Permapage extends NFT {
@@ -136,7 +142,8 @@ export class Permapage extends NFT {
   // title:         string;
   // description:   string;
   // ticker:        string;
-  // content_type: string;
+  // content_type:  string;
+  // chain:         ChainOptions
 }
 
 export interface Ans {
@@ -451,4 +458,21 @@ export enum Protocol {
   MetamaskV1 = "Metamask V1",
   UniswapV2 = "Uniswap V2",
   UniswapV3 = "Uniswap V3",
+}
+
+export type ChainProps = {
+  activeChain: string;
+  onClick?: (e: any) => void;
+};
+
+export type NetworkButtonProps = {
+  onClick?: (e: any) => void;
+  src: string;
+  className?: string;
+  name: string;
+}
+
+export type SortChronProps = {
+  onClick?: () => void;
+  text: string;
 }

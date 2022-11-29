@@ -1,54 +1,110 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { LoadingOrNotFound, SearchBar, NFTGallery } from '../../../reusables';
 import { NFT } from '../../../../../../src/types';
+import { ChainFilter } from '../../../../../buttons';
+import { Button } from '../../../../../../src/stories/Buttons';
+import { useRecoilState } from 'recoil';
+import { isDarkMode } from '../../../../../../atoms';
+ 
+export default function Collectibles({NFTs, loading, perPage, handleVisibility}: 
+{NFTs: NFT[], loading: boolean, perPage: number, handleVisibility: (res: boolean) => void}) {
 
-export default function Collectibles({NFTs, loading, perPage}: {NFTs: NFT[], loading: boolean, perPage: number}) {
   const [filteredNFTs, setFilteredNFTs] = useState<NFT[]>(NFTs);
-
   const [onLoad, setOnLoad] = useState<boolean>(false);
-
   const [ascending, setAscending] = useState<boolean>(true);
-  const filter = () => filteredNFTs.sort((a, b) => ascending ? a.timestamp! - b.timestamp!: b.timestamp! - a.timestamp!)
-
+  const [network, setNetwork] = useState<string>("arweave");
   const [search, setSearch] = useState<string>('');
+  const [isDark, setIsDark] = useRecoilState(isDarkMode); 
+
+  const filterTime = () => filteredNFTs.sort((a, b) => ascending ? a.timestamp! - b.timestamp!: b.timestamp! - a.timestamp!)
+  const filterNetwork = () => NFTs.filter((nft) => nft.chain === network);
+
   const onSearch = (e: string) => {
     setSearch(e);
     setFilteredNFTs(NFTs.filter((nft) => nft.title!.toLowerCase().includes(e.toLowerCase())));
   };
 
+  // Hook setting filteredNFTs state
   useEffect(() => {
-    setFilteredNFTs(NFTs)
+    setFilteredNFTs(filterNetwork());
     setOnLoad(true);
-  }, [NFTs])
+  }, [NFTs]);
+
+  // Hook change in network state
+  useEffect(() => {
+    setFilteredNFTs(filterNetwork());
+    setAscending(true); //resets prior ascending filters
+  }, [network]);
+
+  // Hook to update parent on filteredNft changes
+  useEffect(() => {
+    handleVisibility(filteredNFTs.length > 0 ? true : false);
+  }, [filteredNFTs]);
+
+  // Hook to grab light theme
+  useEffect(() => {
+      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+      if (localStorage.theme === 'ardark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        localStorage.setItem('theme', 'ardark');
+        setIsDark(true)
+      } else {
+        localStorage.setItem('theme', 'arlight');
+        setIsDark(false)
+      }
+  }, [isDark]);
 
   return (
     <div className={`transition-opacity duration-400 pb-3  opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
-      <div className={`flex flex-col md:flex-row  md:items-end md:justify-between mb-8 sm:flex-row sm:space-x-2 `}>
-        <SearchBar value={search} onChange={(e) => onSearch(e)} placeholder={"Search collectables"} slideOutable={true} />
-        <div className="flex items-center sm:relative sm:bottom-2">
-          {/* <button className="bg-primary/20 text-primary rounded-lg hover:bg-primary/30 p-2 flex items-center mr-2">
-            <ListBulletIcon height={20} width={20} strokeWidth={3}/>
-          </button>
-          <button className="bg-primary/20 text-primary rounded-lg hover:bg-primary/30 p-2.5 flex items-center mr-2">
-            <BsGrid height={25} width={25} strokeWidth={1}/>
-          </button> */}
-          <button
-            className="bg-primary/20 text-primary font-medium rounded-md hover:bg-primary/30 
-              py-1.5 px-2.5 flex items-center mt-4 md:mt-0 "
+
+      {/*Render Filter Capabilities*/}
+
+      <div className={`flex flex-col items-center justify-center md:flex-row md:items-end md:justify-between mb-8 sm:flex-row sm:space-x-2 `}>
+        {/*Search Collectables*/}
+        <SearchBar 
+          value={search} 
+          onChange={(e) => onSearch(e)} 
+          placeholder={"Search collectables"} 
+          slideOutable={true} 
+        />
+        {/*Filter Chain Buttons*/}
+        <ChainFilter
+          activeChain={network}
+          onClick={(e: any) => {
+            e.preventDefault();
+            setNetwork(e.currentTarget.value);
+          }}
+        />
+        {/*Sort Chronology Button*/}
+        {filteredNFTs.length > 0 && (
+          <Button
+            variant='secondary'
+            className={"text-black border-2 border-slate-300 rounded-xl"}
             onClick={() => setAscending(() => {
-              filter()
-              return !ascending
+              filterTime();
+              return !ascending;
             })}
+            isDark={isDark}
           >
             {ascending ? "Newest" : "Oldest"}
-          </button>
-        </div>
+          </Button>
+        )}
       </div>
 
-      {filteredNFTs.length > 0 ? (
-        <NFTGallery NFTs={filteredNFTs} perPage={perPage} />
-      ): (
-        <LoadingOrNotFound loading={loading} jsxNotFound={"No NFTs found"} />
+      {/*Render Gallery*/}
+
+      {filteredNFTs.length > 0 ?
+      (
+        <NFTGallery 
+          NFTs={filteredNFTs} 
+          perPage={perPage} 
+        />
+      )
+      : 
+      (
+        <LoadingOrNotFound 
+          loading={loading} 
+          jsxNotFound={"No NFTs found"}
+        />
       )}
     </div>
   )

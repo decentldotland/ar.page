@@ -27,9 +27,9 @@ export const SectionOne = () => {
             <div className="flex flex-row flex-wrap mx-auto md:w-1/3 justify-center h-48 -mt-12 md:mt-4">
                 <div className="relative w-full md:block flex font-bold">
                     {
-                        [["xy", 32, 28], ["letey", 150, 168],
-                        ["arweavesam", 120, 58], ["caoyin", 45, 88],
-                        ["martonlederer", 125, 118], ["msfew", 24, 148]].map((data: (string | number)[], i: number) =>
+                        [["xy", 32, 28], ["dameon1", 150, 168],
+                        ["pearsonlucas", 120, 58], ["arkengineer", 45, 88],
+                        ["pwo", 125, 118], ["msfew", 24, 148]].map((data: (string | number)[], i: number) =>
                             <div className="absolute" style={{ left: `${data[1] as string}px`, top: `${data[2] as string}px` }} key={i}>
                                 <Link href={resolveDomain(!!data ? (data[0] as string) : "")} scroll={true}>
                                     <a><Button text={data[0] as string} selected={true} /></a>

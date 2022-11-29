@@ -3,7 +3,6 @@ import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import Modal from '../../../components/portal/modal';
 import ModelContent from './modelContent';
-import { ARWEAVE_URL } from '../../../src/constants';
 import { NFT } from '../../../src/types';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../atoms';
@@ -104,7 +103,7 @@ export function NFTGallery ({NFTs, perPage}: {NFTs: NFT[], perPage: number}) {
             cursor-pointer transition duration-500 ease-out
             md:focus:opacity-60
           ">
-            <Image src={ARWEAVE_URL + nft.id} // TODO: make this URL dynamic
+            <Image src={String(nft.id)} // TODO: make this URL dynamic
               alt={nft.title}
               width={99999999}
               height={99999999}

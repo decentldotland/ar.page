@@ -13,9 +13,6 @@ import EditProfile from './EditProfile'
 // - Block hex code 
 //  - Custom image 
 
-
-
-
 function CoverPage(props: userInfo) {
   const user_cover = props.userInfo.address_color;
   const coverStyle = { 

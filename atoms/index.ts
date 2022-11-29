@@ -1,10 +1,6 @@
 import { atom } from "recoil";
 import { userInfo } from "../src/types";
-type uploadType = {ContentType: string; data: number[]} | null
-
-
-
-
+type uploadType = {ContentType: string; data: number[]} | null;
 
 export const isPendingTX = atom<boolean>({
     key: 'isPendingTX',

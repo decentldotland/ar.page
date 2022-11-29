@@ -59,7 +59,7 @@ const ModelContent = (props: Props) => {
                         </div> : <></>}
 
                     <div className="grid mx-auto my-auto place-content-center lg:h-[288px] lg:w-[288px] lg:mb-0 mb-4">
-                        <iframe title="Koii NFT image" frameBorder="0" allowFullScreen allowTransparency={true}
+                        <iframe title="Koii NFT image" frameBorder="0" allowFullScreen
                             style={{ backgroundColor: '' }}
                             height={height}
                             width={width}
