@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { userOnboardingState } from '../../atoms';
+import {userOnboardingState } from '../../atoms';
 
 interface Props  { 
     btnName: string

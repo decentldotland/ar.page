@@ -61,7 +61,7 @@ function ConfirmUsername({
         // setLoadingWrite(true)
 
         // temporary 
-        setUserOnboarding(9)
+        setUserOnboarding(userOnboardingStep + 1)
         // axios.post(`api/exmwrite`, {
         //   "function": "reserve",
         //   "evm_address": evmAddress,

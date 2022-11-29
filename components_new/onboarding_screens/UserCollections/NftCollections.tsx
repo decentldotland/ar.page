@@ -135,7 +135,7 @@ function NftCollections({arkProfile, setSelectedAvatar, selectedAvatar}: Props) 
 
         {/* Once selected, go back to the previous page  */}
         <div className='relative bottom-[90px]'>
-          <MainNextButton btnName='Next' disabled={!selectedAvatar} overrideStep={9}/>
+          <MainNextButton btnName='Next' disabled={!selectedAvatar} overrideStep={8}/>
         </div>
         </section>
   )
