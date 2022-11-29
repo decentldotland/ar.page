@@ -27,7 +27,7 @@ import WelcomePage from '../components_new/onboarding_screens/WelcomePage'
 import NftCollections from '../components_new/onboarding_screens/UserCollections/NftCollections'
 
 
-function onboarding() {
+function Onboarding() {
 
   const [currentStep, setCurrentStep] = useState(0);
   const [arLabel, setArLabel] = useState('');
@@ -215,4 +215,4 @@ const [selectedAvatar, setSelectedAvatar] = useState<NFT | null>(null)
   )
 }
 
-export default onboarding
+export default Onboarding
