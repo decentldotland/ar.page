@@ -1,9 +1,12 @@
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
+import { useAns } from 'ans-for-all';
 import Image from 'next/image'
 import React from 'react'
+import { shortenAddress, shortenName } from '../../src/utils';
 
 function ConnectedArweaveWallet() {
 
+  const {  address } = useAns();
 
   return (
     <div className='flex items-center space-x-2 hover:rounded-lg'>
@@ -14,7 +17,7 @@ function ConnectedArweaveWallet() {
             <p className="text-xs text-left ext-[#8e8e8f]">Linking Accounts to:</p>
             <div className='flex items-center'>
                 <h1 className='font-semibold text-left text-sm'>
-                    asda...asdasdasd
+                    {shortenAddress(address!)}
                 </h1>
                 <ChevronDownIcon height={15} width={20} strokeWidth={4} className="relative left-3"  />
             </div>
