@@ -91,7 +91,7 @@ function SignUpArConnect() {
             </div>
       </div>
       {/* show confirmation  */}
-      {showModalValue && (<ModalConfirm  address={address} disconnectFunction={() => (arconnectDisconnect as Function)()} />) }
+      {showModalValue && (<ModalConfirm networkLogo={"/icons/ARWEAVE.svg"} address={address} disconnectFunction={() => (arconnectDisconnect as Function)()} />) }
     </>
   )
 }

@@ -17,7 +17,7 @@ function ConnectedArweaveWallet() {
             <p className="text-xs text-left ext-[#8e8e8f]">Linking Accounts to:</p>
             <div className='flex items-center'>
                 <h1 className='font-semibold text-left text-sm'>
-                    {shortenAddress(address!)}
+                    {shortenAddress(address!, 6, 4)}
                 </h1>
                 <ChevronDownIcon height={15} width={20} strokeWidth={4} className="relative left-3"  />
             </div>

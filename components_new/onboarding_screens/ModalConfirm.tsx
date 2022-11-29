@@ -5,14 +5,16 @@ import MuiModal from '@mui/material/Modal'
 import Image from 'next/image';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { shortenAddress, shortenName } from '../../src/utils';
+import { start } from 'repl';
 
 interface Props {   
     address?: string,
-    disconnectFunction?: any 
+    disconnectFunction?: any,
+    networkLogo: string
 }
 
 
-function ModalConfirm({address, disconnectFunction}: Props) {
+function ModalConfirm({address, disconnectFunction, networkLogo}: Props) {
     const [showModal, setShowModal] = useRecoilState(confirmModalState);
     const handleClose = () => {  setShowModal(false )}
     const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
@@ -39,18 +41,19 @@ function ModalConfirm({address, disconnectFunction}: Props) {
                     <h1 className='text-center font-semibold text-3xl'>Hello</h1>
 
 
-                    <div className='items-center w-[201px] px-2 mt-[22px] mb-[13px] py-2 justify-between flex rounded-full bg-[#f2f3f5] border-0'>
-                        <div className='space-x-2 flex flex-row '>
-                            <div className="rounded-full p-1  bg-black items-center flex justif0">
+                    <div className='items-center w-[201px] px-3 mt-[22px] mb-[13px] py-2 justify-between flex rounded-full bg-[#f2f3f5] border-0'>
+                        <div className='space-x-2 flex flex-row items-center'>
+                            <div className="rounded-full  items-center flex">
                                 <Image
-                                    width={19}
-                                    height={19}
-                                    className="bg-white rounded-full p-2 border-4 border-black"
-                                    src={"/icons/ARWEAVE.svg"}
+                                    width={22}
+                                    height={22}
+                                    className=""
+                                    src={networkLogo}
                                     alt=""
+                                    objectFit='fill'
                                     quality={100} />
                             </div>
-                            <h1 className='font-bold text-left text-base text-[#3a3a3a]'>{shortenAddress(address!)}</h1>
+                            <h1 className='font-bold text-left text-sm text-[#3a3a3a]'>{shortenAddress(address!, 7, 8)}</h1>
                         </div>
                         
                         <ChevronDownIcon height={15} width={20} strokeWidth={4} className=""  />

@@ -60,9 +60,9 @@ export const shortenName = (addr: string) => {
   }
   return addr
 }
-export const shortenAddress = (addr: string) => {
+export const shortenAddress = (addr: string, start: number, end: number) => {
   if (addr) {
-    return addr.substring(0, 6) + '...' + addr.substring(addr.length - 4)
+    return addr.substring(0, start) + '...' + addr.substring(addr.length - end)
   }
   return addr
 }

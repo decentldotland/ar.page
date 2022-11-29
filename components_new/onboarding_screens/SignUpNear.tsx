@@ -112,7 +112,7 @@ function SignUpNear() {
           </button>
         </div>
     </div>
-    {showModalValue && (<ModalConfirm  address={accountId!} disconnectFunction={handleSignOut} />) }
+    {showModalValue && (<ModalConfirm networkLogo='/icons/NEAR_SMALL_ICON.svg' address={accountId!} disconnectFunction={handleSignOut} />) }
 
     </>
 
