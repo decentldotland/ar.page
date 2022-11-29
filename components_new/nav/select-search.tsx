@@ -32,7 +32,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
 
     const [val, setVal] = React.useState<string>('')
     const [show, setShow] = React.useState<boolean>(false)
-    const randUserIndex: number =Math.floor(Math.random() * options?.length)
+    const randUserIndex: number = Math.floor(Math.random() * options?.length)
     const container: any = React.useRef();
 
 
@@ -40,7 +40,6 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
         const ev = (event: any) => {
             if (!container.current?.contains(event.target)) {
                 setShow(false);
-
                 document.removeEventListener('click', ev);
             }
         }
@@ -107,10 +106,10 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
             />
             <div hidden={val.length <= 1}>
                 <XCircleIcon
-                    
                     onClick={() => {setVal('')}}
                     className='cursor-pointer relative left-1' 
-                    height={20} width={20} strokeWidth={3} color={`${isDark? ('white') : ('#666') }`} />
+                    height={20} width={20} strokeWidth={3} color={`${isDark? ('white') : ('#666') }`}
+                />
             </div>
 
             <article className={`z-50 transition-all duration-300 ease-in-out ${show ? 'opacity-100': 'opacity-0 pointer-events-none'}`}>
@@ -158,7 +157,7 @@ const CustomSelect = ({ options, multiple, disabled, placeholder }:
                                                             width={34}
                                                             quality={1}
                                                             alt={option.name}
-                                                            className="w-[34px] h-[34px] rounded-full "/>
+                                                            className="w-[34px] h-[34px] rounded-full object-cover"/>
                                                     </div>
                                                 ) : (
                                                     <div className='w-[34px] h-[34px] rounded-full 

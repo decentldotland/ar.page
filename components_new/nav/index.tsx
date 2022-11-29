@@ -55,7 +55,6 @@ export const Nav = () => {
             <div className='flex flex-rows space-x-3.5 items-center '>
                 <Link href={resolveDomain("")} >
                     <Image src={Favicon} width={30} height={30} className='mx-auto my-auto cursor-pointer' alt="" />
-
                 </Link>
                 <div className='hidden sm:block'>
                     <SearchBox
