@@ -20,7 +20,7 @@ function ModalConfirm({address, disconnectFunction, networkLogo}: Props) {
     const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
 
     useEffect(() => {
-      if (!address) handleClose()
+      if (!address) return 
 
     }, [address])
     
@@ -69,7 +69,10 @@ function ModalConfirm({address, disconnectFunction, networkLogo}: Props) {
                         disconnectFunction()
                         handleClose()
                     }} className='cursor-pointer text-lg bg-[#e84040]/20 rounded-full px-[19px] py-3 font-bold text-[#e84040]   '>Disconnect</div>
-                    <div onClick={() => setUserOnboarding(userOnboardingStep + 1)} className='cursor-pointer text-lg bg-[#1273ea] rounded-full px-[52px] py-3 font-bold text-white   '>Confirm</div>
+                    <div onClick={() => {
+                        setUserOnboarding(userOnboardingStep + 1)
+                        handleClose()
+                    }} className='cursor-pointer text-lg bg-[#1273ea] rounded-full px-[52px] py-3 font-bold text-white   '>Confirm</div>
                 </div>
             </section>
         </>

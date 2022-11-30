@@ -77,7 +77,7 @@ function NftCollections({arkProfile, setSelectedAvatar, selectedAvatar}: Props) 
   return (
     <section className="md:relative md:top-32 w-full px-5 sm:w-[440px] flex flex-col justify-between h-screen">
         <div className=' mt-10 '>
-          <UserBackButton overrideStep={9}/>
+          <UserBackButton overrideStep={8}/>
           <h1 className="text-[32px] font-bold mt-5">Your Collections</h1>
           <Divider />
           <SearchBar value={search} onChange={(e) => onSearch(e)} placeholder='Collection, name, network'  />

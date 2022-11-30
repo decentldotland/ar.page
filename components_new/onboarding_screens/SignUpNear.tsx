@@ -45,14 +45,14 @@ function SignUpNear() {
   useEffect(() => {
     if (!accountId) {
       setNearWalletConnected(false)
-      localStorage.setItem('triggered', 'false')
+      localStorage.setItem('triggered', 'FALSE')
       return setConnected(false);
     }
     setNearWalletConnected(true)
 
     // Save on localstorage currenste
     localStorage.setItem('currentStep', `${userOnboardingStep}`)
-    localStorage.setItem('triggered', 'false')
+    localStorage.setItem('triggered', 'FALSE')
     
     return setConnected(true)
   }, [accountId, nearWalletConnection])
