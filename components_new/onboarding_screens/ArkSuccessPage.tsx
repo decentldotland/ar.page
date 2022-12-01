@@ -12,7 +12,7 @@ function ArkSuccessPage() {
         has been added 
         your ArPage! 🥳
         </h1>
-        <MainNextButton btnName='Register Name' />
+        <MainNextButton btnName='Continue' />
     </div>
   )
 }

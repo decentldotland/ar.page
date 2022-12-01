@@ -10,14 +10,28 @@ import { start } from 'repl';
 interface Props {   
     address?: string,
     disconnectFunction?: any,
-    networkLogo: string
+    networkLogo: string,
+    overrideConfirmButton?: number | null
 }
 
 
-function ModalConfirm({address, disconnectFunction, networkLogo}: Props) {
+function ModalConfirm({address, disconnectFunction, networkLogo, overrideConfirmButton}: Props) {
     const [showModal, setShowModal] = useRecoilState(confirmModalState);
     const handleClose = () => {  setShowModal(false )}
     const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
+
+
+    const nextStep = () => { 
+        if (!overrideConfirmButton) {
+          setUserOnboarding(userOnboardingStep + 1)
+          handleClose()
+
+        } else { 
+          setUserOnboarding(overrideConfirmButton)
+          handleClose()
+
+        }
+      }
 
     useEffect(() => {
       if (!address) return 
@@ -69,10 +83,7 @@ function ModalConfirm({address, disconnectFunction, networkLogo}: Props) {
                         disconnectFunction()
                         handleClose()
                     }} className='cursor-pointer text-lg bg-[#e84040]/20 rounded-full px-[19px] py-3 font-bold text-[#e84040]   '>Disconnect</div>
-                    <div onClick={() => {
-                        setUserOnboarding(userOnboardingStep + 1)
-                        handleClose()
-                    }} className='cursor-pointer text-lg bg-[#1273ea] rounded-full px-[52px] py-3 font-bold text-white   '>Confirm</div>
+                    <div onClick={nextStep} className='cursor-pointer text-lg bg-[#1273ea] rounded-full px-[52px] py-3 font-bold text-white   '>Confirm</div>
                 </div>
             </section>
         </>
