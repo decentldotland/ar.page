@@ -82,7 +82,7 @@ function Onboarding() {
 
 
   // useEffect(() => {
-  //   setUserOnboarding(0)
+  //   setUserOnboarding(50)
   // }, [])
   
   const [loading, setLoading] = useState<boolean>(true);
@@ -196,7 +196,7 @@ const [selectedAvatar, setSelectedAvatar] = useState<NFT | null>(null)
         }
         
             {
-              userCurrentStep === 50 && (<NftCollections selectedAvatar={selectedAvatar} setSelectedAvatar={setSelectedAvatar} arkProfile={arkProfile ? arkProfile : null}/> )
+              userCurrentStep === 50 && (<NftCollections  arkProfile={arkProfile ? arkProfile : null}/> )
             }
         {
           userCurrentStep === 9 && (<OptionEditProfile /> )

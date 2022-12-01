@@ -8,7 +8,7 @@ import { userOnboardingState } from '../../atoms';
 
 interface Props { 
   msg: string, 
-
+  doNothing?: boolean
   end?: boolean
 }
 
@@ -18,7 +18,7 @@ interface Props {
  * @param end: OPTIONAL. Set to {@link 'True'}   if its the end of the flow. If true, the user will be automatically redirected to the home page 
  * @returns React.Component  
  */
-function LoadingScreen({msg, end}: Props) {
+function LoadingScreen({msg, end, doNothing}: Props) {
   const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
   const userCurrentStep = useRecoilValue(userOnboardingState);
 
@@ -35,6 +35,9 @@ function LoadingScreen({msg, end}: Props) {
 
     // if time out and the user is in the last step 
     useEffect(() => {
+
+      if (doNothing) return 
+
       if (time) { 
         if (end) {
           route.push('/')

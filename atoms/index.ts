@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { userInfo } from "../src/types";
+import { NFT, userInfo } from "../src/types";
 type uploadType = {ContentType: string; data: number[]} | null;
 
 export const isPendingTX = atom<boolean>({
@@ -63,4 +63,8 @@ export const avatarModalState = atom({
 export const nearWalletConnected = atom({
     key: 'nearWalletConnected',
     default: false
+})
+export const selectedAvatar = atom<NFT | null>({
+    key: 'selectedAvatar',
+    default: null
 })
