@@ -54,20 +54,20 @@ function Onboarding() {
   
   useEffect(() => {
     
-    let num =  localStorage.getItem('currentStep')
-    let state = localStorage.getItem('triggered')
+    let num =  localStorage.getItem('currentStep') || ''
+    let state = localStorage.getItem('triggered') || ''
     console.log(`${num} USER STEP `)
     console.log(`${state} THE STATE`)
 
-    if (state === 'FALSE' && accountId && num! === '2' ) {
+    if (state === 'FALSE' && accountId && num === '2' ) {
       console.log("askdhaskdjalsk;jdkuwen fih ifuh iuh fihe")
       setUserOnboarding(+num!)
       localStorage.setItem('triggered', 'TRUE')
     } else {
-      localStorage.setItem('triggered', '')
+      return 
     }
+      
     console.log("IT DOESNT WOKR AKSDASKDJAS")
-
     // localStorage.setItem('triggered', 'true')
     /**
      * A small fix to when the user disconnects their Near wallet 
@@ -82,7 +82,8 @@ function Onboarding() {
 
 
   // useEffect(() => {
-  //   setUserOnboarding(50)
+  //   // setUserOnboarding(8)
+  //   localStorage.clear()
   // }, [])
   
   const [loading, setLoading] = useState<boolean>(true);

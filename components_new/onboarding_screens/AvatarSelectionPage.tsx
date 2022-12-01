@@ -21,7 +21,6 @@ function AvatarSelectionPage() {
     const [currentSelectedAvatar, setSelectedAvatar] = useRecoilState(selectedAvatar);
     const [isImageReady, setIsImageReady] = useState(false)
 
-    
 
   return (
     <>
@@ -38,14 +37,15 @@ function AvatarSelectionPage() {
                     {
                         currentSelectedAvatar ? (
                             <>
-                                {!isImageReady && (<Skeleton circle width={237} height={237}/>)}
-                               <Image 
-                                    hidden={isImageReady}
+                                {/* {!onLoadCallBack  && (<Skeleton  circle width={237} height={237}/> )} */}
+                              <Image 
                                     src={ARWEAVE_URL + currentSelectedAvatar.id} 
                                     height={237} 
-                                    onLoad={() => setIsImageReady(true)}
+                                    // onLoad={(e) => onLoadCallBack}
                                     width={237} 
-                                    objectFit='cover' className='rounded-full bg-[#edecec]' />    
+                                    placeholder="blur"
+                                    blurDataURL="/images/blur.jpg"
+                                    objectFit='cover' className='rounded-full bg-[#edecec]' /> 
                             </>
                         ) : (
                             <div  className='cursor-pointer rounded-full w-[237px] h-[237px] bg-[#edecec] items-center flex flex-row justify-center'>
