@@ -8,11 +8,13 @@ import '@near-wallet-selector/modal-ui/styles.css';
 import type { AccountView } from "near-api-js/lib/providers/provider";
 import { CircularProgress } from '@mui/material'
 import UserBackButton from '../buttons/UserBackButton'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { SetterOrUpdater, useRecoilState, useRecoilValue } from 'recoil'
 import { confirmModalState, nearWalletConnected, userOnboardingState } from '../../atoms'
 import ModalConfirm from './ModalConfirm'
 
-
+interface SignUpNearInterface {
+  handleOnboarding: SetterOrUpdater<number>;
+}
 
 /**
  * Page to connect to user's near wallets, supports currently:
@@ -21,7 +23,7 @@ import ModalConfirm from './ModalConfirm'
  * @param param0 
  * @returns 
  */
-function SignUpNear() {
+function SignUpNear(props: SignUpNearInterface) {
 
   const [connected, setConnected] = useState(false)
   const { selector, modal, accounts, accountId } = useWalletSelector();
@@ -29,10 +31,6 @@ function SignUpNear() {
   // user step 
   const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
   const userCurrentStep = useRecoilValue(userOnboardingState)
-
-  // Confirmation modal
-  const showModalValue = useRecoilValue(confirmModalState)
-  const [showModal, setShowModal] = useRecoilState(confirmModalState);
 
   const [nearWalletConnection, setNearWalletConnected] = useRecoilState(nearWalletConnected);
 
@@ -57,33 +55,11 @@ function SignUpNear() {
     return setConnected(true)
   }, [accountId, nearWalletConnection])
 
-
-  const connectButton = () => { 
-    modal.show();
-  }
-  const handleSignOut = async () => {
-    const wallet = await selector.wallet();
-
-    wallet.signOut().catch((err) => {
-      console.log("Failed to sign out");
-      console.error(err);
-    });
-  };
-
-  const nextButton = () => { 
-    // If account is null, trigger connectButton again regardless
-    setShowModal(true)
-
-  }
-
   return (
     <>
     <div className='md:h-full relative h-screen flex flex-col sm:w-[440px] w-full px-5'>
       <div className='mt-10'>
         <UserBackButton />
-        {/* <div className='mt-6 mb-5 '>
-          <LineBarTracker step={1}  total_step={3}/>
-        </div> */}
         <div className='mt-32'>
           <h1 className='sm:text-4xl text-3xl font-bold mb-2'>Add your Near Wallet <br /> to your ArPage to get <br /> started</h1>
           <p className='text-left text-[#8e8e8f] text-sm mt-7'>
@@ -96,24 +72,14 @@ function SignUpNear() {
         
         {/* Button to connect or download arweave  */}
         <div className='mt-[102px] flex justify-center flex-col items-center w-full'>
-          <button onClick={connected && accountId ? nextButton : connectButton}
+          <button onClick={() => props.handleOnboarding(3)}
             className="cursor-pointer bg-[#1273ea] w-full px-28 sm:w-[386px] h-[68px] justify-center items-center flex relative flex-row rounded-full text-white font-bold text-lg" >
               <div className='flex justify-center items-center'>
-                {
-                  connected && accountId ? (
                     <p className='text-center'>Next</p>
-
-                  ) : (
-                    <p className='text-center'>Connect</p>
-                  )
-                }
-                {/* <ArrowLongRightIcon height={20} width={20} className="absolute right-2" color='white'/> */}
               </div>
           </button>
         </div>
     </div>
-    {showModalValue && (<ModalConfirm  address={accountId!} disconnectFunction={handleSignOut} />) }
-
     </>
 
   )

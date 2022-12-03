@@ -1,8 +1,4 @@
-// import { Layout } from '../components/layout'
 import { Layout } from '../components_new/layout'
-
-//Comment test loaded
-
 import '../styles/globals.css'
 import '../styles/tippy.css'
 import '../styles/daisyUI.css'
@@ -10,44 +6,55 @@ import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
 import { AnimatePresence } from "framer-motion";
 import { AnsProvider } from 'ans-for-all';
-// import { useUpdateChecker } from '../src/useUpdateChecker';
+
 import '@rainbow-me/rainbowkit/styles.css';
 import {WalletSelectorContextProvider } from '../src/contexts/WalletSelectorContext'
-
-
+import { getDefaultWallets, RainbowKitProvider, apiProvider, connectorsForWallets, getWalletConnectConnector } from '@rainbow-me/rainbowkit';
 import {
-  getDefaultWallets,
-  RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
-import {
-  chain,
-  configureChains,
-  createClient,
-  WagmiConfig,
-} from 'wagmi';
+  injectedWallet,
+  rainbowWallet,
+  metaMaskWallet,
+  coinbaseWallet,
+  walletConnectWallet,
+} from '@rainbow-me/rainbowkit/wallets';
+import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
+import { avalancheChain } from '../src/constants';
 
 const { chains, provider } = configureChains(
-  [chain.mainnet], // [, chain.polygon, chain.optimism, chain.arbitrum]
+  [chain.mainnet, avalancheChain],
   [publicProvider()]
 );
 
+//jsonRpcProvider({ rpc: chain => ({ http: chain.rpcUrls.default }) }), 
+/*
 const { connectors } = getDefaultWallets({
   appName: 'My RainbowKit App',
   chains
 });
+*/
 
+const connectors = connectorsForWallets([
+  {
+    groupName: 'Recommended',
+    wallets: [
+      injectedWallet({ chains }),
+      rainbowWallet({ chains }),
+      walletConnectWallet({ chains }),
+      metaMaskWallet({ chains }),
+      coinbaseWallet({ chains }),
+    ],
+  },
+]);
 const wagmiClient = createClient({
   autoConnect: true,
   connectors,
   provider
-})
-
-
+});
 
 function MyApp({ Component, pageProps }) {
-  // useUpdateChecker();
   return (
     <RecoilRoot> 
       <AnimatePresence exitBeforeEnter>

@@ -3,14 +3,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { HiOutlineSwitchHorizontal, HiSwitchHorizontal } from 'react-icons/hi'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { SetterOrUpdater, useRecoilState, useRecoilValue } from 'recoil'
 import { userOnboardingState } from '../../atoms'
 import MainNextButton from '../buttons/MainNextButton'
 import { Divider } from '../user/components/reusables'
 
+interface VerifyArkInterface {
+    handleOnboarding: SetterOrUpdater<number>;
+  }
 
-
-function VerifyWithArk() {
+function VerifyWithArk(props: VerifyArkInterface) {
     const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
     const userCurrentStep = useRecoilValue(userOnboardingState)
   return (
@@ -100,9 +102,11 @@ function VerifyWithArk() {
         </div>
         <Divider />
         <div className='relative bottom-6'>
-            <MainNextButton btnName='Next'  />
+            <button onClick={() => props.handleOnboarding(4)} className="w-full">
+                <MainNextButton btnName='Next' />
+            </button>
             <div className='space-y-2 mt-6 text-[#6a6b6a] font-medium text-center'>
-              <button onClick={() => setUserOnboarding(userOnboardingStep - 1)} >
+              <button onClick={() => props.handleOnboarding(2)} >
                 <h1 className='underline cursor-pointer'>
                   Cancel
                 </h1>

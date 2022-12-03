@@ -11,21 +11,24 @@ import OptionEditProfile from '../components_new/onboarding_screens/OptionEditPr
 import RegisterNamePage from '../components_new/onboarding_screens/RegisterNamePage'
 import SettingUpAccount from '../components_new/onboarding_screens/LoadingScreen'
 import SignUpArConnect from '../components_new/onboarding_screens/SignUpArConnect'
-import SignUpNear from '../components_new/onboarding_screens/SignUpNear'
-import VerifyWithArk from '../components_new/onboarding_screens/VerifyWithArk'
-import { useWalletSelector } from '../src/contexts/WalletSelectorContext'
-import LoadingScreen from '../components_new/onboarding_screens/LoadingScreen'
-import DIDList from '../components_new/onboarding_screens/DIDList'
-import { useAns } from 'ans-for-all'
-import { GetStaticProps } from 'next'
-import axios from 'axios'
-import { Res } from '../src/types'
-import { GenericLabel, getDefaultLabels } from '../components_new/onboarding_screens/DIDLabels'
-import { RiContactsBookLine } from 'react-icons/ri'
-import Image from 'next/image'
-
+import SignUpNear from '../components_new/onboarding_screens/SignUpNear';
+import VerifyWithArk from '../components_new/onboarding_screens/VerifyWithArk';
+import { useWalletSelector } from '../src/contexts/WalletSelectorContext';
+import LoadingScreen from '../components_new/onboarding_screens/LoadingScreen';
+import DIDList from '../components_new/onboarding_screens/DIDList';
+import { useAns } from 'ans-for-all';
+import { GetStaticProps } from 'next';
+import axios from 'axios';
+import { Res } from '../src/types';
+import { GenericLabel, getDefaultLabels } from '../components_new/onboarding_screens/DIDLabels';
+import { useArconnect } from "../src/utils/arconnect";
+import { useNear } from '../src/utils/near'
+import { useAccount } from 'wagmi'
 
 function Onboarding() {
+
+  const [addressAr, connectAr, disconnectAr, arconnectError] = useArconnect();
+  const { modal, selector, accountNear, accountId, loadingNear, linkNear } = useNear(); 
 
   const [currentStep, setCurrentStep] = useState(0);
   const [arLabel, setArLabel] = useState('');
@@ -38,9 +41,6 @@ function Onboarding() {
   // Network Selector 
   const [selectedNetwork, setSelectedNetwork] = useState(null)
 
-
-
-
   /**
    * 1. Checks if the user has signed in with their NEAR wallet 
    * 2. save currentStep and triggered state in local storage
@@ -48,35 +48,19 @@ function Onboarding() {
    *    and resume user progress 
    */
   const isNearWalletConnected = useRecoilValue(nearWalletConnected);
-  const { accountId } = useWalletSelector();
-  
+/*
   useEffect(() => {
-    
-    let num =  localStorage.getItem('currentStep')
-    let state = localStorage.getItem('triggered')
+    let num =  localStorage.getItem('currentStep');
+    let state = localStorage.getItem('triggered');
     console.log(num)
-    if (state === 'false' && accountId && +num! === 2 ) {
+    if (state === 'false' && +num! === 2 ) {
       setUserOnboarding(+num!)
       localStorage.setItem('triggered', 'true')
     } 
-    // localStorage.setItem('triggered', 'true')
-    /**
-     * A small fix to when the user disconnects their Near wallet 
-     * and they try to reconnect a new wallet, it redirectsthem to step 0 
-     * 
-     * ie if (currStep(0) != localStorage(2) and nearWallet is reconnected ) 
-     *        => transfer the user to the near sign up page
-     */
-    // if(userCurrentStep.toString() !== num && accountId && isNearWalletConnected) setUserOnboarding(+num!)   
-  }, [isNearWalletConnected, userCurrentStep])
-  
-  // useEffect(() => {
-  //   setUserOnboarding(11)
-
-  // }, [])
+  }, [isNearWalletConnected, userCurrentStep]);
+  */
   const [loading, setLoading] = useState<boolean>(true);
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
-  // const {address} = useAns()
   const address = "zpqhX9CmXzqTlDaG8cY3qLyGdFGpAqZp8sSrjV9OWkE"
   const fetchData = async (address: string) => {
     setLoading(true)
@@ -94,7 +78,7 @@ function Onboarding() {
     if (address) {
       fetchData(address)
     };
-  }, [address])
+  }, [address]);
   
 
 //   const defaultLabels = getDefaultLabels({
@@ -118,45 +102,99 @@ console.log(arkProfile?.ENS)
 const labels = [...defaultLabelsTest]
 const [selectedName, setSelectedName] = useState<string | null>(null)
 
+// Near Wallet Handlers
 
-  // // Retrieve the user info for editing profile functionalities 
-  // const [userInfo, setUserInfo] = useState(null)
-  // useEffect(() => {
-  //   if (!address) return 
-    
-  //   async function fetchUserData() { 
-  //     const data = await fetch('')
-  //   }
+  const handleLink = async () => {
+    let arweaveAddr: string;
+    let ExoticInteraction;
+    if(addressAr) {
+      arweaveAddr = addressAr;
+      ExoticInteraction = await linkNear(arweaveAddr);
+      if(ExoticInteraction) {
+        ExoticInteraction = ExoticInteraction?.transaction?.hash;
+        localStorage.setItem("nearLinkingTXHash", ExoticInteraction);
+      }
+    }
+  }
 
-  // }, [selectedName])
+  const connectNear = async () => {
+    await modal?.show();
+    await handleLink();
+  };
+
+  const disconnectNear = async () => {
+    if (!selector) return;
+    const wallet = await selector.wallet();
+
+    wallet.signOut().catch((err: any) => {
+      console.log("Failed to sign out");
+      console.error(err);
+    });
   
+  };
 
-// items-center flex justify-center
+  console.log("NEAR ADDRESS: ", accountNear);
+  console.log("NEAR ID: ", accountId);
+  const [linkStatus, setLinkStatus] = useState<boolean>(false);
+
   return (
-    <div className='md:h-screen font-sans flex flex-row sm:justify-between justify-center items-center'>
+    <div className='md:h-screen font-sans flex justify-center items-center'>
       <div className='items-center md:relative md:bottom-[120px] z-10
          bg-white w-screen sm:w-[50%] flex justify-center'>
         {/* {
           userCurrentStep === 0 && (<SignUpPage  />)
         } */}
         {
-          userCurrentStep === 0 && (<SignUpArConnect />)
+          userOnboardingStep === 0 && (
+            <SignUpArConnect
+              connect={connectAr}
+              address={addressAr}
+              handleOnboarding={setUserOnboarding}
+            />
+          )
         }
         {
-          userCurrentStep === 1 && (<ConnectAccounts />)
+          userOnboardingStep === 1 && (
+            <ConnectAccounts
+              connect={connectNear}
+              disconnect={disconnectNear}
+              linkStatus={false}
+              addressAr={addressAr}
+              addressNear={accountNear}
+              handleOnboarding={setUserOnboarding}
+            />  
+          )
         }
         {
-          userCurrentStep === 2 && (<SignUpNear />)
+          userOnboardingStep === 2 && (
+            <SignUpNear
+              handleOnboarding={setUserOnboarding}
+            />
+        )
         }
         {
-          userCurrentStep === 3 && (<VerifyWithArk />)
+          userOnboardingStep === 3 && (
+            <VerifyWithArk 
+              handleOnboarding={setUserOnboarding}
+            />
+          )
         }
         {
-          userCurrentStep === 4 && (<ArkSuccessPage  /> ) 
+          userOnboardingStep === 4 && (
+            <ArkSuccessPage  
+              handleOnboarding={setUserOnboarding}
+            /> 
+          ) 
         }
+        {
+          userOnboardingStep === 5 && (
+            <ConnectAdditionalAccounts
+              addressAr={addressAr}
+              addressNear={accountId}
+              handleOnboarding={setUserOnboarding}
 
-        {
-          userCurrentStep === 5 && ( <ConnectAdditionalAccounts /> )
+            /> 
+          )
         }
         
         {/* the loading screen can be mergein with the list 
@@ -166,7 +204,11 @@ const [selectedName, setSelectedName] = useState<string | null>(null)
             loadingscreen
         */}
         {
-          userCurrentStep === 6 && (<LoadingScreen msg={'Cross checking user data'}/> )
+          userOnboardingStep === 6 && (
+            <LoadingScreen 
+              msg={'Cross-Checking User Data'}
+            /> 
+          )
         }
 
         {
@@ -192,11 +234,13 @@ const [selectedName, setSelectedName] = useState<string | null>(null)
           userCurrentStep === 12 && (<LoadingScreen msg={'Creating your profile'} end={true}/> )
         }
 
-      </div>  
+      </div> 
+      { 
+      /*
       <div className='bg-[#EDECEC] w-[50%] h-screen hidden sm:block '>
-        {/* <Image src={'/ONBOARDING_IMG.png'} layout="fill"  objectFit="fill" className='absolute left-0'/> */}
       </div>
-
+      */
+      }
     </div>
   )
 }
