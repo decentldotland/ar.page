@@ -46,7 +46,7 @@
     "near-api-js": "^0.44.2",
     "next": "^12.2.4",
     "react": "^18.2.0",
-    "react-color": "^2.19.3",
+    "react-colorful": "^5.6.1",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-i18next": "^11.16.7",
