@@ -14,7 +14,8 @@ import styles from "./ColorPicker.module.css";
 import { HexColorPicker } from "react-colorful";
 import { height } from '@mui/system'
 import MuiModal from '@mui/material/Modal'
-import { Res } from '../../src/types'
+import { Links, Res, userInfo } from '../../src/types'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 
 const inputContainer = 'w-[115px] text-[#8E8E8F]  text-sm bg-transparent border border-b border-x-0 border-t-0  outline-none'
@@ -23,15 +24,36 @@ const avatarContainer = 'hover:bg-black/70 cursor-pointer border-4 left-[17px] b
 
 interface Props { 
   loading: boolean
-  arkProfile: Res | undefined
+  userInfo: userInfo | undefined
 }
 
-function EditProfilePage({loading, arkProfile}: Props) {
+interface UserInfo { 
+  address_color: string, 
+  customUrl: string
+  github: string,
+  instagram: string,
+  twitter: string,
+  avatar: string,
+  bio: string,
+  nickname: string,
+}
 
+
+function EditProfilePage({loading, userInfo}: Props) {
+
+
+  /**
+   * User Form for modifying links 
+   */
+  const {} = useForm<UserInfo>()
+
+
+  /**
+   * Colour Picker Dep.
+   */
   const [color, setColor] = useState<string>("#edecec");
   const [toggle, setToggle] = useState(false)
   const [newColor, setNewColor] = useState(false)
-
   const closeModal = () => {
     setToggle(false)
   }
@@ -42,10 +64,13 @@ function EditProfilePage({loading, arkProfile}: Props) {
   
   const [newChanges, SetnewChanges] = useState(false)
 
-  // AVATAR SELECTION
+  /**
+   * Avatar Selection Dep.
+   */
   const [currentSelectedAvatar, setSelectedAvatar] = useRecoilState(selectedAvatar);
   const showModalValue = useRecoilValue(avatarModalState)
   const [showModal, setShowModal] = useRecoilState(avatarModalState);
+
 
 
   const UserAvatar = () => { 
@@ -113,13 +138,13 @@ function EditProfilePage({loading, arkProfile}: Props) {
             <UserAvatar />
           </div>
 
-          <section className='relative bottom-5 '>
+          <form className='relative bottom-5 '>
             <ul className='space-y-7'>
               <h1 className="text-sm font-bold text-left">About you</h1>
               <li >
                 <div className='justify-between flex items-center'>
                   <h2 className={subheaderInput}>Nickname</h2>
-                  <input type="text" placeholder='' className={inputContainer}/>  
+                  <input type="text" placeholder='' className={inputContainer} />  
                 </div>
               </li>
               <li className='mb-2'>
@@ -163,7 +188,7 @@ function EditProfilePage({loading, arkProfile}: Props) {
                 </div>
               </li>
             </ul>
-          </section>
+          </form>
           <div className='relative bottom-[20px]'>
             {/* onclick save this  */}
             <div>

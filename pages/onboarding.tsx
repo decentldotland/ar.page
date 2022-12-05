@@ -19,7 +19,7 @@ import DIDList from '../components_new/onboarding_screens/DIDList'
 import { useAns } from 'ans-for-all'
 import { GetStaticProps } from 'next'
 import axios from 'axios'
-import { NFT, Res } from '../src/types'
+import { NFT, Res, userInfo } from '../src/types'
 import { GenericLabel, getDefaultLabels } from '../components_new/onboarding_screens/DIDLabels'
 import { RiContactsBookLine } from 'react-icons/ri'
 import Image from 'next/image'
@@ -81,14 +81,19 @@ function Onboarding() {
   
 
 
-  // useEffect(() => {
-  //   setUserOnboarding(10)
-  // }, [])
+  useEffect(() => {
+    setUserOnboarding(10)
+  }, [])
   
   const [loading, setLoading] = useState<boolean>(true);
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
   // const {address} = useAns()
   const address = "kaYP9bJtpqON8Kyy3RbqnqdtDBDUsPTQTNUCvZtKiFI"
+  
+  /**
+   * Fetch ArkProfile 
+   * @param address 
+   */
   const fetchData = async (address: string) => {
     setLoading(true)
     const result = await axios(`https://ark-api.decent.land/v1/profile/arweave/${address}/true`);
@@ -124,6 +129,28 @@ function Onboarding() {
     AVVY: avvvy, 
     LENS: lens
 });
+
+const [currentUserInfo, setCurrentUserInfo] = useState<userInfo | undefined>()
+const ansName = "kaYP9bJtpqON8Kyy3RbqnqdtDBDUsPTQTNUCvZtKiFI"
+const fetchANSInfo = async (ansName: string) => {
+  setLoading(true)
+  const result = await axios(`http://ans-stats.decent.land/profile/${ansName}`);
+
+  if (result.data) {
+    const parsed = JSON.parse(result.data);
+    const resobject: userInfo = parsed?.res;
+    setCurrentUserInfo(resobject);
+  }
+  setLoading(false)
+};
+
+useEffect(() => {
+  if (ansName) {
+    fetchANSInfo(ansName)
+  };
+}, [ansName])
+
+
 
 // DID SELECTOR 
 console.log(arkProfile?.ENS)
@@ -202,7 +229,7 @@ const [selectedAvatar, setSelectedAvatar] = useState<NFT | null>(null)
           userCurrentStep === 9 && (<OptionEditProfile /> )
         }
         {
-          userCurrentStep === 10 && (<EditProfilePage loading={loading} arkProfile={arkProfile}/> )
+          userCurrentStep === 10 && (<EditProfilePage loading={loading} userInfo={currentUserInfo}/> )
         }
         {
           userCurrentStep === 11 && (<WelcomePage/> )
