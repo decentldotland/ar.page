@@ -82,8 +82,7 @@ function Onboarding() {
 
 
   // useEffect(() => {
-  //   // setUserOnboarding(8)
-  //   localStorage.clear()
+  //   setUserOnboarding(10)
   // }, [])
   
   const [loading, setLoading] = useState<boolean>(true);
@@ -203,7 +202,7 @@ const [selectedAvatar, setSelectedAvatar] = useState<NFT | null>(null)
           userCurrentStep === 9 && (<OptionEditProfile /> )
         }
         {
-          userCurrentStep === 10 && (<EditProfilePage loading={loading}/> )
+          userCurrentStep === 10 && (<EditProfilePage loading={loading} arkProfile={arkProfile}/> )
         }
         {
           userCurrentStep === 11 && (<WelcomePage/> )
