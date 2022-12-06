@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import { LoadingOrNotFound, SearchBar, NFTGallery } from '../../../reusables';
 import { NFT } from '../../../../../../src/types';
 import { ChainFilter } from '../../../../../buttons';
-import { Button } from '../../../../../../src/stories/Buttons';
+import { CButton } from '../../../../../../src/stories/Buttons';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../../../../atoms';
 import { SortChronButton } from '../../../../../buttons';
  
 export default function Collectibles({NFTs, loading, perPage, handleVisibility}: 
 {NFTs: NFT[], loading: boolean, perPage: number, handleVisibility: (res: boolean) => void}) {
-
+  console.log("NFTS: ", NFTs);
   const [filteredNFTs, setFilteredNFTs] = useState<NFT[]>(NFTs);
   const [onLoad, setOnLoad] = useState<boolean>(false);
   const [ascending, setAscending] = useState<boolean>(true);
@@ -81,20 +81,14 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
           }}
         />
         {/*Sort Chronology Button*/}
-        <SortChronButton onClick={() => ""} text="Test" />
-
         {filteredNFTs.length > 0 && (
-          <Button
-            variant='secondary'
-            className={"text-black border-2 border-slate-300 rounded-xl"}
+          <SortChronButton 
             onClick={() => setAscending(() => {
               filterTime();
               return !ascending;
             })}
-            isDark={isDark}
-          >
-            {ascending ? "Newest" : "Oldest"}
-          </Button>
+            text={ascending ? "Newest" : "Oldest"} 
+          />
         )}
       </div>
 

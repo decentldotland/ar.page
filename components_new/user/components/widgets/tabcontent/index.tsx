@@ -94,7 +94,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
           .add_title(nftMetaData.name!)
           .add_description(String(nftMetaData.description!))
           .add_chain("ethereum");
-        tmp.push(ercnft);
+          tmp.push(ercnft);
         }
       }
     }
@@ -115,6 +115,22 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
           .add_chain("evmos");
         tmp.push(evmosnft);
       }
+    }
+  }
+
+  /**
+   * NEAR NFT 
+   */
+  if (arkProfile.NEAR_NFTS !== undefined || null) { 
+    for (let n of arkProfile.NEAR_NFTS) { 
+      let nearnft = new NFT();
+      nearnft.add_id(n.image!)
+      .add_timestamp(1)
+      .add_title(n.collection.title!)
+      .add_description(n.name!)
+      .add_chain("near");
+      tmp.push(nearnft);
+      console.log("NEAR NFT: ", nearnft);
     }
   }
 

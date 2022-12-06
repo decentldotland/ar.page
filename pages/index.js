@@ -10,6 +10,7 @@ export default function Home({wildcard, userInfo}) {
   )
 }
 
+//I think this has to be be where Static Path and and Static Props get deployed
 export async function getServerSideProps(context) {
 
   let wildcard = context.req.headers.host.split(".")[0];
@@ -24,5 +25,4 @@ export async function getServerSideProps(context) {
         console.log("Failed to use domain routing...")
       };
       return { props: {wildcard} };
-
 }

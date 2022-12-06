@@ -35,7 +35,7 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   isDark?: boolean;
 } & IconProps;
 
-export const Button = forwardRef<HTMLButtonElement, Props>(
+export const CButton = forwardRef<HTMLButtonElement, Props>(
   (
     {
       type = 'button',
@@ -79,4 +79,4 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
   }
 );
 
-Button.displayName = 'Button';
+CButton.displayName = 'Button';
