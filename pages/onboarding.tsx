@@ -81,9 +81,9 @@ function Onboarding() {
   
 
 
-  useEffect(() => {
-    setUserOnboarding(10)
-  }, [])
+  // useEffect(() => {
+  //   setUserOnboarding(10)
+  // }, [])
   
   const [loading, setLoading] = useState<boolean>(true);
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
@@ -131,17 +131,14 @@ function Onboarding() {
 });
 
 const [currentUserInfo, setCurrentUserInfo] = useState<userInfo | undefined>()
-const ansName = "kaYP9bJtpqON8Kyy3RbqnqdtDBDUsPTQTNUCvZtKiFI"
+const ansName = "xylophone"
 const fetchANSInfo = async (ansName: string) => {
-  setLoading(true)
   const result = await axios(`http://ans-stats.decent.land/profile/${ansName}`);
-
   if (result.data) {
     const parsed = JSON.parse(result.data);
     const resobject: userInfo = parsed?.res;
     setCurrentUserInfo(resobject);
   }
-  setLoading(false)
 };
 
 useEffect(() => {
