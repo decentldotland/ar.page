@@ -45,7 +45,7 @@ function EditProfilePage({loading, userInfo}: Props) {
   /**
    * User Form for modifying links 
    */
-  const {} = useForm<UserInfo>()
+  const {register} = useForm<UserInfo>()
 
 
   /**
