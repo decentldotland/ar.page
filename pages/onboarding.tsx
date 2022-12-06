@@ -81,9 +81,9 @@ function Onboarding() {
   
 
 
-  // useEffect(() => {
-  //   setUserOnboarding(10)
-  // }, [])
+  useEffect(() => {
+    setUserOnboarding(10)
+  }, [])
   
   const [loading, setLoading] = useState<boolean>(true);
   const [arkProfile, setArkProfile] = useState<Res | undefined>();

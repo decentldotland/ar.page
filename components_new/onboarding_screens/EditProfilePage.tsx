@@ -45,7 +45,7 @@ function EditProfilePage({loading, userInfo}: Props) {
   /**
    * User Form for modifying links 
    */
-  const {register} = useForm<UserInfo>()
+  const {register, handleSubmit, watch, formState: {errors, dirtyFields, isDirty, isValid}, } = useForm<UserInfo>()
 
 
   /**
@@ -71,6 +71,19 @@ function EditProfilePage({loading, userInfo}: Props) {
   const showModalValue = useRecoilValue(avatarModalState)
   const [showModal, setShowModal] = useRecoilState(avatarModalState);
 
+  // On Submit 
+  const onSubmit: SubmitHandler<UserInfo> = async ({
+    address_color,
+    customUrl,
+    github,
+    instagram,
+    twitter,
+    avatar,
+    bio,
+    nickname
+  }) => { 
+   console.log("adkjhaksdjalks")
+  }
 
 
   const UserAvatar = () => { 
@@ -138,19 +151,30 @@ function EditProfilePage({loading, userInfo}: Props) {
             <UserAvatar />
           </div>
 
-          <form className='relative bottom-5 '>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            action=""
+            className='relative bottom-5 '>
             <ul className='space-y-7'>
               <h1 className="text-sm font-bold text-left">About you</h1>
               <li >
                 <div className='justify-between flex items-center'>
                   <h2 className={subheaderInput}>Nickname</h2>
-                  <input type="text" placeholder='' className={inputContainer} />  
+                  <input 
+                    type="text" 
+                    placeholder={userInfo?.userInfo.nickname} 
+                    {...register('nickname', {required: false})}
+                    className={inputContainer} />  
                 </div>
               </li>
               <li className='mb-2'>
                 <div className='space-y-2 '>
                   <h2 className={subheaderInput}>Bio</h2>
-                  <input type="text" placeholder='' className='text-[#8E8E8F] w-full text-sm bg-transparent border border-b border-x-0 border-t-0  outline-none'/>  
+                  <input 
+                    type="text" 
+                    placeholder={userInfo?.userInfo.bio} 
+                    {...register('bio', {required: false})}
+                    className='text-[#8E8E8F] w-full text-sm bg-transparent border border-b border-x-0 border-t-0  outline-none'/>  
                 </div>
 
               </li>
@@ -160,31 +184,51 @@ function EditProfilePage({loading, userInfo}: Props) {
               <li >
                 <div className='justify-between flex items-center'>
                   <h2 className={subheaderInput}>Github</h2>
-                  <input type="text" placeholder='' className={inputContainer}/>  
+                  <input 
+                    type="text" 
+                    placeholder={userInfo?.userInfo.links?.github} 
+                    {...register('github', {required: false})}
+                    className={inputContainer}/>  
                 </div>
               </li>
               <li >
                 <div className='justify-between flex items-center'>
                   <h2 className={subheaderInput}>Website</h2>
-                  <input type="text" placeholder='' className={inputContainer}/>  
+                  <input 
+                    type="text" 
+                    placeholder={userInfo?.userInfo.links?.customUrl} 
+                    {...register('customUrl', {required: false})}
+                    className={inputContainer}/>  
                 </div>
               </li>
               <li >
                 <div className='justify-between flex items-center'>
                   <h2 className={subheaderInput}>Instagram</h2>
-                  <input type="text" placeholder='' className={inputContainer}/>  
+                  <input 
+                    type="text" 
+                    placeholder={userInfo?.userInfo.links?.instagram}
+                    {...register('instagram', {required: false})}
+                    className={inputContainer}/>  
                 </div>
               </li>
-              <li >
+              {/* <li >
                 <div className='justify-between flex items-center'>
                   <h2 className={subheaderInput}>Telegram</h2>
-                  <input type="text" placeholder='' className={inputContainer}/>  
+                  <input 
+                    type="text" 
+                    placeholder={userInfo?.userInfo.links.telegram}
+                    {...register('', {required: false})} 
+                    className={inputContainer}/>  
                 </div>
-              </li>
+              </li> */}
               <li >
                 <div className='justify-between flex items-center'>
                   <h2 className={subheaderInput}>Twitter</h2>
-                  <input type="text" placeholder='' className={inputContainer}/>  
+                  <input 
+                    type="text" 
+                    placeholder={userInfo?.userInfo.links?.twitter}
+                    {...register('twitter', {required: false})}
+                    className={inputContainer}/>  
                 </div>
               </li>
             </ul>
@@ -192,7 +236,7 @@ function EditProfilePage({loading, userInfo}: Props) {
           <div className='relative bottom-[20px]'>
             {/* onclick save this  */}
             <div>
-              <MainNextButton btnName='Save' disabled={!newChanges || loading}/>
+              <MainNextButton btnName='Save' disabled={!isDirty || !isValid || loading}/>
             </div>
           </div>
       </section>
