@@ -81,9 +81,9 @@ function Onboarding() {
   
 
 
-  useEffect(() => {
-    setUserOnboarding(10)
-  }, [])
+  // useEffect(() => {
+  //   setUserOnboarding(10)
+  // }, [])
   
   const [loading, setLoading] = useState<boolean>(true);
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
@@ -237,8 +237,8 @@ const [selectedAvatar, setSelectedAvatar] = useState<NFT | null>(null)
   
 
       </div>  
-      <div className='bg-[#EDECEC] w-[50%] h-screen hidden sm:block '>
-        {/* <Image src={'/ONBOARDING_IMG.png'} layout="fill"  objectFit="fill" className='absolute left-0'/> */}
+      <div className='bg-[#EDECEC] hidden sm:block'>
+        <Image src={'/ONBOARDING_IMG.png'} layout="fill"  objectFit="fill"/>
       </div>
 
     </div>
