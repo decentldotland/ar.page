@@ -35,7 +35,7 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   isDark?: boolean;
 } & IconProps;
 
-export const Button = forwardRef<HTMLButtonElement, Props>(
+export const CButton = forwardRef<HTMLButtonElement, Props>(
   (
     {
       type = 'button',
@@ -62,10 +62,10 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
         ref={ref}
         type={type}
         className={clsx(
-          'whitespace-nowrap hover:transition duration-200 ease-in-out flex justify-center items-center disabled:opacity-70 disabled:cursor-not-allowed rounded-xl focus:outline-none',
+          'whitespace-nowrap hover:transition duration-200 ease-in-out flex justify-center items-center disabled:opacity-70 disabled:cursor-not-allowed rounded-xl focus:outline-none text-white',
           !isCustomVariant && variantClasses,
           !fitContentWidth && 'w-full',
-          className,
+          className
         )}
         disabled={isDisabled}
         {...props}
@@ -79,4 +79,4 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
   }
 );
 
-Button.displayName = 'Button';
+CButton.displayName = 'Button';
