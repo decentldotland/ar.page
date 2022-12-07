@@ -9,7 +9,6 @@ import { SortChronButton } from '../../../../../buttons';
  
 export default function Collectibles({NFTs, loading, perPage, handleVisibility}: 
 {NFTs: NFT[], loading: boolean, perPage: number, handleVisibility: (res: boolean) => void}) {
-  console.log("NFTS: ", NFTs);
   const [filteredNFTs, setFilteredNFTs] = useState<NFT[]>(NFTs);
   const [onLoad, setOnLoad] = useState<boolean>(false);
   const [ascending, setAscending] = useState<boolean>(true);

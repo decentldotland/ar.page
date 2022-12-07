@@ -130,7 +130,6 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       .add_description(n.name!)
       .add_chain("near");
       tmp.push(nearnft);
-      console.log("NEAR NFT: ", nearnft);
     }
   }
 

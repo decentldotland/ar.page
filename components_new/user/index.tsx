@@ -24,17 +24,17 @@ function PageContent(props: userInfo) {
   const [loading, setLoading] = useState<boolean>(true);
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
   
-  //Fetch Near NFTs by near address and ar handle
+  // Fetch Near NFTs by near address and ar handle
   const fetchNearNFTs = async(address: string) => {
     return await axios(`https://ark-core.decent.land/v2/nep/${address}`);
   }
-  // fetch a users wallet address
+  // Fetch a users wallet address
   const fetchData = async (arweaveAddr: string, userHandle: string) => {
 
     setLoading(true);
     const result = await axios(`https://ark-api.decent.land/v1/profile/arweave/${arweaveAddr}/true`);
 
-    let linkInfo = await axios.post(`api/exmread`);
+    let linkInfo = await axios.post(`/api/exmread`);
 
     //@ts-ignore
     // Find User by Arweave Id

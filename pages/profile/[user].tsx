@@ -52,9 +52,9 @@ User.getInitialProps = async ({ query }: { query: { user: string; } }) => {
     //Update the tags here?
     return { pathFullInfo: userInfo };
   } catch (error) {
-    console.log("attempting to use domain routing...")
+    console.log("attempting to use domain routing...");
     return { pathFullInfo: false };
   };
 };
 
-export default User
+export default User;
