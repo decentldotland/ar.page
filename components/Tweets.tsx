@@ -11,7 +11,7 @@ export const Tweets = (props: Props) => {
         <div className={props.className} style={props.style}>
         <div id="Tweets" className="rounded-md overflow-scroll border-2 border-prim1  shadow-md shadow-black">
             <a className="twitter-timeline" data-theme="dark" href={`https://twitter.com/${props.user}?ref_src=twsrc%5Etfw`}>Tweets by TwitterDev</a> 
-            <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
+            <script async src="https://platform.twitter.com/widgets.js"></script>
         </div>
         </div>
     );

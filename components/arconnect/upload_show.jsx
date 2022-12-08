@@ -1,17 +1,17 @@
 import { React, useState, useRef } from 'react';
 import ArDB from 'ardb';
-import { CONTRACT_SRC, FEE_MULTIPLIER, arweave, languages_en, languages_zh, categories_en, categories_zh, smartweave } from '../utils/arweave.js'
+import { CONTRACT_SRC, FEE_MULTIPLIER, arweave, languages_en, languages_zh, categories_en, categories_zh, smartweave } from '../utils/arweave.js';
 import Swal from 'sweetalert2';
 import { useTranslation } from 'react-i18next';
-const ardb = new ArDB(arweave)
+const ardb = new ArDB(arweave);
 
 export default function UploadShow() {
   let finalShowObj = {}
   const [show, setShow] = useState(false);
-  const podcastCoverRef = useRef()
-  const { t, i18n } = useTranslation()
-  const languages = i18n.language === 'zh' ? languages_zh : languages_en
-  const categories = i18n.language === 'zh' ? categories_zh : categories_en
+  const podcastCoverRef = useRef();
+  const { t, i18n } = useTranslation();
+  const languages = i18n.language === 'zh' ? languages_zh : languages_en;
+  const categories = i18n.language === 'zh' ? categories_zh : categories_en;
 
   const deployContract = async () => {
     const initialState = `{"podcasts": []}`
@@ -232,7 +232,7 @@ export default function UploadShow() {
               </div>
               <div className='my-3'>
                 <span className="label label-text">{t("uploadshow.description")}</span>
-                <textarea className="w-1/2 textarea textarea-bordered" required pattern=".{10,75}" title="Between 10 and 75 characters" as="textarea" name="podcastDescription" placeholder="This is a show about..." rows={3} />
+                <textarea className="w-1/2 textarea textarea-bordered" required pattern=".{10,75}" title="Between 10 and 75 characters" name="podcastDescription" placeholder="This is a show about..." rows={3} />
               </div>
               <div className='my-3'>
                 <span className="label label-text">{t("uploadshow.image")}</span>
