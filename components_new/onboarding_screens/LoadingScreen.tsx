@@ -11,8 +11,8 @@ import { DOMAIN_ENDPOINT } from '../../src/constants';
 interface Props { 
   msg: string, 
   end?: boolean,
-  arAddress: string | undefined,
-  handleLabels: Dispatch<any>
+  arAddress?: string | undefined,
+  handleLabels?: Dispatch<any>
 }
 
 function LoadingScreen({msg, end, arAddress, handleLabels}: Props) {

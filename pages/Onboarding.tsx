@@ -214,7 +214,7 @@ function Onboarding() {
           userCurrentStep === 11 && (<EditProfilePage loading={loading}/> )
         }
         {
-          userCurrentStep === 12 && (<LoadingScreen msg={'Creating your profile'} end={true} arAddress={addressAr}/> )
+          userCurrentStep === 12 && (<LoadingScreen msg={'Creating your profile'} end={true}/> )
         }
 
       </div> 
