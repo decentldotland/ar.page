@@ -57,17 +57,19 @@ const SearchBox = (props: Props) => {
                                     .map((item: any, index: any) => {
                                         setVal(inputValue as string)
                                         // output a <div> ..
-                                        return <div
-                                            {...getItemProps({ item })} // .. using the props from `render`
-                                            key={item}
-                                            style={{
-                                                backgroundColor:
-                                                    highlightedIndex === index ? 'gray' : 'transparent',
-                                                fontWeight: selectedItem === item ? 'bold' : 'normal',
-                                            }}
-                                        >
-                                            {item}
-                                        </div>
+                                        return (
+                                            <div
+                                                {...getItemProps({ item })}
+                                                key={item}
+                                                style={{
+                                                    backgroundColor:
+                                                        highlightedIndex === index ? 'gray' : 'transparent',
+                                                    fontWeight: selectedItem === item ? 'bold' : 'normal',
+                                                }}
+                                            >
+                                                {item}
+                                            </div>
+                                        );
                                     })}
                             </div>
                         </div>
