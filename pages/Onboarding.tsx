@@ -183,7 +183,7 @@ function Onboarding() {
           userOnboardingStep === 6 && (
             <LoadingScreen 
               msg={'Cross-Checking User Data'}
-              arAddress={"SyVcc3cZqthZI92ZAVT2d03RjG9F732R7FaPVnbgQQg"} //addressAr
+              arAddress={addressAr} //addressAr
               handleLabels={setLabelHandles}
             /> 
           )
