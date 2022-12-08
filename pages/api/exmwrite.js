@@ -6,7 +6,19 @@ export default async function handler(req, res) {
     const data = await axios.post(`https://api.exm.dev/api/transactions?token=${token}`, {
       functionId: contractAddress,
       inputs: [{
-        "input": JSON.stringify({function: "reserve", evm_address: req.body.evm_address, ans: req.body.ans})
+        "input": JSON.stringify({
+          ...req.body
+        }),
+        "tags": [
+          {
+            name: "Protocol-Name",
+            value: "Ark-Network"
+          },
+          {
+            name: "Protocol-Action",
+            value: "Link-Identity"
+          }
+        ]
       }],
     }, {})
     res.status(200).json(data.data)

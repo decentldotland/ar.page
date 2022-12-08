@@ -16,7 +16,7 @@ function VerifyWithArk(props: VerifyArkInterface) {
     const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
     const userCurrentStep = useRecoilValue(userOnboardingState)
   return (
-    <div className='md:h-full md:items-center md:relative md:top-32 mt-[60px] w-full px-5 sm:w-[440px]'>
+    <div className='md:h-screen md:items-center md:relative md:top-32 mt-[60px] w-full px-5 sm:w-[440px]'>
         <div className='items-center flex flex-col justify-center'>
             
             {/* TITLEs */}
@@ -75,7 +75,7 @@ function VerifyWithArk(props: VerifyArkInterface) {
                         </h1>
                     </li>
                     <li className={listStyle}>
-                        <div className="rounded-full h-[37px] w-[37px] items-center flex justify-center bg-[#e84040]/30 opacity-100 rotate-6">
+                        <div className="rounded-full h-[37px] w-[37px] items-center flex justify-center bg-[#e84040]/30 opacity-100 rotate-90">
                             <XMarkIcon height={16} width={16} strokeWidth={3} color={'#e84040'} />
                         </div>
                         <h1>
@@ -102,11 +102,11 @@ function VerifyWithArk(props: VerifyArkInterface) {
         </div>
         <Divider />
         <div className='relative bottom-6'>
-            <button onClick={() => props.handleOnboarding(4)} className="w-full">
+            <span onClick={() => props.handleOnboarding(4)} className="w-full">
                 <MainNextButton btnName='Next' />
-            </button>
+            </span>
             <div className='space-y-2 mt-6 text-[#6a6b6a] font-medium text-center'>
-              <button onClick={() => props.handleOnboarding(2)} >
+              <button onClick={() => props.handleOnboarding(2)} className="mb-2">
                 <h1 className='underline cursor-pointer'>
                   Cancel
                 </h1>

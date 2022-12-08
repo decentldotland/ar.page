@@ -1,59 +1,17 @@
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
-import CustomConnectButton from '../buttons/ConnectAccount'
-import BackButton from '../reservation/BackButton'
-import LineBarTracker from '../reservation/LineBarTracker'
-import { useWalletSelector } from '../../src/contexts/WalletSelectorContext'
+
+import React from 'react';
 import '@near-wallet-selector/modal-ui/styles.css';
-import type { AccountView } from "near-api-js/lib/providers/provider";
-import { CircularProgress } from '@mui/material'
-import UserBackButton from '../buttons/UserBackButton'
-import { SetterOrUpdater, useRecoilState, useRecoilValue } from 'recoil'
-import { confirmModalState, nearWalletConnected, userOnboardingState } from '../../atoms'
-import ModalConfirm from './ModalConfirm'
+import UserBackButton from '../buttons/UserBackButton';
+import { SetterOrUpdater, useRecoilState } from 'recoil';
+import { userOnboardingState } from '../../atoms';
 
 interface SignUpNearInterface {
   handleOnboarding: SetterOrUpdater<number>;
 }
 
-/**
- * Page to connect to user's near wallets, supports currently:
- * -  WalletConnect 
- * - Near Wallet 
- * @param param0 
- * @returns 
- */
 function SignUpNear(props: SignUpNearInterface) {
 
-  const [connected, setConnected] = useState(false)
-  const { selector, modal, accounts, accountId } = useWalletSelector();
-  const [account, setAccount] = useState()
-  // user step 
   const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
-  const userCurrentStep = useRecoilValue(userOnboardingState)
-
-  const [nearWalletConnection, setNearWalletConnected] = useRecoilState(nearWalletConnected);
-
-
-  /**
-   * 1. Check if the Near wallet is not null, setConnected to false
-   * 2  User is signed in using their Near wallet
-   * 3. Save {@code currentStep} to localstorage and set {@code triggered} to false
-   */
-  useEffect(() => {
-    if (!accountId) {
-      setNearWalletConnected(false)
-      localStorage.setItem('triggered', 'false')
-      return setConnected(false);
-    }
-    setNearWalletConnected(true)
-
-    // Save on localstorage currenste
-    localStorage.setItem('currentStep', `${userOnboardingStep}`)
-    localStorage.setItem('triggered', 'false')
-    
-    return setConnected(true)
-  }, [accountId, nearWalletConnection])
 
   return (
     <>
@@ -81,8 +39,7 @@ function SignUpNear(props: SignUpNearInterface) {
         </div>
     </div>
     </>
-
   )
 }
 
-export default SignUpNear
+export default SignUpNear;

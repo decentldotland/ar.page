@@ -8,7 +8,7 @@ import { AnimatePresence } from "framer-motion";
 import { AnsProvider } from 'ans-for-all';
 
 import '@rainbow-me/rainbowkit/styles.css';
-import {WalletSelectorContextProvider } from '../src/contexts/WalletSelectorContext'
+//import {WalletSelectorContextProvider } from '../src/contexts/WalletSelectorContext'
 import { getDefaultWallets, RainbowKitProvider, apiProvider, connectorsForWallets, getWalletConnectConnector } from '@rainbow-me/rainbowkit';
 import {
   injectedWallet,
@@ -21,20 +21,12 @@ import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
-import { avalancheChain } from '../src/constants';
+import { avalancheChain, evmosChain } from '../src/constants';
 
 const { chains, provider } = configureChains(
-  [chain.mainnet, avalancheChain],
+  [chain.mainnet, avalancheChain, evmosChain],
   [publicProvider()]
 );
-
-//jsonRpcProvider({ rpc: chain => ({ http: chain.rpcUrls.default }) }), 
-/*
-const { connectors } = getDefaultWallets({
-  appName: 'My RainbowKit App',
-  chains
-});
-*/
 
 const connectors = connectorsForWallets([
   {
@@ -73,11 +65,11 @@ function MyApp({ Component, pageProps }) {
           </Head>
           <WagmiConfig client={wagmiClient}>
             <RainbowKitProvider chains={chains}>
-              <WalletSelectorContextProvider>
+              {/*<WalletSelectorContextProvider>*/}
                 <Layout>
                   <Component {...pageProps} />
                 </Layout>
-              </WalletSelectorContextProvider>
+              {/*</WalletSelectorContextProvider>*/}
             </RainbowKitProvider>
           </WagmiConfig>
         </AnsProvider>

@@ -1,13 +1,12 @@
-import { CheckIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useAns } from 'ans-for-all'
-import axios from 'axios'
-import { GetStaticProps } from 'next'
-import Image from 'next/image'
-import React, { useState } from 'react'
-import { useWalletSelector } from '../../src/contexts/WalletSelectorContext'
-import { Res } from '../../src/types'
-import MainNextButton from '../buttons/MainNextButton'
-import UserBackButton from '../buttons/UserBackButton'
+import { CheckIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { useAns } from 'ans-for-all';
+import axios from 'axios';
+import { GetStaticProps } from 'next';
+import Image from 'next/image';
+import React, { useState } from 'react';
+import { Res } from '../../src/types';
+import MainNextButton from '../buttons/MainNextButton';
+import UserBackButton from '../buttons/UserBackButton';
 
 interface Props { 
   labels: any,
@@ -31,11 +30,11 @@ function DIDList({labels, selectedName, setSelectedName}: Props) {
             <div className="mt-11">
               <div className="grid grid-flow-row grid-cols-2 sm:grid-cols-2 grid-rows-4 gap-5">
                   {labels.map((item:any, index:number) => (
-                    <div key={index}  className={`${selectedName === item.username ? tableClass + item.classes + 'border-black border-2': item.classes + tableClass} `}>
+                    <div key={index}  className={`text-white ${selectedName === item.username ? tableClass + item.classes + 'border-black border-2': item.classes + tableClass} `}>
                       <button onClick={() => setSelectedName(item.username)}>
                         <div className='flex flex-row items-center space-x-1'>
                           {item.icon}
-                          <h3 className="font-inter">{item.username}</h3>
+                          <h3 className={`font-inter ${selectedName === item.username ? 'text-[#454a75]' : ''}`}>{item.username}</h3>
                         </div>
                       </button>
                       {
@@ -49,13 +48,15 @@ function DIDList({labels, selectedName, setSelectedName}: Props) {
                     </div>
                   ))}
                 </div>
+                <span className="mb-2">
+                  <MainNextButton 
+                    btnName='Next' 
+                    disabled={!selectedName || loading}
+                    className="mb-4 mt-2"
+                  />
+                </span>
             </div>
         </div>
-        
-        <div className='relative bottom-[90px]'>
-          <MainNextButton btnName='Next' disabled={!selectedName || loading}/>
-        </div>
-       
         </section>
     </>
   )

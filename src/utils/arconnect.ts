@@ -2,7 +2,7 @@ import { PermissionType } from "arconnect";
 import { useEffect, useState } from "react";
 import Arweave from "arweave";
 
-const permissions: PermissionType[] = [
+export const permissions: PermissionType[] = [
   "ACCESS_ADDRESS",
   "ACCESS_ALL_ADDRESSES",
   "SIGN_TRANSACTION",

@@ -13,7 +13,7 @@ function MainNextButton(props: Props) {
   const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
 
   return (
-    <div className='items-center flex flex-col justify-center'>
+    <div className='flex flex-col justify-center items-center '>
       <button 
         disabled={props.disabled} 
         onClick={() => setUserOnboarding(userOnboardingStep + 1)} 

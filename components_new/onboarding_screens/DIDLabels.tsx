@@ -4,17 +4,18 @@ import { Snackbar } from '@mui/material';
 import { BsGithub, BsTwitter, BsInstagram, BsGlobe2 } from 'react-icons/bs';
 import { useRecoilState } from 'recoil';
 import Image from 'next/image';
-import { removeHttp } from '../../src/utils';
 import { GenericLabelInterface, GenericUsernameInterface, Links, OwnedLabel } from '../../src/types';
 import { isDarkMode } from '../../atoms';
-// import ARWEAVE from  '../../../../public/icons/ARWEAVE.svg'
 
-const colorProps = `bg-primary/10 text-primary `
-const avaxColor = "bg-[#E84040]/20 text-[#E84040] "
-const ethColor = `bg-[#b3b2b3]/40 text-[#454a75] font-bold `
-const arColor = "bg-black text-white "
-const iconProps = {size: 19, color: "#1273ea"}
-const lenProps = "bg-[#abfe2c] text-[#05501F] bg-[#aafe2ccb] "
+const colorProps = `bg-primary/10 text-primary `;
+const avaxColor = "bg-[#E84040]/20 text-[#454a75] font-bold";
+const ethColor = `bg-[#b3b2b3]/40 text-[#454a75] font-bold`;
+const arColor = "bg-[#000000] text-white font-bold";
+const nearColor = "bg-white text-[#454a75] font-bold border-2 border-black";
+const evmosColor = "bg-purple-200 text-[#454a75] font-bold";
+const urbitColor = "bg-emerald-400 text-[#454a75] font-bold";
+const iconProps = {size: 19, color: "#1273ea"};
+const lenProps = "bg-[#abfe2c] text-[#05501F] bg-[#aafe2ccb]";
 
 export const arLabels = (arweave_address: string, ownedLabels: OwnedLabel[]) => ownedLabels.map((owned: OwnedLabel) => {
   return {
@@ -25,7 +26,7 @@ export const arLabels = (arweave_address: string, ownedLabels: OwnedLabel[]) => 
     icon: <Image
       width={19}
       height={19}
-      className="bg-white rounded-full "
+      className="bg-black rounded-full"
       src={"/icons/ARWEAVE.svg"}
       alt=""
       quality={100} />,
@@ -78,14 +79,15 @@ export const ethLabel = (ENS:string|undefined) => {
     
   }
 }
-export const lensLabel = (lens:string[] |undefined) => {
+
+export const lensLabel = (lens:string |undefined) => {
   const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
   let dark_mode = `${isDark ? ('bg-[#8a92b2]/60 text-white') : (ethColor)} `;
 
   if (!lens || lens?.length == 0) return null;
 
-  const lensLabel = lens[0]?.replace("@", "")
+  const lensLabel = lens[0]?.replace("@", "");
   return {
     username: lensLabel,
     classes: lenProps,
@@ -100,20 +102,117 @@ export const lensLabel = (lens:string[] |undefined) => {
   }
 }
 
-export const getDefaultLabels = ({  ENS, AVVY, LENS }: {
-  ENS: string|undefined, 
-  AVVY: string|undefined,
-  LENS: string[] |undefined
-}) => [
-  avaxLabel(AVVY),
-  ethLabel(ENS),
-  lensLabel(LENS)
-].filter((l) => l !== null);
+export const ansLabel = (ANS:string|undefined) => {
+  if (!ANS) return null;
+  return {
+    username: ANS,
+    classes: arColor,
+    link_to: "https://v2.viewblock.io/arweave/address/"+ANS,
+    selected: false,
+    icon: <div className={'shadow-2xl flex items-center rounded-lg p-1 bg-black'}>
+      <Image
+        height={28}
+        width={28}
+        src="/icons/ARWEAVE_WHITE.svg"
+        alt="Arweave Name Address"
+        quality={100}
+      />
+    </div> 
+  }
+}
+
+export const nearLabel = (NEAR:string|undefined) => {
+  if (!NEAR) return null;
+  return {
+    username: NEAR,
+    classes: nearColor,
+    link_to: "https://nearblocks.io/address/"+NEAR,
+    selected: false,
+    icon: <div className={'shadow-2xl flex items-center rounded-lg p-1 bg-black'}>
+      <Image
+        height={28}
+        width={28}
+        src="/chains/near_outline.svg"
+        alt="Near Logo"
+        quality={100}
+      />
+    </div> 
+  }
+}
+
+export const evmosLabel = (EVMOS:string|undefined) => {
+  if (!EVMOS) return null;
+  return {
+    username: EVMOS,
+    classes: evmosColor,
+    link_to: "https://app.evmos.domains/#/name/"+EVMOS,
+    selected: false,
+    icon: <div className={'shadow-2xl flex items-center rounded-lg p-1 bg-purple-200'}>
+      <Image
+        height={28}
+        width={28}
+        src="/chains/evmos_outline_black.svg"
+        alt=""
+        quality={100}
+      />
+    </div> 
+  }
+}
+
+export const urbitLabel = (URBIT:string|undefined) => {
+  if (!URBIT) return null;
+  return {
+    username: URBIT,
+    classes: urbitColor,
+    link_to: "#",
+    selected: false,
+    icon: <div className={'shadow-2xl flex items-center rounded-lg p-1 bg-emerald-400'}>
+      <Image
+        height={28}
+        width={28}
+        src="/icons/URBIT.svg"
+        alt=""
+        quality={100}
+      />
+    </div> 
+  }
+}
+
+export const getDefaultLabels = ({  ENS, AVVY, LENS, ANS, NEAR, EVMOS, URBIT }: {
+  ENS: string[], 
+  AVVY: string[],
+  LENS: string[],
+  ANS: string[],
+  NEAR: string[],
+  EVMOS: string[],
+  URBIT: string[]
+}) => {
+  // Create labels for all handles
+  let avvyAddr = AVVY.map(address => avaxLabel(address));
+  let ensAddr = ENS.map(address => ethLabel(address));
+  let lensAddr = LENS.map(address => lensLabel(address));
+  let ansAddr = ANS.map(address => ansLabel(address));
+  let nearAddr = NEAR.map(address => nearLabel(address));
+  let evmosAddr = EVMOS.map(address => evmosLabel(address));
+  let urbitAddr = URBIT.map(address => urbitLabel(address));
+  console.log(urbitAddr);
+  // Consolidate handles & filter nulls
+  const handleArr = [
+    ...avvyAddr,
+    ...ensAddr,
+    ...lensAddr,
+    ...ansAddr,
+    ...nearAddr,
+    ...evmosAddr,
+    ...urbitAddr
+  ].filter((l) => l !== null);
+
+  return handleArr;
+}
 
 
 export function GenericLabel ({username, classes, icon}: GenericUsernameInterface) {
 
- 
   const [isDark, setIsDark] = useRecoilState(isDarkMode);
   const [selectedName, setSelectedName] = useState<string | null>(null)
   const classnames = `${classes} `;

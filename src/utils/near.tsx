@@ -12,21 +12,22 @@ import { setupWalletSelector } from "@near-wallet-selector/core";
 import {  WalletSelectorModal, setupModal } from "@near-wallet-selector/modal-ui";
 
 import { setupDefaultWallets } from "@near-wallet-selector/default-wallets";
+import "@near-wallet-selector/modal-ui/styles.css";
+import { NEAR_ORACLE } from "../constants";
 import { setupNearWallet } from "@near-wallet-selector/near-wallet";
 import { setupSender } from "@near-wallet-selector/sender";
 import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
-import "@near-wallet-selector/modal-ui/styles.css";
-import { NEAR_ORACLE } from "../constants";
 
 const BOATLOAD_OF_GAS = utils.format.parseNearAmount("0.00000000003")!;
 
+/*
 declare global {
   interface Window {
     selector: WalletSelector;
     modal: WalletSelectorModal;
   }
 }
-
+*/
 export const useNear = () => {
 
     const [selector, setSelector] = useState<WalletSelector | null>(null);
@@ -48,19 +49,14 @@ export const useNear = () => {
             setupMeteorWallet(),
           ],
         });
-        _selector.options.network.networkId = "mainnet";
-        _selector.options.network.explorerUrl = "https://explorer.near.org";
-        _selector.options.network.helperUrl = "https://helper.mainnet.near.org";
-        _selector.options.network.indexerUrl = "https://api.kitwallet.app";
-        _selector.options.network.nodeUrl = "https://rpc.mainnet.near.org";
-
-        const _modal = setupModal(_selector, { contractId: NEAR_ORACLE, theme: "dark" });
+        //_selector.options.network.networkId = "mainnet";
+        //_selector.options.network.explorerUrl = "https://explorer.near.org";
+        //_selector.options.network.helperUrl = "https://helper.mainnet.near.org";
+        //_selector.options.network.indexerUrl = "https://api.kitwallet.app";
+        //_selector.options.network.nodeUrl = "https://rpc.mainnet.near.org";
+        const _modal = setupModal(_selector, { contractId: NEAR_ORACLE });
         const state = _selector.store.getState();
         setAccounts(state.accounts);
-    
-        window.selector = _selector;
-        window.modal = _modal;
-    
         setSelector(_selector);
         setModal(_modal);
       }, []);
@@ -86,7 +82,6 @@ export const useNear = () => {
     const linkNear = useCallback(
         async (arweave_addr: string, customAccountId='') => {
           if (!accountId || !selector) throw new Error("No account selected");
-          // const { contract } = selector.store.getState();
           const wallet = await selector.wallet();
           return wallet
             .signAndSendTransaction({
@@ -124,7 +119,7 @@ export const useNear = () => {
             request_type: "call_function",
             account_id: NEAR_ORACLE,
             method_name: "get_id",
-            args_base64: Buffer.from(JSON.stringify({ account_id: customAccountId || accountId })).toString("base64"),
+            args_base64: Buffer.from(accountId).toString("base64"),
             finality: "optimistic",
         })
         .catch((err: any) => {
@@ -135,7 +130,8 @@ export const useNear = () => {
             return String.fromCharCode.apply(null, res.result);
         }); 
     }, [selector]);
-
+    //{ account_id: customAccountId || accountId }
+    
     useEffect(() => {
         if (!accountId) {
           return setAccountNear(null);
@@ -148,6 +144,7 @@ export const useNear = () => {
           setLoadingNear(false);
         });
     }, [accountId, getAccount]);
+    
 
     useEffect(() => {
         init().catch((err: any) => {
@@ -156,6 +153,7 @@ export const useNear = () => {
         });
     }, [init]);
 
+  
     useEffect(() => {
         if (!selector) {
           return;
@@ -171,6 +169,7 @@ export const useNear = () => {
     
         return () => subscription.unsubscribe();
       }, [selector]);
+      
 
-    return {modal, selector, accounts, accountNear, accountId, loadingNear, linkNear, checkNearLinking };
+    return {modal, selector, accounts, accountNear, accountId, loadingNear, linkNear, checkNearLinking, setAccountNear, setAccounts };
 }

@@ -1,3 +1,4 @@
+/*
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { map, distinctUntilChanged } from "rxjs";
 import { setupDefaultWallets } from "@near-wallet-selector/default-wallets";
@@ -7,7 +8,7 @@ import { setupModal } from "@near-wallet-selector/modal-ui";
 import type { WalletSelectorModal } from "@near-wallet-selector/modal-ui";
 import { setupNearWallet } from "@near-wallet-selector/near-wallet";
 import { setupWalletConnect } from "@near-wallet-selector/wallet-connect";
-import { NEAR_CONTRACT } from "../constants";
+import { NEAR_ORACLE } from "../constants";
 import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
 
 declare global {
@@ -35,7 +36,7 @@ export const WalletSelectorContextProvider: React.FC = ({ children }) => {
   const init = useCallback(async () => {
     const _selector = await setupWalletSelector({
 
-      network: "testnet",
+      network: "mainnet",
       
       debug: true,
       modules: [
@@ -53,7 +54,7 @@ export const WalletSelectorContextProvider: React.FC = ({ children }) => {
         })
       ],
     });
-    const _modal = setupModal(_selector, { contractId: NEAR_CONTRACT });
+    const _modal = setupModal(_selector, { contractId: NEAR_ORACLE });
     const state = _selector.store.getState();
     setAccounts(state.accounts);
 
@@ -122,3 +123,6 @@ export function useWalletSelector() {
 
   return context;
 }
+*/
+
+export {}

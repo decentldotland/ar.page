@@ -1,16 +1,23 @@
+import { useState } from 'react';
 import { PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image';
 import React from 'react'
-import { SetterOrUpdater, useRecoilState } from 'recoil';
+import { SetterOrUpdater } from 'recoil';
 import MainNextButton from '../buttons/MainNextButton';
 import ConnectedArweaveWallet from './ConnectedArweaveWallet';
 import { walletModifier } from "../../src/utils/walletModifier";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useETH } from '../../src/utils/eth';
+import { NETWORKS } from '../../src/constants';
+import axios from 'axios';
+import { useNetwork } from 'wagmi';
+import { permissions } from '../../src/utils/arconnect';
 
 interface ConnectAdditionalAccountsInterface {
     addressAr: string | undefined;
     addressNear: string | null;
     handleOnboarding: SetterOrUpdater<number>;
+    exmObj: any;
 }
 
 interface AccountButtonInterface {
@@ -42,8 +49,57 @@ const AccountButton = (props: AccountButtonInterface) => {
     );
 }
 
+
+
 function ConnectAdditionalAccounts(props: ConnectAdditionalAccountsInterface) {
 
+    const [linked, setLinked] = useState<boolean>(false);
+    const [clicked, setClicked] = useState<boolean>(false);
+    
+    const eth = useETH();
+
+    const networkInfo = "";
+
+    const handleLinkConfiguration = async (arweaveAddr: string, exmObj: any, chainId: number) => {
+
+      console.log("ETH NETWORK RES: ", chainId);
+      // Assure the the network info has been fetched before proceeding
+      if(chainId) {
+        await setClicked(true);
+        //Connect Arweave
+        const contract = await eth.createLinkIdentityContract(chainId);
+        await window.arweaveWallet.connect(permissions, { name: "ArPage" });
+        const tx = await contract.linkIdentity(arweaveAddr);
+        
+        // Create Arweave Signature
+        const arInfo = await window.arweaveWallet.getPermissions();
+        console.log("ARINFO: ", arInfo);
+        
+        const data = new TextEncoder().encode(`my pubkey for DL ARK is: ${exmObj.jwk_n}`);
+        const signature = await window.arweaveWallet.signature(data, {
+          name: "RSA-PSS",
+          saltLength: 32,
+        });
+        const signedBase = Buffer.from(signature).toString("base64");
+        if (!signedBase) throw new Error("ArConnect signature not found");
+        
+        // Populate EXM req body
+        exmObj.address = eth.address;
+        exmObj.network = NETWORKS[chainId].networkKey;
+        exmObj.verificationReq = tx?.hash;
+        exmObj.sig = signedBase;
+        //Create second sig
+
+        // Await Link Transaction Result & Post to EXM Api
+        tx.wait().then(async () => {
+          console.log("EXM on EVM: ", exmObj);
+          const result = await axios.post(`api/exmwrite`, exmObj);
+          console.log("EXM Result: ", result);
+          setLinked(true);
+        }).catch((e: any) => console.log(e));
+      }
+    }
+    
     return (
         <div className='relative h-full flex flex-col w-full sm:w-[440px] px-5 justify-between'>
             <div className='md:relative md:top-32'>
@@ -57,7 +113,7 @@ function ConnectAdditionalAccounts(props: ConnectAdditionalAccountsInterface) {
                         Connect More Accounts
                     </h3>
                     <p className="text-sm text-[#888] mt-3">
-                        We currently support <span className="text-violet-500">Ethereum</span> and <span className="text-red-300">Avalanche</span>. Connect using either chain. We will cross-check your address across both chains
+                        We currently support <span className="text-violet-500">Ethereum</span>, <span className="text-green-400">EVMOS</span> and <span className="text-red-300">Avalanche</span>. Connect using listed chain. We will cross-check your address across supported chains.
                     </p>
                 </div>
                 <section className='space-y-3.5'>
@@ -67,7 +123,7 @@ function ConnectAdditionalAccounts(props: ConnectAdditionalAccountsInterface) {
                         imgSrc={'/icons/NEAR_WHITE.svg'}
                         imgAlt={'Near Logo'}
                         imgMarkup={'shadow-2xl bg-black rounded-xl'}
-                        handleConnect={() => alert('I work')}
+                        handleConnect={() => ""}
                     />
                     <ConnectButton.Custom>
                         {({
@@ -77,25 +133,22 @@ function ConnectAdditionalAccounts(props: ConnectAdditionalAccountsInterface) {
                             authenticationStatus,
                             mounted,
                         }) => {
-                            const ready = mounted && authenticationStatus !== 'loading';
-                            const connected =
-                              ready &&
-                              account &&
-                              chain &&
-                              (!authenticationStatus ||
-                                authenticationStatus === 'authenticated');
+                          const ready = mounted && authenticationStatus !== 'loading';
+                          const connected =
+                            ready &&
+                            account &&
+                            chain &&
+                            (!authenticationStatus ||
+                              authenticationStatus === 'authenticated');
                             return (
-                                <div
-                                  {...(!ready && {
-                                    'aria-hidden': true,
-                                    'style': {
-                                      opacity: 0,
-                                      pointerEvents: 'none',
-                                      userSelect: 'none',
-                                    },
-                                  })}
-                                >
+                              <div
+                                {...(!ready && {
+                                  'aria-hidden': true,
+                                  'style': { opacity: 0, pointerEvents: 'none', userSelect: 'none',},
+                                })}
+                              >
                                   {(() => {
+                                    // EVM chains button 
                                     if (!connected) {
                                       return (
                                         <AccountButton
@@ -108,83 +161,47 @@ function ConnectAdditionalAccounts(props: ConnectAdditionalAccountsInterface) {
                                         />
                                       );
                                     }
-                                    return (
-                                      <AccountButton
-                                        chainName={"EVM-Compatible Chains"}
-                                        walletAddress={account.address}
-                                        imgSrc={'/icons/ETHEREUM.svg'}
-                                        imgAlt={'Ethereum Logo'}
-                                        imgMarkup={'shadow-2xl bg-slate-300 rounded-xl'}
-                                        handleConnect={openConnectModal}
-                                      />
-                                    );
+                                    // Wallet connect, not linked
+                                    if(!linked) {
+                                      return (
+                                        <AccountButton
+                                          chainName={!clicked ? account.displayName + " connected. Click to link." : "Linking..."}
+                                          walletAddress={null}
+                                          imgSrc={'/icons/ETHEREUM.svg'}
+                                          imgAlt={'Ethereum Logo'}
+                                          imgMarkup={'shadow-2xl bg-slate-300 rounded-xl'}
+                                          //@ts-ignore
+                                          handleConnect={() => handleLinkConfiguration(props.addressAr, props.exmObj, chain.id)}
+                                        />
+                                      );
+                                    // Wallet linked, go to next step
+                                    } else {
+                                      return (
+                                        <AccountButton
+                                          chainName={"Linked. Click to Proceed."}
+                                          walletAddress={null}
+                                          imgSrc={'/icons/ETHEREUM.svg'}
+                                          imgAlt={'Ethereum Logo'}
+                                          imgMarkup={'shadow-2xl bg-slate-300 rounded-xl'}
+                                          handleConnect={() => props.handleOnboarding(6)}
+                                        />
+                                      );  
+                                    }
                                   })()}
-                                </div>
-                              );
+                              </div>
+                            );
                         }}
                     </ConnectButton.Custom>
                 </section>
-                <button onClick={() => props.handleOnboarding(6)} className="w-full">
+                <span onClick={() => props.handleOnboarding(6)} className="w-full">
                         <MainNextButton 
                             btnName='Continue'
-                            className='mt-4'
+                            className='mt-[40px]'
                         />
-                </button>
+                </span>
             </div>
         </div>
   )
 }
 
 export default ConnectAdditionalAccounts;
-
-/*
-                    <AccountButton
-                        chainName={"EVM-Compatible Chains"}
-                        walletAddress={null}
-                        imgSrc={'/icons/ETHEREUM.svg'}
-                        imgAlt={'Ethereum Logo'}
-                        imgMarkup={'shadow-2xl bg-slate-300 rounded-xl'}
-                        handleConnect={() => alert('I work')}
-                    />
-
-
-
-                    <div style={{ display: 'flex', gap: 12 }}>
-                                            <button
-                                              onClick={openChainModal}
-                                              style={{ display: 'flex', alignItems: 'center' }}
-                                              type="button"
-                                            >
-                                              {chain.hasIcon && (
-                                                <div
-                                                  style={{
-                                                    background: chain.iconBackground,
-                                                    width: 12,
-                                                    height: 12,
-                                                    borderRadius: 999,
-                                                    overflow: 'hidden',
-                                                    marginRight: 4,
-                                                  }}
-                                                >
-                                                  {chain.iconUrl && (
-                                                    <img
-                                                      alt={chain.name ?? 'Chain icon'}
-                                                      src={chain.iconUrl}
-                                                      style={{ width: 12, height: 12 }}
-                                                    />
-                                                  )}
-                                                </div>
-                                              )}
-                                              {chain.name}
-                                            </button>
-                          
-                                            <button onClick={openAccountModal} type="button">
-                                              {account.displayName}
-                                              {account.displayBalance
-                                                ? ` (${account.displayBalance})`
-                                                : ''}
-                                            </button>
-                                          </div>
-
-
-*/
