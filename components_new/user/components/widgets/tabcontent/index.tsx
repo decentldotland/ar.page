@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Collectibles from './tabs.tsx/collectibles';
 import ArweaveActivity from './tabs.tsx/activity';
 import Selector from './selector';
-import { ArweaveTransaction, NFT, Permapage, Res, Stamp } from '../../../../../src/types';
+import { ArweaveTransaction, NFT, Res, Stamp } from '../../../../../src/types';
 import { TABS } from '../../../hackathon/';
-import { Nfts } from '../../../../../components/Nfts';
 import StampsTab from './tabs.tsx/StampsTab'; 
 import { ARWEAVE_URL } from '../../../../../src/constants';
 
@@ -95,7 +94,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
           .add_title(nftMetaData.name!)
           .add_description(String(nftMetaData.description!))
           .add_chain("ethereum");
-        tmp.push(ercnft);
+          tmp.push(ercnft);
         }
       }
     }
@@ -116,6 +115,21 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
           .add_chain("evmos");
         tmp.push(evmosnft);
       }
+    }
+  }
+
+  /**
+   * NEAR NFT 
+   */
+  if (arkProfile.NEAR_NFTS !== undefined || null) { 
+    for (let n of arkProfile.NEAR_NFTS) { 
+      let nearnft = new NFT();
+      nearnft.add_id(n.image!)
+      .add_timestamp(1)
+      .add_title(n.collection.title!)
+      .add_description(n.name!)
+      .add_chain("near");
+      tmp.push(nearnft);
     }
   }
 

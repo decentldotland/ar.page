@@ -1,14 +1,14 @@
 import { StoryFn, Meta } from '@storybook/react';
 import CheckIcon from '@mui/icons-material/Check';
 import WarningIcon from '@mui/icons-material/Warning';
-import { Button } from './Button';
+import { CButton } from './CButton';
 
 export default {
-  title: 'Button',
-  component: Button,
-} as Meta<typeof Button>;
+  title: 'CButton',
+  component: CButton,
+} as Meta<typeof CButton>;
 
-const Template: StoryFn<typeof Button> = (args) => <Button {...args} />;
+const Template: StoryFn<typeof CButton> = (args) => <CButton {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
