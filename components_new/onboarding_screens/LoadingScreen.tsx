@@ -29,9 +29,10 @@ function LoadingScreen({msg, end, arAddress, handleLabels}: Props) {
       try {
         const result = await axios(DOMAIN_ENDPOINT+arAddress);
         const payload = result.data;
-        if(result.status === 200) {
+        if(result.status === 200 && payload) {
           setFetched(true);
           // Send handle data back to Onboarding
+          //@ts-ignore
           handleLabels(payload);
         }
       } catch (e) {

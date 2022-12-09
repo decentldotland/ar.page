@@ -100,13 +100,7 @@ function PageContent(props: userInfo) {
 
   return (
     <div className=" w-full font-inter h-screen" data-theme={isDark ? "ardark" : "arlight"}>
-<<<<<<< HEAD
-    <Nav />
-    <Toaster position='top-center'/>
-
-=======
       <Toaster position='top-center'/>
->>>>>>> 4b0d0079027f317b8098a6cab83b53a26b085f95
       <CoverPage userInfo={props.userInfo} />
       <div className="flex xl:justify-center" data-theme={isDark ? "ardark" : "arlight"}>
         <div className="flex flex-col px-6 md:px-16 sm:px-10  max-w-[100vw] xl:max-w-[1145px] w-full">

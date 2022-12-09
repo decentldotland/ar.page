@@ -9,8 +9,6 @@ module.exports = {
               'img.arweave.dev',
               'lens.xyz',
               'raw.githubusercontent.com',
-              // THIS IS A TEMPORARY FIX
-              //Possible Solution see proxy variable in index.tsx of tabcontent
               'w7.pngwing.com',
               'nftipfs.link',
               'azimuth.network',
@@ -38,3 +36,8 @@ module.exports = {
     return config;
   }
 }
+/*
+  typescript: {
+    ignoreBuildErrors: true
+  }
+*/

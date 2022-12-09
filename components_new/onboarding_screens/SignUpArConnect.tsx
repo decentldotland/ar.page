@@ -28,7 +28,6 @@ function SignUpArConnect(props: signUpInterface) {
       const data = new TextEncoder().encode(`my pubkey for DL ARK is: ${arconnectPubKey}`);
 
       const permissions = await window.arweaveWallet.getPermissions();
-      console.log("PERMISSIONS: ", permissions);
       // Obtain Signature
   
       const signature = await window.arweaveWallet.signature(data, {
@@ -65,15 +64,15 @@ function SignUpArConnect(props: signUpInterface) {
               </div>
           </button>
         </div>
-        <div className='space-y-2 mt-8 text-[#6a6b6a] font-medium text-center flex flex-row space-x-1 items-end justify-center'>
+        <div className='space-y-2 mt-8 text-[#6a6b6a] font-medium text-center flex flex-col space-x-1 items-center justify-center'>
           <h2 className="text-sm">Already have profile?</h2>
           <a href={"/"} >
             <h2 className='underline font-bold cursor-pointer text-[#6a6b6a] block'>
               Sign in
             </h2>
           </a>
-          <p onClick={props.disconnect}>
-              disconnect
+          <p onClick={props.disconnect} className="cursor-pointer">
+              Disconnect
           </p>
         </div>
       </div>

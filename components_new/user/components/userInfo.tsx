@@ -99,10 +99,6 @@ export const UserInfo = ({user, profile}: UserProps) => {
                             }
                         </div>
                     </article>
-<<<<<<< HEAD
-
-=======
->>>>>>> 4b0d0079027f317b8098a6cab83b53a26b085f95
                     {/* nickname and label */}
                     <div className={`ml-5 relative  ${epoch === 0 ? ('bottom-8') : ('bottom-8')} `}>
                         <div className="sm:mt-7  flex flex-row items-center space-x-3 justify-center md:justify-start mt-5">

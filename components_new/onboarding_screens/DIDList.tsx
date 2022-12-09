@@ -28,7 +28,7 @@ function DIDList({labels, selectedName, setSelectedName}: Props) {
               choose to mint an <span className="font-bold">Arweave Domain Name.</span>
           </p>
             <div className="mt-11">
-              <div className="grid grid-flow-row grid-cols-2 sm:grid-cols-2 grid-rows-4 gap-5">
+              <div className="grid grid-flow-row grid-cols-2 md:grid-cols-1 lg:md:grid-cols-2  grid-rows-4 gap-5">
                   {labels.map((item:any, index:number) => (
                     <div key={index}  className={`text-white ${selectedName === item.username ? tableClass + item.classes + 'border-black border-2': item.classes + tableClass} `}>
                       <button onClick={() => setSelectedName(item.username)}>

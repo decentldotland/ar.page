@@ -1,9 +1,7 @@
 import React from 'react';
 import Downshift from 'downshift';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-
 import { resolveDomain } from '../../src/utils';
 
 type Props = {
@@ -26,6 +24,7 @@ const SearchBox = (props: Props) => {
     },[props.items, val])
 
     return (
+        //@ts-ignore
         <Downshift
             id="search"
         >
@@ -54,6 +53,7 @@ const SearchBox = (props: Props) => {
                                             i.toLowerCase().includes(inputValue.toLowerCase()),
                                     )
                                     // then, for each filtered item ..
+
                                     .map((item: any, index: any) => {
                                         setVal(inputValue as string)
                                         // output a <div> ..
@@ -70,14 +70,17 @@ const SearchBox = (props: Props) => {
                                                 {item}
                                             </div>
                                         );
-                                    })}
+                                    })
+
+                                }
                             </div>
                         </div>
                     ) : null}
                 </div>
-            ) as React.ReactElement}
+            )}
         </Downshift>
     )
 }
 
 export default SearchBox;
+//as React.ReactElement
