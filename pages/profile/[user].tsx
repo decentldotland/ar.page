@@ -48,8 +48,7 @@ User.getInitialProps = async ({ query }: { query: { user: string; } }) => {
   try {
     if (!query.user) return
     const res = await axios.get(`http://ans-stats.decent.land/profile/${query.user}`);
-    const userInfo = res.data; // <-- Access one more data object here
-    //Update the tags here?
+    const userInfo = res.data;
     return { pathFullInfo: userInfo };
   } catch (error) {
     console.log("attempting to use domain routing...");

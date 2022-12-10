@@ -11,14 +11,10 @@ const User = ({ uInfo, pathFullInfo }: any) => {
     const [hasTwtr, setHasTwtr] = React.useState<number>(2);
     const [nftCount, setNftCount] = React.useState<number>(0);
     const userInfo = React.useRef((uInfo) ? uInfo : pathFullInfo).current;
-    console.log("USER INFO: ", userInfo);
     React.useEffect(() => {
         if (userInfo) {
             setHasTwtr((prevState) => {
-                // console.log(prevState);
                 const currentState = userInfo.links && userInfo.links.twitter ? 2 : 3;
-                // console.log(currentState);
-                // console.log(userInfo);
                 return currentState;
             })
         }
