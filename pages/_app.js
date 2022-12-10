@@ -6,7 +6,6 @@ import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
 import { AnimatePresence } from "framer-motion";
 import { AnsProvider } from 'ans-for-all';
-import axios from 'axios';
 import '@rainbow-me/rainbowkit/styles.css';
 
 import {
@@ -86,46 +85,4 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-/*
-export const getStaticProps = async(context) => {
-  const res = context.params.user;
-  //if no work, pass entire context for console.log
-  const userInfo = {
-    "user": "kaYP9bJtpqON8Kyy3RbqnqdtDBDUsPTQTNUCvZtKiFI",
-    "currentLabel": "xy",
-    "ownedLabels": [
-        {
-            "label": "xy",
-            "scarcity": "ni",
-            "acquisationBlock": 890563,
-            "mintedFor": 14
-        }
-    ],
-    "nickname": `test`,
-    "address_color": "#4c3716",
-    "bio": "co-founder of arweave.news and permawebDAO ",
-    "avatar": "gccevsQFGKM31yviMIRNvJ_MCoPeOf1RCDvr7AO2Dag",
-    "links": {
-        "github": "xylophonez",
-        "twitter": "xylophonezy",
-        "customUrl": "https://www.permacast.dev"
-    },
-    "subdomains": {},
-    "freeSubdomains": 3
-  }
-  return {
-    revalidate: 20,
-    props: {
-      userInfo,
-    }
-  }
-}
-
-export const getStaticPaths = async (context) => {
-  return {
-    fallback: 'blocking',
-    paths: [],
-  }
-}
-*/
 export default MyApp;

@@ -4,6 +4,7 @@ import Index from '../components_new/home';
 import User from './profile/[user]';
 
 export default function Home({wildcard, userInfo}) {
+  console.log("WILDCARD: ", wildcard);
   return ((wildcard === "404") ? 
     <Index />: 
     <User uInfo={userInfo} />
