@@ -1,13 +1,10 @@
 import axios from 'axios';
 import React from 'react';
 import Head from 'next/head'
-
 import _404 from '../404';
 import Index from '../../components_new/home';
-
 import UserPage from '../../components_new/user';
 import { useRecoilValue } from 'recoil';
-
 import { editModalState, userInfoState } from '../../atoms';
 import EditModal from '../../components_new/user/components/modals/EditModal';
 
@@ -48,8 +45,7 @@ User.getInitialProps = async ({ query }: { query: { user: string; } }) => {
   try {
     if (!query.user) return
     const res = await axios.get(`http://ans-stats.decent.land/profile/${query.user}`);
-    const userInfo = res.data; // <-- Access one more data object here
-    //Update the tags here?
+    const userInfo = res.data;
     return { pathFullInfo: userInfo };
   } catch (error) {
     console.log("attempting to use domain routing...");

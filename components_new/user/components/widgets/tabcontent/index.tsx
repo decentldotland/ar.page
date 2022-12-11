@@ -6,6 +6,7 @@ import { ArweaveTransaction, NFT, Res, Stamp } from '../../../../../src/types';
 import { TABS } from '../../../hackathon/';
 import StampsTab from './tabs.tsx/StampsTab'; 
 import { ARWEAVE_URL } from '../../../../../src/constants';
+import { IMAGE_PROXY } from '../../../../../src/constants';
 
 
 export interface TabContentTabs {
@@ -85,11 +86,10 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
    if (arkProfile.ERC_NFTS !== undefined || null) { 
     for (let n of arkProfile.ERC_NFTS) { 
       let ercnft = new NFT();
-      const nftMetaData = JSON.parse(n.metadata);
-      const proxy = "https://image-proxy.svc.prod.covalenthq.com/cdn-cgi/image/width=512,fit/"    
+      const nftMetaData = JSON.parse(n.metadata); 
       if (n.token_uri && n.token_uri !== "Invalid uri" && nftMetaData !== null && typeof nftMetaData.image !== 'undefined') {
         if(nftMetaData.image.slice(0, 5) !== "ipfs:") {
-          ercnft.add_id(proxy+nftMetaData.image!)
+          ercnft.add_id(IMAGE_PROXY+nftMetaData.image!)
           .add_timestamp(n.block_number_minted!)
           .add_title(nftMetaData.name!)
           .add_description(String(nftMetaData.description!))
@@ -108,7 +108,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
     for (let n of arkProfile.EVMOS_NFTS) { 
       let evmosnft = new NFT();
       if (n.image.slice(0, 5) !== "ipfs:") {
-        evmosnft.add_id(n.image!)
+        evmosnft.add_id(IMAGE_PROXY+n.image!)
           .add_timestamp(1)
           .add_title(n.name!)
           .add_description(n.description!)
@@ -124,7 +124,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   if (arkProfile.NEAR_NFTS !== undefined || null) { 
     for (let n of arkProfile.NEAR_NFTS) { 
       let nearnft = new NFT();
-      nearnft.add_id(n.image!)
+      nearnft.add_id(IMAGE_PROXY+n.image!)
       .add_timestamp(1)
       .add_title(n.collection.title!)
       .add_description(n.name!)
