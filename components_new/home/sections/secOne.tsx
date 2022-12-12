@@ -13,14 +13,14 @@ export const SectionOne = () => {
                     What is ANS?
                 </h3>
                 <h6 className={[styles.Section.h6, "w-full mb-12"].join(' ')}>
-                    Arweave Names Service (ANS) is an identity and social metadata protocol built on Arweave. It is the username layer of decent.land as well as a human-readable proxy for wallet addresses, supported by ViewBlock.    
+                    Arweave Name Service (ANS) is an identity and social metadata protocol built on Arweave. It is the username layer of <a style={{color:'green', textDecoration: 'underline'}} href="https://ark.decent.land" target="_blank" rel="noopener noreferrer">decent.land</a> as well as a human-readable proxy for wallet addresses.    
                 </h6>
                 <h3 className={[styles.Header, styles.Section.h3, "w-full font-bold"].join(' ')}>
                     What is ar.page?
                 </h3>
                 <h6 className={[styles.Section.h6, "w-full"].join(' ')}>
                     <p><span className='font-bold '>ar.page </span>
-                        is a web app that renders your ANS metadata in a page displaying your profile&apos;s data, and aggregates a feed of your activities over the Arweave network (Ardrive, Koii, Permacast, etc).
+                        is a web app that renders your ANS metadata in a page displaying your profile&apos;s data, and aggregates a feed of your activities over the Arweave network as well as assets from other chains, powered by <a style={{color:'green', textDecoration: 'underline'}} href="https://ark.decent.land" target="_blank" rel="noopener noreferrer">Ark Protocol</a>.
                     </p>  
                 </h6>
             </div>
