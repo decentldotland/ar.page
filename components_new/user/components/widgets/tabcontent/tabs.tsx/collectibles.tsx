@@ -63,12 +63,12 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
 
       {/*Render Filter Capabilities*/}
 
-      <div className={`flex flex-col items-center justify-center md:flex-row md:items-end md:justify-between mb-8 sm:flex-row sm:space-x-1 space-y-2 md:space-y-0 content-end`}>
+      <div className={`flex flex-col items-center justify-center md:flex-row md:items-end md:justify-between mb-8 sm:flex-row sm:space-x-1 space-y-2 sm:space-y-0 content-end`}>
         {/*Search Collectables*/}
         <SearchBar 
           value={search} 
           onChange={(e) => onSearch(e)} 
-          placeholder={"Search collectables"} 
+          placeholder={"Search Collectables"} 
           slideOutable={true} 
         />
         {/*Filter Chain Buttons*/}

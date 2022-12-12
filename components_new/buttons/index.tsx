@@ -145,7 +145,8 @@ export const SortChronButton = (props: SortChronProps) => {
         <button
             className="bg-inherit border-2 border-slate-300 rounded-xl text-black font-medium hover:bg-primary/30 
                        py-1.5 px-2.5 flex items-center h-12 hover:bg-indigo-300 hover:text-white hover:shadow-md 
-                       active:shadow-none active:scale-[0.98] hover:transition duration-200 ease-in-out dark:text-white"
+                       active:shadow-none active:scale-[0.98] hover:transition duration-200 ease-in-out w-20 dark:text-white 
+                       flex items-center justify-center"
             onClick={props.onClick}
         > 
             {props.text}
