@@ -5,9 +5,7 @@ import Selector from './selector';
 import { ArweaveTransaction, NFT, Res, Stamp } from '../../../../../src/types';
 import { TABS } from '../../../hackathon/';
 import StampsTab from './tabs.tsx/StampsTab'; 
-import { ARWEAVE_URL } from '../../../../../src/constants';
-import { IMAGE_PROXY } from '../../../../../src/constants';
-
+import { ARWEAVE_URL, IMAGE_PROXY } from '../../../../../src/constants';
 
 export interface TabContentTabs {
   name: string; // Name of the tab
@@ -26,19 +24,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   const [stamp, setStamp] = useState<Stamp[]>(arkProfile.STAMPS);
   let tmp: NFT[] = [];
   const [NFTs, setNFTs] = useState<NFT[]>(tmp);
-  // feel free to simplify
-  // if (arkProfile.STAMPS !== undefined || null) {
-  //   for (let n of arkProfile.STAMPS) { 
-  //     if (n.stampedAssetType === "image" ) {
-  //       let stamp_nft = new NFT()
-  //         .add_id(n.stampedAsset)
-  //         .add_poster(n.stampedAsset!)
-  //         .add_timestamp(n.timestamp!)
-  //         .add_content_type(n.stampedAssetType!);
-  //       tmp.push(stamp_nft);
-  //     }
-  //   }
-  // }
+
   /**
    * KOII NFT on Arweave
    */
@@ -59,14 +45,14 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
    * Permapages NFT on Arweave
    */
   if (arkProfile.ANFTS?.permapages_img !== undefined || null) { 
-    for (let n of arkProfile.ANFTS.permapages_img) { 
+    for (let n of arkProfile.ANFTS.permapages_img) {
       let anft = new NFT();
       if (n.content_type === "image/jpeg" ||
-         n.content_type === "image/png" || 
-         n.content_type === "image/gif" || 
-         n.content_type === "image" 
+        n.content_type === "image/png" || 
+        n.content_type === "image/gif" || 
+        n.content_type === "image" 
         //  n.content_type==="video/mp4"
-         ) {
+        ) {
         anft.add_id(ARWEAVE_URL+n.id!)
           .add_poster(n.poster!)
           .add_timestamp(n.timestamp!)
@@ -83,7 +69,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   /**
    * ERC NFT on Ethereum
    */
-   if (arkProfile.ERC_NFTS !== undefined || null) { 
+  if (arkProfile.ERC_NFTS !== undefined || null) { 
     for (let n of arkProfile.ERC_NFTS) { 
       let ercnft = new NFT();
       const nftMetaData = JSON.parse(n.metadata); 
@@ -104,7 +90,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
    * EVMOS NFT on Cosmos
    * NOTE: EVMOS lacks timestamp on data
    */
-   if (arkProfile.EVMOS_NFTS !== undefined || null) { 
+  if (arkProfile.EVMOS_NFTS !== undefined || null) { 
     for (let n of arkProfile.EVMOS_NFTS) { 
       let evmosnft = new NFT();
       if (n.image.slice(0, 5) !== "ipfs:") {
@@ -132,10 +118,8 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       tmp.push(nearnft);
     }
   }
-
-  // Temporary FIx
+    
   NFTs.sort((a, b) =>  b.timestamp! - a.timestamp!);
-
   const [CollectiblePerPage, setCollectiblePerPage] = useState(8);
   const [CurrentCollectiblePage, setcurrentCollectiblePage] = useState(1);
   let indexLastCollection = CurrentCollectiblePage * CollectiblePerPage;

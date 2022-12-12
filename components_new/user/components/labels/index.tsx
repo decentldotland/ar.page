@@ -124,12 +124,12 @@ export const getDefaultLabels = ({ arweave_address, ar, links, ENS, AVVY, LENS }
     icon: <BsGlobe2 {...iconProps}/>},
 ].filter((l) => l !== null);
 
-
+//max-h-[60px]
 export const Labels = ({items}: {items: any}) => {
   return (
-    <div className="flex flex-row carousel max-w-[100vw] space-x-2 py-2 max-h-[60px]">
+    <div className="flex flex-row flex-wrap carousel max-w-[100vw] space-x-2 justify-center md:justify-start">
       {items.map((item:any, index:number) => (
-        <div key={index} className="carousel-item">
+        <div key={index} className="carousel-item mt-1">
           {item}
         </div>
       ))}

@@ -44,7 +44,7 @@ export function SearchBar(props: SearchType) {
   const [isDark, setIsDark] = useRecoilState(isDarkMode);
 
   return (
-    <div className={`px-4 flex border-2 border-slate-300 flex-row space-x-3.5 max-w-[50vw] py-3 items-center 
+    <div className={`px-4 flex border-2 border-slate-300 flex-row space-x-3.5 w-4/6 md:max-w-[50vw] py-3 items-center 
     ${isDark ? ('bg-[#121a2f]'): ('')}
     rounded-2xl`}>
       <MagnifyingGlassIcon height={20} width={20} strokeWidth={3} color={`${isDark? ('white') : ('#666') }`} />
@@ -54,13 +54,12 @@ export function SearchBar(props: SearchType) {
         onChange={(e) => (props.onChange(e.target.value))}
         placeholder={props.placeholder}
         className={`${isDark ? ('bg-transparent'): ('bg-transparent')}
-          font-inter text-sm font-normal outline-none transition-all duration-300 ease-in-out
-          ${props.slideOutable ? "w-8 focus:w-[20vw] md:w-40" : "w-full md:w-40"}
+          font-inter text-sm font-normal outline-none transition-all duration-300 ease-in-out w-full
         `} />
     </div>
   )
 }
-
+//w-8 focus:w-[20vw] md:w-40: "w-full md:w-40"
 
 interface GenericFrameType {
   children: any;
@@ -103,7 +102,7 @@ export function NFTGallery ({NFTs, perPage}: {NFTs: NFT[], perPage: number}) {
             cursor-pointer transition duration-500 ease-out
             md:focus:opacity-60
           ">
-            <Image src={String(nft.id)} // TODO: make this URL dynamic
+            <Image src={String(nft.id)}
               alt={nft.title}
               width={99999999}
               height={99999999}
