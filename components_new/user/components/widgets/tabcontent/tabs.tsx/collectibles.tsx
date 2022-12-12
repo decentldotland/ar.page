@@ -57,13 +57,13 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
       }
   }, [isDark]);
   {/*<meta name="twitter:title" content="test 2 | Home" />*/}
-
+  console.log(filteredNFTs);
   return (
     <div className={`transition-opacity duration-400 pb-3  opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
 
       {/*Render Filter Capabilities*/}
 
-      <div className={`flex flex-col items-center justify-center md:flex-row md:items-end md:justify-between mb-8 sm:flex-row sm:space-x-2 `}>
+      <div className={`flex flex-col items-center justify-center md:flex-row md:items-end md:justify-between mb-8 sm:flex-row sm:space-x-2 space-y-2 md:space-y-0 content-end`}>
         {/*Search Collectables*/}
         <SearchBar 
           value={search} 

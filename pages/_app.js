@@ -60,14 +60,14 @@ function MyApp({ Component, pageProps }) {
               <link rel="icon" href="/favicon.png" />
               <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1"  />
               <meta name="twitter:card" content="summary" key="cardTwitter" />
-              <meta name="twitter:image" content={user ? `https://pz-prepnb.meson.network/${user.avatar}` : "https://ar.page/favicon.png"} key="imageTwitter" /> {/*titling part where user name goes*/}
+              <meta name="twitter:image" content={user ? `https://pz-prepnb.meson.network/${user.avatar}` : "https://ar.page/cutoff-dl.png"} key="imageTwitter" /> {/*titling part where user name goes*/}
               <meta name="twitter:site" content="@decentdotland" key="siteTwitter" />
               <meta name="twitter:title" content={user ? `${user.currentLabel} | ar.page` : "ar.page | Home"} key="titleTwitter" /> {/*titling part where user name goes*/}
               <meta name="twitter:description" content={user ? user.bio : "All your Web3 content, finally stored in one place."} key="descriptionTwitter" /> {/*Discord description*/}
               <meta name="twitter:url" content={user ? `https://${user.currentLabel}.ar.page` : "https://ar.page"} key="urlTwitter" />
 
               <meta property="og:card" content="summary" />
-              <meta property="og:image" content={user ? `https://pz-prepnb.meson.network/${user.avatar}` : "https://ar.page/favicon.png"} />
+              <meta property="og:image" content={user ? `https://pz-prepnb.meson.network/${user.avatar}` : "https://ar.page/cutoff-dl.png"} />
               <meta property="og:title" content={user ? `${user.currentLabel} | ar.page` : "ar.page | Home"} />
               <meta property="og:url" content={user ? `https://${user.currentLabel}.ar.page` : "https://ar.page"} /> 
               <meta property="og:description" content={user ? user.bio : "All your Web3 content, finally stored in one place."} />
