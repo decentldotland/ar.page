@@ -20,14 +20,6 @@ import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
 
 const BOATLOAD_OF_GAS = utils.format.parseNearAmount("0.00000000003")!;
 
-/*
-declare global {
-  interface Window {
-    selector: WalletSelector;
-    modal: WalletSelectorModal;
-  }
-}
-*/
 export const useNear = () => {
 
     const [selector, setSelector] = useState<WalletSelector | null>(null);
@@ -49,11 +41,6 @@ export const useNear = () => {
             setupMeteorWallet(),
           ],
         });
-        //_selector.options.network.networkId = "mainnet";
-        //_selector.options.network.explorerUrl = "https://explorer.near.org";
-        //_selector.options.network.helperUrl = "https://helper.mainnet.near.org";
-        //_selector.options.network.indexerUrl = "https://api.kitwallet.app";
-        //_selector.options.network.nodeUrl = "https://rpc.mainnet.near.org";
         const _modal = setupModal(_selector, { contractId: NEAR_ORACLE });
         const state = _selector.store.getState();
         setAccounts(state.accounts);

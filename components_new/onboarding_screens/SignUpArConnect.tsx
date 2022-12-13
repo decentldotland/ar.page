@@ -1,10 +1,11 @@
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import clsx from 'clsx';
 import { SetterOrUpdater } from 'recoil';
 import { ONBOARDING_TIMEOUT } from '../../src/constants';
 import axios from 'axios';
-import { DOMAIN_ENDPOINT } from '../../src/constants';
+import { SOARK_ENDPOINT } from '../../src/constants';
+
 interface signUpInterface {
   connect: () => Promise<void>;
   disconnect: () => Promise<void>;
@@ -12,24 +13,25 @@ interface signUpInterface {
   handleOnboarding: SetterOrUpdater<number>;
   handleSignedBase: SetterOrUpdater<any>;
   handlePubKey: SetterOrUpdater<any>;
+  handleNearWallet: SetterOrUpdater<any>;
 }
 
 function SignUpArConnect(props: signUpInterface) {
 
+  const [connecting, setConnecting] = useState<boolean>(false);
+
   const btnDynamicStyling = clsx(
     "cursor-pointer bg-black text-white w-full sm:w-[386px] h-[68px] justify-center items-center flex relative flex-row rounded-full font-bold text-lg",
-    props.address ? "border-4 border-emerald-400" : ""
+    props.address && !connecting ? "border-4 border-emerald-400" : ""
   );
-
-  const [connecting, setConnecting] = useState<boolean>(false);
 
   async function handleArweaveConnection() {
 
-    // Fetch Domains
-    const fetchDomains = async(address: string | undefined) => {
+    // Fetch User Info to Determine if Already Member
+    const fetchUserInfo = async(address: string | undefined) => {
       try {
-        const result = await axios(DOMAIN_ENDPOINT+address);
-        console.log(DOMAIN_ENDPOINT+props.address);
+        const result = await axios(SOARK_ENDPOINT+address);
+        console.log(SOARK_ENDPOINT+address);
         const payload = result.data;
         if(result.status === 200 && payload) {
           return payload;
@@ -59,27 +61,40 @@ function SignUpArConnect(props: signUpInterface) {
         props.handlePubKey(arconnectPubKey);
         props.handleSignedBase(signedBase);
         const activeAddr = await window.arweaveWallet.getActiveAddress();
+        
         // Fetches all domains
-        const domains = await fetchDomains(activeAddr);
+        const userInfo = await fetchUserInfo(activeAddr);
+        console.log("UI: ", userInfo);
         // Check if person has any EVM domains
-        const containsEVM = domains.AVVY || domains.ENS || 
-                            domains.EVMOS || domains.LENS ||
-                            domains.URBIT
+        let containsEVM: any;
+        let containsExotic: any;
+        if(userInfo.res) {
+          //@ts-ignore
+          containsEVM = userInfo.res.addresses.filter(address => address.ark_key === 'EVM');
+          //@ts-ignore
+          containsExotic = userInfo.res.addresses.filter(address => address.ark_key === 'EXOTIC');
+        } else {
+          props.handleNearWallet(null);
+          containsEVM = false;
+          containsExotic = false;
+        }
+        
+        console.log(containsEVM);
+        console.log(containsExotic);
         setConnecting(false);
+        
         // Time out to notify user of connection & auto-proceed
         setTimeout(function(){
-          if(domains.NEAR && !containsEVM) {
+          if(containsExotic && !containsEVM) {
+            props.handleNearWallet(containsExotic[0]);
             props.handleOnboarding(4); // Connect EVM wallet
-          } else if(
-            domains.AVVY || domains.ENS || 
-            domains.EVMOS || domains.LENS ||
-            domains.URBIT
-            ) {
+          } else if(containsEVM) {
+            props.handleNearWallet(containsExotic[0]);
             props.handleOnboarding(5); // Select domain name
           } else {
             props.handleOnboarding(1); // Connect a Near wallet
           }
-       }, ONBOARDING_TIMEOUT);
+        }, ONBOARDING_TIMEOUT);
     }).catch(() => setConnecting(false));
   }
 
@@ -100,7 +115,7 @@ function SignUpArConnect(props: signUpInterface) {
             className={btnDynamicStyling}>
               <div className='flex justify-center items-center space-x-3'>
                   <Image src={'/icons/ARWEAVE_WHITE.svg'} height={26.2} width={26.2} alt="Arweave Logo" />
-                  <p className='text-center'>{props.address ? "Connected! Proceeding." : "Login with ArConnect"}</p>
+                  <p className='text-center'>{props.address ? (!connecting ? "Connected! Proceeding." : "Connecting") : "Login with ArConnect"}</p>
               </div>
           </button>
         </div>

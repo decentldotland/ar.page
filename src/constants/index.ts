@@ -144,3 +144,4 @@ export const NETWORKS: Record<number, {
 export const ONBOARDING_TIMEOUT = 1300;
 
 export const DOMAIN_ENDPOINT = "https://ark-core.decent.land/v2/domains/arweave/";
+export const SOARK_ENDPOINT = "https://ark-core.decent.land/v2/soark/arweave/";

@@ -1,5 +1,5 @@
 import { PermissionType } from "arconnect";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Arweave from "arweave";
 
 export const permissions: PermissionType[] = [
@@ -10,7 +10,7 @@ export const permissions: PermissionType[] = [
   "SIGNATURE"
 ];
 
-type Hook = [string | undefined, () => Promise<void>, () => Promise<void>, string];
+type Hook = [string | undefined, () => Promise<void>, () => Promise<void>, Dispatch<SetStateAction<string | undefined>>];
 
 export const useArconnect = (): Hook => {
   const [address, setAddress] = useState<string>();
@@ -82,7 +82,7 @@ export const useArconnect = (): Hook => {
     } catch {}
   }
 
-  return [address, connect, disconnect, arconnectError];
+  return [address, connect, disconnect, setAddress];
 };
 
 export const arweave = new Arweave({

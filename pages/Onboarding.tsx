@@ -10,7 +10,6 @@ import EditProfilePage from '../components_new/onboarding_screens/EditProfilePag
 import OptionEditProfile from '../components_new/onboarding_screens/OptionEditProfile';
 import SignUpArConnect from '../components_new/onboarding_screens/SignUpArConnect';
 import SignUpNear from '../components_new/onboarding_screens/SignUpNear';
-import VerifyWithArk from '../components_new/onboarding_screens/VerifyWithArk';
 import LoadingScreen from '../components_new/onboarding_screens/LoadingScreen';
 import DIDList from '../components_new/onboarding_screens/DIDList';
 import axios from 'axios';
@@ -21,16 +20,15 @@ import { useNear } from '../src/utils/near';
 
 function Onboarding() {
 
-  const [addressAr, connectAr, disconnectAr] = useArconnect();
-  const { modal, selector, accountId, linkNear} = useNear(); 
+  const [addressAr, connectAr, disconnectAr, setAddress] = useArconnect();
+  const { modal, selector, accountId, linkNear, setAccountNear} = useNear(); 
   
   const userCurrentStep = useRecoilValue(userOnboardingState); 
   const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
   const [arConnectPubKey, setArConnectPubKey] = useState();
   const [signedBase, setSignedBase] = useState();
   const [loading, setLoading] = useState<boolean>(true);
-  const [arkProfile, setArkProfile] = useState<Res | undefined>();
-  const address = "zpqhX9CmXzqTlDaG8cY3qLyGdFGpAqZp8sSrjV9OWkE";
+  //const [arkProfile, setArkProfile] = useState<Res | undefined>();
 
   const EXMObject: any = {
     "function": "linkIdentity",
@@ -41,7 +39,7 @@ function Onboarding() {
     "network": "",
     "verificationReq": "",
   }
-
+/*
   const fetchData = async (address: string) => {
     setLoading(true);
     const result = await axios(`https://ark-api.decent.land/v1/profile/arweave/${address}/true`);
@@ -58,7 +56,7 @@ function Onboarding() {
       fetchData(address)
     };
   }, [address]);
-  
+*/
   const [labelHandles, setLabelHandles] = useState<any>({
     ENS: [], 
     AVVY: [],
@@ -125,6 +123,7 @@ function Onboarding() {
               handleOnboarding={setUserOnboarding}
               handleSignedBase={setSignedBase}
               handlePubKey={setArConnectPubKey}
+              handleNearWallet={setAccountNear}
             />
           )
         }
