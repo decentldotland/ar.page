@@ -16,9 +16,9 @@ export interface TabContentTabs {
 export default function Content({ arkProfile, loading }: { arkProfile: Res; loading: boolean }) {
   const [selected, setSelected] = useState<number>(0);
   const [activity, setActivity] = useState<ArweaveTransaction[]>(arkProfile.ARWEAVE_TRANSACTIONS);
-  const [collectableVisibility, setCollectableVisibility] = useState<boolean>(true);
+  const [collectableVisibility, setCollectableVisibility] = useState<number>(0);
 
-  const handleCollectableVisibility = (res: boolean) => setCollectableVisibility(res);
+  const handleCollectableVisibility = (res: number) => setCollectableVisibility(res);
   
   // ------------------------------NFT, Stamps Section-----------------------------------
   const [stamp, setStamp] = useState<Stamp[]>(arkProfile.STAMPS);
@@ -146,9 +146,11 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
     }
   
 // ---------------------------------- Stamp S-----------------------------------------------
-
-  const CollectableTab = ({nftVisible}: {nftVisible: boolean}) => {
-    if(nftVisible && (NFTs.length - CollectiblePerPage  > 0)) {
+  console.log("NFTs.length - CollectiblePerPage: ", NFTs.length - CollectiblePerPage);
+  console.log("collectableVisibility: ", collectableVisibility);
+  //&& (NFTs.length - CollectiblePerPage  > 0)
+  const CollectableTab = ({nftCount}: {nftCount: number}) => {
+    if(nftCount >= CollectiblePerPage) {
       return (
         <article className='flex justify-center mt-12'>
           <button  onClick={() => showMoreCollection()} className='py-2 px-6 btn-primary  text-lg
@@ -158,7 +160,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
           </button>
         </article>
       );
-    } else if(!nftVisible) {
+    } else if(nftCount === 0) {
       return (
         <>
         </>
@@ -185,7 +187,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
           handleVisibility={handleCollectableVisibility}
         />
         <CollectableTab 
-          nftVisible={collectableVisibility}
+          nftCount={collectableVisibility}
         />
 
       </>
