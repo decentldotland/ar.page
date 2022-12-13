@@ -12,6 +12,7 @@ import { NETWORKS } from '../../src/constants';
 import axios from 'axios';
 import { useNetwork } from 'wagmi';
 import { permissions } from '../../src/utils/arconnect';
+import { ONBOARDING_TIMEOUT } from '../../src/constants';
 
 interface ConnectAdditionalAccountsInterface {
     addressAr: string | undefined;
@@ -26,12 +27,15 @@ interface AccountButtonInterface {
     imgSrc: string;
     imgAlt: string;
     imgMarkup: string;
+    divMarkup?: string;
     handleConnect: () => void;
 }
 
 const AccountButton = (props: AccountButtonInterface) => {
     return (
-        <div onClick={props.handleConnect} className='cursor-pointer bg-[#f5f5f5] justify-between mt-[40px] py-2 flex items-center px-3 rounded-2xl'>
+        <div onClick={props.handleConnect} 
+          className={'cursor-pointer bg-[#f5f5f5] justify-between mt-[40px] py-2 flex items-center px-3 rounded-2xl '
+          +(props.divMarkup ? props.divMarkup : '')}>
             <div className='flex items-center space-x-2.5'>
                 <div className={"flex items-center justify-center p-[2px] "+props.imgMarkup}>
                     <Image src={props.imgSrc} height={40} width={40} alt={props.imgAlt}/>
@@ -58,11 +62,8 @@ function ConnectAdditionalAccounts(props: ConnectAdditionalAccountsInterface) {
     
     const eth = useETH();
 
-    const networkInfo = "";
-
     const handleLinkConfiguration = async (arweaveAddr: string, exmObj: any, chainId: number) => {
 
-      console.log("ETH NETWORK RES: ", chainId);
       // Assure the the network info has been fetched before proceeding
       if(chainId) {
         await setClicked(true);
@@ -73,8 +74,6 @@ function ConnectAdditionalAccounts(props: ConnectAdditionalAccountsInterface) {
         
         // Create Arweave Signature
         const arInfo = await window.arweaveWallet.getPermissions();
-        console.log("ARINFO: ", arInfo);
-        
         const data = new TextEncoder().encode(`my pubkey for DL ARK is: ${exmObj.jwk_n}`);
         const signature = await window.arweaveWallet.signature(data, {
           name: "RSA-PSS",
@@ -92,10 +91,14 @@ function ConnectAdditionalAccounts(props: ConnectAdditionalAccountsInterface) {
 
         // Await Link Transaction Result & Post to EXM Api
         tx.wait().then(async () => {
-          console.log("EXM on EVM: ", exmObj);
           const result = await axios.post(`api/exmwrite`, exmObj);
-          console.log("EXM Result: ", result);
           setLinked(true);
+          setClicked(false);
+          // Set timeout notifying user of connectivity & auto-proceed
+          setTimeout(function(){
+            props.handleOnboarding(5);
+         }, ONBOARDING_TIMEOUT);
+          
         }).catch((e: any) => console.log(e));
       }
     }
@@ -151,40 +154,68 @@ function ConnectAdditionalAccounts(props: ConnectAdditionalAccountsInterface) {
                                     // EVM chains button 
                                     if (!connected) {
                                       return (
-                                        <AccountButton
-                                          chainName={"EVM-Compatible Chains"}
-                                          walletAddress={null}
-                                          imgSrc={'/icons/ETHEREUM.svg'}
-                                          imgAlt={'Ethereum Logo'}
-                                          imgMarkup={'shadow-2xl bg-slate-300 rounded-xl'}
-                                          handleConnect={openConnectModal}
-                                        />
+                                        <>
+                                          <AccountButton
+                                            chainName={"EVM-Compatible Chains"}
+                                            walletAddress={null}
+                                            imgSrc={'/icons/ETHEREUM.svg'}
+                                            imgAlt={'Ethereum Logo'}
+                                            imgMarkup={'shadow-2xl bg-slate-300 rounded-xl'}
+                                            handleConnect={openConnectModal}
+                                          />
+                                          <span onClick={() => (clicked || linked) ? '' : props.handleOnboarding(5)} className="w-full">
+                                            <MainNextButton 
+                                                btnName='or Continue'
+                                                className='mt-[40px]'
+                                                disabled={(clicked || linked || connected)}
+                                            />
+                                          </span>
+                                        </>
                                       );
                                     }
                                     // Wallet connect, not linked
                                     if(!linked) {
                                       return (
-                                        <AccountButton
-                                          chainName={!clicked ? account.displayName + " connected. Click to link." : "Linking..."}
-                                          walletAddress={null}
-                                          imgSrc={'/icons/ETHEREUM.svg'}
-                                          imgAlt={'Ethereum Logo'}
-                                          imgMarkup={'shadow-2xl bg-slate-300 rounded-xl'}
-                                          //@ts-ignore
-                                          handleConnect={() => handleLinkConfiguration(props.addressAr, props.exmObj, chain.id)}
-                                        />
+                                        <>
+                                          <AccountButton
+                                            chainName={!clicked ? account.displayName + " connected. Click to link." : "Linking..."}
+                                            walletAddress={null}
+                                            imgSrc={'/icons/ETHEREUM.svg'}
+                                            imgAlt={'Ethereum Logo'}
+                                            imgMarkup={'shadow-2xl bg-slate-300 rounded-xl '+(clicked ? 'animate-pulse' : '')}
+                                            //@ts-ignore
+                                            handleConnect={() => handleLinkConfiguration(props.addressAr, props.exmObj, chain.id)}
+                                          />
+                                          <span onClick={() => (clicked || linked) ? '' : props.handleOnboarding(5)} className="w-full">
+                                            <MainNextButton 
+                                                btnName='or Continue'
+                                                className='mt-[40px]'
+                                                disabled={(clicked || linked || connected)}
+                                            />
+                                          </span>
+                                        </>
                                       );
                                     // Wallet linked, go to next step
                                     } else {
                                       return (
-                                        <AccountButton
-                                          chainName={"Linked. Click to Proceed."}
-                                          walletAddress={null}
-                                          imgSrc={'/icons/ETHEREUM.svg'}
-                                          imgAlt={'Ethereum Logo'}
-                                          imgMarkup={'shadow-2xl bg-slate-300 rounded-xl'}
-                                          handleConnect={() => props.handleOnboarding(6)}
-                                        />
+                                        <>
+                                          <AccountButton
+                                            chainName={"Linked. Proceeding."}
+                                            walletAddress={null}
+                                            imgSrc={'/icons/ETHEREUM.svg'}
+                                            imgAlt={'Ethereum Logo'}
+                                            imgMarkup={'shadow-2xl bg-slate-300 rounded-xl'}
+                                            divMarkup={'border-4 border-emerald-400'}
+                                            handleConnect={() => ''}
+                                          />
+                                          <span onClick={() => (clicked || linked) ? '' : props.handleOnboarding(5)} className="w-full">
+                                            <MainNextButton 
+                                                btnName='or Continue'
+                                                className='mt-[40px]'
+                                                disabled={(clicked || linked || connected)}
+                                            />
+                                          </span>
+                                      </>
                                       );  
                                     }
                                   })()}
@@ -193,12 +224,7 @@ function ConnectAdditionalAccounts(props: ConnectAdditionalAccountsInterface) {
                         }}
                     </ConnectButton.Custom>
                 </section>
-                <span onClick={() => props.handleOnboarding(6)} className="w-full">
-                        <MainNextButton 
-                            btnName='Continue'
-                            className='mt-[40px]'
-                        />
-                </span>
+
             </div>
         </div>
   )

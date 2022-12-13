@@ -1,9 +1,6 @@
-import { CheckIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { useAns } from 'ans-for-all';
-import axios from 'axios';
-import { GetStaticProps } from 'next';
-import Image from 'next/image';
+import { CheckIcon } from '@heroicons/react/24/outline';
 import React, { useState } from 'react';
+import { SetterOrUpdater } from 'recoil';
 import { Res } from '../../src/types';
 import MainNextButton from '../buttons/MainNextButton';
 import UserBackButton from '../buttons/UserBackButton';
@@ -11,10 +8,11 @@ import UserBackButton from '../buttons/UserBackButton';
 interface Props { 
   labels: any,
   selectedName: string | null,
-  setSelectedName: any
+  setSelectedName: any,
+  handleOnboarding: SetterOrUpdater<number>
 }
 
-function DIDList({labels, selectedName, setSelectedName}: Props) {
+function DIDList({labels, selectedName, setSelectedName, handleOnboarding}: Props) {
 
   const [loading, setLoading] = useState(false)
   return (
@@ -30,25 +28,24 @@ function DIDList({labels, selectedName, setSelectedName}: Props) {
             <div className="mt-11">
               <div className="grid grid-flow-row grid-cols-2 md:grid-cols-1 lg:md:grid-cols-2  grid-rows-4 gap-5">
                   {labels.map((item:any, index:number) => (
-                    <div key={index}  className={`text-white ${selectedName === item.username ? tableClass + item.classes + 'border-black border-2': item.classes + tableClass} `}>
-                      <button onClick={() => setSelectedName(item.username)}>
-                        <div className='flex flex-row items-center space-x-1'>
-                          {item.icon}
-                          <h3 className={`font-inter ${selectedName === item.username ? 'text-[#454a75]' : ''}`}>{item.username}</h3>
-                        </div>
-                      </button>
-                      {
-                        selectedName === item.username && (
-                          <div className='absolute -right-1 bottom-10 bg-[#1cc16a] justify-center w-[19px] h-[19px] p-1 items-center flex rounded-full'>
-                            <CheckIcon height={15} width={15}  color='#fff' strokeWidth={4}/>
+                    <button onClick={() => setSelectedName(item.username)} key={index}>
+                      <div   className={`text-white ${selectedName === item.username ? tableClass + item.classes + 'border-black border-2': item.classes + tableClass} `}>
+                          <div className='flex flex-row items-center space-x-1'>
+                            {item.icon}
+                            <h3 className={`font-inter ${selectedName === item.username ? 'text-[#454a75]' : ''}`}>{item.username}</h3>
                           </div>
-                        )
-                      }
-                      
-                    </div>
+                        {
+                          selectedName === item.username && (
+                            <div className='absolute -right-1 bottom-10 bg-[#1cc16a] justify-center w-[19px] h-[19px] p-1 items-center flex rounded-full'>
+                              <CheckIcon height={15} width={15}  color='#fff' strokeWidth={4}/>
+                            </div>
+                          )
+                        }
+                      </div>
+                    </button>
                   ))}
                 </div>
-                <span className="mb-2">
+                <span className="mb-2" onClick={() => selectedName ? handleOnboarding(7) : ''}>
                   <MainNextButton 
                     btnName='Next' 
                     disabled={!selectedName || loading}

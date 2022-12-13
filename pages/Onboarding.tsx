@@ -150,20 +150,13 @@ function Onboarding() {
         }
         {
           userOnboardingStep === 3 && (
-            <VerifyWithArk 
-              handleOnboarding={setUserOnboarding}
-            />
-          )
-        }
-        {
-          userOnboardingStep === 4 && (
             <ArkSuccessPage  
               handleOnboarding={setUserOnboarding}
             /> 
           ) 
         }
         {
-          userOnboardingStep === 5 && (
+          userOnboardingStep === 4 && (
             <ConnectAdditionalAccounts
               addressAr={addressAr}
               addressNear={accountId} 
@@ -172,15 +165,8 @@ function Onboarding() {
             /> 
           )
         }
-        
-        {/* the loading screen can be mergein with the list 
-
-          if names is not empty : DidList 
-          else: 
-            loadingscreen
-        */}
         {
-          userOnboardingStep === 6 && (
+          userOnboardingStep === 5 && (
             <LoadingScreen 
               msg={'Cross-Checking User Data'}
               arAddress={addressAr} //addressAr
@@ -188,13 +174,14 @@ function Onboarding() {
             /> 
           )
         }
-
         {
-          userOnboardingStep === 7 && ( 
+          userOnboardingStep === 6 && ( 
             <DIDList 
               labels={labels} 
               selectedName={selectedName} 
-              setSelectedName={setSelectedName}/> 
+              setSelectedName={setSelectedName}
+              handleOnboarding={setUserOnboarding}
+            /> 
             )
         }
 
@@ -202,7 +189,7 @@ function Onboarding() {
           userCurrentStep === 6123 && ( <RegisterNamePage setArLabel={setArLabel} arLabel={arLabel} /> ) 
         } */}
         {
-          userCurrentStep === 8 && ( <ConfirmUsername  arLabel={selectedName!}/> ) 
+          userCurrentStep === 7 && ( <ConfirmUsername  arLabel={selectedName!}/> ) 
         }
         {
           userCurrentStep === 9 && (<AvatarSelectionPage  />)

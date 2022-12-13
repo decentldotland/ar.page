@@ -1,7 +1,10 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { SetterOrUpdater } from 'recoil';
+import { ONBOARDING_TIMEOUT } from '../../src/constants';
+import axios from 'axios';
+import { DOMAIN_ENDPOINT } from '../../src/constants';
 interface signUpInterface {
   connect: () => Promise<void>;
   disconnect: () => Promise<void>;
@@ -18,29 +21,66 @@ function SignUpArConnect(props: signUpInterface) {
     props.address ? "border-4 border-emerald-400" : ""
   );
 
+  const [connecting, setConnecting] = useState<boolean>(false);
+
   async function handleArweaveConnection() {
+
+    // Fetch Domains
+    const fetchDomains = async(address: string | undefined) => {
+      try {
+        const result = await axios(DOMAIN_ENDPOINT+address);
+        console.log(DOMAIN_ENDPOINT+props.address);
+        const payload = result.data;
+        if(result.status === 200 && payload) {
+          return payload;
+        }
+      } catch (e) {
+          console.log(e);
+      } 
+    };
+
     // Connect wallet
+    setConnecting(true);
     await props.connect().then(async() => {
+        // Obtain Pub Key
+        const arconnectPubKey = await window.arweaveWallet.getActivePublicKey();
+        if (!arconnectPubKey) throw new Error("ArConnect public key not found");
+        const data = new TextEncoder().encode(`my pubkey for DL ARK is: ${arconnectPubKey}`);
 
-      // Obtain Pub Key
-      const arconnectPubKey = await window.arweaveWallet.getActivePublicKey();
-      if (!arconnectPubKey) throw new Error("ArConnect public key not found");
-      const data = new TextEncoder().encode(`my pubkey for DL ARK is: ${arconnectPubKey}`);
+        // Obtain Signature
+        const signature = await window.arweaveWallet.signature(data, {
+          name: "RSA-PSS",
+          saltLength: 32,
+        });
+        const signedBase = Buffer.from(signature).toString("base64");
+        if (!signedBase) throw new Error("ArConnect signature not found");
 
-      const permissions = await window.arweaveWallet.getPermissions();
-      // Obtain Signature
-  
-      const signature = await window.arweaveWallet.signature(data, {
-        name: "RSA-PSS",
-        saltLength: 32,
-      });
-      const signedBase = Buffer.from(signature).toString("base64");
-      if (!signedBase) throw new Error("ArConnect signature not found");
-
-      //Save to State
-      props.handlePubKey(arconnectPubKey);
-      props.handleSignedBase(signedBase);
-    });
+        // Save to State
+        props.handlePubKey(arconnectPubKey);
+        props.handleSignedBase(signedBase);
+        const activeAddr = await window.arweaveWallet.getActiveAddress();
+        // Fetches all domains
+        const domains = await fetchDomains(activeAddr);
+        // Check if person has any EVM domains
+        const containsEVM = domains.AVVY || domains.ENS || 
+                            domains.EVMOS || domains.LENS ||
+                            domains.URBIT
+        setConnecting(false);
+        // Time out to notify user of connection & auto-proceed
+        setTimeout(function(){
+          if(domains.NEAR && !containsEVM) {
+            props.handleOnboarding(4); // Connect EVM wallet
+          } else if(
+            domains.AVVY || domains.ENS || 
+            domains.EVMOS || domains.LENS ||
+            domains.URBIT
+            ) {
+            props.handleOnboarding(5); // Select domain name
+          } else {
+            props.handleOnboarding(1); // Connect a Near wallet
+          }
+       }, ONBOARDING_TIMEOUT);
+    }).catch(() => setConnecting(false));
   }
 
   return (
@@ -55,12 +95,12 @@ function SignUpArConnect(props: signUpInterface) {
           </h2>
         </div>
         {/* Connect / Proceed Button  */}
-        <div className='mt-[99px] flex justify-center flex-col items-center w-full'>
-          <button onClick={props.address ? () => props.handleOnboarding(1) : handleArweaveConnection }
+        <div className={'mt-[99px] flex justify-center flex-col items-center w-full '+(connecting?'animate-pulse':'')}>
+          <button onClick={props.address ? () => '' : handleArweaveConnection }
             className={btnDynamicStyling}>
               <div className='flex justify-center items-center space-x-3'>
                   <Image src={'/icons/ARWEAVE_WHITE.svg'} height={26.2} width={26.2} alt="Arweave Logo" />
-                  <p className='text-center'>{props.address ? "Connected! Please Proceed." : "Login with ArConnect"}</p>
+                  <p className='text-center'>{props.address ? "Connected! Proceeding." : "Login with ArConnect"}</p>
               </div>
           </button>
         </div>

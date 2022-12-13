@@ -4,7 +4,6 @@ import React, { Dispatch, useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userOnboardingState } from '../../atoms';
 import axios from 'axios';
-import { INSPECT_MAX_BYTES } from 'buffer';
 import { DOMAIN_ENDPOINT } from '../../src/constants';
 
 

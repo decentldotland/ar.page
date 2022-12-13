@@ -15,7 +15,7 @@ function ArkSuccessPage(props: ArkSuccessPageInterface) {
         has been added 
         your ArPage! 🥳
         </p>
-        <span onClick={() => props.handleOnboarding(5)}>
+        <span onClick={() => props.handleOnboarding(4)}>
           <MainNextButton btnName='Register Name' />
         </span>
     </div>
