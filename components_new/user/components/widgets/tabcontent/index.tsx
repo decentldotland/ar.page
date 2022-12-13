@@ -146,9 +146,6 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
     }
   
 // ---------------------------------- Stamp S-----------------------------------------------
-  console.log("NFTs.length - CollectiblePerPage: ", NFTs.length - CollectiblePerPage);
-  console.log("collectableVisibility: ", collectableVisibility);
-  //&& (NFTs.length - CollectiblePerPage  > 0)
   const CollectableTab = ({nftCount}: {nftCount: number}) => {
     if(nftCount >= CollectiblePerPage) {
       return (
