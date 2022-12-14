@@ -1,1 +1,1 @@
-export { Button } from './Button';
+export { CButton } from './CButton';

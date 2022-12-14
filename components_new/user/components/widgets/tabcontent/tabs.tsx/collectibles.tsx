@@ -2,13 +2,12 @@ import { useState, useEffect } from 'react';
 import { LoadingOrNotFound, SearchBar, NFTGallery } from '../../../reusables';
 import { NFT } from '../../../../../../src/types';
 import { ChainFilter } from '../../../../../buttons';
-import { Button } from '../../../../../../src/stories/Buttons';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../../../../atoms';
+import { SortChronButton } from '../../../../../buttons';
  
 export default function Collectibles({NFTs, loading, perPage, handleVisibility}: 
-{NFTs: NFT[], loading: boolean, perPage: number, handleVisibility: (res: boolean) => void}) {
-
+{NFTs: NFT[], loading: boolean, perPage: number, handleVisibility: (res: number) => void}) {
   const [filteredNFTs, setFilteredNFTs] = useState<NFT[]>(NFTs);
   const [onLoad, setOnLoad] = useState<boolean>(false);
   const [ascending, setAscending] = useState<boolean>(true);
@@ -21,7 +20,11 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
 
   const onSearch = (e: string) => {
     setSearch(e);
-    setFilteredNFTs(NFTs.filter((nft) => nft.title!.toLowerCase().includes(e.toLowerCase())));
+    setFilteredNFTs(NFTs.filter((nft) =>  {
+        if(nft.chain === network) {
+          return nft.title!.toLowerCase().includes(e.toLowerCase());
+        }
+    }));
   };
 
   // Hook setting filteredNFTs state
@@ -38,7 +41,7 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
 
   // Hook to update parent on filteredNft changes
   useEffect(() => {
-    handleVisibility(filteredNFTs.length > 0 ? true : false);
+    handleVisibility(filteredNFTs.length);
   }, [filteredNFTs]);
 
   // Hook to grab light theme
@@ -52,18 +55,19 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
         setIsDark(false)
       }
   }, [isDark]);
-
+  {/*<meta name="twitter:title" content="test 2 | Home" />*/}
+  console.log(filteredNFTs);
   return (
     <div className={`transition-opacity duration-400 pb-3  opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
 
       {/*Render Filter Capabilities*/}
 
-      <div className={`flex flex-col items-center justify-center md:flex-row md:items-end md:justify-between mb-8 sm:flex-row sm:space-x-2 `}>
+      <div className={`flex flex-col items-center justify-center md:flex-row md:items-end md:justify-between mb-8 sm:flex-row sm:space-x-1 space-y-2 sm:space-y-0 content-end`}>
         {/*Search Collectables*/}
         <SearchBar 
           value={search} 
           onChange={(e) => onSearch(e)} 
-          placeholder={"Search collectables"} 
+          placeholder={"Search Collectables"} 
           slideOutable={true} 
         />
         {/*Filter Chain Buttons*/}
@@ -76,17 +80,13 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
         />
         {/*Sort Chronology Button*/}
         {filteredNFTs.length > 0 && (
-          <Button
-            variant='secondary'
-            className={"text-black border-2 border-slate-300 rounded-xl"}
+          <SortChronButton 
             onClick={() => setAscending(() => {
               filterTime();
               return !ascending;
             })}
-            isDark={isDark}
-          >
-            {ascending ? "Newest" : "Oldest"}
-          </Button>
+            text={ascending ? "Newest" : "Oldest"} 
+          />
         )}
       </div>
 

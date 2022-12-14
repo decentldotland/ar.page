@@ -69,6 +69,7 @@ export interface Res {
   POAPS:                        Poap[];
   ERC_NFTS:                     any |  { [key: string]: null | string }[];
   EVMOS_NFTS:                   any |  { [key: string]: null | string }[];
+  NEAR_NFTS:                   any |  { [key: string]: null | string }[];
   URBIT_IDS:                    any |  { [key: string]: null | string }[];
   LENS_PROTOCOLS_ACTV:          LensProtocolsActv[];
   RSS3:                         Rss3[];
@@ -96,7 +97,7 @@ export interface Anfts {
 //   chain?: ChainOptions;
 // }
 
-export type ChainOptions = "arweave" | "ethereum" | "evmos";
+export type ChainOptions = "arweave" | "ethereum" | "evmos" | "near";
 export class NFT  {
   id?:            string;
   poster?:        string;

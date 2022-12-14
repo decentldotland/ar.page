@@ -1,14 +1,12 @@
-// import { Layout } from '../components/layout'
 import { Layout } from '../components_new/layout'
-
 import '../styles/globals.css'
 import '../styles/tippy.css'
 import '../styles/daisyUI.css'
 import Head from 'next/head';
+import Script from 'next/script';
 import { RecoilRoot } from 'recoil';
 import { AnimatePresence } from "framer-motion";
 import { AnsProvider } from 'ans-for-all';
-// import { useUpdateChecker } from '../src/useUpdateChecker';
 import '@rainbow-me/rainbowkit/styles.css';
 
 import {
@@ -21,7 +19,6 @@ import {
   createClient,
   WagmiConfig,
 } from 'wagmi';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 
 const { chains, provider } = configureChains(
@@ -40,10 +37,20 @@ const wagmiClient = createClient({
   provider
 })
 
-
-
 function MyApp({ Component, pageProps }) {
-  // useUpdateChecker();
+
+  let user = null;
+  // Collect Server Generated Data
+  const pathFullInfo = pageProps.pathFullInfo ? pageProps.pathFullInfo : null;
+  const userInfo = pageProps.userInfo ? pageProps.userInfo : null;
+
+  // Assign Generated Data For SEO & Dynamic Embeds
+  if(pathFullInfo) {
+    user = pathFullInfo;
+  } else if(userInfo) {
+    user = userInfo;
+  }
+
   return (
     <RecoilRoot> 
       <AnimatePresence exitBeforeEnter>
@@ -87,5 +94,4 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-export default MyApp
-
+export default MyApp;

@@ -76,10 +76,6 @@ export const UserInfo = ({user, profile}: UserProps) => {
         }, 5000);
       }, []);
     const [isDark, setIsDark] = useRecoilState(isDarkMode);
-
- 
-
-
     return (
         <div>
             <div className="relative">
@@ -97,8 +93,6 @@ export const UserInfo = ({user, profile}: UserProps) => {
                             }
                         </div>
                     </article>
-                   
-
                     {/* nickname and label */}
                     <div className={`ml-5 relative  ${epoch === 0 ? ('bottom-12') : ('bottom-6')} `}>
                         <div className="sm:mt-7  flex flex-row items-center space-x-3 justify-center mt-5">
