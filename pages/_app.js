@@ -20,6 +20,7 @@ import {
   WagmiConfig,
 } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
+import { ConstructionOutlined } from '@mui/icons-material';
 
 const { chains, provider } = configureChains(
   [chain.mainnet], // [, chain.polygon, chain.optimism, chain.arbitrum]
@@ -43,7 +44,6 @@ function MyApp({ Component, pageProps }) {
   // Collect Server Generated Data
   const pathFullInfo = pageProps.pathFullInfo ? pageProps.pathFullInfo : null;
   const userInfo = pageProps.userInfo ? pageProps.userInfo : null;
-
   // Assign Generated Data For SEO & Dynamic Embeds
   if(pathFullInfo) {
     user = pathFullInfo;
@@ -57,15 +57,23 @@ function MyApp({ Component, pageProps }) {
         <AnsProvider>
           <Head>
             <title>ar.page</title>
-            <meta name="description" content="ar.page | Home" />
-            <link rel="icon" href="/favicon.png" />
-            <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1"  />
+            <meta name="description" content="Home | ar.page" />
             <meta name="twitter:card" content="summary" />
-            <meta name="twitter:image" content="https://ar.page/favicon.png" />
+            <link rel="icon" href={user ? `https://pz-prepnb.meson.network/${user.avatar}` : "https://ar.page/favicon.png"} /> {/* TODO: potential source of vulnerabilities if users somehow upload malicious text or images */}
+            <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1" />
+            <meta name="description" content={user ? `${user.bio} | ar.page` : "Home | ar.page"} />
+            <meta name="twitter:image" content={(user) ? `https://pz-prepnb.meson.network/${user.avatar}` : "https://ar.page/favicon.png"} />
+            <meta name="twitter:title" content={user ? `${user.currentLabel} | ar.page` : "Home | ar.page"} />
+            <meta name="twitter:url" content={user ? `https://${user.currentLabel}.ar.page` : "https://ar.page"} />
+            <meta name="twitter:description" content={user ? user.bio : "All your Web3 content, finally stored in one place."} />
             <meta name="twitter:site" content="@decentdotland" />
-            <meta name="twitter:title" content="ar.page | Home" />
-            <meta name="twitter:description" content="All your Web3 content, finally stored in one place." />
-            <meta name="twitter:url" content="https://ar.page"></meta>
+
+            <meta name="og:card" content="summary" />
+            <meta name="description" content={user ? `${user.currentLabel} | ar.page` : "Home | ar.page"} />
+            <meta name="og:image" content={user ? `https://pz-prepnb.meson.network/${user.avatar}` : "https://ar.page/favicon.png"} />
+            <meta name="og:title" content={user ? `${user.currentLabel} | ar.page` : "Home | ar.page"} />
+            <meta name="og:url" content={user ? `https://${user.currentLabel}.ar.page` : "https://ar.page"} />
+            <meta name="og:description" content={user ? user.bio : "All your Web3 content, finally stored in one place."} />
           </Head>
           <Script
             async
@@ -80,7 +88,6 @@ function MyApp({ Component, pageProps }) {
               gtag('config', 'G-4XDV8F7VJB');
             `}
           </Script>
-
           <WagmiConfig client={wagmiClient}>
             <RainbowKitProvider chains={chains}>
               <Layout>
@@ -95,3 +102,12 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
+
+
+/*
+
+
+
+
+
+*/

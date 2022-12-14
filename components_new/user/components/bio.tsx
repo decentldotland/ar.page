@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../atoms';
-import { Title } from './reusables';
+
 type Props = {
     text: string;
 };
@@ -18,10 +18,6 @@ export const Bio = (props: Props) => {
                 ${isDark ? (' text-white'): (' text-[#666]')} 
              `}>
                 {props.text}
-
-
-
-                
             </div>
         </div>
     );
