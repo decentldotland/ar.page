@@ -60,6 +60,20 @@ function MyApp({ Component, pageProps }) {
             <meta name="twitter:description" content="All your Web3 content, finally stored in one place." />
             <meta name="twitter:url" content="https://ar.page"></meta>
           </Head>
+          <Script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-4XDV8F7VJB"
+            strategy="afterInteractive" 
+          />
+          <Script>
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-4XDV8F7VJB');
+            `}
+          </Script>
+
           <WagmiConfig client={wagmiClient}>
             <RainbowKitProvider chains={chains}>
               <Layout>
