@@ -256,29 +256,3 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
     </>
   )
 }
-
-
-/**
-
-        {
-          // TODO: 
-          //collectableVisibility Now we have to strategically place this somewhere. 
-          NFTs.length - CollectiblePerPage  > 0 ? (
-            <article className='flex justify-center mt-12'>
-              <button  onClick={() => showMoreCollection()} className='py-2 px-6 btn-primary  text-lg
-                text-white font-semibold flex flex-row 
-                  justify-center rounded-lg'>
-                <p>Show More</p>
-              </button>
-            </article>
-          ) : (
-            <article className='flex justify-center mt-12'>
-              <p>You have reached the end result! B</p>
-            </article>
-          )
-        }
-
-
-
-
- */

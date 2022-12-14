@@ -21,12 +21,12 @@ function PageContent(props: userInfo) {
   
   // Fetch Near NFTs by near address and ar handle
   const fetchNearNFTs = async(address: string) => {
-    return await axios.get(`api/nep/${address}`);
+    return await axios.get(`/api/nep/${address}`);
   }
   // Fetch a users wallet address
   const fetchData = async (arweaveAddr: string, userHandle: string) => {
     setLoading(true);
-    const result = await axios.get(`api/profile/${arweaveAddr}`);
+    const result = await axios.get(`/api/profile/${arweaveAddr}`);
     let linkInfo = await axios.post(`/api/exmread`);
 
     //@ts-ignore
