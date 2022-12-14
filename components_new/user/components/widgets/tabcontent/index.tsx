@@ -75,7 +75,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       const nftMetaData = JSON.parse(n.metadata); 
       if (n.token_uri && n.token_uri !== "Invalid uri" && nftMetaData !== null && typeof nftMetaData.image !== 'undefined') {
         if(nftMetaData.image.slice(0, 5) !== "ipfs:") {
-          ercnft.add_id(IMAGE_PROXY+nftMetaData.image!)
+          ercnft.add_id(nftMetaData.image.includes(IMAGE_PROXY) ? nftMetaData.image : IMAGE_PROXY+nftMetaData.image)
           .add_timestamp(n.block_number_minted!)
           .add_title(nftMetaData.name!)
           .add_description(String(nftMetaData.description!))
@@ -94,7 +94,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
     for (let n of arkProfile.EVMOS_NFTS) { 
       let evmosnft = new NFT();
       if (n.image.slice(0, 5) !== "ipfs:") {
-        evmosnft.add_id(IMAGE_PROXY+n.image!)
+        evmosnft.add_id(n.image.includes(IMAGE_PROXY) ? n.image! : IMAGE_PROXY+n.image!)
           .add_timestamp(1)
           .add_title(n.name!)
           .add_description(n.description!)
@@ -110,7 +110,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   if (arkProfile.NEAR_NFTS !== undefined || null) { 
     for (let n of arkProfile.NEAR_NFTS) { 
       let nearnft = new NFT();
-      nearnft.add_id(IMAGE_PROXY+n.image!)
+      nearnft.add_id(n.image.includes(IMAGE_PROXY) ? n.image! : IMAGE_PROXY+n.image!)
       .add_timestamp(1)
       .add_title(n.collection.title!)
       .add_description(n.name!)
@@ -186,7 +186,6 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
         <CollectableTab 
           nftCount={collectableVisibility}
         />
-
       </>
       
     },
