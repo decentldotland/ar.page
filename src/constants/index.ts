@@ -14,3 +14,4 @@ export const ARWEAVE_IMG = "https://img.arweave.dev/";
 
 // Accomodates NEXT Image allowing us to feed various domains
 export const IMAGE_PROXY = "https://image-proxy.svc.prod.covalenthq.com/cdn-cgi/image/width=512,fit/";
+
