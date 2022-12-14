@@ -3,6 +3,7 @@ import '../styles/globals.css'
 import '../styles/tippy.css'
 import '../styles/daisyUI.css'
 import Head from 'next/head';
+import Script from 'next/script';
 import { RecoilRoot } from 'recoil';
 import { AnimatePresence } from "framer-motion";
 import { AnsProvider } from 'ans-for-all';
@@ -51,36 +52,44 @@ function MyApp({ Component, pageProps }) {
   }
 
   return (
-    <RecoilRoot>
-        <AnimatePresence exitBeforeEnter>
-          <AnsProvider>
-            <Head>
-              <title>ar.page</title>
-              <meta name="description" content={user ? `${user.currentLabel} | ar.page` : "ar.page | Home"} />
-              <link rel="icon" href="/favicon.png" />
-              <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1"  />
-              <meta name="twitter:card" content="summary" key="cardTwitter" />
-              <meta name="twitter:image" content={user ? `https://pz-prepnb.meson.network/${user.avatar}` : "https://ar.page/cutoff-dl.png"} key="imageTwitter" /> {/*titling part where user name goes*/}
-              <meta name="twitter:site" content="@decentdotland" key="siteTwitter" />
-              <meta name="twitter:title" content={user ? `${user.currentLabel} | ar.page` : "ar.page | Home"} key="titleTwitter" /> {/*titling part where user name goes*/}
-              <meta name="twitter:description" content={user ? user.bio : "All your Web3 content, finally stored in one place."} key="descriptionTwitter" /> {/*Discord description*/}
-              <meta name="twitter:url" content={user ? `https://${user.currentLabel}.ar.page` : "https://ar.page"} key="urlTwitter" />
+    <RecoilRoot> 
+      <AnimatePresence exitBeforeEnter>
+        <AnsProvider>
+          <Head>
+            <title>ar.page</title>
+            <meta name="description" content="ar.page | Home" />
+            <link rel="icon" href="/favicon.png" />
+            <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1"  />
+            <meta name="twitter:card" content="summary" />
+            <meta name="twitter:image" content="https://ar.page/favicon.png" />
+            <meta name="twitter:site" content="@decentdotland" />
+            <meta name="twitter:title" content="ar.page | Home" />
+            <meta name="twitter:description" content="All your Web3 content, finally stored in one place." />
+            <meta name="twitter:url" content="https://ar.page"></meta>
+          </Head>
+          <Script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-4XDV8F7VJB"
+            strategy="afterInteractive" 
+          />
+          <Script id="gtag-function">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-4XDV8F7VJB');
+            `}
+          </Script>
 
-              <meta property="og:card" content="summary" />
-              <meta property="og:image" content={user ? `https://pz-prepnb.meson.network/${user.avatar}` : "https://ar.page/cutoff-dl.png"} />
-              <meta property="og:title" content={user ? `${user.currentLabel} | ar.page` : "ar.page | Home"} />
-              <meta property="og:url" content={user ? `https://${user.currentLabel}.ar.page` : "https://ar.page"} /> 
-              <meta property="og:description" content={user ? user.bio : "All your Web3 content, finally stored in one place."} />
-            </Head>
-            <WagmiConfig client={wagmiClient}>
-              <RainbowKitProvider chains={chains}>
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </RainbowKitProvider>
-            </WagmiConfig>
-          </AnsProvider>
-        </AnimatePresence>
+          <WagmiConfig client={wagmiClient}>
+            <RainbowKitProvider chains={chains}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </RainbowKitProvider>
+          </WagmiConfig>
+        </AnsProvider>
+      </AnimatePresence>
     </RecoilRoot>
   )
 }

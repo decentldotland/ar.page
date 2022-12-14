@@ -70,8 +70,8 @@ function PageContent(props: userInfo) {
 
     // Parse final payload containing all NFTS
     let parsed = JSON.parse(result.data);
-    parsed.res["NEAR_NFTS"] = holdNfts;
     if (parsed.res) {
+      parsed.res["NEAR_NFTS"] = holdNfts;
       const resObj: Res = parsed?.res;
       setArkProfile(resObj);
     }
