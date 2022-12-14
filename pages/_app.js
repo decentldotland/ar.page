@@ -72,7 +72,7 @@ function MyApp({ Component, pageProps }) {
             src="https://www.googletagmanager.com/gtag/js?id=G-4XDV8F7VJB"
             strategy="afterInteractive" 
           />
-          <Script>
+          <Script id="gtag-function">
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
