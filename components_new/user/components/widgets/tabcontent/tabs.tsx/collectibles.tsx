@@ -55,8 +55,7 @@ export default function Collectibles({NFTs, loading, perPage, handleVisibility}:
         setIsDark(false)
       }
   }, [isDark]);
-  {/*<meta name="twitter:title" content="test 2 | Home" />*/}
-  console.log(filteredNFTs);
+
   return (
     <div className={`transition-opacity duration-400 pb-3  opacity-0 ${(onLoad && !loading) && 'opacity-100'}`}>
 

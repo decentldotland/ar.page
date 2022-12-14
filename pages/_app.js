@@ -19,6 +19,7 @@ import {
   WagmiConfig,
 } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
+import { ConstructionOutlined } from '@mui/icons-material';
 
 const { chains, provider } = configureChains(
   [chain.mainnet], // [, chain.polygon, chain.optimism, chain.arbitrum]
@@ -42,7 +43,6 @@ function MyApp({ Component, pageProps }) {
   // Collect Server Generated Data
   const pathFullInfo = pageProps.pathFullInfo ? pageProps.pathFullInfo : null;
   const userInfo = pageProps.userInfo ? pageProps.userInfo : null;
-
   // Assign Generated Data For SEO & Dynamic Embeds
   if(pathFullInfo) {
     user = pathFullInfo;
