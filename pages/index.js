@@ -1,10 +1,8 @@
 import axios from 'axios';
 import Index from '../components_new/home'; 
-
 import User from './profile/[user]';
 
 export default function Home({wildcard, userInfo}) {
-  console.log("WILDCARD: ", wildcard);
   return ((wildcard === "404") ? 
     <Index />: 
     <User uInfo={userInfo} />
@@ -26,5 +24,6 @@ export async function getServerSideProps(context) {
         console.log("Failed to use domain routing...")
       };
       return { props: {wildcard} };
+      
 }
 
