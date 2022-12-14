@@ -1,5 +1,6 @@
 module.exports = {
   reactStrictMode: true,
+  staticPageGenerationTimeout: 100,
   // swcMinify: true,
   images: {
     domains: ['pz-prepnb.meson.network', 
