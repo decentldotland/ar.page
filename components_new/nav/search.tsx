@@ -26,6 +26,7 @@ const SearchBox = (props: Props) => {
     },[props.items, val])
 
     return (
+        // @ts-ignore
         <Downshift
             id="search"
         >

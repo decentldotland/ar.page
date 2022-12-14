@@ -63,7 +63,7 @@ const ModelContent = (props: Props) => {
                         </div> : <></>}
 
                     <div className="grid mx-auto my-auto place-content-center  md:mb-0 mb-4 m-4">
-                        <iframe title={current.title} frameBorder="0" allowFullScreen allowTransparency={true}
+                        <iframe title={current.title} frameBorder="0" allowFullScreen 
                             style={{ backgroundColor: '' }}
                             className="object-contain max-h-[288px] max-w-[288px]"
                             height={500}
