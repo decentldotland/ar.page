@@ -74,7 +74,6 @@ const ModelContent = (props: Props) => {
                             <p className="w-full text-accent font-medium text-xs top-0">{`Description`}<br />
                                 <p className="text-base-content font-normal text-sm">{current.description ? current.description : "None"}</p>
                             </p>
-
                             <p className="w-full text-accent font-medium text-xs mt-2">{`Acquired`}<br />
                                 <p className="text-base-content font-normal text-sm">{` ${moment.unix(current.timestamp).format('llll')}`}</p>
                             </p>
