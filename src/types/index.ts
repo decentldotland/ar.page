@@ -63,6 +63,7 @@ export interface Res {
   ANS:                          Ans;
   ENS:                          string;
   AVVY:                         string;
+  EVMOS:                        string;
   IS_VOUCHED:                   boolean;
   LENS_HANDLES:                 string[];
   GITPOAPS:                     Gitpoap[];

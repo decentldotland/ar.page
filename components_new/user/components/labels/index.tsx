@@ -9,12 +9,13 @@ import { isDarkMode } from '../../../../atoms';
 import Image from 'next/image';
 
 
-const colorProps = `bg-primary/10 text-primary `
-const avaxColor = "bg-[#E84040]/80 text-white"
-const ethColor = `bg-[#8a92b2]/20 text-[#454a75]`
-const arColor = "bg-black text-white"
-const iconProps = {width: 100, height: 100, color: "#1273ea"}
-const lenProps = "bg-[#abfe2c] text-[#05501F] bg-[#aafe2ccb]"
+const colorProps = `bg-primary/10 text-primary `;
+const avaxColor = "bg-[#E84040]/80 text-white";
+const ethColor = `bg-[#8a92b2]/20 text-[#454a75]`;
+const arColor = "bg-black text-white";
+const iconProps = {width: 100, height: 100, color: "#1273ea"};
+const lenProps = "bg-[#abfe2c] text-[#05501F] bg-[#aafe2ccb]";
+const evmosColor = "bg-purple-400 text-white";
 
 export const arLabels = (arweave_address: string, ownedLabels: OwnedLabel[]) => ownedLabels.map((owned: OwnedLabel) => {
   return {
@@ -46,6 +47,23 @@ export const avaxLabel = (AVVY:string|undefined) => {
       height={20}
       src="https://cryptologos.cc/logos/avalanche-avax-logo.svg?v=023"
       alt=""
+      quality={50}
+    />
+  }
+}
+
+export const evmosLabel = (EVMOS:string|undefined) => {
+  if (!EVMOS) return null
+  return {
+    username: EVMOS,
+    classes: evmosColor,
+    link_to: "https://app.evmos.domains/#/name/" + EVMOS,
+    canCopy: false,
+    icon: <Image
+      width={20}
+      height={20}
+      src="https://evmos.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ff28a6a7a-f801-409d-b6ad-2b8d8d09ccdc%2FEvmos_Token_White_RGB.svg?id=bd602f8e-e408-4ae2-837b-6ca4b19d239a&table=block&spaceId=b0b945be-0f04-4c85-8626-e80b7a5ffde2&userId=&cache=v2"
+      alt="Evmos Logo"
       quality={50}
     />
   }
@@ -94,18 +112,20 @@ export const lensLabel = (lens:string[] |undefined) => {
   }
 }
 
-export const getDefaultLabels = ({ arweave_address, ar, links, ENS, AVVY, LENS }: {
+export const getDefaultLabels = ({ arweave_address, ar, links, ENS, AVVY, LENS, EVMOS }: {
   arweave_address: string, 
   ar: OwnedLabel[], 
   links: Links, 
   ENS: string|undefined, 
   AVVY: string|undefined,
-  LENS: string[] |undefined
+  LENS: string[] |undefined,
+  EVMOS: string | undefined
 }) => [
   ...arLabels(arweave_address, ar),
   avaxLabel(AVVY),
   ethLabel(ENS),
   lensLabel(LENS),
+  evmosLabel(EVMOS),
   links?.twitter && {username: links.twitter, classes: colorProps,
     link_to: "https://twitter.com/" + links.twitter,
     canCopy: true,
@@ -124,7 +144,6 @@ export const getDefaultLabels = ({ arweave_address, ar, links, ENS, AVVY, LENS }
     icon: <BsGlobe2 {...iconProps}/>},
 ].filter((l) => l !== null);
 
-//max-h-[60px]
 export const Labels = ({items}: {items: any}) => {
   return (
     <div className="flex flex-row flex-wrap carousel max-w-[100vw] space-x-2 justify-center md:justify-start">
