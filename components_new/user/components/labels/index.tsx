@@ -15,7 +15,7 @@ const ethColor = `bg-[#8a92b2]/20 text-[#454a75]`;
 const arColor = "bg-black text-white";
 const iconProps = {width: 100, height: 100, color: "#1273ea"};
 const lenProps = "bg-[#abfe2c] text-[#05501F] bg-[#aafe2ccb]";
-const evmosColor = "bg-purple-400 text-white";
+const evmosColor = "bg-purple-400/60 text-white";
 
 export const arLabels = (arweave_address: string, ownedLabels: OwnedLabel[]) => ownedLabels.map((owned: OwnedLabel) => {
   return {
