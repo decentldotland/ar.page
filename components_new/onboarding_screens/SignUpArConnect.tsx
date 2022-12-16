@@ -86,13 +86,10 @@ function SignUpArConnect(props: signUpInterface) {
             props.handleNearWallet(containsExotic[0]);
             props.handleOnboarding(4); // Connect EVM wallet
           } else if(!containsExotic) {
-            props.handleNearWallet(containsExotic[0]);
             props.handleOnboarding(1); // Connect NEAR Wallet
           } else if(containsEVM && containsExotic) {
             props.handleNearWallet(containsExotic[0]);
             props.handleOnboarding(5); // Select domain name go to 5
-          } else {
-            props.handleOnboarding(1); // Connect a Near wallet
           }
         }, ONBOARDING_TIMEOUT);
     }).catch(() => setConnecting(false));
