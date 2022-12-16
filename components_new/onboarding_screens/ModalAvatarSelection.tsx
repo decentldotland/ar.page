@@ -20,8 +20,8 @@ interface imgGridProps {
 const ImgGrid = (props: imgGridProps) => {
   return(
     <div
-      className="grid grid-cols-1 auto-rows-auto gap-3 place-items-center items-center
-                 justify-center overflow-y-auto overflow-x-hidden"
+      className="grid grid-cols-2 auto-rows-auto gap-3 place-items-center items-center
+                 justify-center overflow-y-auto overflow-x-hidden p-4"
     >
       {props.imgList.map(img => (
           <Image 
@@ -29,8 +29,8 @@ const ImgGrid = (props: imgGridProps) => {
             src={img}
             id={img}
             alt="Image Option"
-            width={170}
-            height={170}
+            width={150}
+            height={150}
             className="cursor-pointer hover:transition hover:shadow-lg hover:bg-indigo-600 duration-200 ease-in-out 
                       hover:scale-[1.1] active:scale-[0.98] rounded-xl"
             objectFit="cover"

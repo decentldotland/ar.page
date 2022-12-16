@@ -47,7 +47,8 @@ function SignUpArConnect(props: signUpInterface) {
         const arconnectPubKey = await window.arweaveWallet.getActivePublicKey();
         if (!arconnectPubKey) throw new Error("ArConnect public key not found");
         const data = new TextEncoder().encode(`my pubkey for DL ARK is: ${arconnectPubKey}`);
-
+        console.log("Logs from SignUpArConnect");
+        console.log("Arconnect Key", arconnectPubKey);
         // Obtain Signature
         const signature = await window.arweaveWallet.signature(data, {
           name: "RSA-PSS",
@@ -55,27 +56,30 @@ function SignUpArConnect(props: signUpInterface) {
         });
         const signedBase = Buffer.from(signature).toString("base64");
         if (!signedBase) throw new Error("ArConnect signature not found");
-
+        console.log("Signed Base ", signedBase);
         // Save to State
         props.handlePubKey(arconnectPubKey);
         props.handleSignedBase(signedBase);
         const activeAddr = await window.arweaveWallet.getActiveAddress();
-        
+        console.log("Active Address: ", activeAddr);
         // Fetches all domains
         const userInfo = await fetchUserInfo(activeAddr);
-        console.log("UI: ", userInfo);
+        console.log("User Info: ", userInfo);
         // Check if person has any EVM domains
         let containsEVM: any;
         let containsExotic: any;
         if(userInfo.res) {
           //@ts-ignore
           containsEVM = userInfo.res.addresses.filter(address => address.ark_key === 'EVM');
+          console.log("Contains EVM Payload: ", containsEVM);
           //@ts-ignore
           containsExotic = userInfo.res.addresses.filter(address => address.ark_key === 'EXOTIC');
+          console.log("Contains Exotic Payload: ", containsExotic);
         } else {
           props.handleNearWallet(null);
           containsEVM = false;
           containsExotic = false;
+          console.log("Contains payload: ", containsEVM, containsExotic);
         }
 
         setConnecting(false);
@@ -83,11 +87,14 @@ function SignUpArConnect(props: signUpInterface) {
         // Time out to notify user of connection & auto-proceed
         setTimeout(function(){
           if(containsExotic && !containsEVM) {
+            console.log("Redirect: Step 4");
             props.handleNearWallet(containsExotic[0]);
             props.handleOnboarding(4); // Connect EVM wallet
           } else if(!containsExotic) {
+            console.log("Redirect: Step 1");
             props.handleOnboarding(1); // Connect NEAR Wallet
           } else if(containsEVM && containsExotic) {
+            console.log("Redirect: Step 5");
             props.handleNearWallet(containsExotic[0]);
             props.handleOnboarding(5); // Select domain name go to 5
           }

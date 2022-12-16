@@ -26,11 +26,13 @@ function LoadingScreen({msg, end, arAddress, handleLabels}: Props) {
       try {
         const result = await axios(`api/domains/${arAddress}`);
         const payload = result.data;
-        console.log(payload);
+        console.log("Payload from Cross-checking: ", payload);
         if(result.status === 200 && payload) {
           setFetched(true);
           //@ts-ignore
           handleLabels(payload);
+        } else {
+          setFetched(true);
         }
       } catch (e) {
           setError(true);
@@ -44,11 +46,7 @@ function LoadingScreen({msg, end, arAddress, handleLabels}: Props) {
     // if time out and the user is in the last step 
     useEffect(() => {
       if (fetched) { 
-        if (end) {
-          route.push('/')
-        } else { 
-          setUserOnboarding(userOnboardingStep + 1)
-        }    
+        setUserOnboarding(userOnboardingStep + 1)
       }
     }, [fetched, userCurrentStep])
     
