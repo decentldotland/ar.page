@@ -91,7 +91,7 @@ function ConnectAdditionalAccounts(props: ConnectAdditionalAccountsInterface) {
 
         // Await Link Transaction Result & Post to EXM Api
         tx.wait().then(async () => {
-          const result = await axios.post(`api/exmwrite`, exmObj);
+          const result = await axios.post(`/api/exmwrite`, exmObj);
           setLinked(true);
           setClicked(false);
           // Set timeout notifying user of connectivity & auto-proceed

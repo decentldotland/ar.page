@@ -195,7 +195,7 @@ export const getDefaultLabels = ({  ENS, AVVY, LENS, ANS, NEAR, EVMOS, URBIT }: 
   let nearAddr = NEAR.map(address => nearLabel(address));
   let evmosAddr = EVMOS.map(address => evmosLabel(address));
   let urbitAddr = URBIT.map(address => urbitLabel(address));
-  console.log(urbitAddr);
+
   // Consolidate handles & filter nulls
   const handleArr = [
     ...avvyAddr,

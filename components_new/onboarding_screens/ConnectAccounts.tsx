@@ -19,6 +19,7 @@ interface ConnectAccountsInterface {
 }
 
 function ConnectAccounts(props: ConnectAccountsInterface) {
+    
   const btnDynamicStyling = clsx(
     "cursor-pointer bg-[#f5f5f5] justify-between mt-[40px] py-2 flex items-center px-3 rounded-2xl",
     props.addressNear ? "border-4 border-emerald-400" : ""
@@ -104,7 +105,7 @@ function ConnectAccounts(props: ConnectAccountsInterface) {
         <p className='relative left-3 mt-3 text-[13px] font-medium text-[#8e8e8f] leading-[22px] '>
             <span className='font-bold'>NOTE: </span>
             Due to the recent network upgrade, a Near Wallet connection is  <span className='font-bold'>required </span> to 
-            unlock of ArPage's features.
+            unlock ArPage's features.
         </p>
         {props.addressNear && (
         <p className='relative left-3 mt-3 text-[13px] font-medium text-[#8e8e8f] leading-[22px] cursor flex items-center justify-center' onClick={() => props.disconnect()}>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { SetterOrUpdater } from 'recoil';
 import MainNextButton from '../buttons/MainNextButton'
-import NextButton from '../buttons/MainNextButton'
 
 interface ArkSuccessPageInterface {
   handleOnboarding: SetterOrUpdater<number>;

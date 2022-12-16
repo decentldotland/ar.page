@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userOnboardingState } from '../atoms';
 import ArkSuccessPage from '../components_new/onboarding_screens/ArkSuccessPage';
@@ -13,10 +13,10 @@ import SignUpNear from '../components_new/onboarding_screens/SignUpNear';
 import LoadingScreen from '../components_new/onboarding_screens/LoadingScreen';
 import DIDList from '../components_new/onboarding_screens/DIDList';
 import axios from 'axios';
-import { Res } from '../src/types';
 import { getDefaultLabels } from '../components_new/onboarding_screens/DIDLabels';
 import { useArconnect } from "../src/utils/arconnect";
 import { useNear } from '../src/utils/near';
+import { IMAGE_PROXY } from '../src/constants';
 
 function Onboarding() {
 
@@ -28,7 +28,6 @@ function Onboarding() {
   const [arConnectPubKey, setArConnectPubKey] = useState();
   const [signedBase, setSignedBase] = useState();
   const [loading, setLoading] = useState<boolean>(true);
-  //const [arkProfile, setArkProfile] = useState<Res | undefined>();
 
   const EXMObject: any = {
     "function": "linkIdentity",
@@ -39,24 +38,7 @@ function Onboarding() {
     "network": "",
     "verificationReq": "",
   }
-/*
-  const fetchData = async (address: string) => {
-    setLoading(true);
-    const result = await axios(`https://ark-api.decent.land/v1/profile/arweave/${address}/true`);
-    if (result.data) {
-      const parsed = JSON.parse(result.data);
-      const resobject: Res = parsed?.res;
-      setArkProfile(resobject);
-    }
-    setLoading(false);
-  };
 
-  useEffect(() => {
-    if (address) {
-      fetchData(address)
-    };
-  }, [address]);
-*/
   const [labelHandles, setLabelHandles] = useState<any>({
     ENS: [], 
     AVVY: [],
@@ -87,7 +69,7 @@ function Onboarding() {
       EXMObject.verificationReq = ExoticInteraction;
       //Link via EXM
       console.log("EXM Obj: ", EXMObject);
-      const result = await axios.post(`api/exmwrite`, EXMObject);
+      const result = await axios.post(`/api/exmwrite`, EXMObject);
       console.log("EXM Result: ", result);
       localStorage.setItem("nearLinkingTXHash", ExoticInteraction);
     }
@@ -106,6 +88,30 @@ function Onboarding() {
       console.error(err);
     });
   };
+  //
+  const packageNftPayload = async(addressAr: string) => {
+    if(addressAr) {
+      const result = await axios('/api/allnft/'+addressAr);
+      let images: string[] = [];
+      // Extract image links & sanitize
+      if(result.data) {
+        const chainList = Object.keys(result.data);
+        for(let i = 0; i < chainList.length; i++) { // Loop thru each chain name (EVM, NEAR etc.)
+          for(let j = 0; j < result.data[chainList[i]].length; j++) { // Plug each chain name to payload obj
+            if(result.data[chainList[i]][j].image.substring(0, 4) !== "ipfs") { // Check for ipfs protocol
+              if(result.data[chainList[i]][j].image.includes(IMAGE_PROXY)) { // Check if image proxy should be added
+                images.push(result.data[chainList[i]][j].image);
+              } else {
+                result.data[chainList[i]][j].image = IMAGE_PROXY+result.data[chainList[i]][j].image
+                images.push(result.data[chainList[i]][j].image);
+              }
+            }
+          }
+        }
+      }
+      return images;
+    }
+  }
 
   return (
     <div className='md:h-screen font-sans flex justify-center items-center'>
@@ -183,33 +189,43 @@ function Onboarding() {
             /> 
             )
         }
-
-        {/* {
-          userCurrentStep === 6123 && ( <RegisterNamePage setArLabel={setArLabel} arLabel={arLabel} /> ) 
-        } */}
         {
-          userCurrentStep === 7 && ( <ConfirmUsername  arLabel={selectedName!}/> ) 
+          userOnboardingStep === 7 && (
+             <ConfirmUsername  
+              arLabel={selectedName!}
+            /> 
+          ) 
         }
         {
-          userCurrentStep === 9 && (<AvatarSelectionPage  />)
+          userCurrentStep === 8 && (
+            <AvatarSelectionPage
+              //@ts-ignore
+              handleNftPayload={() => packageNftPayload(addressAr)}  
+            />
+          )
         }
         {
-          userCurrentStep === 10 && (<OptionEditProfile /> )
+          userCurrentStep === 9 && (
+            <OptionEditProfile 
+            /> 
+          )
         }
         {
-          userCurrentStep === 11 && (<EditProfilePage loading={loading}/> )
+          userCurrentStep === 10 && (
+            <EditProfilePage 
+              loading={loading}
+            /> 
+          )
         }
         {
-          userCurrentStep === 12 && (<LoadingScreen msg={'Creating your profile'} end={true}/> )
+          userCurrentStep === 11 && (
+            <LoadingScreen 
+              msg={'Creating your profile'} 
+              end={true}
+            /> 
+          )
         }
-
       </div> 
-      { 
-      /*
-      <div className='bg-[#EDECEC] w-[50%] h-screen hidden sm:block '>
-      </div>
-      */
-      }
     </div>
   )
 }

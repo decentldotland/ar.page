@@ -11,6 +11,7 @@ interface Props {
   setSelectedName: any,
   handleOnboarding: SetterOrUpdater<number>
 }
+const tableClass = "cursor-pointer px-2 textspace-x-2 py-5 h-[55px] flex items-center text-center font-bold 4xl:text-2xs text-sm rounded-2xl relative transition-opacity duration-300 hover:opacity-60";
 
 function DIDList({labels, selectedName, setSelectedName, handleOnboarding}: Props) {
 
@@ -60,5 +61,3 @@ function DIDList({labels, selectedName, setSelectedName, handleOnboarding}: Prop
 
 export default DIDList
 
-
-const tableClass = "cursor-pointer px-2 textspace-x-2 py-5 h-[55px] flex items-center text-center font-bold 4xl:text-2xs text-sm rounded-2xl relative transition-opacity duration-300 hover:opacity-60"

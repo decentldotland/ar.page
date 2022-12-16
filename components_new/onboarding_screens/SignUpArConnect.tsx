@@ -1,10 +1,9 @@
 import Image from 'next/image';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { SetterOrUpdater } from 'recoil';
 import { ONBOARDING_TIMEOUT } from '../../src/constants';
 import axios from 'axios';
-import { SOARK_ENDPOINT } from '../../src/constants';
 
 interface signUpInterface {
   connect: () => Promise<void>;
@@ -30,9 +29,9 @@ function SignUpArConnect(props: signUpInterface) {
     // Fetch User Info to Determine if Already Member
     const fetchUserInfo = async(address: string | undefined) => {
       try {
-        const result = await axios(SOARK_ENDPOINT+address);
-        console.log(SOARK_ENDPOINT+address);
+        const result = await axios.get(`api/soark/${address}`);
         const payload = result.data;
+        console.log(payload);
         if(result.status === 200 && payload) {
           return payload;
         }
@@ -78,9 +77,7 @@ function SignUpArConnect(props: signUpInterface) {
           containsEVM = false;
           containsExotic = false;
         }
-        
-        console.log(containsEVM);
-        console.log(containsExotic);
+
         setConnecting(false);
         
         // Time out to notify user of connection & auto-proceed
@@ -88,9 +85,12 @@ function SignUpArConnect(props: signUpInterface) {
           if(containsExotic && !containsEVM) {
             props.handleNearWallet(containsExotic[0]);
             props.handleOnboarding(4); // Connect EVM wallet
-          } else if(containsEVM) {
+          } else if(!containsExotic) {
             props.handleNearWallet(containsExotic[0]);
-            props.handleOnboarding(5); // Select domain name
+            props.handleOnboarding(1); // Connect NEAR Wallet
+          } else if(containsEVM && containsExotic) {
+            props.handleNearWallet(containsExotic[0]);
+            props.handleOnboarding(5); // Select domain name go to 5
           } else {
             props.handleOnboarding(1); // Connect a Near wallet
           }

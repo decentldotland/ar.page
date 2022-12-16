@@ -4,8 +4,6 @@ import React, { Dispatch, useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userOnboardingState } from '../../atoms';
 import axios from 'axios';
-import { DOMAIN_ENDPOINT } from '../../src/constants';
-
 
 interface Props { 
   msg: string, 
@@ -26,11 +24,11 @@ function LoadingScreen({msg, end, arAddress, handleLabels}: Props) {
 
     const fetchDomains = async() => {
       try {
-        const result = await axios(DOMAIN_ENDPOINT+arAddress);
+        const result = await axios(`api/domains/${arAddress}`);
         const payload = result.data;
+        console.log(payload);
         if(result.status === 200 && payload) {
           setFetched(true);
-          // Send handle data back to Onboarding
           //@ts-ignore
           handleLabels(payload);
         }
@@ -42,7 +40,6 @@ function LoadingScreen({msg, end, arAddress, handleLabels}: Props) {
     useEffect(() => {
       fetchDomains();
     }, []);
-
 
     // if time out and the user is in the last step 
     useEffect(() => {
@@ -60,7 +57,7 @@ function LoadingScreen({msg, end, arAddress, handleLabels}: Props) {
     <>
     {error ?
       (
-        <div className='cursor-not-allowed items-center flex flex-col justify-center h-screen space-y-5'>
+        <div className='cursor-pointer items-center flex flex-col justify-center h-screen space-y-5'>
             <p className='font-medium text-xl text-center text-[#3a3a3a]'>
               There was an error checking your data.
             </p>

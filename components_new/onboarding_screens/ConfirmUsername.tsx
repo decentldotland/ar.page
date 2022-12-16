@@ -1,10 +1,8 @@
-import { ArrowLongRightIcon } from '@heroicons/react/24/outline'
 import { CircularProgress } from '@mui/material'
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { useAccount } from 'wagmi';
 import Web3 from 'web3';
 import { userOnboardingState } from '../../atoms';
 import { Ans } from '../../src/types';
@@ -18,10 +16,6 @@ function ConfirmUsername({
 }: Props) {
   const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
   const userCurrentStep = useRecoilValue(userOnboardingState)
-
-
-    const { address, isConnected, connector } = useAccount();
-
 
     const [loadingWrite, setLoadingWrite] = useState(false)
     const web3 = new Web3(Web3.givenProvider);
@@ -61,25 +55,7 @@ function ConfirmUsername({
         // setLoadingWrite(true)
 
         // temporary 
-        setUserOnboarding(9)
-        // axios.post(`api/exmwrite`, {
-        //   "function": "reserve",
-        //   "evm_address": evmAddress,
-        //   "ans": arLabel.toLowerCase()
-        // })
-        // .then((res) => {
-        //   setLoadingWrite(false)
-        //   console.log(res)
-        //   setstep(4)
-        // })
-        // .catch((err) => {
-        //   setInvalidLabel('Request failed, try again later')
-        //   toast(
-        //   <p className='font-sans'>❌ Something went wrong, please try again.</p>, {duration: 3000})
-        //   console.log(err);
-        //   // If it fails it should inform the user 
-        //   setCurrentStep(2)
-        // })
+        setUserOnboarding(8)
       }
      
 
