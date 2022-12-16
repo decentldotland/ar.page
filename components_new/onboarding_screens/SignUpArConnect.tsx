@@ -99,7 +99,10 @@ function SignUpArConnect(props: signUpInterface) {
             props.handleOnboarding(5); // Select domain name go to 5
           }
         }, ONBOARDING_TIMEOUT);
-    }).catch(() => setConnecting(false));
+    }).catch((e) => {
+      setConnecting(false);
+      console.log("Unable to connect wallet: ", e);
+    });
   }
 
   return (

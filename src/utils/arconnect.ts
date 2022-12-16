@@ -70,7 +70,7 @@ export const useArconnect = (): Hook => {
       setArconnectError('');
       setAddress(await window.arweaveWallet.getActiveAddress());
     } catch(e) {
-      console.log(e);
+      console.log("EROR CONNECTING WALET: ", e);
     }
   }
 

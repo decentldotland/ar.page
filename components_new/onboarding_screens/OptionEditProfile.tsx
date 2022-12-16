@@ -11,16 +11,32 @@ function OptionEditProfile() {
             <div className='mt-10 z-10'>
               <UserBackButton />
             </div>
-            <div className="flex flex-col justify-center h-screen relative bottom-20">
-                <div className="items-center flex flex-col space-y-7">
-                    <h1 className='font-bold text-4xl text-center'>
+            <div className="flex flex-col justify-center h-screen relative">
+                <div className="items-center flex flex-col space-y-6">
+                    <p className='font-bold text-4xl text-center'>
                         So far, so good!👍
-                    </h1>
-                    <h2 className='text-sm text-[#8e8e8f] text-center font-normal'>
+                    </p>
+                    <p className='text-sm text-[#8e8e8f] text-center font-normal'>
                         Would you like to edit your profile page now?
-                    </h2>
+                    </p>
+                    <MainNextButton btnName='Take me there' />
+                    <div className='space-y-2 mt-6 text-[#6a6b6a] font-medium text-center'>
+                        <button onClick={() => setUserOnboarding(11)} >
+                            <p className='cursor-pointer font-bold'>
+                                Maybe later.
+                            </p>
+                        </button>
+                    </div>
                 </div>
             </div>
+
+    </section>
+  )
+}
+
+export default OptionEditProfile;
+
+/*
             <div className='w-full relative bottom-[71px]'>
                 <MainNextButton btnName='Take me there' />
                 <div className='space-y-2 mt-6 text-[#6a6b6a] font-medium text-center'>
@@ -31,8 +47,10 @@ function OptionEditProfile() {
                     </button>
                 </div>
             </div>
-    </section>
-  )
-}
 
-export default OptionEditProfile
+
+
+
+
+
+*/
