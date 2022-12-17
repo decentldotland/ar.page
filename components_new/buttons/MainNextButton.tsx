@@ -6,6 +6,7 @@ interface Props  {
     btnName: string;
     disabled?: boolean;
     className?: string;
+    clickAction?: () => void | undefined;
 }
 
 function MainNextButton(props: Props) {
@@ -16,7 +17,7 @@ function MainNextButton(props: Props) {
     <div className='flex flex-col justify-center items-center '>
       <button 
         disabled={props.disabled} 
-        onClick={() => setUserOnboarding(userOnboardingStep + 1)} 
+        onClick={props.clickAction ? props.clickAction : () => setUserOnboarding(userOnboardingStep + 1)} 
         className={`${props.disabled ? 'bg-[#e6e6e6] text-[#8e8e8f] cursor-not-allowed' : 'bg-[#1273ea] text-white'}
           mt-9  w-full px-24
           h-[68px] items-center rounded-full  font-bold text-lg ${props.className}`}

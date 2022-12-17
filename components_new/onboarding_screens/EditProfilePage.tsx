@@ -20,14 +20,6 @@ const SignupSchema = Yup.object().shape({
     .max(20, 'Too Long!')
     .required('Required'),
   website: Yup.string().url("Enter Full Url"),
-  github: Yup.string()
-    .matches(/https:\/\/github\.com\//, "Enter a Valid GitHub Url"),
-  twitter: Yup.string()
-    .matches(/https:\/\/twitter\.com\//, "Enter a Valid Twitter Url"),
-  instagram: Yup.string()
-    .matches(/https:\/\/instagram\.com\//, "Enter a Valid Instagram Url"),
-  telegram: Yup.string()
-    .matches(/https:\/\/t\.me\//, "Enter a Valid Telegram Url"),
 });
 
 function EditProfilePage({loading}: Props) {
@@ -39,7 +31,9 @@ function EditProfilePage({loading}: Props) {
         <div className='flex items-center justify-between mt-10 '>
             <UserBackButton />
             <p className='text-sm text-center font-bold '>Edit your profile</p>
-            <UserNextButton />
+            <UserNextButton
+              btnText="Finish"
+            />
         </div>
         <Divider />
         {/* Coverpage  */}
@@ -70,7 +64,7 @@ function EditProfilePage({loading}: Props) {
               }, 400);
             }}
           >
-          {({ isSubmitting, errors, validateForm }) => (
+          {({ isSubmitting, errors, validateForm, values, handleChange}) => (
             <Form>
               <ul className='space-y-6'>
                 <p className="text-sm font-bold text-left">About you</p>
@@ -84,17 +78,11 @@ function EditProfilePage({loading}: Props) {
                 <li >
                   <div className='space-y-2 '>
                     <p className={subheaderInput}>Bio</p>
-                    <Field name="bio">
-                      {({field}:{field:any}) => {
-                        return (
-                          <textarea id="txtid" rows={4} cols={50} maxLength={250} name="bio" value={field.value}
-                            className='text-[#8E8E8F] w-full bg-transparent border border-b border-x-0
-                                       border-t-0 outline-none bg-slate-100 rounded-md p-[5px] shadow-sm'
-                          >
-                          </textarea>
-                        );
-                    }}
-                    </Field>
+                    <textarea id="txtid" rows={4} cols={50} maxLength={250} name="bio" onChange={handleChange} value={values.bio}
+                      className='text-[#8E8E8F] w-full bg-transparent border border-b border-x-0
+                                  border-t-0 outline-none bg-slate-100 rounded-md p-[5px] shadow-sm'
+                    >
+                    </textarea>
                   </div>
                 </li>
                 <p className="text-sm font-bold text-left mt-5">Social Accounts</p>
@@ -135,15 +123,16 @@ function EditProfilePage({loading}: Props) {
                 </li>
               </ul>
               <div>
-                <span>
                   <MainNextButton 
                     btnName='Save'
                     disabled={isSubmitting}
                     className="mb-4"
+                    //@ts-ignore
+                    clickAction={() => validateForm}
                   />
-                </span>
               </div>
             </Form>
+          
           )}
           </Formik>
         </section>
@@ -156,3 +145,21 @@ function EditProfilePage({loading}: Props) {
 }
 //<input type="text" placeholder='' name="nickname" className={inputContainer}/>
 export default EditProfilePage;
+
+
+/*
+                    <Field name="bio">
+                      {({field}:{field:any}) => {
+                        return (
+                          <textarea id="txtid" rows={4} cols={50} maxLength={250} name="bio" value={field.value}
+                            className='text-[#8E8E8F] w-full bg-transparent border border-b border-x-0
+                                       border-t-0 outline-none bg-slate-100 rounded-md p-[5px] shadow-sm'
+                          >
+                          </textarea>
+                        );
+                    }}
+
+
+
+
+*/
