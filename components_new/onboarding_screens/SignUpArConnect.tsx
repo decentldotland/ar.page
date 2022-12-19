@@ -36,7 +36,7 @@ function SignUpArConnect(props: signUpInterface) {
           return payload;
         }
       } catch (e) {
-          console.log(e);
+          console.log("Error Gather User Info: ", e);
       } 
     };
 

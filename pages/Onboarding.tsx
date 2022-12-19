@@ -16,7 +16,8 @@ import axios from 'axios';
 import { getDefaultLabels } from '../components_new/onboarding_screens/DIDLabels';
 import { useArconnect } from "../src/utils/arconnect";
 import { useNear } from '../src/utils/near';
-import { IMAGE_PROXY } from '../src/constants';
+import { IMAGE_PROXY, IPFS_PROXY } from '../src/constants';
+import { removeIpfs } from '../src/utils/removeIpfs';
 
 function Onboarding() {
 
@@ -131,7 +132,7 @@ function Onboarding() {
         const chainList = Object.keys(result.data);
         for(let chain = 0; chain < chainList.length; chain++) { // Loop thru each chain name (EVM, NEAR etc.)
           for(let j = 0; j < result.data[chainList[chain]].length; j++) { // Plug each chain name to payload obj
-            if(result.data[chainList[chain]][j].image) { //TEMP FIX
+            if(result.data[chainList[chain]][j].image) { 
               if(result.data[chainList[chain]][j].image.substring(0, 4) !== "ipfs") { // Check for ipfs protocol
                 if(result.data[chainList[chain]][j].image.includes(IMAGE_PROXY)) { // Check if image proxy should be added
                   images.push(result.data[chainList[chain]][j].image);
@@ -139,6 +140,10 @@ function Onboarding() {
                   result.data[chainList[chain]][j].image = IMAGE_PROXY+result.data[chainList[chain]][j].image
                   images.push(result.data[chainList[chain]][j].image);
                 }
+              } else { // ipfs protocols must be rendered with cloudflare links
+                const param = removeIpfs(result.data[chainList[chain]][j].image);
+                const proxiedUrl = IMAGE_PROXY+IPFS_PROXY+param;
+                images.push(proxiedUrl);
               }
             }
           }
@@ -209,7 +214,7 @@ function Onboarding() {
           userOnboardingStep === 5 && (
             <LoadingScreen 
               msg={'Cross-Checking User Data'}
-              arAddress={addressAr} //addressAr
+              arAddress={addressAr}
               handleLabels={setLabelHandles}
             /> 
           )
