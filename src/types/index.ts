@@ -69,13 +69,14 @@ export interface Res {
   ANS:                          Ans;
   ENS:                          string;
   AVVY:                         string;
+  EVMOS:                        string;
   IS_VOUCHED:                   boolean;
   LENS_HANDLES:                 string[];
   GITPOAPS:                     Gitpoap[];
   POAPS:                        Poap[];
   ERC_NFTS:                     any |  { [key: string]: null | string }[];
   EVMOS_NFTS:                   any |  { [key: string]: null | string }[];
-  NEAR_NFTS:                   any |  { [key: string]: null | string }[];
+  NEAR_NFTS:                    any |  { [key: string]: null | string }[];
   URBIT_IDS:                    any |  { [key: string]: null | string }[];
   LENS_PROTOCOLS_ACTV:          LensProtocolsActv[];
   RSS3:                         Rss3[];

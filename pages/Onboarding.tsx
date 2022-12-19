@@ -39,6 +39,16 @@ function Onboarding() {
     "verificationReq": "",
   }
 
+  const EXMObjectTest: any = {
+    "function": "unlinkIdentity",
+    "caller": addressAr,
+    "jwk_n": arConnectPubKey,
+    "sig": signedBase,
+    "address": "",
+    "network": "",
+    "verificationReq": "",
+  }
+
   const [labelHandles, setLabelHandles] = useState<any>({
     ENS: [], 
     AVVY: [],
@@ -71,6 +81,27 @@ function Onboarding() {
       console.log("EXM Obj: ", EXMObject);
       const result = await axios.post(`/api/exmwrite`, EXMObject);
       console.log("EXM Result: ", result);
+      localStorage.setItem("nearLinkingTXHash", ExoticInteraction);
+    }
+  }
+
+  // For Testing Purposes Only
+  const handleDelink = async () => {
+    let arweaveAddr: string;
+    let ExoticInteraction;
+    // @ts-ignore
+    arweaveAddr = addressAr;
+    // Link on Near
+    ExoticInteraction = await linkNear(arweaveAddr);
+    if(ExoticInteraction) {
+      ExoticInteraction = ExoticInteraction?.transaction?.hash;
+      EXMObjectTest.address = accountId;
+      EXMObjectTest.network = "NEAR-MAINNET";
+      EXMObjectTest.verificationReq = ExoticInteraction;
+      //Link via EXM
+      console.log("EXM Obj Test: ", EXMObjectTest);
+      const result = await axios.post(`/api/exmwrite`, EXMObjectTest);
+      console.log("EXM Result Test: ", result);
       localStorage.setItem("nearLinkingTXHash", ExoticInteraction);
     }
   }

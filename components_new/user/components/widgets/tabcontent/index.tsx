@@ -5,8 +5,7 @@ import Selector from './selector';
 import { ArweaveTransaction, NFT, Res, Stamp } from '../../../../../src/types';
 import { TABS } from '../../../hackathon/';
 import StampsTab from './tabs.tsx/StampsTab'; 
-import { ARWEAVE_URL } from '../../../../../src/constants';
-
+import { ARWEAVE_URL, IMAGE_PROXY } from '../../../../../src/constants';
 
 export interface TabContentTabs {
   name: string; // Name of the tab
@@ -17,27 +16,15 @@ export interface TabContentTabs {
 export default function Content({ arkProfile, loading }: { arkProfile: Res; loading: boolean }) {
   const [selected, setSelected] = useState<number>(0);
   const [activity, setActivity] = useState<ArweaveTransaction[]>(arkProfile.ARWEAVE_TRANSACTIONS);
-  const [collectableVisibility, setCollectableVisibility] = useState<boolean>(true);
+  const [collectableVisibility, setCollectableVisibility] = useState<number>(0);
 
-  const handleCollectableVisibility = (res: boolean) => setCollectableVisibility(res);
+  const handleCollectableVisibility = (res: number) => setCollectableVisibility(res);
   
   // ------------------------------NFT, Stamps Section-----------------------------------
   const [stamp, setStamp] = useState<Stamp[]>(arkProfile.STAMPS);
   let tmp: NFT[] = [];
   const [NFTs, setNFTs] = useState<NFT[]>(tmp);
-  // feel free to simplify
-  // if (arkProfile.STAMPS !== undefined || null) {
-  //   for (let n of arkProfile.STAMPS) { 
-  //     if (n.stampedAssetType === "image" ) {
-  //       let stamp_nft = new NFT()
-  //         .add_id(n.stampedAsset)
-  //         .add_poster(n.stampedAsset!)
-  //         .add_timestamp(n.timestamp!)
-  //         .add_content_type(n.stampedAssetType!);
-  //       tmp.push(stamp_nft);
-  //     }
-  //   }
-  // }
+
   /**
    * KOII NFT on Arweave
    */
@@ -58,14 +45,14 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
    * Permapages NFT on Arweave
    */
   if (arkProfile.ANFTS?.permapages_img !== undefined || null) { 
-    for (let n of arkProfile.ANFTS.permapages_img) { 
+    for (let n of arkProfile.ANFTS.permapages_img) {
       let anft = new NFT();
       if (n.content_type === "image/jpeg" ||
-         n.content_type === "image/png" || 
-         n.content_type === "image/gif" || 
-         n.content_type === "image" 
+        n.content_type === "image/png" || 
+        n.content_type === "image/gif" || 
+        n.content_type === "image" 
         //  n.content_type==="video/mp4"
-         ) {
+        ) {
         anft.add_id(ARWEAVE_URL+n.id!)
           .add_poster(n.poster!)
           .add_timestamp(n.timestamp!)
@@ -82,14 +69,13 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   /**
    * ERC NFT on Ethereum
    */
-   if (arkProfile.ERC_NFTS !== undefined || null) { 
+  if (arkProfile.ERC_NFTS !== undefined || null) { 
     for (let n of arkProfile.ERC_NFTS) { 
       let ercnft = new NFT();
-      const nftMetaData = JSON.parse(n.metadata);
-      const proxy = "https://image-proxy.svc.prod.covalenthq.com/cdn-cgi/image/width=512,fit/"    
+      const nftMetaData = JSON.parse(n.metadata); 
       if (n.token_uri && n.token_uri !== "Invalid uri" && nftMetaData !== null && typeof nftMetaData.image !== 'undefined') {
         if(nftMetaData.image.slice(0, 5) !== "ipfs:") {
-          ercnft.add_id(proxy+nftMetaData.image!)
+          ercnft.add_id(nftMetaData.image.includes(IMAGE_PROXY) ? nftMetaData.image : IMAGE_PROXY+nftMetaData.image)
           .add_timestamp(n.block_number_minted!)
           .add_title(nftMetaData.name!)
           .add_description(String(nftMetaData.description!))
@@ -104,11 +90,11 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
    * EVMOS NFT on Cosmos
    * NOTE: EVMOS lacks timestamp on data
    */
-   if (arkProfile.EVMOS_NFTS !== undefined || null) { 
+  if (arkProfile.EVMOS_NFTS !== undefined || null) { 
     for (let n of arkProfile.EVMOS_NFTS) { 
       let evmosnft = new NFT();
       if (n.image.slice(0, 5) !== "ipfs:") {
-        evmosnft.add_id(n.image!)
+        evmosnft.add_id(n.image.includes(IMAGE_PROXY) ? n.image! : IMAGE_PROXY+n.image!)
           .add_timestamp(1)
           .add_title(n.name!)
           .add_description(n.description!)
@@ -124,7 +110,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   if (arkProfile.NEAR_NFTS !== undefined || null) { 
     for (let n of arkProfile.NEAR_NFTS) { 
       let nearnft = new NFT();
-      nearnft.add_id(n.image!)
+      nearnft.add_id(n.image.includes(IMAGE_PROXY) ? n.image! : IMAGE_PROXY+n.image!)
       .add_timestamp(1)
       .add_title(n.collection.title!)
       .add_description(n.name!)
@@ -132,10 +118,8 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       tmp.push(nearnft);
     }
   }
-
-  // Temporary FIx
+    
   NFTs.sort((a, b) =>  b.timestamp! - a.timestamp!);
-
   const [CollectiblePerPage, setCollectiblePerPage] = useState(8);
   const [CurrentCollectiblePage, setcurrentCollectiblePage] = useState(1);
   let indexLastCollection = CurrentCollectiblePage * CollectiblePerPage;
@@ -162,9 +146,8 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
     }
   
 // ---------------------------------- Stamp S-----------------------------------------------
-
-  const CollectableTab = ({nftVisible}: {nftVisible: boolean}) => {
-    if(nftVisible && (NFTs.length - CollectiblePerPage  > 0)) {
+  const CollectableTab = ({nftCount}: {nftCount: number}) => {
+    if(nftCount >= CollectiblePerPage) {
       return (
         <article className='flex justify-center mt-12'>
           <button  onClick={() => showMoreCollection()} className='py-2 px-6 btn-primary  text-lg
@@ -174,7 +157,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
           </button>
         </article>
       );
-    } else if(!nftVisible) {
+    } else if(nftCount === 0) {
       return (
         <>
         </>
@@ -201,9 +184,8 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
           handleVisibility={handleCollectableVisibility}
         />
         <CollectableTab 
-          nftVisible={collectableVisibility}
+          nftCount={collectableVisibility}
         />
-
       </>
       
     },
@@ -274,29 +256,3 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
     </>
   )
 }
-
-
-/**
-
-        {
-          // TODO: 
-          //collectableVisibility Now we have to strategically place this somewhere. 
-          NFTs.length - CollectiblePerPage  > 0 ? (
-            <article className='flex justify-center mt-12'>
-              <button  onClick={() => showMoreCollection()} className='py-2 px-6 btn-primary  text-lg
-                text-white font-semibold flex flex-row 
-                  justify-center rounded-lg'>
-                <p>Show More</p>
-              </button>
-            </article>
-          ) : (
-            <article className='flex justify-center mt-12'>
-              <p>You have reached the end result! B</p>
-            </article>
-          )
-        }
-
-
-
-
- */

@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md'
 import MainNextButton from '../buttons/MainNextButton'
 import UserBackButton from '../buttons/UserBackButton'
 import UserNextButton from '../buttons/UserNextButton'
 import { Divider } from '../user/components/reusables'
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field} from 'formik';
 import * as Yup from "yup";
 
 const inputContainer = 'w-8/12 md:w-9/12 text-[#8E8E8F] bg-transparent border border-b border-x-0 border-t-0  outline-none bg-slate-100 h-10 rounded-md p-[5px] shadow-sm';
@@ -24,12 +24,12 @@ const SignupSchema = Yup.object().shape({
 
 function EditProfilePage({loading}: Props) {
 
-  const [newChanges, setNewChanges] = useState(false)
-
   return (
-    <section className='md:relative md:top-32 relative h-screen flex flex-col sm:w-[440px]  md:w-[600px] px-5'>
+    <section className='md:relative md:top-32 relative h-screen flex flex-col sm:w-[440px] md:w-[600px] px-5'>
         <div className='flex items-center justify-between mt-10 '>
-            <UserBackButton />
+            <UserBackButton 
+              btnText="Back"
+            />
             <p className='text-sm text-center font-bold '>Edit your profile</p>
             <UserNextButton
               btnText="Finish"
@@ -38,11 +38,11 @@ function EditProfilePage({loading}: Props) {
         <Divider />
         {/* Coverpage  */}
         <div>
-          <div className="rounded-lg w-full h-[135px] bg-[#edecec] flex items-center justify-center">
+          <div className="rounded-lg w-full h-[135px] bg-[#edecec] flex items-center justify-center shadow-sm">
             <MdOutlineAddPhotoAlternate size={24} color={"#6a6b6a"} />
           </div>
           {/* Avatar */}
-          <div className="border-4 left-[17px] bottom-[50px] border-white relative  rounded-full w-[100px] h-[100px] bg-[#edecec] flex items-center justify-center">
+          <div className="border-4 left-[17px] bottom-[50px] border-white relative rounded-full w-[100px] h-[100px] bg-[#edecec] flex items-center justify-center shadow-md">
             <MdOutlineAddPhotoAlternate size={24} color={"#6a6b6a"} />
           </div>
         </div>
@@ -58,7 +58,6 @@ function EditProfilePage({loading}: Props) {
             validationSchema={SignupSchema}
             onSubmit={(values, { setSubmitting }) => {
               setTimeout(() => {
-                //Right here is where you grab the data 
                 alert(JSON.stringify(values, null, 2));
                 setSubmitting(false);
               }, 400);
@@ -132,34 +131,11 @@ function EditProfilePage({loading}: Props) {
                   />
               </div>
             </Form>
-          
           )}
           </Formik>
         </section>
-        <div className='relative'>
-          {/* onclick save this  */}
-
-        </div>
     </section>
   )
 }
-//<input type="text" placeholder='' name="nickname" className={inputContainer}/>
+
 export default EditProfilePage;
-
-
-/*
-                    <Field name="bio">
-                      {({field}:{field:any}) => {
-                        return (
-                          <textarea id="txtid" rows={4} cols={50} maxLength={250} name="bio" value={field.value}
-                            className='text-[#8E8E8F] w-full bg-transparent border border-b border-x-0
-                                       border-t-0 outline-none bg-slate-100 rounded-md p-[5px] shadow-sm'
-                          >
-                          </textarea>
-                        );
-                    }}
-
-
-
-
-*/

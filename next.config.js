@@ -1,5 +1,6 @@
 module.exports = {
   reactStrictMode: true,
+  staticPageGenerationTimeout: 100,
   // swcMinify: true,
   images: {
     domains: ['pz-prepnb.meson.network', 
@@ -21,7 +22,8 @@ module.exports = {
               'www.miladymaker.net',
               'i.seadn.io',
               'api.tiles.art',
-              'image-proxy.svc.prod.covalenthq.com'
+              'image-proxy.svc.prod.covalenthq.com',
+              'evmos.notion.site'
             ],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,

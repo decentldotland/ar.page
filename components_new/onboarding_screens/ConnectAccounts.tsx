@@ -1,7 +1,7 @@
 import { PlusIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
-import React, { MouseEventHandler, useEffect } from 'react'
-import { SetterOrUpdater, useRecoilState } from 'recoil';
+import React, { useEffect } from 'react'
+import { SetterOrUpdater } from 'recoil';
 import ConnectedArweaveWallet from './ConnectedArweaveWallet';
 import { walletModifier } from '../../src/utils/walletModifier';
 import clsx from 'clsx';

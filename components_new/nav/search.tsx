@@ -83,4 +83,3 @@ const SearchBox = (props: Props) => {
 }
 
 export default SearchBox;
-//as React.ReactElement

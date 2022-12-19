@@ -52,7 +52,7 @@ export const confirmModalState = atom({
 // to access the current without having to pass on props 
 export const userOnboardingState =  atom({
     key: 'userOnboardingState',
-    default: 10
+    default: 0
 })
 
 export const avatarModalState = atom({

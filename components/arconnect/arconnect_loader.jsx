@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-// import UploadShow from './upload_show.jsx'
 import Swal from 'sweetalert2'
 import { useTranslation } from 'react-i18next'
 import { Fab } from '../editor/fab'

@@ -3,19 +3,12 @@ import { useState, useEffect } from 'react';
 import { userInfo, Res } from '../../src/types';
 import { EditModal } from '../../components/editor/editmodal';
 import { UserInfo } from './components/userInfo';
-import { Bio } from './components/bio';
-import Collectibles from './components/widgets/tabcontent/tabs.tsx/collectibles';
-import ArweaveActivity from './components/widgets/tabcontent/tabs.tsx/activity';
 import Widgets from './components/widgets';
-import { Divider, LoadingOrNotFound } from './components/reusables';
-import { Nav } from '../../components_new/nav';
-
 import { Koii, ArweaveTransaction } from '../../src/types';
 import { Toaster } from 'react-hot-toast';
 import CoverPage from './components/Coverpage/CoverPage';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../atoms';
-import { first } from 'lodash';
 
 function PageContent(props: userInfo) {
   const bio = typeof props.userInfo.bio === 'string' ? 
@@ -28,14 +21,12 @@ function PageContent(props: userInfo) {
   
   // Fetch Near NFTs by near address and ar handle
   const fetchNearNFTs = async(address: string) => {
-    return await axios(`https://ark-core.decent.land/v2/nep/${address}`);
+    return await axios.get(`/api/nep/${address}`);
   }
   // Fetch a users wallet address
   const fetchData = async (arweaveAddr: string, userHandle: string) => {
-
     setLoading(true);
-    const result = await axios(`https://ark-api.decent.land/v1/profile/arweave/${arweaveAddr}/true`);
-
+    const result = await axios.get(`/api/profile/${arweaveAddr}`);
     let linkInfo = await axios.post(`/api/exmread`);
 
     //@ts-ignore
@@ -72,8 +63,8 @@ function PageContent(props: userInfo) {
 
     // Parse final payload containing all NFTS
     let parsed = JSON.parse(result.data);
-    parsed.res["NEAR_NFTS"] = holdNfts;
     if (parsed.res) {
+      parsed.res["NEAR_NFTS"] = holdNfts;
       const resObj: Res = parsed?.res;
       setArkProfile(resObj);
     }

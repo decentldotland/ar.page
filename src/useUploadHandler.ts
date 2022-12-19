@@ -24,7 +24,9 @@ export function useUploadHandler() {
         async (imgData = []) => {
             // if (uploadIMG !== null) {
             let imageData, tx: any;
-            if (!imgData) {
+
+            //@ts-ignore
+            if (imgData !== []) {
                 imageData = new Uint8Array(imgData);
                 tx = await arweave.createTransaction({ data: imageData });
             } else {

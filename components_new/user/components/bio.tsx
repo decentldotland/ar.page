@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../atoms';
-import { Title } from './reusables';
+
 type Props = {
     text: string;
 };

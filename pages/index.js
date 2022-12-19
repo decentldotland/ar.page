@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Index from '../components_new/home'; 
-
 import User from './profile/[user]';
 
 export default function Home({wildcard, userInfo}) {
@@ -10,7 +9,6 @@ export default function Home({wildcard, userInfo}) {
   )
 }
 
-//I think this has to be be where Static Path and and Static Props get deployed
 export async function getServerSideProps(context) {
 
   let wildcard = context.req.headers.host.split(".")[0];
@@ -19,10 +17,13 @@ export async function getServerSideProps(context) {
       try {
           const res = await axios.get(`https://ans-stats.decent.land/users`);
           const userInfo = res.data?.res?.find((user) => user.currentLabel === wildcard);
+
           if (userInfo) return { props: {wildcard, userInfo} };
           else return { props: {wildcard} };
       } catch (error) {
         console.log("Failed to use domain routing...")
       };
       return { props: {wildcard} };
+      
 }
+
