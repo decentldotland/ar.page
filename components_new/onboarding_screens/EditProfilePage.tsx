@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 import { MdOutlineAddPhotoAlternate } from 'react-icons/md'
 import MainNextButton from '../buttons/MainNextButton'
 import UserBackButton from '../buttons/UserBackButton'
@@ -10,8 +11,9 @@ import * as Yup from "yup";
 const inputContainer = 'w-8/12 md:w-9/12 text-[#8E8E8F] bg-transparent border border-b border-x-0 border-t-0  outline-none bg-slate-100 h-10 rounded-md p-[5px] shadow-sm';
 const subheaderInput = 'text-[15px] font-semibold text-left text-[#8e8e8f] w-4/12 md:w-3/12';
 const errorInput = 'text-[12px] text-red-300 block flex text-center justify-center'
-interface Props { 
-  loading: boolean
+interface editProfileProps { 
+  loading: boolean;
+  profileSrc: string;
 }
 
 const SignupSchema = Yup.object().shape({
@@ -22,7 +24,7 @@ const SignupSchema = Yup.object().shape({
   website: Yup.string().url("Enter Full Url"),
 });
 
-function EditProfilePage({loading}: Props) {
+function EditProfilePage({loading, profileSrc}: editProfileProps) {
 
   return (
     <section className='md:relative md:top-32 relative h-screen flex flex-col sm:w-[440px] md:w-[600px] px-5'>
@@ -43,7 +45,17 @@ function EditProfilePage({loading}: Props) {
           </div>
           {/* Avatar */}
           <div className="border-4 left-[17px] bottom-[50px] border-white relative rounded-full w-[100px] h-[100px] bg-[#edecec] flex items-center justify-center shadow-md">
-            <MdOutlineAddPhotoAlternate size={24} color={"#6a6b6a"} />
+            {profileSrc ?
+              <Image 
+                src={profileSrc} 
+                alt="Selected Avatar" 
+                layout="fill"
+                className="rounded-full"
+                objectFit="cover"
+              />
+            :
+              <MdOutlineAddPhotoAlternate size={24} color={"#6a6b6a"} />
+            }
           </div>
         </div>
 

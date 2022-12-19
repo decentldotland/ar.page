@@ -28,6 +28,7 @@ function Onboarding() {
   const [arConnectPubKey, setArConnectPubKey] = useState();
   const [signedBase, setSignedBase] = useState();
   const [loading, setLoading] = useState<boolean>(true);
+  const [selectedProfilePicture, setSelectedProfilePicture] = useState<string>("");
 
   const EXMObject: any = {
     "function": "linkIdentity",
@@ -124,17 +125,20 @@ function Onboarding() {
     if(addressAr) {
       const result = await axios('/api/allnft/'+addressAr);
       let images: string[] = [];
+      console.log(result.data);
       // Extract image links & sanitize
       if(result.data) {
         const chainList = Object.keys(result.data);
-        for(let i = 0; i < chainList.length; i++) { // Loop thru each chain name (EVM, NEAR etc.)
-          for(let j = 0; j < result.data[chainList[i]].length; j++) { // Plug each chain name to payload obj
-            if(result.data[chainList[i]][j].image.substring(0, 4) !== "ipfs") { // Check for ipfs protocol
-              if(result.data[chainList[i]][j].image.includes(IMAGE_PROXY)) { // Check if image proxy should be added
-                images.push(result.data[chainList[i]][j].image);
-              } else {
-                result.data[chainList[i]][j].image = IMAGE_PROXY+result.data[chainList[i]][j].image
-                images.push(result.data[chainList[i]][j].image);
+        for(let chain = 0; chain < chainList.length; chain++) { // Loop thru each chain name (EVM, NEAR etc.)
+          for(let j = 0; j < result.data[chainList[chain]].length; j++) { // Plug each chain name to payload obj
+            if(result.data[chainList[chain]][j].image) { //TEMP FIX
+              if(result.data[chainList[chain]][j].image.substring(0, 4) !== "ipfs") { // Check for ipfs protocol
+                if(result.data[chainList[chain]][j].image.includes(IMAGE_PROXY)) { // Check if image proxy should be added
+                  images.push(result.data[chainList[chain]][j].image);
+                } else {
+                  result.data[chainList[chain]][j].image = IMAGE_PROXY+result.data[chainList[chain]][j].image
+                  images.push(result.data[chainList[chain]][j].image);
+                }
               }
             }
           }
@@ -231,7 +235,9 @@ function Onboarding() {
           userCurrentStep === 8 && (
             <AvatarSelectionPage
               //@ts-ignore
-              handleNftPayload={() => packageNftPayload(addressAr)}  
+              handleNftPayload={() => packageNftPayload(addressAr)}
+              handleSelectedProfile={setSelectedProfilePicture}  
+              profileSrc={selectedProfilePicture}
             />
           )
         }
@@ -245,6 +251,7 @@ function Onboarding() {
           userCurrentStep === 10 && (
             <EditProfilePage 
               loading={loading}
+              profileSrc={selectedProfilePicture ? selectedProfilePicture : ""}
             /> 
           )
         }

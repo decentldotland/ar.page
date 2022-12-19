@@ -6,7 +6,6 @@ import { Avatar } from '../../components/editor/inputs/avatar';
 import Image from 'next/image';
 
 interface modalAvatarProps {
-  handleFile: ChangeEventHandler<HTMLInputElement> | undefined;
   handleSrc: Dispatch<any>;
   handleFetch: () => Promise<string[]>;
 }
@@ -49,13 +48,16 @@ function ModalAvatarSelection(props: modalAvatarProps) {
 
   const [showModal, setShowModal] = useRecoilState(avatarModalState);
   const handleClose = () => {  setShowModal(false )}
-  const [fetchingNft, setFetchingNft] = useState<boolean>(false);
+  const [fetchingNft, setFetchingNft] = useState<boolean>(false); // Detects fetching process to show fetching message
   const [error, setError] = useState<any>('');
   const [images, setImages] = useState<string[]>([]);
+  const [nftFetchStatus, setNftFetchStatus] = useState<boolean>(false); // Records whether an attempted fetch took place - add vs none detected
 
   const buttonClass = 'cursor-pointer items-center rounded-full bg-[#1273ea] text-white font-semibold py-4 px-11 mb-[10px]';
+  const addFromCollectionText = nftFetchStatus ? 'No NFTs in Collection' : 'Add from NFT collections';
   
   const fetchNfts = async() => {
+      setNftFetchStatus(true);
       //@ts-ignore
       if(images.length === 0) {
         setFetchingNft(true);
@@ -65,6 +67,7 @@ function ModalAvatarSelection(props: modalAvatarProps) {
           setFetchingNft(false);
         } catch (e) {
           setError(e);
+          console.log("Fetching NFT Error: ", e);
           setFetchingNft(false);
         }
       }
@@ -72,8 +75,7 @@ function ModalAvatarSelection(props: modalAvatarProps) {
 
   const imgFilehandler = (e: any) => {
     if (e.target.files.length !== 0) {
-      //@ts-ignore
-      props.handleFile(e.target.files[0]);
+      props.handleSrc(URL.createObjectURL(e.target.files[0]));
       handleClose();
     }
   }
@@ -92,11 +94,12 @@ function ModalAvatarSelection(props: modalAvatarProps) {
                 <div className='flex flex-col justify-center items-center h-full'>
                     <p className='text-center font-semibold text-3xl mb-[30px] mt-[10px]'>Select an Avatar</p>
                     {/*Upload Profile Picture*/}
-                    
                     {images.length === 0 ?
                       <div className='space-y-3 relative'>
                           {error ?
-                            <div className={buttonClass+(fetchingNft ? " animate-pulse" : "")} onClick={fetchNfts}>
+                            <div 
+                              className={buttonClass+(fetchingNft ? " animate-pulse" : "")} 
+                              onClick={fetchNfts}>
                               {!fetchingNft ?
                               "There was an error. Try again."
                               :
@@ -106,7 +109,7 @@ function ModalAvatarSelection(props: modalAvatarProps) {
                           : 
                             <div className={buttonClass+(fetchingNft ? " animate-pulse" : "")} onClick={fetchNfts}>
                               {!fetchingNft ?
-                              "Add from NFT collections"
+                              addFromCollectionText
                               :
                               "Fetching Collection.."
                               }

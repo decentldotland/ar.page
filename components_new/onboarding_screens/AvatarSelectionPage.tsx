@@ -1,5 +1,4 @@
-import { ArrowLongRightIcon, PlusIcon } from '@heroicons/react/24/outline'
-import React, { useState } from 'react'
+import React, { SetStateAction, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { avatarModalState, userOnboardingState } from '../../atoms';
 import UserBackButton from '../buttons/UserBackButton';
@@ -11,14 +10,14 @@ import Image from 'next/image';
 
 interface AvatarProps {
     handleNftPayload: () => Promise<string[]>;
+    handleSelectedProfile: React.Dispatch<SetStateAction<string>>;
+    profileSrc: string;
 }
 
 function AvatarSelectionPage(props: AvatarProps) {
- 
+
     const showModalValue = useRecoilValue(avatarModalState)
     const [showModal, setShowModal] = useRecoilState(avatarModalState);
-    const [imgFile, setImgFile] = useState<any>(""); // Handle upload file from computer
-    const [imgSrc, setImgSrc] = useState<any>(""); // Handle src from nft gallery
     const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
 
     return (
@@ -34,13 +33,12 @@ function AvatarSelectionPage(props: AvatarProps) {
                     </p>
                 </div>
                 {/*If no Image File or Src Selected, Show Add Photo Display*/}
-                {(!imgFile && !imgSrc) ?
+                {!props.profileSrc ?
                     <>
                         <div 
                             onClick={() => {
                                 setShowModal(true);
-                                setImgFile("");
-                                setImgSrc("");
+                                props.handleSelectedProfile("");
                             }} 
                             className='flex flex-row justify-center mt-8'
                         >
@@ -54,9 +52,9 @@ function AvatarSelectionPage(props: AvatarProps) {
                     <>
                         <div className='flex flex-row justify-center mt-8'>
                             <div className='rounded-full w-[237px] h-[237px] bg-[#edecec] items-center flex flex-row justify-center relative'>
-                                {/*Check if an Image File or Image Src has Been Selected*/}
+                                {/*Check if an Image File or Image Src has Been Selected */}
                                 <Image 
-                                    src={imgFile ? URL.createObjectURL(imgFile) : (imgSrc) ? imgSrc : ""} 
+                                    src={props.profileSrc ? props.profileSrc : ""} 
                                     alt="Selected Profile Picture" 
                                     className="rounded-full"
                                     layout="fill"
@@ -68,8 +66,7 @@ function AvatarSelectionPage(props: AvatarProps) {
                             className='text-center mt-10 text-sm text-[#8e8e8f] cursor-pointer' 
                             onClick={() => {
                                 setShowModal(true);
-                                setImgFile("");
-                                setImgSrc("");
+                                props.handleSelectedProfile("");
                             }}
                         >
                             Select another image
@@ -79,7 +76,7 @@ function AvatarSelectionPage(props: AvatarProps) {
                 }
             </div>
             <div>
-                <MainNextButton btnName='Next' disabled={(imgFile || imgSrc ) ? false : true}/>
+                <MainNextButton btnName='Next' disabled={props.profileSrc  ? false : true}/>
                 <p 
                     onClick={() => setUserOnboarding(userOnboardingStep + 1)} 
                     className='cursor-pointer font-bold text-center mt-6 text-sm text-[#8e8e8f]'
@@ -90,8 +87,7 @@ function AvatarSelectionPage(props: AvatarProps) {
         </section>
         {showModalValue && (
             <ModalAvatarSelection
-                handleFile={setImgFile}
-                handleSrc={setImgSrc}
+                handleSrc={props.handleSelectedProfile}
                 handleFetch={props.handleNftPayload}
             />
         ) }
