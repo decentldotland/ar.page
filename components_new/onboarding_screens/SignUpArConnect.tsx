@@ -86,14 +86,14 @@ function SignUpArConnect(props: signUpInterface) {
         
         // Time out to notify user of connection & auto-proceed
         setTimeout(function(){
-          if(containsExotic && !containsEVM) {
+          if(containsExotic.length > 0 && containsEVM.length === 0) {
             console.log("Redirect: Step 4");
             props.handleNearWallet(containsExotic[0]);
             props.handleOnboarding(4); // Connect EVM wallet
-          } else if(!containsExotic) {
+          } else if(containsExotic.length > 0) {
             console.log("Redirect: Step 1");
             props.handleOnboarding(1); // Connect NEAR Wallet
-          } else if(containsEVM && containsExotic) {
+          } else if(containsEVM.length > 0 && containsExotic.length > 0) {
             console.log("Redirect: Step 5");
             props.handleNearWallet(containsExotic[0]);
             props.handleOnboarding(5); // Select domain name go to 5
