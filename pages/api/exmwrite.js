@@ -1,8 +1,8 @@
 import axios from "axios"
-import { contractAddress } from './exmvars'
+import { contractAddress, token } from './exmvars'
 
 export default async function handler(req, res) {
-  const token = process.env.EXM_TOKEN;
+  
   try {
     const data = await axios.post(`https://api.exm.dev/api/transactions?token=${token}`, {
       functionId: contractAddress,
