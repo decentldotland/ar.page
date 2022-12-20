@@ -9,7 +9,6 @@
     "routes": [
       {
         "src": "/.*",
-        "timeout": 30,
         "headers": {
           "cache-control": "s-maxage=0, max-age=0"
         }
