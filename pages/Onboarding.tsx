@@ -170,7 +170,7 @@ function Onboarding() {
           userCurrentStep === 0 && (<SignUpPage  />)
         } */}
         {
-          userOnboardingStep === 0 && (
+          getOnboardingStepNumeric() === 0 && (
             <SignUpArConnect
               connect={connectAr}
               disconnect={disconnectAr}
@@ -183,7 +183,7 @@ function Onboarding() {
           )
         }
         {
-          userOnboardingStep === 1 && (
+          getOnboardingStepNumeric() === 1 && (
             <ConnectAccounts
               connect={connectNear} 
               disconnect={disconnectNear}
@@ -196,21 +196,21 @@ function Onboarding() {
           )
         }
         {
-          userOnboardingStep === 2 && (
+          getOnboardingStepNumeric() === 2 && (
             <SignUpNear
               handleOnboarding={setUserOnboarding}
             />
         )
         }
         {
-          userOnboardingStep === 3 && (
+          getOnboardingStepNumeric() === 3 && (
             <ArkSuccessPage  
               handleOnboarding={setUserOnboarding}
             /> 
           ) 
         }
         {
-          userOnboardingStep === 4 && (
+          getOnboardingStepNumeric() === 4 && (
             <ConnectAdditionalAccounts
               addressAr={addressAr}
               addressNear={accountId} 
@@ -220,7 +220,7 @@ function Onboarding() {
           )
         }
         {
-          userOnboardingStep === 5 && (
+          getOnboardingStepNumeric() === 5 && (
             <LoadingScreen 
               msg={'Cross-Checking User Data'}
               arAddress={addressAr}
@@ -230,7 +230,7 @@ function Onboarding() {
           )
         }
         {
-          userOnboardingStep === 6 && ( 
+          getOnboardingStepNumeric() === 6 && ( 
             <DIDList 
               labels={labels} 
               selectedName={selectedName} 
@@ -240,14 +240,14 @@ function Onboarding() {
             )
         }
         {
-          userOnboardingStep === 7 && (
+          getOnboardingStepNumeric() === 7 && (
              <ConfirmUsername  
               arLabel={selectedName!}
             /> 
           ) 
         }
         {
-          userCurrentStep === 8 && (
+          getOnboardingStepNumeric() === 8 && (
             <AvatarSelectionPage
               //@ts-ignore
               handleNftPayload={() => packageNftPayload(addressAr)}
@@ -257,13 +257,13 @@ function Onboarding() {
           )
         }
         {
-          userCurrentStep === 9 && (
+          getOnboardingStepNumeric() === 9 && (
             <OptionEditProfile 
             /> 
           )
         }
         {
-          userCurrentStep === 10 && (
+          getOnboardingStepNumeric() === 10 && (
             <EditProfilePage 
               loading={loading}
               profileSrc={selectedProfilePicture ? selectedProfilePicture : ""}
@@ -271,7 +271,7 @@ function Onboarding() {
           )
         }
         {
-          userCurrentStep === 11 && (
+          getOnboardingStepNumeric() === 11 && (
             <LoadingScreen 
               msg={'Creating your profile'} 
               end={true}
