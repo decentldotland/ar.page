@@ -25,7 +25,7 @@ function LoadingScreen(props: Props) {
           setFetched(true);
           console.log("LoadingScreen payload: ", payload);
           //@ts-ignore Secured by first if stmnt
-          handleLabels(payload);
+          props.handleLabels(payload);
         } else {
           console.log("Loading Screen: no payload found");
           setFetched(true);
