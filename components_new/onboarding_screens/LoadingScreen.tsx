@@ -1,29 +1,24 @@
 import { CircularProgress } from '@mui/material'
-import { useRouter } from 'next/router';
 import React, { Dispatch, useEffect, useState } from 'react'
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { userOnboardingState } from '../../atoms';
+import { SetterOrUpdater } from 'recoil';
 import axios from 'axios';
 
 interface Props { 
   msg: string, 
   end?: boolean,
   arAddress?: string | undefined,
-  handleLabels?: Dispatch<any>
+  handleLabels?: Dispatch<any>,
+  handleOnboarding: SetterOrUpdater<number>;
 }
 
-function LoadingScreen({msg, end, arAddress, handleLabels}: Props) {
+function LoadingScreen(props: Props) {
 
-  const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
-
-    // after a timer, redirectr the user to the home page 
-    const route = useRouter();
     const [fetched, setFetched] = useState(false);
     const [error, setError] = useState(false);
 
     const fetchDomains = async() => {
       try {
-        const result = await axios(`api/domains/${arAddress}`);
+        const result = await axios(`api/domains/${props.arAddress}`);
         const payload = result.data;
         console.log("Payload from Cross-checking: ", payload);
         if(result.status === 200 && payload !== null && payload !== undefined) {
@@ -32,9 +27,11 @@ function LoadingScreen({msg, end, arAddress, handleLabels}: Props) {
           //@ts-ignore Secured by first if stmnt
           handleLabels(payload);
         } else {
+          console.log("Loading Screen: no payload found");
           setFetched(true);
         }
       } catch (e) {
+        console.log("Loading Screen: Error attempting to fetch domains");
           setError(true);
       } 
     };  
@@ -47,7 +44,7 @@ function LoadingScreen({msg, end, arAddress, handleLabels}: Props) {
     useEffect(() => {
       if (fetched) {
         console.log("Loading Screen: Fetched worked, proceeding to step 6");
-        setUserOnboarding(6);
+        props.handleOnboarding(6);
       }
     }, [fetched]);
     
@@ -68,7 +65,7 @@ function LoadingScreen({msg, end, arAddress, handleLabels}: Props) {
         <div className='cursor-not-allowed items-center flex flex-col justify-center h-screen space-y-5'>
             <CircularProgress color="inherit" size={31}/>
             <p className='font-medium text-xl text-center text-[#3a3a3a]'>
-              {msg}
+              {props.msg}
             </p>
         </div>
       )}

@@ -216,6 +216,7 @@ function Onboarding() {
               msg={'Cross-Checking User Data'}
               arAddress={addressAr}
               handleLabels={setLabelHandles}
+              handleOnboarding={setUserOnboarding}
             /> 
           )
         }
@@ -265,6 +266,7 @@ function Onboarding() {
             <LoadingScreen 
               msg={'Creating your profile'} 
               end={true}
+              handleOnboarding={setUserOnboarding}
             /> 
           )
         }
@@ -274,23 +276,3 @@ function Onboarding() {
 }
 
 export default Onboarding;
-
-
-/*
-{
-    "version": 2,
-    "name": "ar-page",
-    "scripts": {
-        "build": "next build"
-    },
-    "routes": [
-        {
-        "src": "api/(.+)",
-        "timeout": 30
-        }
-    ]
-}
-
-
-
-*/
