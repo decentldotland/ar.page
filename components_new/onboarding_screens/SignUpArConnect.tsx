@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { SetterOrUpdater } from 'recoil';
 import { ONBOARDING_TIMEOUT } from '../../src/constants';
+import { getOnboardingStepNumeric, setOnboardingStep } from '../../src/utils/onboardingHelper';
 import axios from 'axios';
 
 interface signUpInterface {
@@ -99,14 +100,17 @@ function SignUpArConnect(props: signUpInterface) {
           if(containsExotic.length > 0 && containsEVM.length === 0) {
             console.log("Redirect: Step 4");
             props.handleNearWallet(containsExotic[0]);
-            props.handleOnboarding(4); // Connect EVM wallet
+            setOnboardingStep("4");
+            props.handleOnboarding(getOnboardingStepNumeric()); // Connect EVM wallet
           } else if(containsExotic.length === 0) {
             console.log("Redirect: Step 1");
-            props.handleOnboarding(1); // Connect NEAR Wallet
+            setOnboardingStep("1");
+            props.handleOnboarding(getOnboardingStepNumeric()); // Connect NEAR Wallet
           } else if(containsEVM.length > 0 && containsExotic.length > 0) {
             console.log("Redirect: Step 5");
             props.handleNearWallet(containsExotic[0]);
-            props.handleOnboarding(5); // Select domain name go to 5
+            setOnboardingStep("5");
+            props.handleOnboarding(getOnboardingStepNumeric()); // Select domain name go to 5
           }
         }, ONBOARDING_TIMEOUT);
     }).catch((e) => {

@@ -1,6 +1,7 @@
 import { CircularProgress } from '@mui/material'
 import React, { Dispatch, useEffect, useState } from 'react'
 import { SetterOrUpdater } from 'recoil';
+import { setOnboardingStep, getOnboardingStepNumeric } from '../../src/utils/onboardingHelper';
 import axios from 'axios';
 
 interface Props { 
@@ -44,7 +45,8 @@ function LoadingScreen(props: Props) {
     useEffect(() => {
       if (fetched) {
         console.log("Loading Screen: Fetched worked, proceeding to step 6");
-        props.handleOnboarding(6);
+        setOnboardingStep("6");
+        props.handleOnboarding(getOnboardingStepNumeric());
       }
     }, [fetched]);
     

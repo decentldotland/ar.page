@@ -1,8 +1,9 @@
 import React from 'react'
 import { useRecoilState } from 'recoil';
 import { userOnboardingState } from '../../atoms';
-import MainNextButton from '../buttons/MainNextButton'
-import UserBackButton from '../buttons/UserBackButton'
+import MainNextButton from '../buttons/MainNextButton';
+import UserBackButton from '../buttons/UserBackButton';
+import { getOnboardingStepNumeric, setOnboardingStep } from '../../src/utils/onboardingHelper';
 
 function OptionEditProfile() {
     const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
@@ -21,7 +22,12 @@ function OptionEditProfile() {
                     </p>
                     <MainNextButton btnName='Take me there' />
                     <div className='space-y-2 mt-6 text-[#6a6b6a] font-medium text-center'>
-                        <button onClick={() => setUserOnboarding(11)} >
+                        <button 
+                            onClick={() => {
+                                setOnboardingStep("11");
+                                setUserOnboarding(getOnboardingStepNumeric());
+                            }} 
+                        >
                             <p className='cursor-pointer font-bold'>
                                 Maybe later.
                             </p>
@@ -35,22 +41,3 @@ function OptionEditProfile() {
 }
 
 export default OptionEditProfile;
-
-/*
-            <div className='w-full relative bottom-[71px]'>
-                <MainNextButton btnName='Take me there' />
-                <div className='space-y-2 mt-6 text-[#6a6b6a] font-medium text-center'>
-                    <button onClick={() => setUserOnboarding(12)} >
-                        <h1 className='cursor-pointer font-bold'>
-                            Maybe later.
-                        </h1>
-                    </button>
-                </div>
-            </div>
-
-
-
-
-
-
-*/

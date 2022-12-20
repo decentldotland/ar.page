@@ -1,6 +1,7 @@
 import React from 'react'
 import { SetterOrUpdater } from 'recoil';
-import MainNextButton from '../buttons/MainNextButton'
+import MainNextButton from '../buttons/MainNextButton';
+import { getOnboardingStepNumeric, setOnboardingStep } from '../../src/utils/onboardingHelper';
 
 interface ArkSuccessPageInterface {
   handleOnboarding: SetterOrUpdater<number>;
@@ -14,7 +15,12 @@ function ArkSuccessPage(props: ArkSuccessPageInterface) {
         has been added 
         your ArPage! 🥳
         </p>
-        <span onClick={() => props.handleOnboarding(4)}>
+        <span 
+          onClick={() => {
+            setOnboardingStep("4");
+            props.handleOnboarding(getOnboardingStepNumeric());
+          }}
+        >
           <MainNextButton btnName='Register Name' />
         </span>
     </div>

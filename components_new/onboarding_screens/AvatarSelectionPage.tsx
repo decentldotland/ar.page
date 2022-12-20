@@ -7,6 +7,7 @@ import {MdOutlineAddAPhoto, MdOutlineAddPhotoAlternate} from 'react-icons/md'
 import MainNextButton from '../buttons/MainNextButton';
 import ModalAvatarSelection from './ModalAvatarSelection';
 import Image from 'next/image';
+import { getOnboardingStepNumeric, setOnboardingStep } from '../../src/utils/onboardingHelper';
 
 interface AvatarProps {
     handleNftPayload: () => Promise<string[]>;
@@ -78,7 +79,10 @@ function AvatarSelectionPage(props: AvatarProps) {
             <div>
                 <MainNextButton btnName='Next' disabled={props.profileSrc  ? false : true}/>
                 <p 
-                    onClick={() => setUserOnboarding(userOnboardingStep + 1)} 
+                    onClick={() => {
+                        setOnboardingStep(String(getOnboardingStepNumeric() + 1));
+                        setUserOnboarding(getOnboardingStepNumeric());
+                    }} 
                     className='cursor-pointer font-bold text-center mt-6 text-sm text-[#8e8e8f]'
                 >
                     Skip

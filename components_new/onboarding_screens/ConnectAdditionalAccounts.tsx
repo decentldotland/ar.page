@@ -10,9 +10,9 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useETH } from '../../src/utils/eth';
 import { NETWORKS } from '../../src/constants';
 import axios from 'axios';
-import { useNetwork } from 'wagmi';
 import { permissions } from '../../src/utils/arconnect';
 import { ONBOARDING_TIMEOUT } from '../../src/constants';
+import { getOnboardingStepNumeric, setOnboardingStep } from '../../src/utils/onboardingHelper';
 
 interface ConnectAdditionalAccountsInterface {
     addressAr: string | undefined;
@@ -96,7 +96,8 @@ function ConnectAdditionalAccounts(props: ConnectAdditionalAccountsInterface) {
           setClicked(false);
           // Set timeout notifying user of connectivity & auto-proceed
           setTimeout(function(){
-            props.handleOnboarding(5);
+            setOnboardingStep("5");
+            props.handleOnboarding(getOnboardingStepNumeric());
          }, ONBOARDING_TIMEOUT);
           
         }).catch((e: any) => console.log(e));
@@ -163,7 +164,16 @@ function ConnectAdditionalAccounts(props: ConnectAdditionalAccountsInterface) {
                                             imgMarkup={'shadow-2xl bg-slate-300 rounded-xl'}
                                             handleConnect={openConnectModal}
                                           />
-                                          <span onClick={() => (clicked || linked) ? '' : props.handleOnboarding(5)} className="w-full">
+                                          <span 
+                                            onClick={() => {
+                                              (clicked || linked) ? 
+                                                '' 
+                                              : 
+                                                setOnboardingStep("5");
+                                                props.handleOnboarding(getOnboardingStepNumeric());
+                                              }} 
+                                            className="w-full"
+                                          >
                                             <MainNextButton 
                                                 btnName='or Continue'
                                                 className='mt-[40px]'
@@ -186,7 +196,15 @@ function ConnectAdditionalAccounts(props: ConnectAdditionalAccountsInterface) {
                                             //@ts-ignore
                                             handleConnect={() => handleLinkConfiguration(props.addressAr, props.exmObj, chain.id)}
                                           />
-                                          <span onClick={() => (clicked || linked) ? '' : props.handleOnboarding(5)} className="w-full">
+                                          <span onClick={() => {
+                                            (clicked || linked) ? 
+                                              '' 
+                                            : 
+                                              setOnboardingStep("5");
+                                              props.handleOnboarding(getOnboardingStepNumeric());
+                                            }} 
+                                            className="w-full"
+                                          >
                                             <MainNextButton 
                                                 btnName='or Continue'
                                                 className='mt-[40px]'
@@ -208,7 +226,15 @@ function ConnectAdditionalAccounts(props: ConnectAdditionalAccountsInterface) {
                                             divMarkup={'border-4 border-emerald-400'}
                                             handleConnect={() => ''}
                                           />
-                                          <span onClick={() => (clicked || linked) ? '' : props.handleOnboarding(5)} className="w-full">
+                                          <span onClick={() => {
+                                            (clicked || linked) ? 
+                                              '' 
+                                            : 
+                                              setOnboardingStep("5");
+                                              props.handleOnboarding(getOnboardingStepNumeric());
+                                            }} 
+                                            className="w-full"
+                                          >
                                             <MainNextButton 
                                                 btnName='or Continue'
                                                 className='mt-[40px]'

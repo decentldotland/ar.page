@@ -146,4 +146,5 @@ export const ONBOARDING_TIMEOUT = 1300;
 // Accomodates NEXT Image allowing us to feed various domains
 export const IMAGE_PROXY = "https://image-proxy.svc.prod.covalenthq.com/cdn-cgi/image/width=512,fit/";
 export const IPFS_PROXY = "https://cloudflare-ipfs.com/ipfs/";
+export const ONBOARDING_LOCAL = "onboarding";
 

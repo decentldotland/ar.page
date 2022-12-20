@@ -4,6 +4,7 @@ import '@near-wallet-selector/modal-ui/styles.css';
 import UserBackButton from '../buttons/UserBackButton';
 import { SetterOrUpdater, useRecoilState } from 'recoil';
 import { userOnboardingState } from '../../atoms';
+import { setOnboardingStep, getOnboardingStepNumeric } from '../../src/utils/onboardingHelper';
 
 interface SignUpNearInterface {
   handleOnboarding: SetterOrUpdater<number>;
@@ -30,7 +31,11 @@ function SignUpNear(props: SignUpNearInterface) {
         
         {/* Button to connect or download arweave  */}
         <div className='mt-[102px] flex justify-center flex-col items-center w-full'>
-          <button onClick={() => props.handleOnboarding(3)}
+          <button 
+            onClick={() => {
+              setOnboardingStep("3");
+              props.handleOnboarding(getOnboardingStepNumeric());
+            }}
             className="cursor-pointer bg-[#1273ea] w-full px-28 sm:w-[386px] h-[68px] justify-center items-center flex relative flex-row rounded-full text-white font-bold text-lg" >
               <div className='flex justify-center items-center'>
                     <p className='text-center'>Next</p>

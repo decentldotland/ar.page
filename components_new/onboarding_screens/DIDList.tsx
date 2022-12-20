@@ -4,6 +4,7 @@ import { SetterOrUpdater } from 'recoil';
 import { Res } from '../../src/types';
 import MainNextButton from '../buttons/MainNextButton';
 import UserBackButton from '../buttons/UserBackButton';
+import { getOnboardingStepNumeric, setOnboardingStep } from '../../src/utils/onboardingHelper';
 
 interface Props { 
   labels: any,
@@ -49,7 +50,15 @@ function DIDList({labels, selectedName, setSelectedName, handleOnboarding}: Prop
                   <p>No Label Handles Found...</p>
                   }
                 </div>
-                <span className="mb-2" onClick={() => selectedName ? handleOnboarding(7) : ''}>
+                <span 
+                  className="mb-2"
+                  onClick={() => { 
+                    if(selectedName) {
+                      setOnboardingStep("7");
+                      handleOnboarding(getOnboardingStepNumeric()); 
+                    }
+                  }}
+                >
                   <MainNextButton 
                     btnName='Next' 
                     disabled={!selectedName || loading}

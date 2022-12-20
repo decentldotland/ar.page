@@ -6,6 +6,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import Web3 from 'web3';
 import { userOnboardingState } from '../../atoms';
 import { Ans } from '../../src/types';
+import { getOnboardingStepNumeric, setOnboardingStep } from '../../src/utils/onboardingHelper';
 
 interface Props { 
     arLabel: string
@@ -55,7 +56,8 @@ function ConfirmUsername({
         // setLoadingWrite(true)
 
         // temporary 
-        setUserOnboarding(8)
+        setOnboardingStep("8");
+        setUserOnboarding(getOnboardingStepNumeric());
       }
      
 
@@ -69,7 +71,11 @@ function ConfirmUsername({
                 <h1 className='font-bold text-4xl mb-4'>@{arLabel}</h1>
 
                 {/* Go back to registration page  */}
-                <p onClick={() => setUserOnboarding(userOnboardingStep - 1)} 
+                <p 
+                  onClick={() => {
+                    setOnboardingStep(String(getOnboardingStepNumeric() - 1));
+                    setUserOnboarding(getOnboardingStepNumeric());
+                  }} 
                   className='cursor-pointer font-medium text-sm text-[#1273ea] text-left hover:underline'>
                     Change username
                 </p>

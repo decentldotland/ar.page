@@ -7,6 +7,7 @@ import { walletModifier } from '../../src/utils/walletModifier';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { ONBOARDING_TIMEOUT } from '../../src/constants';
+import { getOnboardingStepNumeric, setOnboardingStep } from '../../src/utils/onboardingHelper';
 
 interface ConnectAccountsInterface {
     connect: () => void;
@@ -38,7 +39,8 @@ function ConnectAccounts(props: ConnectAccountsInterface) {
         setClicked(false);
         // Timeout to notify user of connection & auto-proceed
         setTimeout(function(){
-            props.handleOnboarding(2);
+            setOnboardingStep("2");
+            props.handleOnboarding(getOnboardingStepNumeric());
          }, ONBOARDING_TIMEOUT);
 
     }).catch(() => setLinked(false));
@@ -92,7 +94,13 @@ function ConnectAccounts(props: ConnectAccountsInterface) {
         ) 
         :
         (
-            <div onClick={() => props.handleOnboarding(2)} className={btnDynamicStyling}>
+            <div 
+                onClick={() => {
+                    setOnboardingStep("2");
+                    props.handleOnboarding(getOnboardingStepNumeric());
+                }} 
+                className={btnDynamicStyling}
+            >
                 <div className='flex items-center space-x-2.5'>
                     <Image src={'/icons/NEAR_WHITE.svg'} height={50} width={50} className={'shadow-2xl bg-black rounded-xl '} alt="Near Logo"/>
                     <h3 className='text-sm font-semibold text-left '>
