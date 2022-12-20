@@ -18,6 +18,7 @@ import { useArconnect } from "../src/utils/arconnect";
 import { useNear } from '../src/utils/near';
 import { IMAGE_PROXY, IPFS_PROXY } from '../src/constants';
 import { removeIpfs } from '../src/utils/removeIpfs';
+import { getOnboardingStepNumeric, setOnboardingStep } from '../src/utils/onboardingHelper';
 
 function Onboarding() {
 
@@ -151,6 +152,14 @@ function Onboarding() {
       }
       return images;
     }
+  }
+
+  // Check if user was already onboarding prior
+  // Useful for Wallets that make you leave page to connect
+  if(getOnboardingStepNumeric()) {
+    setOnboardingStep(String(getOnboardingStepNumeric()));
+  } else {
+    setOnboardingStep("0");
   }
 
   return (
