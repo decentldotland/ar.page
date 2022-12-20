@@ -274,3 +274,23 @@ function Onboarding() {
 }
 
 export default Onboarding;
+
+
+/*
+{
+    "version": 2,
+    "name": "ar-page",
+    "scripts": {
+        "build": "next build"
+    },
+    "routes": [
+        {
+        "src": "api/(.+)",
+        "timeout": 30
+        }
+    ]
+}
+
+
+
+*/
