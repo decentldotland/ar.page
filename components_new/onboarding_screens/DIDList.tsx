@@ -27,7 +27,8 @@ function DIDList({labels, selectedName, setSelectedName, handleOnboarding}: Prop
           </p>
             <div className="mt-11">
               <div className="grid grid-flow-row grid-cols-2 md:grid-cols-1 lg:md:grid-cols-2  grid-rows-4 gap-5">
-                  {labels.map((item:any, index:number) => (
+                  {labels !== undefined ?
+                  labels.map((item:any, index:number) => (
                     <button onClick={() => setSelectedName(item.username)} key={index}>
                       <div   className={`text-white ${selectedName === item.username ? tableClass + item.classes + 'border-black border-2': item.classes + tableClass} `}>
                           <div className='flex flex-row items-center space-x-1'>
@@ -43,7 +44,10 @@ function DIDList({labels, selectedName, setSelectedName, handleOnboarding}: Prop
                         }
                       </div>
                     </button>
-                  ))}
+                  ))
+                  :
+                  <p>No Label Handles Found...</p>
+                  }
                 </div>
                 <span className="mb-2" onClick={() => selectedName ? handleOnboarding(7) : ''}>
                   <MainNextButton 
