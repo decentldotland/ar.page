@@ -1,6 +1,12 @@
 {
     "version": 2,
     "name": "ar-page",
+    "build": {
+        "command": "npm run build",
+        "env": {
+          "NODE_ENV": "production"
+        }
+    },
     "routes": [
         {
         "src": "api/(.+)",
