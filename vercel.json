@@ -1,0 +1,18 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "package.json",
+        "use": "@now/next"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/.*",
+        "timeout": 30,
+        "headers": {
+          "cache-control": "s-maxage=0, max-age=0"
+        }
+      }
+    ]
+  }
