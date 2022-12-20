@@ -34,7 +34,7 @@
     "@rainbow-me/rainbowkit": "^0.8.0",
     "@svgr/webpack": "^6.5.1",
     "@types/react-helmet": "^6.1.5",
-    "ans-for-all": "nanofuxion/ans-for-all",
+    "ans-for-all": "decentldotland/ans-for-all",
     "arconnect": "^0.4.2",
     "arweave": "^1.11.8",
     "arweave-multihost": "^0.1.0",

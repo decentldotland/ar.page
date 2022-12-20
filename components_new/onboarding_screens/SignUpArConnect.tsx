@@ -18,6 +18,7 @@ interface signUpInterface {
 function SignUpArConnect(props: signUpInterface) {
 
   const [connecting, setConnecting] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
   const btnDynamicStyling = clsx(
     "cursor-pointer bg-black text-white w-full sm:w-[386px] h-[68px] justify-center items-center flex relative flex-row rounded-full font-bold text-lg",
@@ -42,6 +43,7 @@ function SignUpArConnect(props: signUpInterface) {
 
     // Connect wallet
     setConnecting(true);
+    setError(false);
     await props.connect().then(async() => {
         // Obtain Pub Key
         const arconnectPubKey = await window.arweaveWallet.getActivePublicKey();
@@ -63,7 +65,16 @@ function SignUpArConnect(props: signUpInterface) {
         const activeAddr = await window.arweaveWallet.getActiveAddress();
         console.log("Active Address: ", activeAddr);
         // Fetches all domains
-        const userInfo = await fetchUserInfo(activeAddr);
+        let userInfo;
+        try {
+          userInfo = await fetchUserInfo(activeAddr);
+        } catch(e) {
+          console.log("Fetch wasnt successful: ", userInfo);
+          setConnecting(false);
+          setError(true);
+          return false;
+        }
+        
         console.log("User Info: ", userInfo);
         // Check if person has any EVM domains
         let containsEVM: any;
@@ -77,11 +88,10 @@ function SignUpArConnect(props: signUpInterface) {
           console.log("Contains Exotic Payload: ", containsExotic);
         } else {
           props.handleNearWallet(null);
-          containsEVM = false;
-          containsExotic = false;
+          containsEVM = [];
+          containsExotic = [];
           console.log("Contains payload: ", containsEVM, containsExotic);
         }
-
         setConnecting(false);
         
         // Time out to notify user of connection & auto-proceed
@@ -90,7 +100,7 @@ function SignUpArConnect(props: signUpInterface) {
             console.log("Redirect: Step 4");
             props.handleNearWallet(containsExotic[0]);
             props.handleOnboarding(4); // Connect EVM wallet
-          } else if(containsExotic.length > 0) {
+          } else if(containsExotic.length === 0) {
             console.log("Redirect: Step 1");
             props.handleOnboarding(1); // Connect NEAR Wallet
           } else if(containsEVM.length > 0 && containsExotic.length > 0) {
@@ -122,7 +132,11 @@ function SignUpArConnect(props: signUpInterface) {
             className={btnDynamicStyling}>
               <div className='flex justify-center items-center space-x-3'>
                   <Image src={'/icons/ARWEAVE_WHITE.svg'} height={26.2} width={26.2} alt="Arweave Logo" />
-                  <p className='text-center'>{props.address ? (!connecting ? "Connected! Proceeding." : "Connecting") : "Login with ArConnect"}</p>
+                  {error ?
+                   <p className='text-center'>Error Connecting. Try Again.</p>
+                  :
+                   <p className='text-center'>{props.address ? (!connecting ? "Connected! Proceeding." : "Connecting") : "Login with ArConnect"}</p>
+                  }
               </div>
           </button>
         </div>
