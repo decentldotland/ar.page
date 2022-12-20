@@ -15,7 +15,6 @@ interface Props {
 function LoadingScreen({msg, end, arAddress, handleLabels}: Props) {
 
   const [userOnboardingStep, setUserOnboarding] = useRecoilState(userOnboardingState);
-  const userCurrentStep = useRecoilValue(userOnboardingState);
 
     // after a timer, redirectr the user to the home page 
     const route = useRouter();
@@ -27,9 +26,10 @@ function LoadingScreen({msg, end, arAddress, handleLabels}: Props) {
         const result = await axios(`api/domains/${arAddress}`);
         const payload = result.data;
         console.log("Payload from Cross-checking: ", payload);
-        if(result.status === 200 && payload) {
+        if(result.status === 200 && payload !== null && payload !== undefined) {
           setFetched(true);
-          //@ts-ignore
+          console.log("LoadingScreen payload: ", payload);
+          //@ts-ignore Secured by first if stmnt
           handleLabels(payload);
         } else {
           setFetched(true);
@@ -45,10 +45,11 @@ function LoadingScreen({msg, end, arAddress, handleLabels}: Props) {
 
     // if time out and the user is in the last step 
     useEffect(() => {
-      if (fetched) { 
-        setUserOnboarding(userOnboardingStep + 1)
+      if (fetched) {
+        console.log("Loading Screen: Fetched worked, proceeding to step 6");
+        setUserOnboarding(6);
       }
-    }, [fetched, userCurrentStep])
+    }, [fetched]);
     
 
   return ( 
