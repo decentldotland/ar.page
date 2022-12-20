@@ -188,13 +188,15 @@ export const getDefaultLabels = ({  ENS, AVVY, LENS, ANS, NEAR, EVMOS, URBIT }: 
   URBIT: string[]
 }) => {
   // Create labels for all handles
-  let avvyAddr = AVVY.map(address => avaxLabel(address));
-  let ensAddr = ENS.map(address => ethLabel(address));
-  let lensAddr = LENS.map(address => lensLabel(address));
-  let ansAddr = ANS.map(address => ansLabel(address));
-  let nearAddr = NEAR.map(address => nearLabel(address));
-  let evmosAddr = EVMOS.map(address => evmosLabel(address));
-  let urbitAddr = URBIT.map(address => urbitLabel(address));
+  let avvyAddr = AVVY ? AVVY.map(address => avaxLabel(address)) : [];
+  let ensAddr = ENS ? ENS.map(address => ethLabel(address)) : [];
+  let lensAddr = LENS ? LENS.map(address => lensLabel(address)): [];
+  let ansAddr = ANS ? ANS.map(address => ansLabel(address)): [];
+  let nearAddr = NEAR ? NEAR.map(address => nearLabel(address)): [];
+  let evmosAddr = EVMOS ? EVMOS.map(address => evmosLabel(address)): [];
+  let urbitAddr = URBIT ? URBIT.map(address => urbitLabel(address)): [];
+  
+
 
   // Consolidate handles & filter nulls
   const handleArr = [
