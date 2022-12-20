@@ -12,7 +12,7 @@ import { isDarkMode } from '../../atoms';
 import Image from 'next/image';
 import Favicon from '../../public/favicon.ico';
 
-export const Nav = (props:any) => {
+export const Nav = () => {
 
     const [userInfo, setUserInfo] = React.useState<any>({res: [
         {
@@ -41,8 +41,11 @@ export const Nav = (props:any) => {
     }, []);
 
     // console.log(userInfo)
-    const toggleDark = props.toggleDark;
     const [isDark, setIsDark] = useRecoilState(isDarkMode);
+    const toggleDark = () => {
+        localStorage.setItem('theme', isDark ? 'ardark': 'arlight');
+        setIsDark(!isDark);
+    }
 
 
     // bg-base-100

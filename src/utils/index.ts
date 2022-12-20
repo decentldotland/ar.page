@@ -53,6 +53,19 @@ export function removeHttp(url: string) {
   return url;
 }
 
+
+export const shortenName = (addr: string) => {
+  if (addr.length > 5) {
+    return addr.substring(0, 4) + '...'
+  }
+  return addr
+}
+export const shortenAddress = (addr: string) => {
+  if (addr) {
+    return addr.substring(0, 6) + '...' + addr.substring(addr.length - 4)
+  }
+  return addr
+}
 export async function getAllPoaps(evm_address: string) {
   try {
     const API_KEY = process.env.POAP_API_KEY;

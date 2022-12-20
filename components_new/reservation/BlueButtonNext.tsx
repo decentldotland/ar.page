@@ -2,7 +2,7 @@ import { ArrowLongRightIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 
 interface Props  { 
-    step?: number,
+  step?: number,
     msg?: string, 
     sub_message?: string,
     setstep: any,

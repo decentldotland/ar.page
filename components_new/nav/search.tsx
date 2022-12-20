@@ -1,9 +1,7 @@
 import React from 'react';
 import Downshift from 'downshift';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-
 import { resolveDomain } from '../../src/utils';
 
 type Props = {
@@ -26,7 +24,7 @@ const SearchBox = (props: Props) => {
     },[props.items, val])
 
     return (
-        // @ts-ignore
+        //@ts-ignore
         <Downshift
             id="search"
         >
@@ -55,26 +53,31 @@ const SearchBox = (props: Props) => {
                                             i.toLowerCase().includes(inputValue.toLowerCase()),
                                     )
                                     // then, for each filtered item ..
+
                                     .map((item: any, index: any) => {
                                         setVal(inputValue as string)
                                         // output a <div> ..
-                                        return <div
-                                            {...getItemProps({ item })} // .. using the props from `render`
-                                            key={item}
-                                            style={{
-                                                backgroundColor:
-                                                    highlightedIndex === index ? 'gray' : 'transparent',
-                                                fontWeight: selectedItem === item ? 'bold' : 'normal',
-                                            }}
-                                        >
-                                            {item}
-                                        </div>
-                                    })}
+                                        return (
+                                            <div
+                                                {...getItemProps({ item })}
+                                                key={item}
+                                                style={{
+                                                    backgroundColor:
+                                                        highlightedIndex === index ? 'gray' : 'transparent',
+                                                    fontWeight: selectedItem === item ? 'bold' : 'normal',
+                                                }}
+                                            >
+                                                {item}
+                                            </div>
+                                        );
+                                    })
+
+                                }
                             </div>
                         </div>
                     ) : null}
                 </div>
-            ) as React.ReactElement}
+            )}
         </Downshift>
     )
 }

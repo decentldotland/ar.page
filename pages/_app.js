@@ -1,37 +1,48 @@
-import { Layout } from '../components_new/layout'
-import '../styles/globals.css'
-import '../styles/tippy.css'
-import '../styles/daisyUI.css'
+import { Layout } from '../components_new/layout';
+import '../styles/globals.css';
+import '../styles/tippy.css';
+import '../styles/daisyUI.css';
 import Head from 'next/head';
 import Script from 'next/script';
 import { RecoilRoot } from 'recoil';
 import { AnimatePresence } from "framer-motion";
 import { AnsProvider } from 'ans-for-all';
 import '@rainbow-me/rainbowkit/styles.css';
-
-import {
-  getDefaultWallets,
-  RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
+import { getDefaultWallets, RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit';
 import {
   chain,
   configureChains,
   createClient,
   WagmiConfig,
 } from 'wagmi';
+import {
+  injectedWallet,
+  rainbowWallet,
+  metaMaskWallet,
+  coinbaseWallet,
+  walletConnectWallet,
+} from '@rainbow-me/rainbowkit/wallets';
+
 import { publicProvider } from 'wagmi/providers/public';
-import { ConstructionOutlined } from '@mui/icons-material';
+import { avalancheChain, evmosChain } from '../src/constants';
 
 const { chains, provider } = configureChains(
-  [chain.mainnet], // [, chain.polygon, chain.optimism, chain.arbitrum]
+  [chain.mainnet, avalancheChain, evmosChain],
   [publicProvider()]
 );
 
-const { connectors } = getDefaultWallets({
-  appName: 'My RainbowKit App',
-  chains
-});
-
+const connectors = connectorsForWallets([
+  {
+    groupName: 'Recommended',
+    wallets: [
+      injectedWallet({ chains }),
+      rainbowWallet({ chains }),
+      walletConnectWallet({ chains }),
+      metaMaskWallet({ chains }),
+      coinbaseWallet({ chains }),
+    ],
+  },
+]);
 const wagmiClient = createClient({
   autoConnect: true,
   connectors,
@@ -102,12 +113,3 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
-
-
-/*
-
-
-
-
-
-*/

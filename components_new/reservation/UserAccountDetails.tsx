@@ -47,7 +47,7 @@ export function UserAccountDetails({displayImg, chainIconUrl, address, walletNam
     return (
       <section ref={container}>
         <p className='text-left text-xs text-[#6a6b6a] mb-1'>{upperMessage}</p>
-        <div className='bg-[#edecec] rounded-xl w-[276px] h-14 relative items-center flex px-2'>
+        <div className='bg-[#edecec] rounded-xl w-[346px] h-14 relative items-center flex px-2'>
           <div className='flex space-x-2 items-center flex-row'>
             {/* User Profile Goes Here */}
             {

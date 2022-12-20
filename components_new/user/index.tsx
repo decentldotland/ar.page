@@ -4,9 +4,9 @@ import { userInfo, Res } from '../../src/types';
 import { EditModal } from '../../components/editor/editmodal';
 import { UserInfo } from './components/userInfo';
 import Widgets from './components/widgets';
-import CoverPage from './components/CoverPage';
 import { Koii, ArweaveTransaction } from '../../src/types';
 import { Toaster } from 'react-hot-toast';
+import CoverPage from './components/Coverpage/CoverPage';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../atoms';
 
