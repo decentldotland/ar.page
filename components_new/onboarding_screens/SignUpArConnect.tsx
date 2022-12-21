@@ -23,7 +23,7 @@ function SignUpArConnect(props: signUpInterface) {
 
   const btnDynamicStyling = clsx(
     "cursor-pointer bg-black text-white w-full sm:w-[386px] h-[68px] justify-center items-center flex relative flex-row rounded-full font-bold text-lg",
-    props.address && !connecting ? "border-4 border-emerald-400" : ""
+    (props.address && !connecting && !error) ? "border-4 border-emerald-400" : ""
   );
 
   async function handleArweaveConnection() {
@@ -39,6 +39,9 @@ function SignUpArConnect(props: signUpInterface) {
         }
       } catch (e) {
           console.log("Error Gather User Info: ", e);
+          setError(true);
+          props.disconnect();
+          //Stick state variables here
       } 
     };
 
@@ -118,7 +121,7 @@ function SignUpArConnect(props: signUpInterface) {
       console.log("Unable to connect wallet: ", e);
     });
   }
-
+  console.log("AR ADDRESS: ", props.address);
   return (
     <>
       <div className='relative h-full flex flex-col w-full sm:w-[440px] px-5'>

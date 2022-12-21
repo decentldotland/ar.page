@@ -1,5 +1,5 @@
 import { CheckIcon } from '@heroicons/react/24/outline';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SetterOrUpdater } from 'recoil';
 import { Res } from '../../src/types';
 import MainNextButton from '../buttons/MainNextButton';
@@ -16,7 +16,14 @@ const tableClass = "cursor-pointer px-2 textspace-x-2 py-5 h-[55px] flex items-c
 
 function DIDList({labels, selectedName, setSelectedName, handleOnboarding}: Props) {
   console.log("Labels from DIDList: ", labels);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if(labels.length === 0) {
+      setOnboardingStep("7");
+      handleOnboarding(getOnboardingStepNumeric()); 
+    }
+  }, labels);
   return (
     <>
       <section className="md:relative md:top-32 w-full px-5 sm:w-[440px] flex flex-col justify-between h-screen">
@@ -72,5 +79,5 @@ function DIDList({labels, selectedName, setSelectedName, handleOnboarding}: Prop
   )
 }
 
-export default DIDList
+export default DIDList;
 

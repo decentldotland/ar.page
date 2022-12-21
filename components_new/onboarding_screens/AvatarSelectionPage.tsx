@@ -80,7 +80,7 @@ function AvatarSelectionPage(props: AvatarProps) {
                 <MainNextButton btnName='Next' disabled={props.profileSrc  ? false : true}/>
                 <p 
                     onClick={() => {
-                        setOnboardingStep(String(getOnboardingStepNumeric() + 1));
+                        setOnboardingStep("9");
                         setUserOnboarding(getOnboardingStepNumeric());
                     }} 
                     className='cursor-pointer font-bold text-center mt-6 text-sm text-[#8e8e8f]'

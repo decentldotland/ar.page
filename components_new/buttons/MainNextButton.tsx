@@ -1,6 +1,7 @@
 import React from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userOnboardingState } from '../../atoms';
+import { getOnboardingStepNumeric, setOnboardingStep } from '../../src/utils/onboardingHelper';
 
 interface Props  { 
     btnName: string;
@@ -17,7 +18,15 @@ function MainNextButton(props: Props) {
     <div className='flex flex-col justify-center items-center '>
       <button 
         disabled={props.disabled} 
-        onClick={props.clickAction ? props.clickAction : () => setUserOnboarding(userOnboardingStep + 1)} 
+        onClick={
+          props.clickAction ? 
+            props.clickAction 
+          : 
+            () => {
+              setOnboardingStep(String(getOnboardingStepNumeric()+1)); 
+              setUserOnboarding(getOnboardingStepNumeric()); 
+            }
+        } 
         className={`${props.disabled ? 'bg-[#e6e6e6] text-[#8e8e8f] cursor-not-allowed' : 'bg-[#1273ea] text-white'}
           mt-9  w-full px-24
           h-[68px] items-center rounded-full  font-bold text-lg ${props.className}`}

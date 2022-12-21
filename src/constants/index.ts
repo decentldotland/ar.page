@@ -148,3 +148,36 @@ export const IMAGE_PROXY = "https://image-proxy.svc.prod.covalenthq.com/cdn-cgi/
 export const IPFS_PROXY = "https://cloudflare-ipfs.com/ipfs/";
 export const ONBOARDING_LOCAL = "onboarding";
 
+export const DECENT_LORE_NAMES = [
+  "cryptochambers",
+  "neighbourhood_watch",
+  "immaculate_laboratory",
+  "crimson_castle",
+  "barracks",
+  "diseased_metropolis",
+  "biology",
+  "main_engineering",
+  "diseased_cargo_hold",
+  "devastated_engineering",
+  "greenbelt_citadel",
+  "diseased_arboretum",
+  "coliseum",
+  "aquatic_biology",
+  "house_of_the_eye",
+  "gallery",
+  "arkade",
+  "island_of_pleasure",
+  "emwebbed_scooper",
+  "parliament",
+  "diseased_and_cured",
+  "terraforming",
+  "stellar_cartography",
+  "cartographers gondola",
+  "alternative propulsions",
+  "foundry",
+  "aquatic_analysis",
+  "hangtime",
+  "emergency_services",
+  "dust_scooper"
+];
+

@@ -243,6 +243,7 @@ function Onboarding() {
           getOnboardingStepNumeric() === 7 && (
              <ConfirmUsername  
               arLabel={selectedName!}
+              arAddress={addressAr}
             /> 
           ) 
         }

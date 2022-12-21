@@ -177,7 +177,7 @@ function ConnectAdditionalAccounts(props: ConnectAdditionalAccountsInterface) {
                                             <MainNextButton 
                                                 btnName='or Continue'
                                                 className='mt-[40px]'
-                                                disabled={(clicked || linked || connected)}
+                                                disabled={false}
                                             />
                                           </span>
                                         </>
