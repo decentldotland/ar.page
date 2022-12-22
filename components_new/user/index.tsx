@@ -9,8 +9,13 @@ import { Koii, ArweaveTransaction } from '../../src/types';
 import { Toaster } from 'react-hot-toast';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../atoms';
+import { FetchDomain } from '../../src/utils/fetchProfile/fetchDomain';
+import { FetchNfts } from '../../src/utils/fetchProfile/fetchNfts';
 
 function PageContent(props: userInfo) {
+  const userArweaveAddr = props.userInfo.user;
+  const { domainInitialized } = FetchDomain(userArweaveAddr);
+  const { nftsInitialized } = FetchNfts(userArweaveAddr);
   const bio = typeof props.userInfo.bio === 'string' ? 
   props.userInfo.bio : "";
   const info = props.userInfo;

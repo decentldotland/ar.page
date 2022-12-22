@@ -1,27 +1,20 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-interface fetchProfileProps {
-    arweaveAddr: string;
-}
+export const FetchDomain = (arweaveAddr: string) => {
 
-export const FetchProfile = (props: fetchProfileProps) => {
-
-    const [initialized, setInitialized] = useState<boolean>(false);
-    // Errors
+    const [domainInitialized, setDomainInitialized] = useState<boolean>(false);
     const [domainError, setDomainError] = useState<boolean>(false);
-    const [bioError, setBioError] = useState<boolean>(false);
-    const [nftError, setNftError] = useState<boolean>(false);
 
     /**
      * Fetch domains linked to user's arweave address
      * @param arweaveAddr - string containing arweave address
      * @returns Domain payload
      */
-    const fetchDomains = (arweaveAddr: string) => {
+    const fetchDomains = async (arweaveAddr: string) => {
         console.log("BEGIN fetching domains"); // test
         try {
-            const domains = axios(`/api/domains/${arweaveAddr}`);
+            const domains = await axios(`/api/domains/${arweaveAddr}`);
             console.log("DOMAINS: ", domains);
             return domains;
         } catch(e: any) {
@@ -33,8 +26,8 @@ export const FetchProfile = (props: fetchProfileProps) => {
     
     // Initialize all fetching asynchronously
     const initialize = async() => {
-        fetchDomains(props.arweaveAddr);
-        setInitialized(true);
+        fetchDomains(arweaveAddr);
+        setDomainInitialized(true);
     }
 
     // Run hook after page load
@@ -42,5 +35,5 @@ export const FetchProfile = (props: fetchProfileProps) => {
         initialize();
     }, []);
 
-    return 
+    return { domainInitialized, domainError };
 }  

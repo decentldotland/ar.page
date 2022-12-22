@@ -7,10 +7,8 @@ import {CheckBadgeIcon, ShieldExclamationIcon} from '@heroicons/react/24/solid'
 import { ANSData, Res, userInfo } from '../../../src/types';
 import ProfileAvatar from '../../avatar/ProfileAvatar';
 import { Labels, GenericLabel, getDefaultLabels } from './labels';
-import { GenericLabelsComponent } from '../hackathon';
 import { Bio } from './bio';
 import { Divider } from './reusables';
-import {BsPatchQuestionFill} from 'react-icons/bs'
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../atoms';
 import { HackathonLabels } from '../hackathon/api/labels';
