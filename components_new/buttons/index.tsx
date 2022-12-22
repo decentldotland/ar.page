@@ -141,12 +141,14 @@ export const NetworkButton = (props: NetworkButtonProps) => {
  * @returns Button with empty onclick capability
  */
 export const SortChronButton = (props: SortChronProps) => {
+    const theme = localStorage.getItem('theme');
+    const textColor = theme === 'arlight' ? 'text-black' : 'text-white';
     return (
         <button
-            className="bg-inherit border-2 border-slate-300 rounded-xl text-black font-medium hover:bg-primary/30 
+            className={`bg-inherit border-2 border-slate-300 rounded-xl font-medium hover:bg-primary/30 
                        py-1.5 px-2.5 flex items-center h-12 hover:bg-indigo-300 hover:text-white hover:shadow-md 
-                       active:shadow-none active:scale-[0.98] hover:transition duration-200 ease-in-out w-20 dark:text-white 
-                       flex items-center justify-center"
+                       active:shadow-none active:scale-[0.98] hover:transition duration-200 ease-in-out w-20 
+                       flex items-center justify-center ${textColor}`}
             onClick={props.onClick}
         > 
             {props.text}

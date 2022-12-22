@@ -133,7 +133,6 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
     setCollectiblePerPage(currentCollection.length + CollectiblePerPage);
   }
 
-
 // --------------------------------------Activity Section----------------------------------
 
   const setSelectedWrapper = (idx: number) => {
