@@ -5,7 +5,8 @@ import Selector from './selector';
 import { ArweaveTransaction, NFT, Res, Stamp } from '../../../../../src/types';
 import { TABS } from '../../../hackathon/';
 import StampsTab from './tabs.tsx/StampsTab'; 
-import { ARWEAVE_URL, IMAGE_PROXY } from '../../../../../src/constants';
+import { ARWEAVE_URL, IMAGE_PROXY, IPFS_PROXY } from '../../../../../src/constants';
+import { removeIpfs } from '../../../../../src/utils/removeIpfs';
 
 export interface TabContentTabs {
   name: string; // Name of the tab
@@ -74,14 +75,15 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       let ercnft = new NFT();
       const nftMetaData = JSON.parse(n.metadata); 
       if (n.token_uri && n.token_uri !== "Invalid uri" && nftMetaData !== null && typeof nftMetaData.image !== 'undefined') {
-        if(nftMetaData.image.slice(0, 5) !== "ipfs:") {
-          ercnft.add_id(nftMetaData.image.includes(IMAGE_PROXY) ? nftMetaData.image : IMAGE_PROXY+nftMetaData.image)
-          .add_timestamp(n.block_number_minted!)
-          .add_title(nftMetaData.name!)
-          .add_description(String(nftMetaData.description!))
-          .add_chain("ethereum");
-          tmp.push(ercnft);
-        }
+        // Determine IPFS Protocol Presence - true: return, false: remove IPFS Protocol
+        nftMetaData.image = (nftMetaData.image.slice(0, 5) !== "ipfs:") ? nftMetaData.image : IPFS_PROXY+removeIpfs(nftMetaData.image);
+        // Add NFT Data
+        ercnft.add_id(nftMetaData.image.includes(IMAGE_PROXY) ? nftMetaData.image : IMAGE_PROXY+nftMetaData.image)
+        .add_timestamp(n.block_number_minted!)
+        .add_title(nftMetaData.name!)
+        .add_description(String(nftMetaData.description!))
+        .add_chain("ethereum");
+        tmp.push(ercnft);
       }
     }
   }
@@ -93,14 +95,16 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
   if (arkProfile.EVMOS_NFTS !== undefined || null) { 
     for (let n of arkProfile.EVMOS_NFTS) { 
       let evmosnft = new NFT();
-      if (n.image.slice(0, 5) !== "ipfs:") {
-        evmosnft.add_id(n.image.includes(IMAGE_PROXY) ? n.image! : IMAGE_PROXY+n.image!)
-          .add_timestamp(1)
-          .add_title(n.name!)
-          .add_description(n.description!)
-          .add_chain("evmos");
-        tmp.push(evmosnft);
-      }
+      // Determine IPFS Protocol Presence - true: return, false: remove IPFS Protocol
+      n.image = (n.image.slice(0, 5) !== "ipfs:") ? n.image : IPFS_PROXY+removeIpfs(n.image);
+      // Add NFT Data
+      evmosnft.add_id(n.image.includes(IMAGE_PROXY) ? n.image! : IMAGE_PROXY+n.image!)
+        .add_timestamp(1)
+        .add_title(n.name!)
+        .add_description(n.description!)
+        .add_chain("evmos");
+      tmp.push(evmosnft);
+      
     }
   }
 
