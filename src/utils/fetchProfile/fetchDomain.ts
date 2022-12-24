@@ -5,6 +5,7 @@ export const FetchDomain = (arweaveAddr: string) => {
 
     const [domainInitialized, setDomainInitialized] = useState<boolean>(false);
     const [domainError, setDomainError] = useState<boolean>(false);
+    const [domains, setDomains] = useState<any>(null);
 
     /**
      * Fetch domains linked to user's arweave address
@@ -12,16 +13,13 @@ export const FetchDomain = (arweaveAddr: string) => {
      * @returns Domain payload
      */
     const fetchDomains = async (arweaveAddr: string) => {
-        console.log("BEGIN fetching domains"); // test
         try {
             const domains = await axios(`/api/domains/${arweaveAddr}`);
-            console.log("DOMAINS: ", domains);
-            return domains;
+            setDomains(domains.data);
         } catch(e: any) {
             console.log("Error Fetching Domains in FetchProfile Component: ", e);
             setDomainError(true);
         }
-        console.log("TERMINATE fetching domains");
     }
     
     // Initialize all fetching asynchronously
@@ -35,5 +33,5 @@ export const FetchDomain = (arweaveAddr: string) => {
         initialize();
     }, []);
 
-    return { domainInitialized, domainError };
+    return { domainInitialized, domainError, domains };
 }  

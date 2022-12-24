@@ -1,10 +1,5 @@
 import React from 'react';
-import { GenericLabelInterface, Res } from '../../../../src/types'
-import { getDefaultLabels } from '../../components/labels'
-import { GenericLabel } from '../../components/labels';
 import { BsHeart } from 'react-icons/bs';
-
-
 
 export function HackathonLabels(arkProfile: Res | undefined) {
   // for using our labeling system, check out GenericLabelInterface, and examples in getDefaultLabels

@@ -5,8 +5,7 @@ import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../../../atoms';
 import { Res } from '../../../../../src/types';
 import { Divider } from '../../reusables';
-import {BiChevronLeft, BiChevronRight} from 'react-icons/bi'
-
+import {BiChevronLeft, BiChevronRight} from 'react-icons/bi';
 
 export default function Poaps({ props }: { props: Res }) {
   const { POAPS } = props;

@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     const data = await axios.get(ALLNFT_ENDPOINT+arweave_address);
     res.status(200).json(data.data)
   } catch (error) {
-    console.error(error)
-    return res.status(error.status || 500).end(error.message)
+    console.error(error);
+    return res.status(error.status || 500).end(error.message);
   }
 }

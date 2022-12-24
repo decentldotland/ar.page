@@ -5,6 +5,7 @@ export const FetchNfts = (arweaveAddr: string) => {
 
     const [nftsInitialized, setNftsInitialized] = useState<boolean>(false);
     const [nftsError, setNftsError] = useState<boolean>(false);
+    const [nfts, setNfts] = useState<any>(null);
 
     /**
      * Fetch NFTS linked to user's arweave address
@@ -12,21 +13,19 @@ export const FetchNfts = (arweaveAddr: string) => {
      * @returns Nfts payload
      */
     const fetchNfts = async (arweaveAddr: string) => {
-        console.log("BEGIN fetching NFTS"); // test
         try {
-            const nfts = await axios(`/api/allnft/${arweaveAddr}`);
-            console.log("NFTS: ", nfts);
-            return nfts;
+            const nft = await axios(`/api/allnft/${arweaveAddr}`);
+            console.log("NFT GROUP: ", nft);
+            setNfts(nft.data);
         } catch(e: any) {
             console.log("Error Fetching Nfts in FetchProfile Component: ", e);
             setNftsError(true);
         }
-        console.log("TERMINATE fetching nfts");
     }
     
     // Initialize all fetching asynchronously
     const initialize = async() => {
-        fetchNfts(arweaveAddr);
+        await fetchNfts(arweaveAddr);
         setNftsInitialized(true);
     }
 
@@ -35,5 +34,5 @@ export const FetchNfts = (arweaveAddr: string) => {
         initialize();
     }, []);
 
-    return { nftsInitialized, nftsError };
+    return { nfts, nftsInitialized };
 }  

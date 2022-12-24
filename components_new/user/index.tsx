@@ -14,16 +14,17 @@ import { FetchNfts } from '../../src/utils/fetchProfile/fetchNfts';
 
 function PageContent(props: userInfo) {
   const userArweaveAddr = props.userInfo.user;
-  const { domainInitialized } = FetchDomain(userArweaveAddr);
-  const { nftsInitialized } = FetchNfts(userArweaveAddr);
+  const { domains } = FetchDomain(userArweaveAddr);
+  const { nfts, nftsInitialized } = FetchNfts(userArweaveAddr);
   const bio = typeof props.userInfo.bio === 'string' ? 
   props.userInfo.bio : "";
   const info = props.userInfo;
 
+  console.log(nftsInitialized);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState<boolean>(true);
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
-  
+
   // Fetch Near NFTs by near address and ar handle
   const fetchNearNFTs = async(address: string) => {
     return await axios.get(`/api/nep/${address}`);
@@ -100,12 +101,21 @@ function PageContent(props: userInfo) {
       <CoverPage userInfo={props.userInfo} />
       <div className="flex xl:justify-center" data-theme={isDark ? "ardark" : "arlight"}>
         <div className="flex flex-col px-6 md:px-16 sm:px-10  max-w-[100vw] xl:max-w-[1145px] w-full">
-          <UserInfo user={{userInfo: info}} profile={arkProfile} />
-          <EditModal userColor={info.address_color} wallet={info.user} userInfo={props} /> 
+          <UserInfo 
+            user={{userInfo: info}} 
+            profile={arkProfile}
+            domains={domains}
+          />
+          <EditModal
+            userColor={info.address_color} 
+            wallet={info.user} 
+            userInfo={props} 
+          /> 
           {/* @ts-ignore  sorry about this */}
           <Widgets 
             arkProfile={arkProfile} 
-            loading={loading} 
+            loading={loading}
+            nfts={nfts}
           />
         </div>
       </div>

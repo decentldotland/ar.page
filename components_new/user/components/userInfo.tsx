@@ -14,14 +14,16 @@ import { isDarkMode } from '../../../atoms';
 import { HackathonLabels } from '../hackathon/api/labels';
 import ProfileBadge from './modals/ProfileBadge';
 import EditProfile from './EditProfile';
+import { ChainFilter } from '../../buttons';
 
 
 interface UserProps { 
     user: userInfo,
-    profile: Res | undefined
+    profile: Res | undefined,
+    domains: any;
 }
 
-export const UserInfo = ({user, profile}: UserProps) => {
+export const UserInfo = ({user, profile, domains}: UserProps) => {
 
     const {
         shortenAddress,
@@ -49,24 +51,25 @@ export const UserInfo = ({user, profile}: UserProps) => {
     const bio = typeof user.userInfo.bio === 'string' ? 
     user.userInfo.bio : "";
 
-    // console.log(`${user.userInfo.timestamp} THE TIMESTAMP`)
-    // Member since...
     let epoch = profile?.first_linkage || user.userInfo.timestamp || 0;
     let member_since = new Date(epoch * 1000);
     let [month, year] = [member_since.toLocaleString('default', {month: 'short'}), member_since.getFullYear()];
-    // console.log(month)
+    
     // Labels
-    console.log("profile: ", profile);
     const defaultLabels = getDefaultLabels({
-        arweave_address: user?.userInfo?.user, 
-        ar: ownedLabels || [], 
-        links: {twitter, github, instagram, customUrl}, 
-        ENS: profile?.ENS, 
-        AVVY: profile?.AVVY, 
-        LENS: profile?.LENS_HANDLES || [],
-        EVMOS: profile?.EVMOS
+        ENS: domains ? domains.ENS : [], 
+        AVVY: domains ? domains.AVVY : [], 
+        LENS: domains ? domains.LENS : [],
+        ANS: domains ? domains.ANS : [],
+        NEAR: domains ? domains.NEAR : [],
+        EVMOS: domains ? domains.EVMOS : [],
+        URBIT: domains ? domains.URBIT : [],
+        LINKS: {twitter, github, instagram, customUrl}, 
     });
-    const labels = [...defaultLabels.map((label: any) => <GenericLabel {...label} />), ...HackathonLabels(profile)]
+    const labels = [
+        ...defaultLabels.map((label: any) => <GenericLabel {...label} />),
+        ...HackathonLabels(profile)
+    ];
 
     const [loading, setLoading] = React.useState(true);
     
@@ -166,6 +169,12 @@ export const UserInfo = ({user, profile}: UserProps) => {
                     <div className='space-y-2 !mt-0 md:!mt-4'>
                         <Labels items={labels} />
                         <Divider />
+                        <ChainFilter
+                            activeChain={"NEAR"}
+                            onClick={(e: any) => {
+                            e.preventDefault();
+                            }}
+                        />
                     </div>
                 </div>
             </div>

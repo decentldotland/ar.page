@@ -36,9 +36,9 @@ export const DEFAULT_COMPONENT_LIST: WidgetType[] = [
 ]
 
 
-export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefined, loading: boolean}) {
+export default function Widgets({arkProfile, loading, nfts }: {arkProfile: Res | undefined, loading: boolean, nfts: any}) {
   
-  if (!arkProfile) return (
+  if (!nfts) return (
     <>
       {loading ?
       (
@@ -59,6 +59,7 @@ export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefi
     </>
   )
   const defaultWidgets = [
+    // POAP
     <Widget
       canRender={arkProfile?.POAPS?.length > 0}
       loading={loading} 
@@ -68,12 +69,17 @@ export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefi
       <Poaps props={arkProfile}/>
     </Widget>,
     ...TOP_WIDGETS(arkProfile),
+    // NFTS
     <Widget 
       canRender={!loading} 
       divider={false} 
       key={0}
     >
-      <TabContent arkProfile={arkProfile} loading={loading} />
+      <TabContent 
+        arkProfile={arkProfile} 
+        loading={loading} 
+        nfts={nfts}
+      />
     </Widget>,
   ]
   return (
@@ -82,25 +88,3 @@ export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefi
     </div>
   )
 }
-
-
-// import axios from 'axios';
-// import { useState, useEffect } from 'react';
-// import { userInfo, Res } from '../../src/types';
-// import { EditModal } from '../../components/editor/editmodal';
-// import { UserInfo } from './components/userInfo';
-// import { Bio } from './components/bio';
-// import { Collectibles } from './components/widgets/content/collectibles';
-// import { ArweaveActivity } from './components/widgets/content/activity';
-// import { Selector } from './components/widgets/content/selector';
-// // import { Divider } from './components/reusables';
-// import { Sidebar } from './sidebar';
-// import { Poaps } from './components/widgets/poaps';
-// import CoverPage from './components/CoverPage';
-// import GitPoapList from './components/widgets/gitpoaps/GitPoapList';
-// import { Koii, ArweaveTransaction } from '../../src/types';
-// import { arweaveTransactionHandler } from '../../src/utils';
-// import { faSearch, faList } from '@fortawesome/free-solid-svg-icons';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { MagnifyingGlassIcon, ListBulletIcon } from '@heroicons/react/24/outline';
-// import {BsGrid} from 'react-icons/bs'

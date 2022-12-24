@@ -7,6 +7,8 @@ import { TABS } from '../../../hackathon/';
 import StampsTab from './tabs.tsx/StampsTab'; 
 import { ARWEAVE_URL, IMAGE_PROXY, IPFS_PROXY } from '../../../../../src/constants';
 import { removeIpfs } from '../../../../../src/utils/removeIpfs';
+import { ChainOptions } from '../../../../../src/types';
+
 
 export interface TabContentTabs {
   name: string; // Name of the tab
@@ -14,25 +16,27 @@ export interface TabContentTabs {
   component: JSX.Element; // The component that will be rendered
 }
 
-export default function Content({ arkProfile, loading }: { arkProfile: Res; loading: boolean }) {
+export default function Content({ arkProfile, loading, nfts }: { arkProfile: Res; loading: boolean, nfts: any }) {
   const [selected, setSelected] = useState<number>(0);
   const [activity, setActivity] = useState<ArweaveTransaction[]>(arkProfile.ARWEAVE_TRANSACTIONS);
   const [collectableVisibility, setCollectableVisibility] = useState<number>(0);
-
   const handleCollectableVisibility = (res: number) => setCollectableVisibility(res);
   
+  console.log("ARK PROFILE: ", arkProfile);
+
   // ------------------------------NFT, Stamps Section-----------------------------------
   const [stamp, setStamp] = useState<Stamp[]>(arkProfile.STAMPS);
   let tmp: NFT[] = [];
   const [NFTs, setNFTs] = useState<NFT[]>(tmp);
+  console.log("NFTS from new load: ", nfts);
 
   /**
-   * KOII NFT on Arweave
+   * Arweave
    */
-  if (arkProfile.ANFTS?.koii !== undefined || null) { 
-    for (let n of arkProfile.ANFTS.koii) { 
-      let anft: NFT = new NFT()
-        .add_id(ARWEAVE_URL+n.id!)
+  if (nfts !== undefined || nfts !== null) { 
+    for (let n of nfts?.ARWEAVE) {
+      let anft = new NFT();
+      anft.add_id(ARWEAVE_URL+n.id!)
         .add_poster(n.poster!)
         .add_timestamp(n.timestamp!)
         .add_title(n.title!)
@@ -42,77 +46,36 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       tmp.push(anft);
     }
   }
-  /**
-   * Permapages NFT on Arweave
-   */
-  if (arkProfile.ANFTS?.permapages_img !== undefined || null) { 
-    for (let n of arkProfile.ANFTS.permapages_img) {
-      let anft = new NFT();
-      if (n.content_type === "image/jpeg" ||
-        n.content_type === "image/png" || 
-        n.content_type === "image/gif" || 
-        n.content_type === "image" 
-        //  n.content_type==="video/mp4"
-        ) {
-        anft.add_id(ARWEAVE_URL+n.id!)
-          .add_poster(n.poster!)
-          .add_timestamp(n.timestamp!)
-          .add_title(n.title!)
-          .add_description(n.description!)
-          .add_ticker(n.ticker!)
-          .add_content_type(n.content_type!)
-          .add_chain("arweave");
-      }
-      tmp.push(anft);
-    }
-  }
 
   /**
    * ERC NFT on Ethereum
    */
-  if (arkProfile.ERC_NFTS !== undefined || null) { 
-    for (let n of arkProfile.ERC_NFTS) { 
+
+  if (nfts !== undefined || nfts !== null) { 
+    for (let n of nfts?.EVM) { 
       let ercnft = new NFT();
-      const nftMetaData = JSON.parse(n.metadata); 
-      if (n.token_uri && n.token_uri !== "Invalid uri" && nftMetaData !== null && typeof nftMetaData.image !== 'undefined') {
+      if (n.token_uri && n.token_uri !== "Invalid uri" && n !== null && typeof n.image !== 'undefined') {
+        // Evmos sits in this category & distinguished via ark_network key
+        let selectedChain: ChainOptions;
+        selectedChain = n.ark_network === "evmos" ? "evmos" : "ethereum"
         // Determine IPFS Protocol Presence - true: return, false: remove IPFS Protocol
-        nftMetaData.image = (nftMetaData.image.slice(0, 5) !== "ipfs:") ? nftMetaData.image : IPFS_PROXY+removeIpfs(nftMetaData.image);
+        n.image = (n.image.slice(0, 5) !== "ipfs:") ? n.image : IPFS_PROXY+removeIpfs(n.image);
         // Add NFT Data
-        ercnft.add_id(nftMetaData.image.includes(IMAGE_PROXY) ? nftMetaData.image : IMAGE_PROXY+nftMetaData.image)
+        ercnft.add_id(n.image.includes(IMAGE_PROXY) ? n.image : IMAGE_PROXY+n.image)
         .add_timestamp(n.block_number_minted!)
-        .add_title(nftMetaData.name!)
-        .add_description(String(nftMetaData.description!))
-        .add_chain("ethereum");
+        .add_title(n.name!)
+        .add_description(String(n.description!))
+        .add_chain(selectedChain);
         tmp.push(ercnft);
       }
     }
   }
 
   /**
-   * EVMOS NFT on Cosmos
-   * NOTE: EVMOS lacks timestamp on data
-   */
-  if (arkProfile.EVMOS_NFTS !== undefined || null) { 
-    for (let n of arkProfile.EVMOS_NFTS) { 
-      let evmosnft = new NFT();
-      // Determine IPFS Protocol Presence - true: return, false: remove IPFS Protocol
-      n.image = (n.image.slice(0, 5) !== "ipfs:") ? n.image : IPFS_PROXY+removeIpfs(n.image);
-      // Add NFT Data
-      evmosnft.add_id(n.image.includes(IMAGE_PROXY) ? n.image! : IMAGE_PROXY+n.image!)
-        .add_timestamp(1)
-        .add_title(n.name!)
-        .add_description(n.description!)
-        .add_chain("evmos");
-      tmp.push(evmosnft);
-      
-    }
-  }
-
-  /**
    * NEAR NFT 
    */
-  if (arkProfile.NEAR_NFTS !== undefined || null) { 
-    for (let n of arkProfile.NEAR_NFTS) { 
+  if (nfts !== undefined || nfts !== null) {
+    for (let n of nfts?.NEAR) { 
       let nearnft = new NFT();
       nearnft.add_id(n.image.includes(IMAGE_PROXY) ? n.image! : IMAGE_PROXY+n.image!)
       .add_timestamp(1)
@@ -122,9 +85,9 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       tmp.push(nearnft);
     }
   }
-    
+
   NFTs.sort((a, b) =>  b.timestamp! - a.timestamp!);
-  const [CollectiblePerPage, setCollectiblePerPage] = useState(8);
+  const [CollectiblePerPage, setCollectiblePerPage] = useState(9);
   const [CurrentCollectiblePage, setcurrentCollectiblePage] = useState(1);
   let indexLastCollection = CurrentCollectiblePage * CollectiblePerPage;
   let firstIndexCollection = indexLastCollection - CollectiblePerPage;
@@ -173,7 +136,9 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       );
     }
   }
-
+  console.log("NFTS: ", NFTs);
+  console.log("LOADING: ", loading);
+  console.log("COLL: ", CollectiblePerPage);
   const tabs = [
     {
       name: "Collectables",
@@ -197,7 +162,7 @@ export default function Content({ arkProfile, loading }: { arkProfile: Res; load
       total: activity.length,
       component: 
         <>
-          <ArweaveActivity transactions={activity} loading={loading} perPage={ActivityPerPage}/>
+          <ArweaveActivity transactions={activity} loading={loading} perPage={ActivityPerPage} />
           {
             // TODO: 
             activity.length - ActivityPerPage  > 0 ? (

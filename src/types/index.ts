@@ -98,7 +98,7 @@ export interface Anfts {
 //   chain?: ChainOptions;
 // }
 
-export type ChainOptions = "arweave" | "ethereum" | "evmos" | "near";
+export type ChainOptions = "arweave" | "ethereum" | "evmos" | "near" | "fantom" | "polygon" | "avalanche" | "bsc";
 export class NFT  {
   id?:            string;
   poster?:        string;
@@ -466,6 +466,7 @@ export type NetworkButtonProps = {
   src: string;
   className?: string;
   name: string;
+  scale: string;
 }
 
 export type SortChronProps = {

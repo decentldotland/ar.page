@@ -1,4 +1,3 @@
-import { height } from '@mui/system';
 import { useAns } from 'ans-for-all';
 import React, { useState } from 'react';
 import { userInfo } from '../../../src/types';
@@ -15,10 +14,7 @@ function CoverPage(props: userInfo) {
     backgroundColor: `${user_cover}`,
     height: 200
   }
-  // console.log(user_cover)
-  // Ensure the edit feature is only available to the current users page not anyone elses!
 
-  // url site userinfo == userinfo of viewer => show edit else no 
   const {
     walletConnected,
     ansData,
@@ -68,4 +64,4 @@ function CoverPage(props: userInfo) {
   )
 }
 
-export default CoverPage
+export default CoverPage;
