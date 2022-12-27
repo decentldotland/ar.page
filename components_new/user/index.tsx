@@ -16,11 +16,12 @@ function PageContent(props: userInfo) {
   const userArweaveAddr = props.userInfo.user;
   const { domains } = FetchDomain(userArweaveAddr);
   const { nfts, nftsInitialized } = FetchNfts(userArweaveAddr);
+  console.log("allnft endpoint: ", nfts);
+  console.log("Set initialized: ", nftsInitialized);
   const bio = typeof props.userInfo.bio === 'string' ? 
   props.userInfo.bio : "";
   const info = props.userInfo;
 
-  console.log(nftsInitialized);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState<boolean>(true);
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
@@ -115,7 +116,9 @@ function PageContent(props: userInfo) {
           <Widgets 
             arkProfile={arkProfile} 
             loading={loading}
+            nftLoading={nftsInitialized}
             nfts={nfts}
+            arweaveAddr={userArweaveAddr ? userArweaveAddr : null}
           />
         </div>
       </div>

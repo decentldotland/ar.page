@@ -90,20 +90,20 @@ export const ChainFilter = (props: ChainProps) => {
             "ratio": "1.3"
         },
         {
+            "name": fantom,
+            "src": "/chains/fantom_outline.svg",
+            "ratio": "1.7"
+        },
+        {
             "name": bsc,
             "src": "/chains/binance_outline.svg",
             "ratio": "1"
         },
-        {
-            "name": fantom,
-            "src": "/chains/fantom_outline.svg",
-            "ratio": "1.7"
-        }
     ];
 
     return (
         <div 
-            className="flex justify-around items-center flex-row h-12 border-2 border-slate-300 rounded-xl space-x-1"
+            className="flex justify-around items-center flex-row h-12 border-2 border-slate-300 rounded-xl space-x-1.5 px-1"
         >
         {/*Active Blockchain*/}
         {supportedChains.map((supportedChain) => (
@@ -112,7 +112,7 @@ export const ChainFilter = (props: ChainProps) => {
                 src={supportedChain.src}
                 name={supportedChain.name}
                 onClick={props.activeChain !== supportedChain.name ? props.onClick : () => null}
-                className={props.activeChain === supportedChain.name ? "h-9 w-9 cursor-default": "h-7 w-7 cursor-pointer"}
+                className={props.activeChain === supportedChain.name ? "h-9 w-9 cursor-default shadow-xl bg-slate-800 border-1 border-slate-500": "h-7 w-7 cursor-pointer"}
                 scale={supportedChain.ratio}
             />
         ))}

@@ -3,7 +3,6 @@ import * as React from 'react';
 import { useAns } from 'ans-for-all';
 import { CircularProgress, Snackbar } from '@mui/material';
 import {DocumentDuplicateIcon, CalendarDaysIcon, CheckIcon} from '@heroicons/react/24/outline'
-import {CheckBadgeIcon, ShieldExclamationIcon} from '@heroicons/react/24/solid'
 import { ANSData, Res, userInfo } from '../../../src/types';
 import ProfileAvatar from '../../avatar/ProfileAvatar';
 import { Labels, GenericLabel, getDefaultLabels } from './labels';
@@ -14,7 +13,6 @@ import { isDarkMode } from '../../../atoms';
 import { HackathonLabels } from '../hackathon/api/labels';
 import ProfileBadge from './modals/ProfileBadge';
 import EditProfile from './EditProfile';
-import { ChainFilter } from '../../buttons';
 
 
 interface UserProps { 
@@ -169,12 +167,6 @@ export const UserInfo = ({user, profile, domains}: UserProps) => {
                     <div className='space-y-2 !mt-0 md:!mt-4'>
                         <Labels items={labels} />
                         <Divider />
-                        <ChainFilter
-                            activeChain={"NEAR"}
-                            onClick={(e: any) => {
-                            e.preventDefault();
-                            }}
-                        />
                     </div>
                 </div>
             </div>

@@ -36,7 +36,7 @@ export const DEFAULT_COMPONENT_LIST: WidgetType[] = [
 ]
 
 
-export default function Widgets({arkProfile, loading, nfts }: {arkProfile: Res | undefined, loading: boolean, nfts: any}) {
+export default function Widgets({arkProfile, loading, nfts, nftLoading, arweaveAddr }: {arkProfile: Res | undefined, loading: boolean, nfts: any, nftLoading: boolean, arweaveAddr: string | null}) {
   
   if (!nfts) return (
     <>
@@ -71,7 +71,7 @@ export default function Widgets({arkProfile, loading, nfts }: {arkProfile: Res |
     ...TOP_WIDGETS(arkProfile),
     // NFTS
     <Widget 
-      canRender={!loading} 
+      canRender={true} 
       divider={false} 
       key={0}
     >
@@ -79,6 +79,8 @@ export default function Widgets({arkProfile, loading, nfts }: {arkProfile: Res |
         arkProfile={arkProfile} 
         loading={loading} 
         nfts={nfts}
+        nftLoading={nftLoading}
+        arweaveAddr={arweaveAddr}
       />
     </Widget>,
   ]

@@ -1,4 +1,8 @@
 import axios from "axios"
+/**
+ * @Note allnft endpoint strictly focuses on Arweave and NEAR Nfts
+ * @Note evmnft will grab nft by EVM chain
+ */
 
 export default async function handler(req, res) {
   // Retrieve dynamic query variable

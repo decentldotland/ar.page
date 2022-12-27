@@ -15,7 +15,6 @@ export const FetchNfts = (arweaveAddr: string) => {
     const fetchNfts = async (arweaveAddr: string) => {
         try {
             const nft = await axios(`/api/allnft/${arweaveAddr}`);
-            console.log("NFT GROUP: ", nft);
             setNfts(nft.data);
         } catch(e: any) {
             console.log("Error Fetching Nfts in FetchProfile Component: ", e);

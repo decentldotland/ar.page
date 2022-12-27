@@ -6,6 +6,18 @@ import ModelContent from './modelContent';
 import { NFT } from '../../../src/types';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../atoms';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
+export default function CircularIndeterminate() {
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CircularProgress 
+        style={{ color: "black" }}
+      />
+    </Box>
+  );
+}
 
 export function Title (jsx: any) {
   return (
@@ -20,12 +32,12 @@ export function Divider () {
 }
 
 export function LoadingOrNotFound({loading, jsxNotFound}: {loading: boolean, jsxNotFound: any}) {
+  console.log("loading from component: ", loading);
   return (
     <div className="flex items-center justify-center text-3xl text-content-100/80 font-bold text-gray-300">
       {loading ? (
         <>
-          <span>Loading...</span>
-          <span className="btn btn-sm loading"></span>
+          <CircularIndeterminate />
         </>
       ) : <>{jsxNotFound}</>}
     </div>

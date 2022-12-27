@@ -473,3 +473,4 @@ export type SortChronProps = {
   onClick?: () => void;
   text: string;
 }
+
