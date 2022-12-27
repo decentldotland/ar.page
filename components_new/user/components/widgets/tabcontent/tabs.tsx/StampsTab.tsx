@@ -9,7 +9,7 @@ import { SearchBar } from '../../../reusables';
 import Image from 'next/image';
 import {ArrowTopRightOnSquareIcon} from '@heroicons/react/24/outline/'
 // TODO: Create a general component for this
-export default function StampsTab({currentUser, stamps, loading, perPage}: {currentUser: Res, stamps: Stamp[], loading: boolean, perPage: number}) {
+export default function StampsTab({currentUser, stamps, loading, perPage}: {currentUser: Res | undefined, stamps: Stamp[], loading: boolean, perPage: number}) {
 
   const [onLoad, setOnLoad] = useState<boolean>(false);
   const [filteredTransactions, setFilteredTransactions] = useState<Stamp[]>(stamps || []);
@@ -64,7 +64,7 @@ export default function StampsTab({currentUser, stamps, loading, perPage}: {curr
                 </div>
                 <div className="grow flex justify-between items-start">
                   <div className="flex flex-col mb-5">
-                    <div className='font-semibold '><span className="text-[#777]">{currentUser.ANS.nickname} stamped</span> {stamp.title}</div>
+                    <div className='font-semibold '><span className="text-[#777]">{currentUser ? currentUser.ANS.nickname : undefined} stamped</span> {stamp.title}</div>
                     {/* {console.log(stamp)} */}
                     <div className='text-sm'>{epochToDate(stamp.timestamp)}</div>
                   </div>

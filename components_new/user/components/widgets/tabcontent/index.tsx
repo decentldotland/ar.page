@@ -16,7 +16,7 @@ export interface TabContentTabs {
   component: JSX.Element; // The component that will be rendered
 }
 
-export default function Content({ arkProfile, loading, nfts, nftLoading, arweaveAddr }: { arkProfile: Res; loading: boolean, nfts: any, nftLoading: boolean, arweaveAddr: string | null }) {
+export default function Content({ arkProfile, loading, nfts, nftLoading, arweaveAddr }: { arkProfile: Res | undefined; loading: boolean, nfts: any, nftLoading: boolean, arweaveAddr: string | null }) {
   const [selected, setSelected] = useState<number>(0);
   const [activity, setActivity] = useState<ArweaveTransaction[]>(arkProfile ? arkProfile.ARWEAVE_TRANSACTIONS : []);
   const [collectableVisibility, setCollectableVisibility] = useState<number>(0);

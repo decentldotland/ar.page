@@ -36,7 +36,7 @@ export const DEFAULT_COMPONENT_LIST: WidgetType[] = [
 ]
 
 
-export default function Widgets({arkProfile, loading, nfts, nftLoading, arweaveAddr }: {arkProfile: Res, loading: boolean, nfts: any, nftLoading: boolean, arweaveAddr: string | null}) {
+export default function Widgets({arkProfile, loading, nfts, nftLoading, arweaveAddr }: {arkProfile: Res | undefined, loading: boolean, nfts: any, nftLoading: boolean, arweaveAddr: string | null}) {
   
   if (!nfts) return (
     <>

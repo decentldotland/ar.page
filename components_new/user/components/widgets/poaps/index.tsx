@@ -7,8 +7,11 @@ import { Res } from '../../../../../src/types';
 import { Divider } from '../../reusables';
 import {BiChevronLeft, BiChevronRight} from 'react-icons/bi';
 
-export default function Poaps({ props }: { props: Res }) {
-  const { POAPS } = props;
+export default function Poaps({ props }: { props: Res | undefined }) {
+  let POAPS;
+  if(props !== undefined) { // Check for undefined
+    POAPS = props.POAPS;
+  }
 
   const rowRef = useRef<HTMLDivElement>(null);
   const [isMoved, setIsMoved] = useState(false);
@@ -43,7 +46,7 @@ export default function Poaps({ props }: { props: Res }) {
             />
 
           <div ref={rowRef} className="md:gap-x-10 -space-x-3.5 flex  md:p-2 carousel mb-5 md:ml-1 group relative">
-            {POAPS.map((p, idx) => (
+            {POAPS ? POAPS.map((p, idx) => (
               <div  key={idx} className="carousel-item">
                 <label className="flex 
                   items-center 
@@ -72,7 +75,7 @@ export default function Poaps({ props }: { props: Res }) {
                   </label>
                 </label>
               </div>
-            ))}
+            )) : ""}
           </div>
         
           <BiChevronRight  height={10} color="#fff" width={10} 
