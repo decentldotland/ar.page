@@ -61,7 +61,7 @@ export default function Widgets({arkProfile, loading, nfts, nftLoading, arweaveA
   const defaultWidgets = [
     // POAP
     <Widget
-      canRender={arkProfile?.POAPS?.length > 0}
+      canRender={arkProfile ? arkProfile?.POAPS?.length > 0 : false}
       loading={loading} 
       divider={true}
       key={0}
