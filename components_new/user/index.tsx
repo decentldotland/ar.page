@@ -16,63 +16,21 @@ function PageContent(props: userInfo) {
   const userArweaveAddr = props.userInfo.user;
   const { domains } = FetchDomain(userArweaveAddr);
   const { nfts, nftsInitialized } = FetchNfts(userArweaveAddr);
-  console.log("allnft endpoint: ", nfts);
-  console.log("Set initialized: ", nftsInitialized);
-  const bio = typeof props.userInfo.bio === 'string' ? 
-  props.userInfo.bio : "";
   const info = props.userInfo;
 
-  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState<boolean>(true);
   const [arkProfile, setArkProfile] = useState<Res | undefined>();
 
-  // Fetch Near NFTs by near address and ar handle
-  const fetchNearNFTs = async(address: string) => {
-    return await axios.get(`/api/nep/${address}`);
-  }
   // Fetch a users wallet address
   const fetchData = async (arweaveAddr: string, userHandle: string) => {
     setLoading(true);
-    const result = await axios.get(`/api/profile/${arweaveAddr}`);
-    let linkInfo = await axios.post(`/api/exmread`);
-
-    //@ts-ignore
-    // Find User by Arweave Id
-    const userAddresses = linkInfo.data.identities ? linkInfo.data.identities.find(identity=> identity.arweave_address === arweaveAddr) : "";
-    // Find Near Addresses of User
-    let nearAddresses = userAddresses.addresses ?
-    //@ts-ignore 
-    userAddresses.addresses.map(address => { 
-      if(address.network === "NEAR-MAINNET") {
-        return address;
-      }
-    }) 
-    : "";
-
-    // Find NFTs by NEAR Address
-    //@ts-ignore 
-    const nearNfts = await Promise.all(nearAddresses.map(async nearInfo => {
-      if(nearInfo) {
-        let res = await fetchNearNFTs(nearInfo.address);
-        return res;
-      }
-    }));
-    
-    // If multiple Near wallets, this will join all NFTs into one array
-    let holdNfts: any[] = [];
-    for(let i = 0; i < nearNfts.length; i++) {
-      if(nearNfts[i] !== undefined) {
-        for(let j = 0; j < nearNfts[i].data.result.length; j++) {
-          holdNfts.push(nearNfts[i].data.result[j]);
-        }
-      }
-    }
+    let result = await axios.get(`/api/profile/${arweaveAddr}`);
+    console.log("Result: ", result);
 
     // Parse final payload containing all NFTS
-    let parsed = JSON.parse(result.data);
-    if (parsed.res) {
-      parsed.res["NEAR_NFTS"] = holdNfts;
-      const resObj: Res = parsed?.res;
+    let parsed = JSON.parse(JSON.stringify(result.data.res));
+    if (parsed) {
+      const resObj: Res = parsed;
       setArkProfile(resObj);
     }
     setLoading(false);

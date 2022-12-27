@@ -1,14 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import { LoadingOrNotFound, SearchBar, NFTGallery } from '../../../reusables';
-import { NFT } from '../../../../../../src/types';
+import { ChainOptions, NFT } from '../../../../../../src/types';
 import { ChainFilter } from '../../../../../buttons';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../../../../atoms';
 import { SortChronButton } from '../../../../../buttons';
 import { FetchEvmNfts } from '../../../../../../src/utils/fetchProfile/fetchEvmNft';
- 
-export default function Collectibles({NFTs, loaded, perPage, handleVisibility, arweaveAddr, handleEvmNfts}:
-{NFTs: NFT[], loaded: boolean, perPage: number, handleVisibility: (res: number) => void, arweaveAddr: string | null, handleEvmNfts: any}) {
+import { COLLECTIBLE_PER_PAGE } from '../../../../../../src/constants';
+
+export default function Collectibles({NFTs, loaded, perPage, handleVisibility, arweaveAddr, handleEvmNfts, handleCollectibleLimit}:
+{
+  NFTs: NFT[], 
+  loaded: boolean, 
+  perPage: number, 
+  handleVisibility: (res: number) => void, 
+  arweaveAddr: string | null, 
+  handleEvmNfts: any, 
+  handleCollectibleLimit: Dispatch<SetStateAction<number>>
+}
+) {
   const [filteredNFTs, setFilteredNFTs] = useState<NFT[]>(NFTs);
   const [onLoad, setOnLoad] = useState<boolean>(false);
   const [ascending, setAscending] = useState<boolean>(true);
@@ -18,8 +28,6 @@ export default function Collectibles({NFTs, loaded, perPage, handleVisibility, a
   const filterTime = () => filteredNFTs.sort((a, b) => ascending ? a.timestamp! - b.timestamp!: b.timestamp! - a.timestamp!)
   const filterNetwork = () => NFTs.filter((nft) => nft.chain === network);
   const { evmNftsLoading, evmSearchedList, evmNftsError, fetchEvmNfts } = FetchEvmNfts(); 
-  console.log("Filtered Nfts: ", filteredNFTs);
-  console.log("EVM Loading: ", evmNftsLoading);
   const onSearch = (e: string) => {
     setSearch(e);
     setFilteredNFTs(NFTs.filter((nft) =>  {
@@ -86,6 +94,7 @@ export default function Collectibles({NFTs, loaded, perPage, handleVisibility, a
             if(!evmSearchedList.includes(selectedChain)) {
               handleEvmNftSelection(arweaveAddr, selectedChain);
             }
+            handleCollectibleLimit(COLLECTIBLE_PER_PAGE);
             setNetwork(e.currentTarget.value);
           }}
         />

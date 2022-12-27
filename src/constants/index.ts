@@ -50,3 +50,5 @@ export const DECENT_LORE_NAMES = [
   "emergency_services",
   "dust_scooper"
 ];
+
+export const COLLECTIBLE_PER_PAGE = 8;

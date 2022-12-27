@@ -5,7 +5,7 @@ import Selector from './selector';
 import { ArweaveTransaction, NFT, Res, Stamp } from '../../../../../src/types';
 import { TABS } from '../../../hackathon/';
 import StampsTab from './tabs.tsx/StampsTab'; 
-import { ARWEAVE_URL, IMAGE_PROXY, IPFS_PROXY } from '../../../../../src/constants';
+import { ARWEAVE_URL, IMAGE_PROXY, IPFS_PROXY, COLLECTIBLE_PER_PAGE } from '../../../../../src/constants';
 import { removeIpfs } from '../../../../../src/utils/removeIpfs';
 import { ChainOptions } from '../../../../../src/types';
 
@@ -18,12 +18,12 @@ export interface TabContentTabs {
 
 export default function Content({ arkProfile, loading, nfts, nftLoading, arweaveAddr }: { arkProfile: Res | undefined; loading: boolean, nfts: any, nftLoading: boolean, arweaveAddr: string | null }) {
   const [selected, setSelected] = useState<number>(0);
-  const [activity, setActivity] = useState<ArweaveTransaction[]>(arkProfile ? arkProfile.ARWEAVE_TRANSACTIONS : []);
+  const [activity, setActivity] = useState<ArweaveTransaction[]>(arkProfile ? arkProfile.ARWEAVE.ARWEAVE_TRANSACTIONS : []);
   const [collectableVisibility, setCollectableVisibility] = useState<number>(0);
   const handleCollectableVisibility = (res: number) => setCollectableVisibility(res);
   
   // ------------------------------NFT, Stamps Section-----------------------------------
-  const [stamp, setStamp] = useState<Stamp[]>(arkProfile ? arkProfile.STAMPS : []);
+  const [stamp, setStamp] = useState<Stamp[]>([]);
   let tmp: NFT[] = [];
   const [NFTs, setNFTs] = useState<NFT[]>(tmp);
   const [evmNfts, setEvmNfts] = useState<NFT[]>([]);
@@ -50,7 +50,6 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
         }
       }
       setNFTs(prev => [...prev, ...evmTmp]);
-      console.log("NFTS: ", NFTs);
     }
   }
 
@@ -87,13 +86,9 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
   }
 
   NFTs.sort((a, b) =>  b.timestamp! - a.timestamp!);
-  const [CollectiblePerPage, setCollectiblePerPage] = useState(9);
-  const [CurrentCollectiblePage, setcurrentCollectiblePage] = useState(1);
-  let indexLastCollection = CurrentCollectiblePage * CollectiblePerPage;
-  let firstIndexCollection = indexLastCollection - CollectiblePerPage;
-  let currentCollection = activity.slice(firstIndexCollection, indexLastCollection) 
+  const [CollectiblePerPage, setCollectiblePerPage] = useState(COLLECTIBLE_PER_PAGE);
   const showMoreCollection = () => { 
-    setCollectiblePerPage(currentCollection.length + CollectiblePerPage);
+    setCollectiblePerPage(prev => prev + CollectiblePerPage);
   }
 
 // --------------------------------------Activity Section----------------------------------
@@ -149,6 +144,7 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
           handleVisibility={handleCollectableVisibility}
           arweaveAddr={arweaveAddr}
           handleEvmNfts={addEvmNfts}
+          handleCollectibleLimit={setCollectiblePerPage}
         />
         <CollectableTab 
           nftCount={collectableVisibility}

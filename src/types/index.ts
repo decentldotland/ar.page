@@ -44,6 +44,7 @@ export interface Resobject {
 }
 
 // Primary Ark Protocol response object
+/*
 export interface Res {
   arweave_address:              string;
   evm_address:                  string;
@@ -79,6 +80,74 @@ export interface Res {
   ARWEAVE_TRANSACTIONS:         ArweaveTransaction[];
   STAMPS:                       Stamp[];
 };
+*/
+export interface Res {
+  arweave_address: string;
+  public_key: string;
+  primary_address: string;
+  is_verified: boolean;
+  first_linkage: number;
+  last_modification: number;
+  unevaluated_addresses: any[];
+  addresses: Address[];
+  ARWEAVE: {
+    ANS: {
+      user: string;
+      currentLabel: string;
+      ownedLabels: Label[];
+      nickname: string;
+      address_color: string;
+      bio: string;
+      avatar: string;
+      links: {
+        twitter: string;
+        customUrl: string;
+        website: string;
+      };
+      subdomains: any;
+      freeSubdomains: number;
+    };
+    IS_VOUCHED: boolean;
+    ARNS: boolean;
+    ARWEAVE_TRANSACTIONS: ArweaveTransaction[];
+  };
+}
+
+interface Address {
+  address: string;
+  network: string;
+  ark_key: string;
+  verification_req: string;
+  is_verified: boolean;
+  is_evaluated: boolean;
+}
+
+interface Label {
+  label: string;
+  scarcity: string;
+  acquisationBlock: number;
+  mintedFor: number;
+}
+
+/*
+interface ArweaveTransaction {
+  txid: string;
+  timestamp: number;
+  tags: Tag[];
+  owner: string;
+  reward: string;
+  target: string;
+  data: string;
+  data_size: number;
+  data_root: string;
+  signature: string;
+}
+*/
+
+interface Tag {
+  name: string;
+  value: string;
+}
 
 // arweave NFTs
 export interface Anfts {
