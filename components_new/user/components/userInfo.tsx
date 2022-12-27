@@ -17,7 +17,7 @@ import EditProfile from './EditProfile';
 
 interface UserProps { 
     user: userInfo,
-    profile: Res,
+    profile: Res | undefined,
     domains: any;
 }
 

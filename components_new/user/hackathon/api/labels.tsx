@@ -1,5 +1,6 @@
 import React from 'react';
 import { BsHeart } from 'react-icons/bs';
+import { Res } from '../../../../src/types';
 
 export function HackathonLabels(arkProfile: Res | undefined) {
   // for using our labeling system, check out GenericLabelInterface, and examples in getDefaultLabels
