@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { removeHttp } from '../../../../src/utils';
 import { BsGithub, BsTwitter, BsInstagram, BsGlobe2 } from 'react-icons/bs';
 import { Links, OwnedLabel, GenericLabelInterface } from '../../../../src/types';
+import useWindowDimensions  from "../../../../src/useWindowDimension";
 
 const colorProps = `bg-primary/10 text-primary flex items-center`;
 const avaxColor = "bg-[#E84040]/80 text-white flex items-center";
@@ -137,7 +138,7 @@ export const nearLabel = (NEAR:string|undefined) => {
   return {
     username: NEAR,
     classes: nearColor,
-    link_to: "https://nearblocks.io/address/"+NEAR,
+    link_to: "https://explorer.mainnet.near.org/accounts/"+NEAR,
     selected: false,
     icon: <div className={'flex items-center rounded-lg bg-black'}>
       <Image
@@ -248,14 +249,63 @@ const addSocials = (links: Links) => {
 }
 
 export const Labels = ({items}: {items: any}) => {
+  let counter = 0;
+  const size = useWindowDimensions();
+  const handleClick = (event: React.MouseEvent) => {
+    const id = event.currentTarget.id.substring(2);
+    event.preventDefault();
+    const anchorElement = document.getElementById(id);
+    //@ts-ignore
+    anchorElement.scrollIntoView(false);
+  };
+  
+  // Determine number of label handles per screen
+  let numPerView: number;
+  //@ts-ignore check for undefined already
+  numPerView = (size === undefined) ? 2 :  Math.floor((size.width  / 300));
+  const itemsAdj = items.filter((item: any) => item.props.username !== "");
+  const numDivs = Math.ceil(itemsAdj.length / numPerView);
+  console.log(itemsAdj);
   return (
-    <div className="flex flex-row flex-wrap carousel max-w-[100vw] space-x-2 justify-center md:justify-start">
-      {items.map((item:any, index:number) => (
-        <div key={index} className="carousel-item mt-1">
-          {item}
-        </div>
-      ))}
+    <>
+    <div id="masterCarousel" className="flex flex-row carousel w-full">
+      {itemsAdj.map((item: any, index: number) => {
+        if (index % numPerView === 0) {
+          counter += 1;
+          return (
+            <div id={`slide${counter}`} className="carousel-item relative w-full justify-center space-x-2 z-10">
+              {itemsAdj.slice(index, index + numPerView).map((it: any) => (
+                <div key={index} className="z-10">
+                  {it}
+                </div>
+              ))}
+              <div className="absolute flex justify-between transform -translate-y-1/2 left-0 right-0 top-1/2 z-0">
+                {/*Logic to Determine Carousel Direction*/}
+                {counter === 1 ?
+                  <a id={`m_slide${numDivs}`} href={`#slide${numDivs}`} className="text-slate-400" onClick={e => {
+                    handleClick(e);
+                  }}>❮</a> 
+                :
+                  <a id={`m_slide${counter - 1}`} href={`#slide${counter - 1}`} className="text-slate-400" onClick={e => {
+                    handleClick(e);
+                  }}>❮</a> 
+                }
+                {counter === numDivs ?
+                  <a id={`m_slide1`} href={`#slide1`} className="text-slate-400" onClick={e => {
+                    handleClick(e);
+                  }}>❯</a>
+                :
+                  <a id={`m_slide${counter + 1}`} href={`#slide${counter + 1}`} className="text-slate-400" onClick={e => {
+                    handleClick(e);
+                  }}>❯</a>
+                }
+              </div>
+            </div>
+          );
+        }
+      })}    
     </div>
+    </>
   );
 };
 
@@ -312,3 +362,9 @@ export function GenericLabel ({username, classes, icon, link_to, canCopy}: Gener
     </>
   )
 }
+
+/*
+<div key={index} className="mt-1">
+  {it}
+</div>
+*/

@@ -14,7 +14,8 @@ import { FetchNfts } from '../../src/utils/fetchProfile/fetchNfts';
 
 function PageContent(props: userInfo) {
   const userArweaveAddr = props.userInfo.user;
-  const { domains } = FetchDomain(userArweaveAddr);
+  const { domains, domainInitialized } = FetchDomain(userArweaveAddr);
+  console.log("DOMAINS: ", domains);
   const { nfts, nftsInitialized } = FetchNfts(userArweaveAddr);
   const info = props.userInfo;
 
@@ -64,6 +65,7 @@ function PageContent(props: userInfo) {
             user={{userInfo: info}} 
             profile={arkProfile}
             domains={domains}
+            domainsLoaded={domainInitialized}
           />
           <EditModal
             userColor={info.address_color} 

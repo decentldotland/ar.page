@@ -129,6 +129,17 @@ interface Label {
   mintedFor: number;
 }
 
+export interface IdentityLinks {
+  ANS: string[];
+  NEAR: string[];
+  ENS: string[];
+  EVMOS: string[];
+  AVVY: string[];
+  LENS: string[];
+  URBIT: string[];
+}
+
+
 /*
 interface ArweaveTransaction {
   txid: string;

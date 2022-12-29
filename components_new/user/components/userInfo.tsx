@@ -13,15 +13,18 @@ import { isDarkMode } from '../../../atoms';
 import { HackathonLabels } from '../hackathon/api/labels';
 import ProfileBadge from './modals/ProfileBadge';
 import EditProfile from './EditProfile';
+import { IdentityLinks } from '../../../src/types';
+import CircularIndeterminate from './reusables';
 
 
 interface UserProps { 
     user: userInfo,
     profile: Res | undefined,
-    domains: any;
+    domains: IdentityLinks;
+    domainsLoaded: boolean
 }
 
-export const UserInfo = ({user, profile, domains}: UserProps) => {
+export const UserInfo = ({user, profile, domains, domainsLoaded}: UserProps) => {
 
     const {
         shortenAddress,
@@ -164,8 +167,14 @@ export const UserInfo = ({user, profile, domains}: UserProps) => {
                 {/* User Bio and Available Labels */}
                 <div className='space-y-8 -mt-20 mb-5'>
                     <Bio text={bio} />
-                    <div className='space-y-2 !mt-0 md:!mt-4'>
-                        <Labels items={labels} />
+                    <div className='space-y-2 !mt-0 md:!mt-4'> 
+                        {domains ? 
+                            <Labels items={labels} />
+                        :
+                            <span className="flex w-full justify-center items-center">
+                                <CircularIndeterminate />
+                            </span>
+                        }
                         <Divider />
                     </div>
                 </div>
