@@ -265,7 +265,6 @@ export const Labels = ({items}: {items: any}) => {
   numPerView = (size === undefined) ? 2 :  Math.floor((size.width  / 300));
   const itemsAdj = items.filter((item: any) => item.props.username !== "");
   const numDivs = Math.ceil(itemsAdj.length / numPerView);
-  console.log(itemsAdj);
   return (
     <>
     <div id="masterCarousel" className="flex flex-row carousel w-full">
@@ -273,33 +272,37 @@ export const Labels = ({items}: {items: any}) => {
         if (index % numPerView === 0) {
           counter += 1;
           return (
-            <div id={`slide${counter}`} className="carousel-item relative w-full justify-center space-x-2 z-10">
+            <div id={`slide${counter}`} className="carousel-item relative w-full justify-center space-x-2 z-10" key={`key_slide${counter}`}>
               {itemsAdj.slice(index, index + numPerView).map((it: any) => (
-                <div key={index} className="z-10">
+                <div key={`${index}${it.props.username}`} className="z-10">
                   {it}
                 </div>
               ))}
-              <div className="absolute flex justify-between transform -translate-y-1/2 left-0 right-0 top-1/2 z-0">
-                {/*Logic to Determine Carousel Direction*/}
-                {counter === 1 ?
-                  <a id={`m_slide${numDivs}`} href={`#slide${numDivs}`} className="text-slate-400" onClick={e => {
-                    handleClick(e);
-                  }}>❮</a> 
-                :
-                  <a id={`m_slide${counter - 1}`} href={`#slide${counter - 1}`} className="text-slate-400" onClick={e => {
-                    handleClick(e);
-                  }}>❮</a> 
-                }
-                {counter === numDivs ?
-                  <a id={`m_slide1`} href={`#slide1`} className="text-slate-400" onClick={e => {
-                    handleClick(e);
-                  }}>❯</a>
-                :
-                  <a id={`m_slide${counter + 1}`} href={`#slide${counter + 1}`} className="text-slate-400" onClick={e => {
-                    handleClick(e);
-                  }}>❯</a>
-                }
-              </div>
+              {itemsAdj.length != 1 ?
+                <div className="absolute flex justify-between transform -translate-y-1/2 left-0 right-0 top-1/2 z-0">
+                  {/*Logic to Determine Carousel Direction*/}
+                  {counter === 1 ?
+                    <a id={`m_slide${numDivs}`} href={`#slide${numDivs}`} className="text-slate-400" onClick={e => {
+                      handleClick(e);
+                    }}>❮</a> 
+                  :
+                    <a id={`m_slide${counter - 1}`} href={`#slide${counter - 1}`} className="text-slate-400" onClick={e => {
+                      handleClick(e);
+                    }}>❮</a> 
+                  }
+                  {counter === numDivs ?
+                    <a id={`m_slide1`} href={`#slide1`} className="text-slate-400" onClick={e => {
+                      handleClick(e);
+                    }}>❯</a>
+                  :
+                    <a id={`m_slide${counter + 1}`} href={`#slide${counter + 1}`} className="text-slate-400" onClick={e => {
+                      handleClick(e);
+                    }}>❯</a>
+                  }
+                </div>
+              :
+                ""
+              }
             </div>
           );
         }

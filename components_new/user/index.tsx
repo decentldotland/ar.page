@@ -15,7 +15,6 @@ import { FetchNfts } from '../../src/utils/fetchProfile/fetchNfts';
 function PageContent(props: userInfo) {
   const userArweaveAddr = props.userInfo.user;
   const { domains, domainInitialized } = FetchDomain(userArweaveAddr);
-  console.log("DOMAINS: ", domains);
   const { nfts, nftsInitialized } = FetchNfts(userArweaveAddr);
   const info = props.userInfo;
 
@@ -26,7 +25,6 @@ function PageContent(props: userInfo) {
   const fetchData = async (arweaveAddr: string, userHandle: string) => {
     setLoading(true);
     let result = await axios.get(`/api/profile/${arweaveAddr}`);
-    console.log("Result: ", result);
 
     // Parse final payload containing all NFTS
     let parsed = JSON.parse(JSON.stringify(result.data.res));

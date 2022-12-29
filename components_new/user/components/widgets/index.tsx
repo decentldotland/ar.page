@@ -36,6 +36,22 @@ export const DEFAULT_COMPONENT_LIST: WidgetType[] = [
 
 export default function Widgets({arkProfile, loading, nfts, nftLoading, arweaveAddr }: {arkProfile: Res | undefined, loading: boolean, nfts: any, nftLoading: boolean, arweaveAddr: string | null}) {
   
+  const getPoapProperties = (obj: Res | undefined) => {
+    const evm = obj ? obj.EVM : undefined;
+    if (!evm || typeof evm !== 'object') {
+      return undefined;
+    }
+    const poapsProperties: POAP[] = [];
+    for (const [address, value] of Object.entries(evm)) {
+      if (Array.isArray(value.POAPS)) {
+        value.POAPS.forEach(poap => {
+          poapsProperties.push(poap);
+        });
+      }
+    }
+    return poapsProperties;
+  };
+
   const [poaps, setPoaps] = useState<POAP[] | undefined>([]);
   useEffect(() => {
     if(arkProfile !== undefined) {
@@ -64,24 +80,6 @@ export default function Widgets({arkProfile, loading, nfts, nftLoading, arweaveA
       )}
     </>
   )
-
-  const getPoapProperties = (obj: Res | undefined) => {
-    const evm = obj ? obj.EVM : undefined;
-    if (!evm || typeof evm !== 'object') {
-      return undefined;
-    }
-    const poapsProperties: POAP[] = [];
-    for (const [address, value] of Object.entries(evm)) {
-      if (Array.isArray(value.POAPS)) {
-        value.POAPS.forEach(poap => {
-          poapsProperties.push(poap);
-        });
-      }
-    }
-    return poapsProperties;
-  };
-
-  console.log("POAP PROPERTIES w State: ", poaps);
 
   const defaultWidgets = [
     // POAP

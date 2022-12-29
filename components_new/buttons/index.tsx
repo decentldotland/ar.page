@@ -184,3 +184,37 @@ export const SortChronButton = (props: SortChronProps) => {
         </button>
     );
 }
+
+/**
+ * View NFT Button
+ * Category: Universal Module
+ * Purpose:
+ *   a. Standalone button to follow NFT Links
+ * 
+ * To Work:
+ *   a. Place within parent
+ *   b. Insert href link and button text
+ * @params link - href link
+ * @params text - text for button
+ * @returns Button wrapped in anchor tags
+ */
+interface viewNftInterface {
+    nftLink: string;
+    text: string;
+}
+export const ViewNftButton = (props: viewNftInterface) => {
+    const theme = localStorage.getItem('theme');
+    const textColor = theme === 'arlight' ? 'text-black' : 'text-white';
+    return (
+        <a href={props.nftLink}>
+            <button
+                className={`bg-inherit border-2 border-slate-300 rounded-xl font-medium hover:bg-primary/30 
+                        py-1.5 px-2.5 flex items-center h-12 hover:bg-indigo-300 hover:text-white hover:shadow-md 
+                        active:shadow-none active:scale-[0.98] hover:transition duration-200 ease-in-out w-20 
+                        flex items-center justify-center ${textColor}`}
+            > 
+                {props.text}
+            </button>
+        </a>
+    );
+}

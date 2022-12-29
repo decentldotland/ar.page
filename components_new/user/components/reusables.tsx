@@ -8,6 +8,8 @@ import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../atoms';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import { faCircleXmark, faLink } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function CircularIndeterminate() {
   return (
@@ -135,3 +137,14 @@ export function NFTGallery ({NFTs, perPage}: {NFTs: NFT[], perPage: number}) {
     </>
   )
 };
+
+export function CircleX({ classNameDiv, classNameIcon, onClick }: {classNameDiv?: string, classNameIcon?: string, onClick?: () => any;}) {
+  return (
+      <div 
+          onClick={onClick}
+          className={`rounded-full bg-white text-gray-500 flex items-center justify-center border-1 border-slate-100 ${classNameDiv}`}
+      >
+          <FontAwesomeIcon icon={faCircleXmark} className={`w-6 h-6 ${classNameIcon}`} />
+      </div>
+  );
+}
