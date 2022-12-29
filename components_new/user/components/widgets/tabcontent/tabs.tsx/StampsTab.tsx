@@ -64,7 +64,7 @@ export default function StampsTab({currentUser, stamps, loading, perPage}: {curr
                 </div>
                 <div className="grow flex justify-between items-start">
                   <div className="flex flex-col mb-5">
-                    <div className='font-semibold '><span className="text-[#777]">{currentUser ? currentUser.ANS.nickname : undefined} stamped</span> {stamp.title}</div>
+                    <div className='font-semibold '><span className="text-[#777]">{currentUser ? currentUser.ARWEAVE.ANS.nickname : undefined} stamped</span> {stamp.title}</div>
                     {/* {console.log(stamp)} */}
                     <div className='text-sm'>{epochToDate(stamp.timestamp)}</div>
                   </div>
