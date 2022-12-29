@@ -15,6 +15,7 @@ import ProfileBadge from './modals/ProfileBadge';
 import EditProfile from './EditProfile';
 import { IdentityLinks } from '../../../src/types';
 import CircularIndeterminate from './reusables';
+import { extractMonthAndYear } from '../../../src/utils/dateUtils/extractMonthYear';
 
 
 interface UserProps { 
@@ -53,9 +54,7 @@ export const UserInfo = ({user, profile, domains, domainsLoaded}: UserProps) => 
     user.userInfo.bio : "";
 
     let epoch = profile?.first_linkage || user.userInfo.timestamp || 0;
-    let member_since = new Date(epoch * 1000);
-    let [month, year] = [member_since.toLocaleString('default', {month: 'short'}), member_since.getFullYear()];
-    
+    const { month, year } = extractMonthAndYear(epoch);
     // Labels
     const defaultLabels = getDefaultLabels({
         ENS: domains ? domains.ENS : [], 
@@ -108,7 +107,7 @@ export const UserInfo = ({user, profile, domains, domainsLoaded}: UserProps) => 
                                 </div>
                                 <ProfileBadge
                                     loading={loading}
-                                    is_evaluated={profile?.is_evaluated}
+                                    is_evaluated={false}
                                     is_verified={profile?.is_verified}
                                     isDark={isDark}
                                 />
