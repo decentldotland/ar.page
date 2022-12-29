@@ -1,17 +1,9 @@
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { isDarkMode } from '../../../../../atoms';
-import { Res } from '../../../../../src/types';
-import { Divider } from '../../reusables';
+import { POAP } from '../../../../../src/types';
 import {BiChevronLeft, BiChevronRight} from 'react-icons/bi';
 
-export default function Poaps({ props }: { props: Res | undefined }) {
-  let POAPS;
-  if(props !== undefined) { // Check for undefined
-    POAPS = props.POAPS;
-  }
+export default function Poaps({ poapsArr }: { poapsArr: POAP[] | undefined }) {
 
   const rowRef = useRef<HTMLDivElement>(null);
   const [isMoved, setIsMoved] = useState(false);
@@ -24,17 +16,11 @@ export default function Poaps({ props }: { props: Res | undefined }) {
 
             rowRef.current.scrollTo({left: scrollTo, behavior: 'smooth'})
         }
-        // console.log(rowRef.current?.scrollLeft, rowRef.current?.clientWidth)
-
   }
-  const [isDark, setIsDark] = useRecoilState(isDarkMode);
-
 
   return (
     <>
-      {/* <h1 className="text-left font-inter font-bold text-xl">POAPS</h1> */}
       <div className="group relative">
-
           <BiChevronLeft height={10} color="#fff" width={10}  className={`absolute top-0 
               bottom-0 left-2 bg-gray-500/50 rounded-full 
               m-auto z-50 h-6 w-6
@@ -44,10 +30,9 @@ export default function Poaps({ props }: { props: Res | undefined }) {
             ${!isMoved && "hidden"}`}
             onClick={() => handleClick("left")}
             />
-
           <div ref={rowRef} className="md:gap-x-10 -space-x-3.5 flex  md:p-2 carousel mb-5 md:ml-1 group relative">
-            {POAPS ? POAPS.map((p, idx) => (
-              <div  key={idx} className="carousel-item">
+            {poapsArr ? poapsArr.map((p: POAP, idx: number) => (
+              <div key={idx} className="carousel-item">
                 <label className="flex 
                   items-center 
                   cursor-pointer 
@@ -59,13 +44,21 @@ export default function Poaps({ props }: { props: Res | undefined }) {
                     height={112}  
                     quality={80}
                     className="scale-75 md:scale-100"
+                    alt={"Image of a POAP"}
                   />
                 </label>
                 <input type="checkbox" id={"poap-modal-" + idx} className="modal-toggle" />
                 <label htmlFor={"poap-modal-" + idx} className="modal cursor-pointer backdrop-blur-md">
                   <label className="modal-box relative" htmlFor="">
                     <div className="flex flex-col items-center mt-4 mb-6">
-                      <Image loader={() => p.event.image_url} src={p.event.image_url} width={250} height={250} className="shadow-sm" />
+                      <Image 
+                        loader={() => p.event.image_url} 
+                        src={p.event.image_url} 
+                        width={250} 
+                        height={250} 
+                        className="shadow-sm"
+                        alt={"Image of a POAP"} 
+                      />
                     </div>
                     <div className="flex flex-col gap-y-2 text-center">
                       <div className="font-semibold">{p.event.name}</div>
@@ -77,7 +70,6 @@ export default function Poaps({ props }: { props: Res | undefined }) {
               </div>
             )) : ""}
           </div>
-        
           <BiChevronRight  height={10} color="#fff" width={10} 
             className={`absolute top-0 
               bottom-0 right-2 bg-gray-500/50 rounded-full
@@ -88,7 +80,6 @@ export default function Poaps({ props }: { props: Res | undefined }) {
               onClick={() => handleClick("right")}
             />
       </div>
-            
     </>
   )
 }

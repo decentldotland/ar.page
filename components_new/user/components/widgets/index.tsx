@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Poaps from './poaps';
 import TabContent from './tabcontent';
 import { TOP_WIDGETS } from '../../hackathon';
-import { Res } from '../../../../src/types';
+import { Res, POAP } from '../../../../src/types';
 import { Divider } from '../reusables';
 import { CircularProgress } from '@mui/material';
 export interface WidgetType {
@@ -32,12 +32,18 @@ export function Widget(props: WidgetType) {
 }
 
 export const DEFAULT_COMPONENT_LIST: WidgetType[] = [
-
 ]
-
 
 export default function Widgets({arkProfile, loading, nfts, nftLoading, arweaveAddr }: {arkProfile: Res | undefined, loading: boolean, nfts: any, nftLoading: boolean, arweaveAddr: string | null}) {
   
+  const [poaps, setPoaps] = useState<POAP[] | undefined>([]);
+  useEffect(() => {
+    if(arkProfile !== undefined) {
+      setPoaps(getPoapProperties(arkProfile));
+    }
+    getPoapProperties(arkProfile)
+  },[arkProfile]);
+
   if (!nfts) return (
     <>
       {loading ?
@@ -58,15 +64,34 @@ export default function Widgets({arkProfile, loading, nfts, nftLoading, arweaveA
       )}
     </>
   )
+
+  const getPoapProperties = (obj: Res | undefined) => {
+    const evm = obj ? obj.EVM : undefined;
+    if (!evm || typeof evm !== 'object') {
+      return undefined;
+    }
+    const poapsProperties: POAP[] = [];
+    for (const [address, value] of Object.entries(evm)) {
+      if (Array.isArray(value.POAPS)) {
+        value.POAPS.forEach(poap => {
+          poapsProperties.push(poap);
+        });
+      }
+    }
+    return poapsProperties;
+  };
+
+  console.log("POAP PROPERTIES w State: ", poaps);
+
   const defaultWidgets = [
     // POAP
     <Widget
-      canRender={arkProfile ? arkProfile?.POAPS?.length > 0 : false}
+      canRender={poaps ? poaps.length > 0 : false}
       loading={loading} 
       divider={true}
       key={0}
     >
-      <Poaps props={arkProfile}/>
+      <Poaps poapsArr={poaps}/>
     </Widget>,
     ...TOP_WIDGETS(arkProfile),
     // NFTS
