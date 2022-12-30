@@ -66,10 +66,12 @@ const ModelContent = (props: Props) => {
                                 />
                             </div>
                         </div>
-                        <div className="flex flex-col pt-4 bg-white p-2 h-1/2 lg:place-content-evenly mt-1">
+                        <div className="flex flex-col pt-4 p-2 h-1/2 lg:place-content-evenly mt-1">
                             <p className="text-center font-semibold text-lg mb-4 flex-wrap">{current.title ? current.title: "No Title"}</p>
                             <p className="text-center font-semibold text-sm mb-2">{`Description`}</p>
-                            <p className="text-center font-normal text-xs overflow-hidden max-w-md h-2/6 flex-wrap overflow-scroll">{truncate(current.description ? current.description : "None", 130)}</p>
+                            <p className="text-center font-normal text-xs max-w-md flex-wrap">
+                                {truncate(current.description ? current.description : "None", 150)}
+                            </p>
                             <div className="mt-4 justify-end mb-10 flex justify-center items-center">
                                 <ViewNftButton 
                                     nftLink={current.id} 

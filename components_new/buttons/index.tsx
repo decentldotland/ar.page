@@ -206,7 +206,7 @@ export const ViewNftButton = (props: viewNftInterface) => {
     const theme = localStorage.getItem('theme');
     const textColor = theme === 'arlight' ? 'text-black' : 'text-white';
     return (
-        <a href={props.nftLink}>
+        <a href={props.nftLink} target="_blank" rel="noreferrer">
             <button
                 className={`bg-inherit border-2 border-slate-300 rounded-xl font-medium hover:bg-primary/30 
                         py-1.5 px-2.5 flex items-center h-12 hover:bg-indigo-300 hover:text-white hover:shadow-md 
