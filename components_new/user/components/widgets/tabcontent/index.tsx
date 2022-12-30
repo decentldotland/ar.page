@@ -32,11 +32,16 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
    * ERC NFT
    */
   const addEvmNfts = (nfts: any, chain: ChainOptions) => {
+    console.log("NFTS: ", nfts);
+    console.log("CHAIN: ", chain);
+    
     let evmTmp: NFT[] = [];
     if (nfts !== undefined || nfts !== null) { 
       for (let n of nfts) {
         let ercnft = new NFT();
-        if (n.token_uri && n.token_uri !== "Invalid uri" && n !== null && typeof n.image !== 'undefined' && n.image !== null) {
+        if ((n !== null && n.token_uri && n.token_uri !== "Invalid uri" && typeof n.image !== 'undefined' && n.image !== null) 
+            || 
+           (n !== null && typeof n.image !== 'undefined' && n.image !== null)) {
           // Determine IPFS Protocol Presence - true: return, false: remove IPFS Protocol
           n.image = (n.image.slice(0, 5) !== "ipfs:") ? n.image : IPFS_PROXY+removeIpfs(n.image);
           // Add NFT Data
@@ -51,6 +56,7 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
       }
       setNFTs(prev => [...prev, ...evmTmp]);
     }
+
   }
 
   /**
@@ -219,3 +225,6 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
     </>
   )
 }
+
+
+// if ((n !== null && n.token_uri && n.token_uri !== "Invalid uri") || (n !== null && typeof n.image !== 'undefined' && n.image !== null)) {

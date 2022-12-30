@@ -66,8 +66,7 @@ export const UserInfo = ({user, profile, domains, domainsLoaded}: UserProps) => 
         URBIT: domains ? domains.URBIT : [],
         LINKS: {twitter, github, instagram, customUrl}, 
     });
-    console.log("1. Domains: ", domains);
-    console.log("2. DEFAULT LABELS: ", defaultLabels);
+
     const labels = [
         ...defaultLabels.map((label: any) => <GenericLabel {...label} />),
         ...HackathonLabels(profile)
