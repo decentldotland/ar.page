@@ -8,6 +8,7 @@ import { removeHttp } from '../../../../src/utils';
 import { BsGithub, BsTwitter, BsInstagram, BsGlobe2 } from 'react-icons/bs';
 import { Links, OwnedLabel, GenericLabelInterface } from '../../../../src/types';
 import useWindowDimensions  from "../../../../src/useWindowDimension";
+//import { lensLabel } from '../../../../ar.page/components_new/user/components/labels';
 
 const colorProps = `bg-primary/10 text-primary flex items-center`;
 const avaxColor = "bg-[#E84040]/80 text-white flex items-center";
@@ -112,16 +113,16 @@ export const ethLabel = (ENS:string|undefined) => {
 }
 export const lensLabel = (lens:string |undefined) => {
   const isDark = localStorage.theme === 'arlight' ? false : true;
-
   let dark_mode = `${isDark ? ('bg-[#8a92b2]/60 text-white') : (ethColor)} flex items-center`;
-
   if (!lens || lens?.length == 0) return null;
 
-  const lensLabel = lens[0]?.replace("@", "")
+  const lensModified = lens?.replace("@", "");
+  const minusExtension = lensModified?.replace(".lens", "");
+
   return {
-    username: lensLabel,
+    username: lensModified,
     classes: lenProps,
-    link_to: `https://lenster.xyz/u/${lensLabel}` ,
+    link_to: `https://lenster.xyz/u/${minusExtension}` ,
     canCopy: false,
     icon: <Image
       height={20}

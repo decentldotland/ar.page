@@ -16,7 +16,6 @@ type Props = {
 };
 
 const ModelContent = (props: Props) => {
-    console.log("current", props.current)
     const { width: _width, height: _height } = useWindowDimensions();
 
     const [isDark, setIsDark] = useRecoilState(isDarkMode);
