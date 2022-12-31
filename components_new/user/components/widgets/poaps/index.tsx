@@ -18,6 +18,7 @@ export default function Poaps({ poapsArr }: { poapsArr: POAP[] | undefined }) {
         }
   }
 
+
   return (
     <>
       <div className="group relative">
@@ -26,11 +27,16 @@ export default function Poaps({ poapsArr }: { poapsArr: POAP[] | undefined }) {
               m-auto z-50 h-6 w-6
               cursor-pointer opacity-0 
               transition hover:scale-125 
-              group-hover:opacity-100 
+              group-hover:opacity-100
             ${!isMoved && "hidden"}`}
             onClick={() => handleClick("left")}
             />
-          <div ref={rowRef} className="md:gap-x-10 -space-x-3.5 flex  md:p-2 carousel mb-5 md:ml-1 group relative">
+          <div className="absolute left-0 z-10 h-full w-3.5 shadow-inner-r bg-gradient-to-r from-white/95 via-white/60 to-white/30 shadow-white shadow-lg shadow-opacity-0.1">
+          </div>
+          <div 
+            ref={rowRef} 
+            className="md:gap-x-10 -space-x-3.5 flex md:p-2 carousel mb-5 md:ml-1 group relative"
+          >
             {poapsArr ? poapsArr.map((p: POAP, idx: number) => (
               <div key={idx} className="carousel-item">
                 <label className="flex 
@@ -70,14 +76,16 @@ export default function Poaps({ poapsArr }: { poapsArr: POAP[] | undefined }) {
               </div>
             )) : ""}
           </div>
-          <BiChevronRight  height={10} color="#fff" width={10} 
+          <div className="absolute right-0 top-0 z-10 h-full w-3.5 bg-gradient-to-l from-white/95 via-white/60 to-white/30 shadow-white shadow-lg shadow-opacity-0.1">
+          </div>
+          <BiChevronRight height={10} color="#fff" width={10} 
             className={`absolute top-0 
               bottom-0 right-2 bg-gray-500/50 rounded-full
               m-auto z-50 h-6 w-6
               cursor-pointer opacity-0 
               transition hover:scale-125 
               group-hover:opacity-100`}
-              onClick={() => handleClick("right")}
+              onClick={() => handleClick("right")} 
             />
       </div>
     </>

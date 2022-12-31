@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { Snackbar } from '@mui/material';
 import { useRecoilState } from 'recoil';
@@ -8,7 +8,7 @@ import { removeHttp } from '../../../../src/utils';
 import { BsGithub, BsTwitter, BsInstagram, BsGlobe2 } from 'react-icons/bs';
 import { Links, OwnedLabel, GenericLabelInterface } from '../../../../src/types';
 import useWindowDimensions  from "../../../../src/useWindowDimension";
-//import { lensLabel } from '../../../../ar.page/components_new/user/components/labels';
+import {BiChevronLeft, BiChevronRight} from 'react-icons/bi';
 
 const colorProps = `bg-primary/10 text-primary flex items-center`;
 const avaxColor = "bg-[#E84040]/80 text-white flex items-center";
@@ -128,7 +128,7 @@ export const lensLabel = (lens:string |undefined) => {
       height={20}
       width={20}
       src="https://raw.githubusercontent.com/lens-protocol/brand-kit/main/Logo/SVG/LENS%20LOGO_%20copy_Icon%20Only.svg"
-      alt=""
+      alt="Lens Label"
       quality={50}
     />
   }
@@ -252,6 +252,7 @@ const addSocials = (links: Links) => {
 export const Labels = ({items}: {items: any}) => {
   let counter = 0;
   const size = useWindowDimensions();
+  /*
   const handleClick = (event: React.MouseEvent) => {
     const id = event.currentTarget.id.substring(2);
     event.preventDefault();
@@ -259,6 +260,7 @@ export const Labels = ({items}: {items: any}) => {
     //@ts-ignore
     anchorElement.scrollIntoView(false);
   };
+  */
   
   // Determine number of label handles per screen
   let numPerView: number;
@@ -266,50 +268,57 @@ export const Labels = ({items}: {items: any}) => {
   numPerView = (size === undefined) ? 2 :  Math.floor((size.width  / 300));
   const itemsAdj = items.filter((item: any) => item.props.username !== "");
   const numDivs = Math.ceil(itemsAdj.length / numPerView);
+
+  const rowRef = useRef<HTMLDivElement>(null);
+  const [isMoved, setIsMoved] = useState(false);
+  const handleClick = (e: string) => { 
+        setIsMoved(true);
+        if (rowRef.current) {
+            const { scrollLeft, clientWidth} = rowRef.current;
+            const scrollTo = e === "left" ? scrollLeft - clientWidth 
+            : scrollLeft + clientWidth
+
+            rowRef.current.scrollTo({left: scrollTo, behavior: 'smooth'})
+        }
+  }
+
   return (
     <>
-    <div id="masterCarousel" className="flex flex-row carousel w-full">
-      {itemsAdj.map((item: any, index: number) => {
-        if (index % numPerView === 0) {
-          counter += 1;
-          return (
-            <div id={`slide${counter}`} className="carousel-item relative w-full justify-center space-x-2 z-10" key={`key_slide${counter}`}>
-              {itemsAdj.slice(index, index + numPerView).map((it: any) => (
-                <div key={`${index}${it.props.username}`} className="z-10">
-                  {it}
-                </div>
-              ))}
-              {itemsAdj.length != 1 ?
-                <div className="absolute flex justify-between transform -translate-y-1/2 left-0 right-0 top-1/2 z-0">
-                  {/*Logic to Determine Carousel Direction*/}
-                  {counter === 1 ?
-                    <a id={`m_slide${numDivs}`} href={`#slide${numDivs}`} className="text-slate-400" onClick={e => {
-                      handleClick(e);
-                    }}>❮</a> 
-                  :
-                    <a id={`m_slide${counter - 1}`} href={`#slide${counter - 1}`} className="text-slate-400" onClick={e => {
-                      handleClick(e);
-                    }}>❮</a> 
-                  }
-                  {counter === numDivs ?
-                    <a id={`m_slide1`} href={`#slide1`} className="text-slate-400" onClick={e => {
-                      handleClick(e);
-                    }}>❯</a>
-                  :
-                    <a id={`m_slide${counter + 1}`} href={`#slide${counter + 1}`} className="text-slate-400" onClick={e => {
-                      handleClick(e);
-                    }}>❯</a>
-                  }
-                </div>
-              :
-                ""
-              }
+    <div className="group relative">
+        <BiChevronLeft height={10} color="#fff" width={10}  className={`absolute top-0 
+            bottom-0 left-2 bg-gray-500/50 rounded-full 
+            m-auto z-50 h-6 w-6
+            cursor-pointer opacity-0 
+            transition hover:scale-125 
+            group-hover:opacity-100
+          ${!isMoved && "hidden"}`}
+          onClick={() => handleClick("left")}
+          />
+        <div className="absolute left-0 z-10 h-full w-3.5 shadow-inner-r bg-gradient-to-r from-white/95 via-white/60 to-white/30 shadow-white shadow-lg shadow-opacity-0.1">
+        </div>
+        <div 
+          ref={rowRef} 
+          className="space-x-3.5 flex pl-2 carousel mb-2 md:ml-2 group relative"
+        >
+          {itemsAdj ? itemsAdj.map((item: any, idx: number) => (
+            <div key={`${idx}${item.props.username}`} className="z-5 carousel-item">
+              {item}
             </div>
-          );
-        }
-      })}    
+          )) : ""}
+        </div>
+        <div className="absolute right-0 top-0 z-10 h-full w-3.5 bg-gradient-to-l from-white/95 via-white/60 to-white/30 shadow-white shadow-lg shadow-opacity-0.1">
+        </div>
+        <BiChevronRight height={10} color="#fff" width={10} 
+          className={`absolute top-0 
+            bottom-0 right-2 bg-gray-500/50 rounded-full
+            m-auto z-50 h-6 w-6
+            cursor-pointer opacity-0 
+            transition hover:scale-125 
+            group-hover:opacity-100`}
+            onClick={() => handleClick("right")} 
+          />
     </div>
-    </>
+  </>
   );
 };
 
@@ -368,7 +377,49 @@ export function GenericLabel ({username, classes, icon, link_to, canCopy}: Gener
 }
 
 /*
-<div key={index} className="mt-1">
-  {it}
-</div>
+ return (
+    <>
+    <div id="masterCarousel" className="flex flex-row carousel w-full">
+      {itemsAdj.map((item: any, index: number) => {
+        if (index % numPerView === 0) {
+          counter += 1;
+          return (
+            <div id={`slide${counter}`} className="carousel-item relative w-full justify-center space-x-2 z-10" key={`key_slide${counter}`}>
+              {itemsAdj.slice(index, index + numPerView).map((it: any) => (
+                <div key={`${index}${it.props.username}`} className="z-10">
+                  {it}
+                </div>
+              ))}
+              {itemsAdj.length != 1 ?
+                <div className="absolute flex justify-between transform -translate-y-1/2 left-0 right-0 top-1/2 z-0">
+
+                  {counter === 1 ?
+                    <a id={`m_slide${numDivs}`} href={`#slide${numDivs}`} className="text-slate-400" onClick={e => {
+                      handleClick(e);
+                    }}>❮</a> 
+                  :
+                    <a id={`m_slide${counter - 1}`} href={`#slide${counter - 1}`} className="text-slate-400" onClick={e => {
+                      handleClick(e);
+                    }}>❮</a> 
+                  }
+                  {counter === numDivs ?
+                    <a id={`m_slide1`} href={`#slide1`} className="text-slate-400" onClick={e => {
+                      handleClick(e);
+                    }}>❯</a>
+                  :
+                    <a id={`m_slide${counter + 1}`} href={`#slide${counter + 1}`} className="text-slate-400" onClick={e => {
+                      handleClick(e);
+                    }}>❯</a>
+                  }
+                </div>
+              :
+                ""
+              }
+            </div>
+          );
+        }
+      })}    
+    </div>
+    </>
+  );
 */
