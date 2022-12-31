@@ -1,6 +1,6 @@
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import { LoadingOrNotFound, SearchBar, NFTGallery } from '../../../reusables';
-import { ChainOptions, NFT } from '../../../../../../src/types';
+import { NFT } from '../../../../../../src/types';
 import { ChainFilter } from '../../../../../buttons';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../../../../atoms';

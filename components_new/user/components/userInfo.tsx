@@ -1,7 +1,7 @@
 // @flow 
 import * as React from 'react';
 import { useAns } from 'ans-for-all';
-import { CircularProgress, Snackbar } from '@mui/material';
+import { Snackbar } from '@mui/material';
 import {DocumentDuplicateIcon, CalendarDaysIcon, CheckIcon} from '@heroicons/react/24/outline'
 import { ANSData, Res, userInfo } from '../../../src/types';
 import ProfileAvatar from '../../avatar/ProfileAvatar';
@@ -172,7 +172,9 @@ export const UserInfo = ({user, profile, domains, domainsLoaded}: UserProps) => 
                             <Labels items={labels} />
                         :
                             <span className="flex w-full justify-center items-center">
-                                <CircularIndeterminate />
+                                <CircularIndeterminate 
+                                    loadingText={"Fetching Domains"}
+                                />
                             </span>
                         }
                         <Divider />

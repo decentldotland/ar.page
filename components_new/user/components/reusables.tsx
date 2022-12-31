@@ -10,13 +10,26 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { faCircleXmark, faLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Typography } from '@mui/material';
 
-export default function CircularIndeterminate() {
+interface CircularIndeterminateInterface {
+  typographyClassName?: String;
+  loadingText?: String;
+}
+
+export default function CircularIndeterminate(props: CircularIndeterminateInterface) {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex' }} className="flex flex-col items-center justify-center">
       <CircularProgress 
         style={{ color: "black" }}
+        className="h-12 w-12"
       />
+      <Typography
+        variant='inherit'
+        className={`text-[12px] font-medium mt-1 text-slate-500 ${props.typographyClassName}`}
+      >
+        {props.loadingText}
+      </Typography>
     </Box>
   );
 }
