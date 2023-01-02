@@ -7,6 +7,7 @@ export default function Poaps({ poapsArr }: { poapsArr: POAP[] | undefined }) {
 
   const rowRef = useRef<HTMLDivElement>(null);
   const [isMoved, setIsMoved] = useState(false);
+  const isDark = localStorage.theme === 'arlight' ? false : true;
   const handleClick = (e: string) => { 
         setIsMoved(true);
         if (rowRef.current) {
@@ -17,7 +18,6 @@ export default function Poaps({ poapsArr }: { poapsArr: POAP[] | undefined }) {
             rowRef.current.scrollTo({left: scrollTo, behavior: 'smooth'})
         }
   }
-
 
   return (
     <>
@@ -31,7 +31,7 @@ export default function Poaps({ poapsArr }: { poapsArr: POAP[] | undefined }) {
             ${!isMoved && "hidden"}`}
             onClick={() => handleClick("left")}
             />
-          <div className="absolute left-0 z-10 h-full w-3.5 shadow-inner-r bg-gradient-to-r from-white/95 via-white/60 to-white/30 shadow-white shadow-lg shadow-opacity-0.1">
+          <div className={`absolute left-0 z-10 h-full w-3.5 shadow-inner-r bg-gradient-to-r shadow-xl shadow-opacity-0.1 ${isDark ? "from-base-100/95 via-base-100/60 to-base-100/5 shadow-base-100" : "from-white/95 via-white/60 to-white/5 shadow-white"}`}>
           </div>
           <div 
             ref={rowRef} 
@@ -76,7 +76,7 @@ export default function Poaps({ poapsArr }: { poapsArr: POAP[] | undefined }) {
               </div>
             )) : ""}
           </div>
-          <div className="absolute right-0 top-0 z-10 h-full w-3.5 bg-gradient-to-l from-white/95 via-white/60 to-white/30 shadow-white shadow-lg shadow-opacity-0.1">
+          <div className={`absolute right-0 top-0 z-10 h-full w-3.5 bg-gradient-to-l shadow-xl shadow-opacity-0.1 ${isDark ? "from-base-100/95 via-base-100/60 to-base-100/5 shadow-base-100" : "from-white/95 via-white/60 to-white/5 shadow-white"}`}>
           </div>
           <BiChevronRight height={10} color="#fff" width={10} 
             className={`absolute top-0 

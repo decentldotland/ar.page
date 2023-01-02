@@ -250,34 +250,16 @@ const addSocials = (links: Links) => {
 }
 
 export const Labels = ({items}: {items: any}) => {
-  let counter = 0;
-  const size = useWindowDimensions();
-  /*
-  const handleClick = (event: React.MouseEvent) => {
-    const id = event.currentTarget.id.substring(2);
-    event.preventDefault();
-    const anchorElement = document.getElementById(id);
-    //@ts-ignore
-    anchorElement.scrollIntoView(false);
-  };
-  */
-  
-  // Determine number of label handles per screen
-  let numPerView: number;
-  //@ts-ignore check for undefined already
-  numPerView = (size === undefined) ? 2 :  Math.floor((size.width  / 300));
   const itemsAdj = items.filter((item: any) => item.props.username !== "");
-  const numDivs = Math.ceil(itemsAdj.length / numPerView);
-
   const rowRef = useRef<HTMLDivElement>(null);
   const [isMoved, setIsMoved] = useState(false);
+  const isDark = localStorage.theme === 'arlight' ? false : true;
   const handleClick = (e: string) => { 
         setIsMoved(true);
         if (rowRef.current) {
             const { scrollLeft, clientWidth} = rowRef.current;
             const scrollTo = e === "left" ? scrollLeft - clientWidth 
             : scrollLeft + clientWidth
-
             rowRef.current.scrollTo({left: scrollTo, behavior: 'smooth'})
         }
   }
@@ -294,7 +276,9 @@ export const Labels = ({items}: {items: any}) => {
           ${!isMoved && "hidden"}`}
           onClick={() => handleClick("left")}
           />
-        <div className="absolute left-0 z-10 h-full w-3.5 shadow-inner-r bg-gradient-to-r from-white/95 via-white/60 to-white/30 shadow-white shadow-lg shadow-opacity-0.1">
+        <div 
+          className={`absolute left-0 z-10 h-full w-3.5 shadow-inner-r bg-gradient-to-r shadow-xl shadow-opacity-0.1 ${isDark ? "from-base-100/95 via-base-100/60 to-base-100/5 shadow-base-100" : "from-white/95 via-white/60 to-white/5 shadow-white"}`}
+        >
         </div>
         <div 
           ref={rowRef} 
@@ -306,7 +290,7 @@ export const Labels = ({items}: {items: any}) => {
             </div>
           )) : ""}
         </div>
-        <div className="absolute right-0 top-0 z-10 h-full w-3.5 bg-gradient-to-l from-white/95 via-white/60 to-white/30 shadow-white shadow-lg shadow-opacity-0.1">
+        <div className={`absolute right-0 top-0 z-10 h-full w-3.5 bg-gradient-to-l shadow-xl shadow-opacity-0.1 ${isDark ? "from-base-100/95 via-base-100/60 to-base-100/5 shadow-base-100" : "from-white/95 via-white/60 to-white/5 shadow-white"}`}>
         </div>
         <BiChevronRight height={10} color="#fff" width={10} 
           className={`absolute top-0 
@@ -330,7 +314,6 @@ export function GenericLabel ({username, classes, icon, link_to, canCopy}: Gener
     navigator.clipboard.writeText(link);
   }
   const [isDark, setIsDark] = useRecoilState(isDarkMode);
-
   const attrs = {
     onClick: canCopy ? () => copy_text(username || '') : undefined
   }
@@ -375,51 +358,3 @@ export function GenericLabel ({username, classes, icon, link_to, canCopy}: Gener
     </>
   )
 }
-
-/*
- return (
-    <>
-    <div id="masterCarousel" className="flex flex-row carousel w-full">
-      {itemsAdj.map((item: any, index: number) => {
-        if (index % numPerView === 0) {
-          counter += 1;
-          return (
-            <div id={`slide${counter}`} className="carousel-item relative w-full justify-center space-x-2 z-10" key={`key_slide${counter}`}>
-              {itemsAdj.slice(index, index + numPerView).map((it: any) => (
-                <div key={`${index}${it.props.username}`} className="z-10">
-                  {it}
-                </div>
-              ))}
-              {itemsAdj.length != 1 ?
-                <div className="absolute flex justify-between transform -translate-y-1/2 left-0 right-0 top-1/2 z-0">
-
-                  {counter === 1 ?
-                    <a id={`m_slide${numDivs}`} href={`#slide${numDivs}`} className="text-slate-400" onClick={e => {
-                      handleClick(e);
-                    }}>❮</a> 
-                  :
-                    <a id={`m_slide${counter - 1}`} href={`#slide${counter - 1}`} className="text-slate-400" onClick={e => {
-                      handleClick(e);
-                    }}>❮</a> 
-                  }
-                  {counter === numDivs ?
-                    <a id={`m_slide1`} href={`#slide1`} className="text-slate-400" onClick={e => {
-                      handleClick(e);
-                    }}>❯</a>
-                  :
-                    <a id={`m_slide${counter + 1}`} href={`#slide${counter + 1}`} className="text-slate-400" onClick={e => {
-                      handleClick(e);
-                    }}>❯</a>
-                  }
-                </div>
-              :
-                ""
-              }
-            </div>
-          );
-        }
-      })}    
-    </div>
-    </>
-  );
-*/
