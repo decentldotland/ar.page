@@ -4,7 +4,6 @@ import TabContent from './tabcontent';
 import { TOP_WIDGETS } from '../../hackathon';
 import { Res, POAP } from '../../../../src/types';
 import { Divider } from '../reusables';
-import { CircularProgress } from '@mui/material';
 import CircularIndeterminate from '../../components/reusables';
 export interface WidgetType {
   children: any; // pass default component here
@@ -36,7 +35,6 @@ export const DEFAULT_COMPONENT_LIST: WidgetType[] = [
 ]
 
 export default function Widgets({arkProfile, loading, nfts, nftLoading, arweaveAddr }: {arkProfile: Res | undefined, loading: boolean, nfts: any, nftLoading: boolean, arweaveAddr: string | null}) {
-  console.log("LOADING: ", loading);
   const getPoapProperties = (obj: Res | undefined) => {
     const evm = obj ? obj.EVM : undefined;
     if (!evm || typeof evm !== 'object') {
@@ -120,11 +118,3 @@ export default function Widgets({arkProfile, loading, nfts, nftLoading, arweaveA
     </div>
   )
 }
-
-/*
-          <CircularProgress color="inherit" size={40}/>
-          <p className='text-xl text-gray-400'>Retrieving user's assets</p>
-
-
-
-*/

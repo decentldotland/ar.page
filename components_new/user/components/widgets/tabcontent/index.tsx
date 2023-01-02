@@ -3,7 +3,6 @@ import Collectibles from './tabs.tsx/collectibles';
 import ArweaveActivity from './tabs.tsx/activity';
 import Selector from './selector';
 import { ArweaveTransaction, NFT, Res, Stamp } from '../../../../../src/types';
-import { TABS } from '../../../hackathon/';
 import StampsTab from './tabs.tsx/StampsTab'; 
 import { ARWEAVE_URL, IMAGE_PROXY, IPFS_PROXY, COLLECTIBLE_PER_PAGE } from '../../../../../src/constants';
 import { removeIpfs } from '../../../../../src/utils/removeIpfs';
@@ -20,6 +19,7 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
   const [selected, setSelected] = useState<number>(0);
   const [activity, setActivity] = useState<ArweaveTransaction[]>(arkProfile ? arkProfile.ARWEAVE.ARWEAVE_TRANSACTIONS : []);
   const [collectableVisibility, setCollectableVisibility] = useState<number>(0);
+  console.log("COUNTING NFTS PRESENT: ", collectableVisibility);
   const handleCollectableVisibility = (res: number) => setCollectableVisibility(res);
   
   // ------------------------------NFT, Stamps Section-----------------------------------
@@ -32,8 +32,6 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
    * ERC NFT
    */
   const addEvmNfts = (nfts: any, chain: ChainOptions) => {
-    console.log("NFTS: ", nfts);
-    console.log("CHAIN: ", chain);
     
     let evmTmp: NFT[] = [];
     if (nfts !== undefined || nfts !== null) { 
@@ -56,7 +54,6 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
       }
       setNFTs(prev => [...prev, ...evmTmp]);
     }
-
   }
 
   /**
@@ -140,8 +137,8 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
   const tabs = [
     {
       name: "Collectables",
-      total: NFTs.length,
-      component: 
+      total: collectableVisibility,
+      component:
       <>
         <Collectibles 
           NFTs={NFTs} 
