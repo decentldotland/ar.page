@@ -112,7 +112,6 @@ export default function Collectibles({NFTs, loaded, perPage, handleVisibility, a
       </div>
 
       {/*Render Gallery*/}
-
       {filteredNFTs.length > 0 ?
       (
         <NFTGallery 

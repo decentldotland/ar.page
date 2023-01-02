@@ -119,12 +119,12 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
           </button>
         </article>
       );
-    } else if(nftCount === 0) {
+    } else if(nftCount < 2) {
       return (
         <>
         </>
       )
-    } else if(nftCount !== 1) {
+    } else {
       return (
         <article className='flex justify-center mt-12'>
           <p>You have reached the end result!</p>

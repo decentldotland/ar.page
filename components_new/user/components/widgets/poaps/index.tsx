@@ -21,6 +21,7 @@ export default function Poaps({ poapsArr }: { poapsArr: POAP[] | undefined }) {
 
   return (
     <>
+      {poapsArr ? poapsArr.length > 0 && (
       <div className="group relative">
           <BiChevronLeft height={10} color="#fff" width={10}  className={`absolute top-0 
               bottom-0 left-2 bg-gray-500/50 rounded-full 
@@ -88,6 +89,10 @@ export default function Poaps({ poapsArr }: { poapsArr: POAP[] | undefined }) {
               onClick={() => handleClick("right")} 
             />
       </div>
+      ) 
+      : 
+      ""
+    }
     </>
   )
 }
