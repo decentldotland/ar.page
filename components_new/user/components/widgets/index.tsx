@@ -89,7 +89,7 @@ export default function Widgets({arkProfile, loading, nfts, nftLoading, arweaveA
     <Widget
       canRender={true}
       loading={loading} 
-      divider={true}
+      divider={poaps ? poaps.length > 0 : false}
       key={0}
     >
       {!loading  ? 
