@@ -19,7 +19,7 @@ export default function Selector(props: SelectorInterface) {
 
   return (
     <div className="w-full font-inter mb-6">
-      <div className="tabs carousel !flex-nowrap"> {/* flex-nowrap is to make tabs work with carousel */}
+      <div className="tabs carousel flex-wrap md:!flex-nowrap justify-center md:justify-start"> {/* flex-nowrap is to make tabs work with carousel */}
         {tabs.map((tab, index) => (
           <button key={index} className={`${selected === index && "tab-active"} carousel-item tab p-0 mr-4`} onClick={() => setSelected(index)}>
             {tab.customJSX ? (
