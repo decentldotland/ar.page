@@ -103,7 +103,7 @@ export const ChainFilter = (props: ChainProps) => {
 
     return (
         <div 
-            className="flex justify-around items-center flex-row h-12 border-2 border-slate-300 rounded-xl space-x-1.5 px-1"
+            className="flex justify-around items-center flex-row h-12 border-2 border-slate-300 rounded-2xl space-x-1.5 px-1"
         >
         {/*Active Blockchain*/}
         {supportedChains.map((supportedChain) => (
@@ -177,7 +177,7 @@ export const SortChronButton = (props: SortChronProps) => {
             className={`bg-inherit border-2 border-slate-300 rounded-xl font-medium hover:bg-primary/30 
                        py-1.5 px-2.5 flex items-center h-12 hover:bg-indigo-300 hover:text-white hover:shadow-md 
                        active:shadow-none active:scale-[0.98] hover:transition duration-200 ease-in-out w-20 
-                       flex items-center justify-center ${textColor}`}
+                       flex items-center justify-center ${textColor} ${props.className} flex-shrink-0`}
             onClick={props.onClick}
         > 
             {props.text}

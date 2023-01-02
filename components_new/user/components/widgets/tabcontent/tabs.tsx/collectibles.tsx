@@ -99,13 +99,14 @@ export default function Collectibles({NFTs, loaded, perPage, handleVisibility, a
           }}
         />
         {/*Sort Chronology Button*/}
-        {filteredNFTs.length > 0 && (
+        {(filteredNFTs.length > 1) && (
           <SortChronButton 
             onClick={() => setAscending(() => {
               filterTime();
               return !ascending;
             })}
-            text={ascending ? "Newest" : "Oldest"} 
+            text={ascending ? "Newest" : "Oldest"}
+            className="rounded-2xl min-w-20"
           />
         )}
       </div>

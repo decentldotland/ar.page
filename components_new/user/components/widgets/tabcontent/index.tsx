@@ -19,7 +19,6 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
   const [selected, setSelected] = useState<number>(0);
   const [activity, setActivity] = useState<ArweaveTransaction[]>(arkProfile ? arkProfile.ARWEAVE.ARWEAVE_TRANSACTIONS : []);
   const [collectableVisibility, setCollectableVisibility] = useState<number>(0);
-  console.log("COUNTING NFTS PRESENT: ", collectableVisibility);
   const handleCollectableVisibility = (res: number) => setCollectableVisibility(res);
   
   // ------------------------------NFT, Stamps Section-----------------------------------
@@ -32,7 +31,6 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
    * ERC NFT
    */
   const addEvmNfts = (nfts: any, chain: ChainOptions) => {
-    
     let evmTmp: NFT[] = [];
     if (nfts !== undefined || nfts !== null) { 
       for (let n of nfts) {
@@ -126,7 +124,7 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
         <>
         </>
       )
-    } else {
+    } else if(nftCount !== 1) {
       return (
         <article className='flex justify-center mt-12'>
           <p>You have reached the end result!</p>
@@ -136,7 +134,7 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
   }
   const tabs = [
     {
-      name: "Collectables",
+      name: "Collectibles",
       total: collectableVisibility,
       component:
       <>

@@ -593,5 +593,6 @@ export type NetworkButtonProps = {
 export type SortChronProps = {
   onClick?: () => void;
   text: string;
+  className?: string;
 }
 
