@@ -14,14 +14,16 @@ import { Typography } from '@mui/material';
 
 interface CircularIndeterminateInterface {
   typographyClassName?: String;
+  progressClassName?: String;
   loadingText?: String;
 }
 
 export default function CircularIndeterminate(props: CircularIndeterminateInterface) {
+  const isDark = localStorage.theme === 'arlight' ? false : true;
   return (
     <Box sx={{ display: 'flex' }} className="flex flex-col items-center justify-center">
       <CircularProgress 
-        style={{ color: "black" }}
+        style={{ color: `${isDark ? "gray" : "black"}` }}
         className="h-12 w-12"
       />
       <Typography
