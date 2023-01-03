@@ -212,6 +212,9 @@ export const getDefaultLabels = ({  ENS, AVVY, LENS, ANS, NEAR, EVMOS, URBIT }: 
   return handleArr;
 }
 
+/**
+ * Remove
+ */
 
 export function GenericLabel ({username, classes, icon}: GenericUsernameInterface) {
 
@@ -228,7 +231,7 @@ export function GenericLabel ({username, classes, icon}: GenericUsernameInterfac
             {username}
           </h3>
         </div>
-      </button>
+      </button> 
     </>
   )
 }
