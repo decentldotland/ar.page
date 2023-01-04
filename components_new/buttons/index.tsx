@@ -1,4 +1,5 @@
 // @flow 
+import { bottomNavigationActionClasses } from '@mui/material';
 import * as React from 'react';
 import { ChainOptions, SortChronProps, NetworkButtonProps, ChainProps } from '../../src/types';
 import styles from '../../styles/templates';
@@ -52,31 +53,57 @@ export const ChainFilter = (props: ChainProps) => {
     const arweave: ChainOptions = "arweave";
     const evmos: ChainOptions = "evmos";
     const near: ChainOptions = "near";
+    const fantom: ChainOptions = "fantom";
+    const polygon: ChainOptions = "polygon";
+    const avalanche: ChainOptions = "avalanche";
+    const bsc: ChainOptions = "bsc";
     //List of Supported Chains
     const supportedChains = [
-        /*
-        {
-            "name": ethereum,
-            "src": "/chains/ethereum_outline.svg"
-        },
-        */
         {
             "name": arweave,
-            "src": "/chains/arweave_outline.svg"
+            "src": "/chains/arweave_outline.svg",
+            "ratio": "1"
+        },
+        {
+            "name": ethereum,
+            "src": "/chains/ethereum_outline.svg",
+            "ratio": "1"
         },
         {
             "name": evmos,
-            "src": "/chains/evmos_outline.svg"
+            "src": "/chains/evmos_outline.svg",
+            "ratio": "1"
         },
         {
             "name": near,
-            "src": "/chains/near_outline.svg"
-        }
+            "src": "/chains/near_outline.svg",
+            "ratio": ".85"
+        },
+        {
+            "name": polygon,
+            "src": "/chains/polygon_outline.svg",
+            "ratio": "1"
+        },
+        {
+            "name": avalanche,
+            "src": "/chains/avalanche_outline.svg",
+            "ratio": "1.3"
+        },
+        {
+            "name": fantom,
+            "src": "/chains/fantom_outline.svg",
+            "ratio": "1.7"
+        },
+        {
+            "name": bsc,
+            "src": "/chains/binance_outline.svg",
+            "ratio": "1"
+        },
     ];
 
     return (
         <div 
-            className="flex justify-around items-center flex-row h-12 w-36 border-2 border-slate-300 rounded-xl"
+            className="flex justify-around items-center flex-row h-12 border-2 border-slate-300 rounded-2xl space-x-1.5 px-1"
         >
         {/*Active Blockchain*/}
         {supportedChains.map((supportedChain) => (
@@ -85,7 +112,8 @@ export const ChainFilter = (props: ChainProps) => {
                 src={supportedChain.src}
                 name={supportedChain.name}
                 onClick={props.activeChain !== supportedChain.name ? props.onClick : () => null}
-                className={props.activeChain === supportedChain.name ? "h-9 w-9 cursor-default": "h-7 w-7 cursor-pointer"}
+                className={props.activeChain === supportedChain.name ? "h-9 w-9 cursor-default shadow-xl bg-slate-800 border-1 border-slate-500": "h-7 w-7 cursor-pointer"}
+                scale={supportedChain.ratio}
             />
         ))}
     </div>
@@ -120,7 +148,8 @@ export const NetworkButton = (props: NetworkButtonProps) => {
                 src={props.src} 
                 alt="Selected Blockchain Logo" 
                 className="h-4/6 w-4/6 m-auto"
-            />
+                style={{ transform: `scale(${props.scale})` }}
+            /> 
         </button>
     );
 }
@@ -141,15 +170,51 @@ export const NetworkButton = (props: NetworkButtonProps) => {
  * @returns Button with empty onclick capability
  */
 export const SortChronButton = (props: SortChronProps) => {
+    const theme = localStorage.getItem('theme');
+    const textColor = theme === 'arlight' ? 'text-black' : 'text-white';
     return (
         <button
-            className="bg-inherit border-2 border-slate-300 rounded-xl text-black font-medium hover:bg-primary/30 
+            className={`bg-inherit border-2 border-slate-300 rounded-xl font-medium hover:bg-primary/30 
                        py-1.5 px-2.5 flex items-center h-12 hover:bg-indigo-300 hover:text-white hover:shadow-md 
-                       active:shadow-none active:scale-[0.98] hover:transition duration-200 ease-in-out w-20 dark:text-white 
-                       flex items-center justify-center"
+                       active:shadow-none active:scale-[0.98] hover:transition duration-200 ease-in-out w-20 
+                       flex items-center justify-center ${textColor} ${props.className} flex-shrink-0`}
             onClick={props.onClick}
         > 
             {props.text}
         </button>
+    );
+}
+
+/**
+ * View NFT Button
+ * Category: Universal Module
+ * Purpose:
+ *   a. Standalone button to follow NFT Links
+ * 
+ * To Work:
+ *   a. Place within parent
+ *   b. Insert href link and button text
+ * @params link - href link
+ * @params text - text for button
+ * @returns Button wrapped in anchor tags
+ */
+interface viewNftInterface {
+    nftLink: string;
+    text: string;
+}
+export const ViewNftButton = (props: viewNftInterface) => {
+    const theme = localStorage.getItem('theme');
+    const textColor = theme === 'arlight' ? 'text-black' : 'text-white';
+    return (
+        <a href={props.nftLink} target="_blank" rel="noreferrer">
+            <button
+                className={`bg-inherit border-2 border-slate-300 rounded-xl font-medium hover:bg-primary/30 
+                        py-1.5 px-2.5 flex items-center h-12 hover:bg-indigo-300 hover:text-white hover:shadow-md 
+                        active:shadow-none active:scale-[0.98] hover:transition duration-200 ease-in-out w-20 
+                        flex items-center justify-center ${textColor}`}
+            > 
+                {props.text}
+            </button>
+        </a>
     );
 }

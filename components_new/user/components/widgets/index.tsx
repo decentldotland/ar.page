@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Poaps from './poaps';
 import TabContent from './tabcontent';
 import { TOP_WIDGETS } from '../../hackathon';
-import { Res } from '../../../../src/types';
+import { Res, POAP } from '../../../../src/types';
 import { Divider } from '../reusables';
-import { CircularProgress } from '@mui/material';
+import CircularIndeterminate from '../../components/reusables';
 export interface WidgetType {
   children: any; // pass default component here
   canRender: boolean; // pass conditionals here
@@ -32,20 +32,43 @@ export function Widget(props: WidgetType) {
 }
 
 export const DEFAULT_COMPONENT_LIST: WidgetType[] = [
-
 ]
 
+export default function Widgets({arkProfile, loading, nfts, nftLoading, arweaveAddr }: {arkProfile: Res | undefined, loading: boolean, nfts: any, nftLoading: boolean, arweaveAddr: string | null}) {
+  const getPoapProperties = (obj: Res | undefined) => {
+    const evm = obj ? obj.EVM : undefined;
+    if (!evm || typeof evm !== 'object') {
+      return undefined;
+    }
+    const poapsProperties: POAP[] = [];
+    for (const [address, value] of Object.entries(evm)) {
+      if (Array.isArray(value.POAPS)) {
+        value.POAPS.forEach(poap => {
+          poapsProperties.push(poap);
+        });
+      }
+    }
+    return poapsProperties;
+  };
 
-export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefined, loading: boolean}) {
-  
-  if (!arkProfile) return (
+  const [poaps, setPoaps] = useState<POAP[] | undefined>([]);
+  useEffect(() => {
+    if(arkProfile !== undefined) {
+      setPoaps(getPoapProperties(arkProfile));
+    }
+    getPoapProperties(arkProfile)
+  },[arkProfile]);
+
+  if (!nfts) return (
     <>
       {loading ?
       (
         <div className='flex flex-col items-center justify-center space-y-2 mt-5
         text-content-100/80'>
-          <CircularProgress color="inherit" size={40}/>
-          <p className='text-xl text-gray-400'>Retrieving user's assets</p>
+          <CircularIndeterminate
+            typographyClassName="text-[16px]"
+            loadingText="Fetching Assets"
+          />
         </div>
       )
       :
@@ -58,22 +81,35 @@ export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefi
       )}
     </>
   )
+
   const defaultWidgets = [
+    // POAP
     <Widget
-      canRender={arkProfile?.POAPS?.length > 0}
+      canRender={true}
       loading={loading} 
-      divider={true}
+      divider={poaps ? poaps.length > 0 : false}
       key={0}
     >
-      <Poaps props={arkProfile}/>
+      {!loading  ? 
+        <Poaps poapsArr={poaps}/>
+        :
+        <CircularIndeterminate loadingText="Fetching POAPS"/>
+      }
     </Widget>,
     ...TOP_WIDGETS(arkProfile),
+    // NFTS
     <Widget 
-      canRender={!loading} 
+      canRender={true} 
       divider={false} 
       key={0}
     >
-      <TabContent arkProfile={arkProfile} loading={loading} />
+      <TabContent 
+        arkProfile={arkProfile} 
+        loading={loading} 
+        nfts={nfts}
+        nftLoading={nftLoading}
+        arweaveAddr={arweaveAddr}
+      />
     </Widget>,
   ]
   return (
@@ -82,25 +118,3 @@ export default function Widgets({arkProfile, loading}: {arkProfile: Res | undefi
     </div>
   )
 }
-
-
-// import axios from 'axios';
-// import { useState, useEffect } from 'react';
-// import { userInfo, Res } from '../../src/types';
-// import { EditModal } from '../../components/editor/editmodal';
-// import { UserInfo } from './components/userInfo';
-// import { Bio } from './components/bio';
-// import { Collectibles } from './components/widgets/content/collectibles';
-// import { ArweaveActivity } from './components/widgets/content/activity';
-// import { Selector } from './components/widgets/content/selector';
-// // import { Divider } from './components/reusables';
-// import { Sidebar } from './sidebar';
-// import { Poaps } from './components/widgets/poaps';
-// import CoverPage from './components/CoverPage';
-// import GitPoapList from './components/widgets/gitpoaps/GitPoapList';
-// import { Koii, ArweaveTransaction } from '../../src/types';
-// import { arweaveTransactionHandler } from '../../src/utils';
-// import { faSearch, faList } from '@fortawesome/free-solid-svg-icons';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { MagnifyingGlassIcon, ListBulletIcon } from '@heroicons/react/24/outline';
-// import {BsGrid} from 'react-icons/bs'

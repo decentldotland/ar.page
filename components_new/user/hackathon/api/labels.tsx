@@ -1,10 +1,6 @@
 import React from 'react';
-import { GenericLabelInterface, Res } from '../../../../src/types'
-import { getDefaultLabels } from '../../components/labels'
-import { GenericLabel } from '../../components/labels';
 import { BsHeart } from 'react-icons/bs';
-
-
+import { Res } from '../../../../src/types';
 
 export function HackathonLabels(arkProfile: Res | undefined) {
   // for using our labeling system, check out GenericLabelInterface, and examples in getDefaultLabels
@@ -29,7 +25,7 @@ export function HackathonLabelExample({arkProfile}: {arkProfile: Res | undefined
   return (
     <button className="bg-gradient-to-bl from-indigo-200 via-red-200 to-yellow-100 px-2.5 py-2 font-bold text-sm text-blue-500 rounded-2xl flex items-center cursor-pointer">
       <BsHeart className="mr-1" />
-      {arkProfile?.ENS}
+      {arkProfile?.EVM.ENS}
     </button>
   )
 }

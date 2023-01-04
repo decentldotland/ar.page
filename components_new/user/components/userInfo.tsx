@@ -1,29 +1,31 @@
 // @flow 
 import * as React from 'react';
 import { useAns } from 'ans-for-all';
-import { CircularProgress, Snackbar } from '@mui/material';
+import { Snackbar } from '@mui/material';
 import {DocumentDuplicateIcon, CalendarDaysIcon, CheckIcon} from '@heroicons/react/24/outline'
-import {CheckBadgeIcon, ShieldExclamationIcon} from '@heroicons/react/24/solid'
 import { ANSData, Res, userInfo } from '../../../src/types';
 import ProfileAvatar from '../../avatar/ProfileAvatar';
 import { Labels, GenericLabel, getDefaultLabels } from './labels';
-import { GenericLabelsComponent } from '../hackathon';
 import { Bio } from './bio';
 import { Divider } from './reusables';
-import {BsPatchQuestionFill} from 'react-icons/bs'
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../atoms';
 import { HackathonLabels } from '../hackathon/api/labels';
 import ProfileBadge from './modals/ProfileBadge';
 import EditProfile from './EditProfile';
+import { IdentityLinks } from '../../../src/types';
+import CircularIndeterminate from './reusables';
+import { extractMonthAndYear } from '../../../src/utils/dateUtils/extractMonthYear';
 
 
 interface UserProps { 
     user: userInfo,
-    profile: Res | undefined
+    profile: Res | undefined,
+    domains: IdentityLinks;
+    domainsLoaded: boolean
 }
 
-export const UserInfo = ({user, profile}: UserProps) => {
+export const UserInfo = ({user, profile, domains, domainsLoaded}: UserProps) => {
 
     const {
         shortenAddress,
@@ -51,24 +53,24 @@ export const UserInfo = ({user, profile}: UserProps) => {
     const bio = typeof user.userInfo.bio === 'string' ? 
     user.userInfo.bio : "";
 
-    // console.log(`${user.userInfo.timestamp} THE TIMESTAMP`)
-    // Member since...
     let epoch = profile?.first_linkage || user.userInfo.timestamp || 0;
-    let member_since = new Date(epoch * 1000);
-    let [month, year] = [member_since.toLocaleString('default', {month: 'short'}), member_since.getFullYear()];
-    // console.log(month)
+    const { month, year } = extractMonthAndYear(epoch);
     // Labels
-    console.log("profile: ", profile);
     const defaultLabels = getDefaultLabels({
-        arweave_address: user?.userInfo?.user, 
-        ar: ownedLabels || [], 
-        links: {twitter, github, instagram, customUrl}, 
-        ENS: profile?.ENS, 
-        AVVY: profile?.AVVY, 
-        LENS: profile?.LENS_HANDLES || [],
-        EVMOS: profile?.EVMOS
+        ENS: domains ? domains.ENS : [], 
+        AVVY: domains ? domains.AVVY : [], 
+        LENS: domains ? domains.LENS : [],
+        ANS: domains ? domains.ANS : [],
+        NEAR: domains ? domains.NEAR : [],
+        EVMOS: domains ? domains.EVMOS : [],
+        URBIT: domains ? domains.URBIT : [],
+        LINKS: {twitter, github, instagram, customUrl}, 
     });
-    const labels = [...defaultLabels.map((label: any) => <GenericLabel {...label} />), ...HackathonLabels(profile)]
+
+    const labels = [
+        ...defaultLabels.map((label: any) => <GenericLabel {...label} />),
+        ...HackathonLabels(profile)
+    ];
 
     const [loading, setLoading] = React.useState(true);
     
@@ -106,7 +108,7 @@ export const UserInfo = ({user, profile}: UserProps) => {
                                 </div>
                                 <ProfileBadge
                                     loading={loading}
-                                    is_evaluated={profile?.is_evaluated}
+                                    is_evaluated={false}
                                     is_verified={profile?.is_verified}
                                     isDark={isDark}
                                 />
@@ -165,8 +167,16 @@ export const UserInfo = ({user, profile}: UserProps) => {
                 {/* User Bio and Available Labels */}
                 <div className='space-y-8 -mt-20 mb-5'>
                     <Bio text={bio} />
-                    <div className='space-y-2 !mt-0 md:!mt-4'>
-                        <Labels items={labels} />
+                    <div className='space-y-2 !mt-0 md:!mt-4'> 
+                        {domains ? 
+                            <Labels items={labels} />
+                        :
+                            <span className="flex w-full justify-center items-center">
+                                <CircularIndeterminate 
+                                    loadingText={"Fetching Domains"}
+                                />
+                            </span>
+                        }
                         <Divider />
                     </div>
                 </div>

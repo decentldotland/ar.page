@@ -6,6 +6,35 @@ import ModelContent from './modelContent';
 import { NFT } from '../../../src/types';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../atoms';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import { faCircleXmark, faLink } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Typography } from '@mui/material';
+
+interface CircularIndeterminateInterface {
+  typographyClassName?: String;
+  progressClassName?: String;
+  loadingText?: String;
+}
+
+export default function CircularIndeterminate(props: CircularIndeterminateInterface) {
+  const isDark = localStorage.theme === 'arlight' ? false : true;
+  return (
+    <Box sx={{ display: 'flex' }} className="flex flex-col items-center justify-center">
+      <CircularProgress 
+        style={{ color: `${isDark ? "gray" : "black"}` }}
+        className="h-12 w-12"
+      />
+      <Typography
+        variant='inherit'
+        className={`text-[12px] font-medium mt-1 text-slate-500 ${props.typographyClassName}`}
+      >
+        {props.loadingText}
+      </Typography>
+    </Box>
+  );
+}
 
 export function Title (jsx: any) {
   return (
@@ -24,8 +53,7 @@ export function LoadingOrNotFound({loading, jsxNotFound}: {loading: boolean, jsx
     <div className="flex items-center justify-center text-3xl text-content-100/80 font-bold text-gray-300">
       {loading ? (
         <>
-          <span>Loading...</span>
-          <span className="btn btn-sm loading"></span>
+          <CircularIndeterminate />
         </>
       ) : <>{jsxNotFound}</>}
     </div>
@@ -84,8 +112,6 @@ export function NFTGallery ({NFTs, perPage}: {NFTs: NFT[], perPage: number}) {
     setIsOpen(opened => !opened);
   }, [])
 
-  
-
   return (
     <>
       <GenericFrame>
@@ -125,3 +151,14 @@ export function NFTGallery ({NFTs, perPage}: {NFTs: NFT[], perPage: number}) {
     </>
   )
 };
+
+export function CircleX({ classNameDiv, classNameIcon, onClick }: {classNameDiv?: string, classNameIcon?: string, onClick?: () => any;}) {
+  return (
+      <div 
+          onClick={onClick}
+          className={`rounded-full bg-white text-gray-500 flex items-center justify-center border-1 border-slate-100 ${classNameDiv}`}
+      >
+          <FontAwesomeIcon icon={faCircleXmark} className={`w-6 h-6 ${classNameIcon}`} />
+      </div>
+  );
+}

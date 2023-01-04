@@ -18,10 +18,10 @@ export function HackathonTopWidgets (arkProfile: Res | undefined) {
 export function HackathonWidgetExample({arkProfile}: {arkProfile: Res | undefined}) {
 
   return (
-    <Widget canRender={!!arkProfile?.ANFTS?.koii} divider={true}> {/* canRender is a boolean that determines if the widget should be rendered */}
+    <Widget canRender={false} divider={true}> {/* canRender is a boolean that determines if the widget should be rendered */}
       <div className="text-xl font-semibold mb-2">Favourite NFT</div>
       <div className="w-[150px] h-[150px]">
-        <Image width={150} height={150} objectFit="cover" src={ARWEAVE_URL + arkProfile?.ANFTS?.koii?.[0].id} className="rounded-xl" />
+        <Image width={150} height={150} objectFit="cover" src={ARWEAVE_URL} className="rounded-xl" alt="Cover Image"/>
       </div>
     </Widget>
   )
