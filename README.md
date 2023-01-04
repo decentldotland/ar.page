@@ -13,9 +13,6 @@ Install the dependencies with `yarn install` and launch the project with `npm ru
 
 The mentioned commands will open a `http://localhost:3000/` tab in your browser.
 
-## Hackathon
-The official [ar.page](https://ar.page) Hackathon is starting soon. Join us in building the UI for AR.page to get a slice of the `11,000 USDC` prize pool! [More info here](https://github.com/decentldotland/ANS_UI_2.0/tree/UI2.0/components_new/user/hackathon)
-
 ## Helpful Links
 - [Discord / Dev community](https://discord.gg/decentland)
 - [DecentLand docs](https://docs.decent.land/)
