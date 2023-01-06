@@ -158,7 +158,7 @@ export const urbitLabel = (URBIT:string|undefined) => {
   return {
     username: URBIT,
     classes: urbitColor,
-    link_to: "#",
+    link_to: `https://network.urbit.org/${URBIT}`,
     selected: false,
     icon: <div className={'flex items-center rounded-lg bg-emerald-300'}>
       <Image

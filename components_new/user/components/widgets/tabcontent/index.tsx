@@ -32,12 +32,13 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
    */
   const addEvmNfts = (nfts: any, chain: ChainOptions) => {
     let evmTmp: NFT[] = [];
+    console.log("EVM NFTS: ", nfts);
     if (nfts !== undefined || nfts !== null) { 
       for (let n of nfts) {
         let ercnft = new NFT();
-        if ((n !== null && n.token_uri && n.token_uri !== "Invalid uri" && typeof n.image !== 'undefined' && n.image !== null) 
+        if ((n !== null && n.token_uri && n.token_uri !== "Invalid uri" && typeof n.image !== 'undefined' && n.image !== null && n.image) // EVM
             || 
-           (n !== null && typeof n.image !== 'undefined' && n.image !== null)) {
+           (n !== null && typeof n.image !== 'undefined' && n.image !== null && n.ark_network === "evmos")) {
           // Determine IPFS Protocol Presence - true: return, false: remove IPFS Protocol
           n.image = (n.image.slice(0, 5) !== "ipfs:") ? n.image : IPFS_PROXY+removeIpfs(n.image);
           // Add NFT Data
@@ -58,6 +59,7 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
    * Arweave
    */
   if (nfts !== undefined || nfts !== null) { 
+    console.log("ARWEAVE NFTS: ", nfts);
     for (let n of nfts?.ARWEAVE) {
       let anft = new NFT();
       anft.add_id(ARWEAVE_URL+n.id!)
@@ -75,6 +77,7 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
    * NEAR NFT 
    */
   if (nfts !== undefined || nfts !== null) {
+    console.log("NEAR NFTS: ", nfts);
     for (let n of nfts?.NEAR) { 
       let nearnft = new NFT();
       nearnft.add_id(n.image.includes(IMAGE_PROXY) ? n.image! : IMAGE_PROXY+n.image!)
