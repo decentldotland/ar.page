@@ -1,32 +1,27 @@
-/**
- * Sends a request to the specified URL and returns the 'Content-Type' header of the response.
- * @param {string} url - The URL of the resource.
- * @returns {Promise<string>} - The 'Content-Type' header of the response.
- */
-export async function getContentType(url: string) {
-    try {
-      const response = await fetch(url);
-      const contentType = response.headers.get('Content-Type');
-      return contentType;
-    } catch (error) {
-      console.error(error);
-    }
-}
+import axios from "axios";
   
 /**
  * Determines whether the resource at the specified URL is an image or a video.
+ * @note - we must call Next API to avoid CORs with some NFT links
  * @param {string} url - The URL of the resource.
  */
 export async function checkContentType(url: string) {
-    const contentType = await getContentType(url);
-    console.log(contentType);
-    /*
-    if (contentType.startsWith('image/')) {
-        console.log('This is an image');
-    } else if (contentType.startsWith('video/')) {
-        console.log('This is a video');
-    } else {
-        console.log('This is not an image or a video');
-    }
-    */
+    const searchParams = new URLSearchParams();
+    searchParams.set('url', url);
+
+    const contentType = await axios(`/api/contentType/url?${searchParams.toString()}`);
+    return contentType.data;
+}
+
+/**
+ * Determines Error Code for the Specified Url
+ * @note - Will help determine contingency to show media (video, too large img, etc.)
+ * @param {string} url - The URL of the resource.
+ */
+export async function checkContentError(url: string) {
+    const searchParams = new URLSearchParams();
+    searchParams.set('url', url);
+
+    const contentError = await axios(`/api/errorHandling/nftImage?${searchParams.toString()}`);
+    return contentError;
 }

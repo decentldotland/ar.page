@@ -7,6 +7,7 @@ import StampsTab from './tabs.tsx/StampsTab';
 import { ARWEAVE_URL, IMAGE_PROXY, IPFS_PROXY, COLLECTIBLE_PER_PAGE } from '../../../../../src/constants';
 import { removeIpfs } from '../../../../../src/utils/removeIpfs';
 import { ChainOptions } from '../../../../../src/types';
+import { checkContentType } from '../../../../../src/utils/fetchContentType';
 
 
 export interface TabContentTabs {
@@ -32,7 +33,6 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
    */
   const addEvmNfts = (nfts: any, chain: ChainOptions) => {
     let evmTmp: NFT[] = [];
-    console.log("EVM NFTS: ", nfts);
     if (nfts !== undefined || nfts !== null) { 
       for (let n of nfts) {
         let ercnft = new NFT();
@@ -59,7 +59,6 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
    * Arweave
    */
   if (nfts !== undefined || nfts !== null) { 
-    console.log("ARWEAVE NFTS: ", nfts);
     for (let n of nfts?.ARWEAVE) {
       let anft = new NFT();
       anft.add_id(ARWEAVE_URL+n.id!)
@@ -77,14 +76,13 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
    * NEAR NFT 
    */
   if (nfts !== undefined || nfts !== null) {
-    console.log("NEAR NFTS: ", nfts);
     for (let n of nfts?.NEAR) { 
       let nearnft = new NFT();
       nearnft.add_id(n.image.includes(IMAGE_PROXY) ? n.image! : IMAGE_PROXY+n.image!)
       .add_timestamp(1)
       .add_title(n.collection.title!)
       .add_description(n.name!)
-      .add_chain("near");
+      .add_chain("near")
       tmp.push(nearnft);
     }
   }
