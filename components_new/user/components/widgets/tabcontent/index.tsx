@@ -90,6 +90,7 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
   NFTs.sort((a, b) =>  b.timestamp! - a.timestamp!);
   const [CollectiblePerPage, setCollectiblePerPage] = useState(COLLECTIBLE_PER_PAGE);
   const showMoreCollection = () => { 
+    console.log("CollectiblePerPage: ", CollectiblePerPage);
     setCollectiblePerPage(prev => prev + CollectiblePerPage);
   }
 

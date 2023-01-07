@@ -119,32 +119,9 @@ interface ImageFallBackInterface {
 }
 
 function ImageWithVideoFallback(props: ImageFallBackInterface) {
-  const [isImageError, setIsImageError] = useState(false)
-
-  if(isImageError) {
-    let flback = props.src;
-    let modifiedNft = props.nftPayload;
-    if(props.fallbackSrc.length === 0) {
-      flback = flback.includes(IMAGE_PROXY) ? flback.replace(IMAGE_PROXY, "") : flback;
-      flback = flback.includes(IPFS_PROXY) ? flback.replace(IPFS_PROXY, "") : flback;
-    }
-    modifiedNft.id = flback;
-    modifiedNft.contentType = "video";
-    console.log("modifiedNft: ", modifiedNft);
-    return (
-      <video 
-        src={String(flback)}
-        width={props.width}
-        height={props.height}
-        className={props?.classNameVideo}
-        onClick={() => {
-          props.setCurrent(modifiedNft);
-          props.setOpen(true);
-        }}
-        autoPlay loop muted
-      />
-    );
-  } else {
+  const [isImageError, setIsImageError] = useState(false);
+  // No Image Error && One of Proxies in Src
+  if(!isImageError && (props.src.includes(IMAGE_PROXY) || props.src.includes(IPFS_PROXY))) {
     return (
       <Image src={String(props.src)}
         alt={props.altTitle}
@@ -159,6 +136,29 @@ function ImageWithVideoFallback(props: ImageFallBackInterface) {
           console.log(e);
           setIsImageError(true);
         }}
+      />
+    );
+  // Image Error && no Proxies in Src if(isImageError || (!props.src.includes(IMAGE_PROXY) && !props.src.includes(IPFS_PROXY)))
+  } else {
+    let flback = props.src;
+    let modifiedNft = props.nftPayload;
+    if(props.fallbackSrc.length === 0) {
+      flback = flback.includes(IMAGE_PROXY) ? flback.replace(IMAGE_PROXY, "") : flback;
+      flback = flback.includes(IPFS_PROXY) ? flback.replace(IPFS_PROXY, "") : flback;
+    }
+    modifiedNft.id = flback;
+    modifiedNft.contentType = "video";
+    return (
+      <video 
+        src={String(flback)}
+        width={props.width}
+        height={props.height}
+        className={props?.classNameVideo}
+        onClick={() => {
+          props.setCurrent(modifiedNft);
+          props.setOpen(true);
+        }}
+        autoPlay loop muted
       />
     );
   }
@@ -180,6 +180,7 @@ export function NFTGallery ({NFTs, perPage}: {NFTs: NFT[], perPage: number}) {
           .slice(0, perPage)
           .map((nft: NFT, index: number
         ) => {
+          console.log("NFTs: ", NFTs);
               return (
                 <button key={index} className="
                   object-cover
@@ -229,23 +230,3 @@ export function CircleX({ classNameDiv, classNameIcon, onClick }: {classNameDiv?
       </div>
   );
 }
-
-/*
-
-                  <Image src={String(nft.id)}
-                    alt={nft.title}
-                    width={99999999}
-                    height={99999999}
-                    // loading="lazy"
-                    placeholder="blur"
-                    blurDataURL="data:image/png;base64,[IMAGE_CODE_FROM_PNG_PIXEL]"
-                    onClick={() => {
-                      setCurrent(nft);
-                      setIsOpen(true)
-                    }}
-                    objectFit="cover"
-                    className={`rounded-md cursor-pointer object-cover`}
-                  />
-
-
-*/
