@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, Dispatch } from 'react';
 import Image from 'next/image';
 import Modal from '../../../components/portal/modal';
 import ModelContent from './modelContent';
@@ -11,8 +11,8 @@ import Box from '@mui/material/Box';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Typography } from '@mui/material';
-import { checkContentError } from '../../../src/utils/fetchContentType';
 import { IPFS_PROXY, IMAGE_PROXY } from '../../../src/constants';
+import { setProjectAnnotations } from '@storybook/react';
 
 interface CircularIndeterminateInterface {
   typographyClassName?: String;
@@ -110,9 +110,12 @@ interface ImageFallBackInterface {
   altTitle: string;
   height: number;
   width: number;
-  onClick: () => void;
+  onClickImage?: () => void;
+  setCurrent: Dispatch<any>;
+  setOpen: Dispatch<any>;
   classNameImage?: string;
   classNameVideo?: string;
+  nftPayload: NFT;
 }
 
 function ImageWithVideoFallback(props: ImageFallBackInterface) {
@@ -120,19 +123,24 @@ function ImageWithVideoFallback(props: ImageFallBackInterface) {
 
   if(isImageError) {
     let flback = props.src;
+    let modifiedNft = props.nftPayload;
     if(props.fallbackSrc.length === 0) {
-      //props.src.includes(IMAGE_PROXY) ? flback = props.src.replace(IMAGE_PROXY, "") : flback = props.src;
-      //props.src.includes(IPFS_PROXY) ? flback = props.src.replace(IPFS_PROXY, "") : flback = props.src;
       flback = flback.includes(IMAGE_PROXY) ? flback.replace(IMAGE_PROXY, "") : flback;
       flback = flback.includes(IPFS_PROXY) ? flback.replace(IPFS_PROXY, "") : flback;
     }
-    console.log("flback: ", flback);
+    modifiedNft.id = flback;
+    modifiedNft.contentType = "video";
+    console.log("modifiedNft: ", modifiedNft);
     return (
       <video 
         src={String(flback)}
         width={props.width}
         height={props.height}
         className={props?.classNameVideo}
+        onClick={() => {
+          props.setCurrent(modifiedNft);
+          props.setOpen(true);
+        }}
         autoPlay loop muted
       />
     );
@@ -144,7 +152,7 @@ function ImageWithVideoFallback(props: ImageFallBackInterface) {
         height={props.height}
         placeholder="blur"
         blurDataURL="data:image/png;base64,[IMAGE_CODE_FROM_PNG_PIXEL]"
-        onClick={props.onClick}
+        onClick={props.onClickImage}
         objectFit="cover"
         className={props?.classNameImage}
         onError={(e) => {
@@ -188,11 +196,14 @@ export function NFTGallery ({NFTs, perPage}: {NFTs: NFT[], perPage: number}) {
                     altTitle={String(nft.title)}
                     height={99999999}
                     width={99999999}
-                    onClick={() => {
+                    onClickImage={() => {
                         setCurrent(nft);
                         setIsOpen(true);
                       }
                     }
+                    nftPayload={nft}
+                    setCurrent={setCurrent}
+                    setOpen={setIsOpen}
                     classNameImage={"rounded-md cursor-pointer object-cover"}
                     classNameVideo={"rounded-md cursor-pointer object-cover mb-[7px]"}
                   />
