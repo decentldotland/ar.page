@@ -133,7 +133,6 @@ function ImageWithVideoFallback(props: ImageFallBackInterface) {
         objectFit="cover"
         className={props?.classNameImage}
         onError={(e) => {
-          console.log(e);
           setIsImageError(true);
         }}
       />

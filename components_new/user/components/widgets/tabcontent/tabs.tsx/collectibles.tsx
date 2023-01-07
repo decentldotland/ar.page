@@ -73,7 +73,7 @@ export default function Collectibles({NFTs, loaded, perPage, handleVisibility, a
       handleEvmNfts(evmNfts, chain);
     }
   }
-  console.log("FILTERED: ", filteredNFTs);
+
   return (
     <div className={`transition-opacity duration-400 pb-3 ${(loaded) ? 'opacity-100' : 'opacity-0'}`}>
       {/*Render Filter Capabilities*/}

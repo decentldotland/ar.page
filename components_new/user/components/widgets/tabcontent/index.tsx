@@ -61,7 +61,7 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
   if (nfts !== undefined || nfts !== null) { 
     for (let n of nfts?.ARWEAVE) {
       let anft = new NFT();
-      anft.add_id(ARWEAVE_URL+n.id!)
+      anft.add_id((ARWEAVE_URL+n.id).includes(IMAGE_PROXY) ? ARWEAVE_URL+n.id : IMAGE_PROXY+ARWEAVE_URL+n.id)
         .add_poster(n.poster!)
         .add_timestamp(n.timestamp!)
         .add_title(n.title!)
@@ -90,7 +90,6 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
   NFTs.sort((a, b) =>  b.timestamp! - a.timestamp!);
   const [CollectiblePerPage, setCollectiblePerPage] = useState(COLLECTIBLE_PER_PAGE);
   const showMoreCollection = () => { 
-    console.log("CollectiblePerPage: ", CollectiblePerPage);
     setCollectiblePerPage(prev => prev + CollectiblePerPage);
   }
 
