@@ -227,8 +227,9 @@ export class NFT  {
   title?:         string;
   description?:   string;
   ticker?:       string;
-  content_type?: string;
+  content_type?: Promise<string>;
   chain?: ChainOptions;
+  contentType?: string;
   
   constructor() {}
 
@@ -238,7 +239,7 @@ export class NFT  {
   add_title(title: string) {this.title  = title; return this;}
   add_description(description: string) {this.description  = description; return this;}
   add_ticker(ticker: string) {this.ticker  = ticker; return this;}
-  add_content_type(content_type: string) {this.content_type  = content_type; return this;}
+  add_content_type(content_type: Promise<string>) {this.content_type  = content_type; return this;}
   add_chain(chain: ChainOptions) {this.chain  = chain; return this;}
 } 
 
