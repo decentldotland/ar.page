@@ -26,7 +26,6 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
   const [stamp, setStamp] = useState<Stamp[]>([]);
   let tmp: NFT[] = [];
   const [NFTs, setNFTs] = useState<NFT[]>(tmp);
-  const [evmNfts, setEvmNfts] = useState<NFT[]>([]);
 
   /**
    * ERC NFT
@@ -39,6 +38,7 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
         if ((n !== null && n.token_uri && n.token_uri !== "Invalid uri" && typeof n.image !== 'undefined' && n.image !== null && n.image) // EVM
             || 
            (n !== null && typeof n.image !== 'undefined' && n.image !== null && n.ark_network === "evmos")) {
+            console.log(n);
           // Determine IPFS Protocol Presence - true: return, false: remove IPFS Protocol
           n.image = (n.image.slice(0, 5) !== "ipfs:") ? n.image : IPFS_PROXY+removeIpfs(n.image);
           // Add NFT Data
@@ -56,7 +56,7 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
   }
 
   /**
-   * Arweave
+   * Arweave NFT
    */
   if (nfts !== undefined || nfts !== null) { 
     for (let n of nfts?.ARWEAVE) {
