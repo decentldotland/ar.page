@@ -138,7 +138,7 @@ function ImageWithVideoFallback(props: ImageFallBackInterface) {
         }}
       />
     );
-  // Image Error && no Proxies in Src if(isImageError || (!props.src.includes(IMAGE_PROXY) && !props.src.includes(IPFS_PROXY)))
+  //  Image Error && no Proxies in Src if(isImageError || (!props.src.includes(IMAGE_PROXY) && !props.src.includes(IPFS_PROXY)))
   } else {
     let flback = props.src;
     let modifiedNft = props.nftPayload;
