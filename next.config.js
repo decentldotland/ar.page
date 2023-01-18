@@ -23,7 +23,8 @@ module.exports = {
               'i.seadn.io',
               'api.tiles.art',
               'image-proxy.svc.prod.covalenthq.com',
-              'evmos.notion.site'
+              'evmos.notion.site',
+              'cloudflare-ipfs.com'
             ],
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,

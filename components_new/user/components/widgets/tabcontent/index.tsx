@@ -42,7 +42,7 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
           // Determine IPFS Protocol Presence - true: return, false: remove IPFS Protocol
           n.image = (n.image.slice(0, 5) !== "ipfs:") ? n.image : IPFS_PROXY+removeIpfs(n.image);
           // Add NFT Data
-          ercnft.add_id(n.image.includes(IMAGE_PROXY) ? n.image : IMAGE_PROXY+n.image)
+          ercnft.add_id((n.image.includes(IMAGE_PROXY) || n.image.includes(IPFS_PROXY)) ? n.image : IMAGE_PROXY+n.image)
           .add_timestamp(n.block_number_minted!)
           .add_title(n.name!)
           .add_description(String(n.description!))

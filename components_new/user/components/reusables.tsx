@@ -133,6 +133,7 @@ function ImageWithVideoFallback(props: ImageFallBackInterface) {
         objectFit="cover"
         className={props?.classNameImage}
         onError={(e) => {
+          console.log("Error for image: ", e);
           setIsImageError(true);
         }}
       />
@@ -140,7 +141,6 @@ function ImageWithVideoFallback(props: ImageFallBackInterface) {
   // Image Error && no Proxies in Src if(isImageError || (!props.src.includes(IMAGE_PROXY) && !props.src.includes(IPFS_PROXY)))
   } else {
     let flback = props.src;
-    console.log("Fallback Link: ", props);
     let modifiedNft = props.nftPayload;
     if(props.fallbackSrc.length === 0) {
       flback = flback.includes(IMAGE_PROXY) ? flback.replace(IMAGE_PROXY, "") : flback;
