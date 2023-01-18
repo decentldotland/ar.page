@@ -11,7 +11,7 @@ import { truncate } from '../../../src/utils/truncateText';
 
 type Props = {
     handleClose: Function;
-    current: { title: string; poster: string; description: string; timestamp: number; id: string; };
+    current: { title: string; poster: string; description: string; timestamp: number; id: string; contentType: string };
     naturalRes: any;
 };
 
@@ -55,15 +55,26 @@ const ModelContent = (props: Props) => {
                                 className="grid mx-auto my-auto place-content-center md:mb-0 mb-4 m-4 rounded-xl"
                                 style={{ boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.16)" }}
                             >
-                                <Image 
-                                    src={current.id} 
-                                    alt="Preview Image" 
-                                    height={300}
-                                    width={300} 
-                                    onLoad={() => setLoading(false)} 
-                                    className="object-cover rounded-b-xl w-full"
-                                    
-                                />
+                                {current?.contentType === "video" ?
+                                    <video 
+                                        src={current.id} 
+                                        height={300}
+                                        width={300} 
+                                        onLoadedData={() => setLoading(false)} 
+                                        className="object-cover rounded-b-xl w-full"
+                                        autoPlay loop muted
+                                    />
+                                :
+                                    <Image 
+                                        src={current.id} 
+                                        alt="Preview Image" 
+                                        height={300}
+                                        width={300} 
+                                        onLoad={() => setLoading(false)} 
+                                        className="object-cover rounded-b-xl w-full"
+                                        
+                                    />
+                                }
                             </div>
                         </div>
                         <div className="flex flex-col pt-4 p-2 h-1/2 lg:place-content-evenly mt-1">

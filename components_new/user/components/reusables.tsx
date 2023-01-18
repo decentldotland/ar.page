@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, Dispatch } from 'react';
 import Image from 'next/image';
 import Modal from '../../../components/portal/modal';
 import ModelContent from './modelContent';
@@ -8,9 +8,11 @@ import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../../atoms';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import { faCircleXmark, faLink } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Typography } from '@mui/material';
+import { IPFS_PROXY, IMAGE_PROXY } from '../../../src/constants';
+import { setProjectAnnotations } from '@storybook/react';
 
 interface CircularIndeterminateInterface {
   typographyClassName?: String;
@@ -87,7 +89,6 @@ export function SearchBar(props: SearchType) {
     </div>
   )
 }
-//w-8 focus:w-[20vw] md:w-40: "w-full md:w-40"
 
 interface GenericFrameType {
   children: any;
@@ -103,6 +104,66 @@ export function GenericFrame (props: GenericFrameType) {
   )
 }
 
+interface ImageFallBackInterface {
+  src: string;
+  fallbackSrc: string;
+  altTitle: string;
+  height: number;
+  width: number;
+  onClickImage?: () => void;
+  setCurrent: Dispatch<any>;
+  setOpen: Dispatch<any>;
+  classNameImage?: string;
+  classNameVideo?: string;
+  nftPayload: NFT;
+}
+
+function ImageWithVideoFallback(props: ImageFallBackInterface) {
+  const [isImageError, setIsImageError] = useState(false);
+  // No Image Error && One of Proxies in Src
+  if(!isImageError && (props.src.includes(IMAGE_PROXY) || props.src.includes(IPFS_PROXY))) {
+    return (
+      <Image src={String(props.src)}
+        alt={props.altTitle}
+        width={props.width}
+        height={props.height}
+        placeholder="blur"
+        blurDataURL="data:image/png;base64,[IMAGE_CODE_FROM_PNG_PIXEL]"
+        onClick={props.onClickImage}
+        objectFit="cover"
+        className={props?.classNameImage}
+        onError={(e) => {
+          console.log("Error for image: ", e);
+          setIsImageError(true);
+        }}
+      />
+    );
+  //  Image Error && no Proxies in Src if(isImageError || (!props.src.includes(IMAGE_PROXY) && !props.src.includes(IPFS_PROXY)))
+  } else {
+    let flback = props.src;
+    let modifiedNft = props.nftPayload;
+    if(props.fallbackSrc.length === 0) {
+      flback = flback.includes(IMAGE_PROXY) ? flback.replace(IMAGE_PROXY, "") : flback;
+      //flback = flback.includes(IPFS_PROXY) ? flback.replace(IPFS_PROXY, "") : flback;
+    }
+    modifiedNft.id = flback;
+    modifiedNft.contentType = "video";
+    return (
+      <video 
+        src={String(flback)}
+        width={props.width}
+        height={props.height}
+        className={props?.classNameVideo}
+        onClick={() => {
+          props.setCurrent(modifiedNft);
+          props.setOpen(true);
+        }}
+        autoPlay loop muted
+      />
+    );
+  }
+}
+    
 export function NFTGallery ({NFTs, perPage}: {NFTs: NFT[], perPage: number}) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [current, setCurrent] = useState<any>({});
@@ -110,7 +171,7 @@ export function NFTGallery ({NFTs, perPage}: {NFTs: NFT[], perPage: number}) {
   const handleCloseModal = useCallback((NFT = {}) => {
     setCurrent(NFT);
     setIsOpen(opened => !opened);
-  }, [])
+  }, []);
 
   return (
     <>
@@ -118,32 +179,39 @@ export function NFTGallery ({NFTs, perPage}: {NFTs: NFT[], perPage: number}) {
         {NFTs
           .slice(0, perPage)
           .map((nft: NFT, index: number
-        ) =>
-          <button key={index} className="
-            object-cover
-            relative 
-            w-full
-            h-full
-            shrink-0
-            cursor-pointer transition duration-500 ease-out
-            md:focus:opacity-60
-          ">
-            <Image src={String(nft.id)}
-              alt={nft.title}
-              width={99999999}
-              height={99999999}
-              // loading="lazy"
-              placeholder="blur"
-              blurDataURL="data:image/png;base64,[IMAGE_CODE_FROM_PNG_PIXEL]"
-              onClick={() => {
-                setCurrent(nft);
-                setIsOpen(true)
-              }}
-              objectFit="cover"
-              className={`rounded-md cursor-pointer object-cover`}
-            />
-          </button>
-        )}
+        ) => {
+          console.log("NFTs: ", NFTs);
+              return (
+                <button key={index} className="
+                  object-cover
+                  relative 
+                  w-full
+                  h-full
+                  shrink-0
+                  cursor-pointer transition duration-500 ease-out
+                  md:focus:opacity-60
+                ">
+                  <ImageWithVideoFallback 
+                    src={String(nft.id)}
+                    fallbackSrc={""}
+                    altTitle={String(nft.title)}
+                    height={99999999}
+                    width={99999999}
+                    onClickImage={() => {
+                        setCurrent(nft);
+                        setIsOpen(true);
+                      }
+                    }
+                    nftPayload={nft}
+                    setCurrent={setCurrent}
+                    setOpen={setIsOpen}
+                    classNameImage={"rounded-md cursor-pointer object-cover"}
+                    classNameVideo={"rounded-md cursor-pointer object-cover mb-[7px]"}
+                  />
+                </button>
+              );
+        }
+      )}
         <Modal handleClose={handleCloseModal} isOpen={isOpen}>
           <ModelContent handleClose={handleCloseModal} naturalRes={500} current={current} />
         </Modal>

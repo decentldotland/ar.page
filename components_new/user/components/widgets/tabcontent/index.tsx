@@ -7,6 +7,7 @@ import StampsTab from './tabs.tsx/StampsTab';
 import { ARWEAVE_URL, IMAGE_PROXY, IPFS_PROXY, COLLECTIBLE_PER_PAGE } from '../../../../../src/constants';
 import { removeIpfs } from '../../../../../src/utils/removeIpfs';
 import { ChainOptions } from '../../../../../src/types';
+import { checkContentType } from '../../../../../src/utils/fetchContentType';
 
 
 export interface TabContentTabs {
@@ -25,7 +26,6 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
   const [stamp, setStamp] = useState<Stamp[]>([]);
   let tmp: NFT[] = [];
   const [NFTs, setNFTs] = useState<NFT[]>(tmp);
-  const [evmNfts, setEvmNfts] = useState<NFT[]>([]);
 
   /**
    * ERC NFT
@@ -35,13 +35,14 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
     if (nfts !== undefined || nfts !== null) { 
       for (let n of nfts) {
         let ercnft = new NFT();
-        if ((n !== null && n.token_uri && n.token_uri !== "Invalid uri" && typeof n.image !== 'undefined' && n.image !== null) 
+        if ((n !== null && n.token_uri && n.token_uri !== "Invalid uri" && typeof n.image !== 'undefined' && n.image !== null && n.image) // EVM
             || 
-           (n !== null && typeof n.image !== 'undefined' && n.image !== null)) {
+           (n !== null && typeof n.image !== 'undefined' && n.image !== null && n.ark_network === "evmos")) {
+            console.log(n);
           // Determine IPFS Protocol Presence - true: return, false: remove IPFS Protocol
           n.image = (n.image.slice(0, 5) !== "ipfs:") ? n.image : IPFS_PROXY+removeIpfs(n.image);
           // Add NFT Data
-          ercnft.add_id(n.image.includes(IMAGE_PROXY) ? n.image : IMAGE_PROXY+n.image)
+          ercnft.add_id((n.image.includes(IMAGE_PROXY) || n.image.includes(IPFS_PROXY)) ? n.image : IMAGE_PROXY+n.image)
           .add_timestamp(n.block_number_minted!)
           .add_title(n.name!)
           .add_description(String(n.description!))
@@ -55,12 +56,12 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
   }
 
   /**
-   * Arweave
+   * Arweave NFT
    */
   if (nfts !== undefined || nfts !== null) { 
     for (let n of nfts?.ARWEAVE) {
       let anft = new NFT();
-      anft.add_id(ARWEAVE_URL+n.id!)
+      anft.add_id((ARWEAVE_URL+n.id).includes(IMAGE_PROXY) ? ARWEAVE_URL+n.id : IMAGE_PROXY+ARWEAVE_URL+n.id)
         .add_poster(n.poster!)
         .add_timestamp(n.timestamp!)
         .add_title(n.title!)
@@ -81,7 +82,7 @@ export default function Content({ arkProfile, loading, nfts, nftLoading, arweave
       .add_timestamp(1)
       .add_title(n.collection.title!)
       .add_description(n.name!)
-      .add_chain("near");
+      .add_chain("near")
       tmp.push(nearnft);
     }
   }
