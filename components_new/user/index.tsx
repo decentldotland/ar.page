@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { userInfo, Res } from '../../src/types';
-import { EditModal } from '../../components/editor/editmodal';
+import { EditModal } from '../editor/editmodal';
 import { UserInfo } from './components/userInfo';
 import Widgets from './components/widgets';
 import CoverPage from './components/CoverPage';
