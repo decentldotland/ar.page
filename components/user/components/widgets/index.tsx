@@ -4,7 +4,7 @@ import TabContent from './tabcontent';
 import { TOP_WIDGETS } from '../../hackathon';
 import { Res, POAP } from '../../../../src/types';
 import { Divider } from '../reusables';
-import CircularIndeterminate from '../../components/reusables';
+import CircularIndeterminate from '../reusables';
 export interface WidgetType {
   children: any; // pass default component here
   canRender: boolean; // pass conditionals here

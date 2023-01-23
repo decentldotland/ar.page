@@ -11,18 +11,18 @@ import {ArrowLongRightIcon, ArrowTopRightOnSquareIcon, CheckCircleIcon, CheckIco
 // import {TbCopy} from 'react-icons/tb'
 // import { FiLogOut } from 'react-icons/fi';
 // import { chain } from 'lodash';
-import { BlueButtonNext } from '../components_new/reservation/BlueButtonNext';
-import { UserAccountDetails } from '../components_new/reservation/UserAccountDetails';
-import BackButton from '../components_new/reservation/BackButton';
+import { BlueButtonNext } from '../components/reservation/BlueButtonNext';
+import { UserAccountDetails } from '../components/reservation/UserAccountDetails';
+import BackButton from '../components/reservation/BackButton';
 import {EyeIcon} from '@heroicons/react/24/solid'
 import { CircularProgress, Snackbar } from '@mui/material';
-import NextButton from '../components_new/reservation/NextButton';
-import LineBarTracker from '../components_new/reservation/LineBarTracker';
-import OverviewSteps from '../components_new/reservation/OverviewSteps';
-import CheckList_1 from '../components_new/reservation/screens/CheckList_1';
-import CheckList_2 from '../components_new/reservation/screens/CheckList_2';
-import CheckList_3 from '../components_new/reservation/screens/CheckList_3';
-import CheckList_4 from '../components_new/reservation/screens/CheckList_4';
+import NextButton from '../components/reservation/NextButton';
+import LineBarTracker from '../components/reservation/LineBarTracker';
+import OverviewSteps from '../components/reservation/OverviewSteps';
+import CheckList_1 from '../components/reservation/screens/CheckList_1';
+import CheckList_2 from '../components/reservation/screens/CheckList_2';
+import CheckList_3 from '../components/reservation/screens/CheckList_3';
+import CheckList_4 from '../components/reservation/screens/CheckList_4';
 import {ComputerDesktopIcon} from '@heroicons/react/24/outline'
 import Link from 'next/link';
 import { BsCheckSquareFill, BsDiscord, BsGithub, BsTwitter } from 'react-icons/bs';

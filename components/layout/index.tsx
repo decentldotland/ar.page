@@ -1,6 +1,6 @@
 // @flow 
 import React, { useState, useEffect } from 'react';
-import { Nav } from '../../components_new/nav';
+import { Nav } from '../nav';
 import Script from 'next/script';
 import { useRecoilState } from 'recoil';
 import { isDarkMode } from '../../atoms';
