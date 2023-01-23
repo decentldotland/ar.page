@@ -71,7 +71,7 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/claim.ts",
-    "pages/reserve.js"
+    "pages/reserve/reserve.js"
   ],
   "exclude": [
     "node_modules"

@@ -1,4 +1,4 @@
-import Index from '../components_new/home' 
+import Index from '../components/home' 
 
 export default function _404() {
   return ( 

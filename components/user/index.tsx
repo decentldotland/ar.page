@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { userInfo, Res } from '../../src/types';
-import { EditModal } from '../../components/editor/editmodal';
+import { EditModal } from '../editor/editmodal';
 import { UserInfo } from './components/userInfo';
 import Widgets from './components/widgets';
 import CoverPage from './components/CoverPage';
@@ -27,7 +27,7 @@ function PageContent(props: userInfo) {
     let result = await axios.get(`/api/profile/${arweaveAddr}`);
 
     // Parse final payload containing all NFTS
-    let parsed = JSON.parse(JSON.stringify(result.data.res));
+    let parsed = result?.data?.res && JSON.parse(JSON.stringify(result.data.res));
     if (parsed) {
       const resObj: Res = parsed;
       setArkProfile(resObj);

@@ -68,7 +68,7 @@ export const UserInfo = ({user, profile, domains, domainsLoaded}: UserProps) => 
     });
 
     const labels = [
-        ...defaultLabels.map((label: any) => <GenericLabel {...label} />),
+        ...defaultLabels.map((label: any, index: number) => <React.Fragment key={index}><GenericLabel {...label} /></React.Fragment>),
         ...HackathonLabels(profile)
     ];
 

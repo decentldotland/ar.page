@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Index from '../components_new/home'; 
+import Index from '../components/home'; 
 import User from './profile/[user]';
 
 export default function Home({wildcard, userInfo}) {
