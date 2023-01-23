@@ -1,5 +1,8 @@
 ![hackerhouse](https://user-images.githubusercontent.com/69069725/196931608-44cdafa1-c3a3-4292-92fa-f6dbc5510d9e.png)
 
+
+# The hackathon ended!
+
 # Build social with Arweave data
 ## [decent.land](https://decent.land) x [Hacker House](https://twitter.com/hackerhouse_cn) mini-hackathon
 
@@ -69,7 +72,7 @@ The specifics are open-ended, but **here are some ideas** we think would be awes
 **Claim the participation POAP**
 
 - Have your #app-ideas approved by a Monolithic Statue in Discord
-- Fork the [hackathon repo](https://github.com/decentldotland/ANS_UI_2.0/tree/UI2.0/components_new/user/hackathon)
+- Fork this repo
 - Submit your early progress in the #hackathon channel in Discord
 
 **Submit your entry**

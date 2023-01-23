@@ -56,6 +56,6 @@ Finally, you may add new [tailwindcss.config.js](/tailwind.config.js) variables 
 
 # Contribution Tips
 
-Feel free to change items within the [hackathon](/components_new/user/hackathon/) folder as you see fit. There are no restrictions to installing third-party libraries or data fetching. However, please avoid removing existing libraries or components. If you'd like to add a new component that doesn't fit in the current design system, please let us know in our [discord](https://discord.gg/decentland) and we'll help you out!
+Feel free to change items within the [hackathon](/components/user/hackathon/) folder as you see fit. There are no restrictions to installing third-party libraries or data fetching. However, please avoid removing existing libraries or components. If you'd like to add a new component that doesn't fit in the current design system, please let us know in our [discord](https://discord.gg/decentland) and we'll help you out!
 
 To properly judge your submission we'd need to review both your code and the result. To make the review process simpler for us, please leave comments where applicable to help us understand your work better.
