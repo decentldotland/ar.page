@@ -6,15 +6,15 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { ChainMismatchError, useAccount, useConnect, useDisconnect } from 'wagmi'
 import { ArrowRightIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import {ArrowLongRightIcon, ArrowTopRightOnSquareIcon, CheckCircleIcon, CheckIcon, ChevronUpIcon, DocumentDuplicateIcon, EllipsisVerticalIcon} from '@heroicons/react/24/outline'
-import { BlueButtonNext } from '../components/reservation/BlueButtonNext';
-import { UserAccountDetails } from '../components/reservation/UserAccountDetails';
-import BackButton from '../components/reservation/BackButton';
+import { BlueButtonNext } from '../../components/reservation/BlueButtonNext';
+import { UserAccountDetails } from '../../components/reservation/UserAccountDetails';
+import BackButton from '../../components/reservation/BackButton';
 import {EyeIcon} from '@heroicons/react/24/solid'
 import { CircularProgress, Snackbar } from '@mui/material';
-import UserReservedHistory from '../components/reservation/UserReservedHistory';
+import UserReservedHistory from '../../components/reservation/UserReservedHistory';
 import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast';
-import { getAllPoaps } from '../src/utils';
+import { getAllPoaps } from '../../src/utils';
 
 
 const web3 = new Web3(Web3.givenProvider);

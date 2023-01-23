@@ -36,7 +36,7 @@ export const Layout = (props: Props) => {
                 <div className="flex flex-col flex-wrap font-mono w-full h-full" data-theme={isDark ? "ardark" : "arlight"}>
                     <Nav toggleDark={toggleDark} />
                     {/* for detecting OS theme on browser load */}
-                    <Script strategy="beforeInteractive">
+                    <Script strategy="beforeInteractive" id="theming">
                         {`
                             if (localStorage.theme === 'ardark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                                 localStorage.setItem('theme', 'ardark');
