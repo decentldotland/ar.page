@@ -44,7 +44,7 @@ const User = ({ uInfo, pathFullInfo }: any) => {
 User.getInitialProps = async ({ query }: { query: { user: string; } }) => {
   try {
     if (!query.user) return
-    const res = await axios.get(`http://ans-stats.decent.land/profile/${query.user}`);
+    const res = await axios.get(`https://ans-resolver.herokuapp.com/resolve-as-arpage/${query.user}`);
     const userInfo = res.data;
     return { pathFullInfo: userInfo };
   } catch (error) {
